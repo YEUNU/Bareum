@@ -1,0 +1,22 @@
+version: '3'
+services:
+  vue:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./front:/app
+    command: npm run serve
+    depends_on: #  이게있어야 프록시가됨
+      - django
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
