@@ -9,7 +9,7 @@ services:
     volumes:
       - ./front:/app
       - /app/node_modules
-    command: yarn dev
+    command: npm run dev
     depends_on: #  이게있어야 프록시가됨
       - django
   django:

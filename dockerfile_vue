@@ -8,13 +8,9 @@ WORKDIR /app
 COPY ./front/package*.json . 
 
 # install dependencies without copying node_modules directory
-RUN yarn install --frozen-lockfile
+RUN npm install
 # copy project files
 COPY ./front .
-
-RUN yarn format
-RUN yarn install --check-files
-# build Vue.js app
 # RUN npm run build
 
-CMD ["yarn", "dev"]
+CMD ["npm", "run", "dev"]
