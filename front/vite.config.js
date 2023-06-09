@@ -37,7 +37,7 @@ export default defineConfig({
       host:'0.0.0.0',
       proxy: {
         '/api': { 
-          target: 'http://django:8000', 
+          target: 'http://django:8000/api', 
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
           secure: false,
