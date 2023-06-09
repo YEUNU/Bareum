@@ -37,7 +37,7 @@ const routes = [
                 //상대경로임 /mypage/main
                 path:'main',
                 name:'',
-                component:''
+                component:myPage
             }
         ]
 

@@ -3,7 +3,7 @@
     <ul>
       <li><router-link to="/">홈</router-link></li>
       <li><router-link to="/search">검색</router-link></li>
-      <li><router-link to="/mypage">마이페이지</router-link></li>
+      <li><router-link to="/mypage">마이 페이지</router-link></li>
     </ul>
   </nav>
 </template>
