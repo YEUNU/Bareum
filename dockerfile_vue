@@ -9,7 +9,7 @@ COPY ./front/package*.json .
 
 # install dependencies without copying node_modules directory
 RUN npm install
-RUN npm install -g vite
+RUN npm install -g vite 
 # copy project files
 COPY ./front .
 # RUN npm run build
