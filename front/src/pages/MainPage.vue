@@ -26,9 +26,9 @@ export default {
         };
 
         return {
-          count,
-          isLoggedIn,
-          handleIncrement,
+            count,
+            isLoggedIn,
+            handleIncrement,
         };
   },
 };
