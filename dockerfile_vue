@@ -1,5 +1,5 @@
 # 베이스 이미지 설정
-FROM node:latest
+FROM node:18.16.0
 
 # set working directory
 WORKDIR /app
