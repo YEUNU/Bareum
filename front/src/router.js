@@ -11,6 +11,11 @@ const routes = [
         name:'signupPage'
     },
     {
+        path:'/login',
+        name:'loginPage',
+        component:loginPage
+    },
+    {
         //처음들어왔을때 보여주는 화면 넣어야할듯 경로도 나중에 첫화면 정해주면 넣어주고
         path:"/",
         name:'firstPage',
@@ -18,19 +23,13 @@ const routes = [
         children:[{
             path:'',
             name:'myPage',
-            component:signupPage
+            component:myPage
         },
         {
             path:'/search',
             name:'search',
-            component:signupPage
-        },
-        {
-            path:'/login',
-            name:'loginPage',
-            component:loginPage
-        }
-        ]
+            component:myPage
+        }]
     },
     {
         //예시

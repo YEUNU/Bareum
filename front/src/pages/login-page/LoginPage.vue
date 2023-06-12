@@ -5,6 +5,9 @@
         <button @click="userLogin()" type="submit" class="btn_login" id="log.login">
             <span class="btn_text">로그인</span>
         </button>
+        <button @click="router.push({path: '/signup'});" class="btn_signup" id="sign.signup">
+            <span class="btn_text">회원가입</span>
+        </button>
     </div>
 </template>
 
@@ -20,12 +23,10 @@ export default {
     setup() {
         const store = useStore();
         const router = useRouter();
-        const { login, isLoggedIn } = store;
 
         const userLogin = () => {
             store.login();
-            console.log('store.Login?:', store.isLoggedIn);
-            console.log('Login?:', isLoggedIn);
+            console.log('Login?:', store.isLoggedIn);
             router.push({
                 path: "/mypage",
             });
@@ -33,7 +34,6 @@ export default {
         return {
             store,
             router,
-            isLoggedIn,
             userLogin,
         };
   }
