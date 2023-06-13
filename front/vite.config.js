@@ -40,6 +40,9 @@ export default defineConfig({
 
       },
       host:'0.0.0.0',
+      watch: {
+        usePolling: true,
+      },
       proxy: {
         '/api': { 
           target: 'http://django:8000/api', 
