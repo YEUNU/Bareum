@@ -1,13 +1,16 @@
 <template lang="">
+    
     <div class="header-main">
         <div class="box_search">
             <!--
                 <input type="search" title="검색어 입력" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form__input" placeholder="건강기능식품을 검색해보세요">
             -->
-            <router-link to="/search"><SearchBar background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
+            <router-link to="/search"><SearchBar class="box_search_input" background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
-        <button class="alerts"><img class="alerts_icon" src="https://w7.pngwing.com/pngs/321/985/png-transparent-bell-computer-icons-bell-handbell-alert-school-bell.png"/></button>
+        <button class="box_alerts" @click="router.push({path: '/alam'});">
+            <img class="alerts_icon" src="https://w7.pngwing.com/pngs/321/985/png-transparent-bell-computer-icons-bell-handbell-alert-school-bell.png"/>
+        </button>
     </div>
 
     <div class="menu_container">
@@ -17,6 +20,7 @@
         <router-link to="/test" class="item menus">정기배송신청</router-link>
         <router-link to="/test" class="item menus">영양제 촬영하기</router-link>
     </div>
+
 </template>
 
 <script>
@@ -58,20 +62,27 @@ export default {
     top: 0;
     left: 0;
     padding: 3px;
+
     display: flex;
     width: 100vw;
     height: 15vw;
+
+    justify-content: center;
     align-items: center;
+
     background-color: #2dce89;
 }
 
 .box_search {
-    margin: 5vw;
+    margin-left: 10vw;
     flex-grow: 1;
 }
 
+.box_search_input {
+    height: 12vw;
+}
 
-.alerts {
+.box_alerts {
     margin: 5vw;
     border: 0;
     padding: 0;
@@ -87,14 +98,16 @@ export default {
 }
 
 .menu_container {
-    padding-top: 10vw;
+    padding-top: 15vw;
     position: static;
-    align-items: center;
-
+    
     display: grid;
-    /* display: inline-flex; */
     grid-template-columns: 40vw 40vw;
     grid-template-rows: 30vw 30vw 30vw;
+
+    justify-content: center;
+    align-items: center;
+
 }
 
 .item:nth-child(5) {
