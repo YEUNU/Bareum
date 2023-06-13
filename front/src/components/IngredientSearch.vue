@@ -1,46 +1,40 @@
 <template lang="">
-    <div>
-        <input type="text" id="id" name="id" placeholder="아이디" title="아이디" class="input_text" maxlength="41" value=""><br>
-        <input type="password" id="pw" name="pw" placeholder="비밀번호" title="비밀번호" class="input_text" maxlength="16"><br>
-        <button @click="userLogin()" type="submit" class="btn_login" id="log.login">
-            <span class="btn_text">로그인</span>
-        </button>
-        <button @click="router.push({path: '/signup'});" class="btn_signup" id="sign.signup">
-            <span class="btn_text">회원가입</span>
-        </button>
-    </div>
+  <div>
+      <div v-for="ingredient in ingredients" :key="id">
+          <a class="tile" title="ingredient.text" href="/">
+              <button id="actio nMenuButton" class="icon-more-vert" tabindex="0" title="추가 작업" role="button"></button>
+              <div class="tile-icon">
+                  <img draggable="false" alt="" src="">
+                  <div class="query-tile-icon" draggable="false"></div>
+              </div>
+              <div class="tile-title title-ltr">
+                  <span>{{ingredient.text}}</span>
+              </div>
+          </a>
+      </div>
+  </div>
 </template>
 
 <script>
-import { useRouter } from "vue-router";
-import { useStore } from '../../stores';
-import BottomNavBar from '../../components/BottomNavBar.vue';
-
-//예시코드 나중에 수정
+import { ref } from "vue"
 export default {
-    name:"LoginPage",
-    components:{BottomNavBar},
-    setup() {
-        const store = useStore();
-        const router = useRouter();
-
-        const userLogin = () => {
-            store.login();
-            console.log('Login?:', store.isLoggedIn);
-            router.push({
-                path: "/mypage",
-            });
-        };
+  name:"test",
+  setup() {
+    let id = 0;
+    const ingredients = ref([
+      { id: id++, text: '탄수화물' },
+      { id: id++, text: '단백질' },
+      { id: id++, text: '지방' },
+      { id: id++, text: '비타민' },
+      { id: id++, text: '무기질' },
+      { id: id++, text: '물' }
+    ])
         return {
-            store,
-            router,
-            userLogin,
+          ingredients,
         };
-  }
-};
+    },
+}
 </script>
-
-
 <style lang="">
     
 </style>

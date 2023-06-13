@@ -5,9 +5,30 @@
     </div>
 </template>
 <script>
+import { onMounted } from 'vue'
+import { useRouter } from "vue-router";
+import { useStore } from '../../stores';
 export default {
-    
+    name:"HomePage",
+    setup() {
+        const store = useStore();
+        const router = useRouter();
+        const checkLogin = () => {
+            if(!store.isLoggedIn){
+                router.push({
+                    path: "/signup",
+                });
+            }
+        };
+        onMounted(() => checkLogin());
+        return {
+            store,
+            router,
+            checkLogin,
+        };
+    },
 }
+
 </script>
 <style lang="">
     
