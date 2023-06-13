@@ -1,14 +1,33 @@
-<template lang="">
-    <router-link to="/search">검색</router-link>
-    <div>
-        홈페이지임
+<template>
+    <div class="search-container">
+      <router-link to="/search">
+        <SearchBar :placeholder="searchPlaceholder"></SearchBar>
+      </router-link>
     </div>
-</template>
-<script>
-export default {
-    
-}
-</script>
-<style lang="">
-    
-</style>
+    <div>
+      홈페이지임
+    </div>
+  </template>
+  
+  <script>
+  import { ref } from 'vue';
+  import SearchBar from '../../components/Navbar/SearchBar.vue';
+  
+  export default {
+    components: {
+      SearchBar
+    },
+    setup() {
+      const searchPlaceholder = ref('건강기능식품을 검색해보세요');
+  
+      return {
+        searchPlaceholder
+      };
+    }
+  };
+  </script>
+  
+  <style>
+  /* 스타일 정의 */
+  </style>
+  

@@ -9,7 +9,7 @@
 <script>
 
 import { useStore } from '../stores';
-import BottomNavBar from '../components/BottomNavBar.vue';
+import BottomNavBar from '../components/Navbar/BottomNavBar.vue';
 
 //예시코드 나중에 수정
 export default {
