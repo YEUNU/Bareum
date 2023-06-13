@@ -12,16 +12,19 @@ import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 
 const routes = [
+    //로그인 페이지
     {
         path: "/login",
         component: loginPage,
         name:'loginPage'
     },
+    //회원가입 페이지
     {
         path: "/signup",
         component:signupPage,
         name:'signupPage'
     },
+    //건강기능식품 검색 페이지
     {
         path:"/search",
         component:searchPage,
@@ -32,6 +35,7 @@ const routes = [
                 component:search,
                 name:"searchPageMain"
             },
+            //성분, 개인관심사 로 검색하기 위한 디테일 페이지
             {
                 path:'detail',
                 component:detailSearchPage,
@@ -39,6 +43,7 @@ const routes = [
         },
         ]
     },
+    //홈 페이지
     {
         path:"/",
         component:mainPage,
@@ -50,8 +55,9 @@ const routes = [
         }
         ]
     },
+
+    //쇼핑페이지
     {
-        //예시
         path:"/shop",
         component:mainPage,
         name:'shoppingPage',
@@ -65,7 +71,7 @@ const routes = [
 
     },
     {
-        //예시
+        //커뮤니티 페이지
         path:"/community",
         component:mainPage,
         name:'community',
@@ -79,7 +85,7 @@ const routes = [
 
     },
     {
-        //예시
+        //마이페이지
         path:"/mypage",
         component:mainPage,
         name:'mypage',
