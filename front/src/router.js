@@ -1,9 +1,16 @@
 import { createWebHistory, createRouter } from "vue-router"
 
-import loginPage from './pages/login-page/LoginPage.vue'
-import signupPage from './pages/login-page/SignupPage.vue'
+import loginPage from './pages/login-page/Login.vue'
+import signupPage from './pages/login-page/Signup.vue'
+import searchPage from './pages/Search-page/SearchPage.vue'
+import search from './pages/Search-page/Search.vue'
+import detailSearchPage from './pages/Search-page/DetailSearch.vue'
+import homePage from './pages/Home-page/Home.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
+import commuPage from './pages/Community-page/Community.vue'
+import shopPage from './pages/Shopping-page/shop.vue'
+
 const routes = [
     {
         path: "/login",
@@ -16,16 +23,60 @@ const routes = [
         name:'signupPage'
     },
     {
-        //처음들어왔을때 보여주는 화면 넣어야할듯 경로도 나중에 첫화면 정해주면 넣어주고
+        path:"/search",
+        component:searchPage,
+        name:'searchPage',
+        children:[
+            {
+                path:'',
+                component:search,
+                name:"searchPageMain"
+            },
+            {
+                path:'detail',
+                component:detailSearchPage,
+                name:'detailSerachPage'
+        },
+        ]
+    },
+    {
         path:"/",
         component:mainPage,
-        name:'firstPage',
+        name:'homePage',
         children:[{
             path:'',
-            name:'myPage',
-            component:myPage
+            name:'homePageMain',
+            component:homePage
         }
         ]
+    },
+    {
+        //예시
+        path:"/shop",
+        component:mainPage,
+        name:'shoppingPage',
+        children:[
+            {
+                path:'',
+                name:'shoppingPage',
+                component:shopPage
+            }
+        ]
+
+    },
+    {
+        //예시
+        path:"/community",
+        component:mainPage,
+        name:'community',
+        children:[
+            {
+                path:'',
+                name:'communityMain',
+                component:commuPage
+            }
+        ]
+
     },
     {
         //예시
@@ -34,14 +85,14 @@ const routes = [
         name:'mypage',
         children:[
             {
-                //상대경로임 /mypage/main
-                path:'main',
-                name:'',
-                component:''
+                path:'',
+                name:'myMainPage',
+                component:myPage
             }
         ]
 
-    }
+    },
+    
 
 ]
 
