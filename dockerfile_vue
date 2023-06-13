@@ -1,5 +1,5 @@
 # 베이스 이미지 설정
-FROM node:latest
+FROM node:18.16.0
 
 # set working directory
 WORKDIR /app
@@ -9,6 +9,7 @@ COPY ./front/package*.json .
 
 # install dependencies without copying node_modules directory
 RUN npm install
+RUN npm install -g vite 
 # copy project files
 COPY ./front .
 # RUN npm run build
