@@ -12,7 +12,7 @@
 
 <script>
 
-import { useStore } from '../stores';
+import { useStore } from '../../stores';
 
 //예시코드 나중에 수정
 export default {

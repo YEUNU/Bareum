@@ -10,7 +10,7 @@ import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
-import BottomNavBar from './components/BottomNavBar.vue';
+import BottomNavBar from './components/NavBar/BottomNavBar.vue';
 import IngredientSearch from './components/IngredientSearch.vue';
 import PersonalizedSearch from './components/PersonalizedSearch.vue';
 
