@@ -1,33 +1,52 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
 from django.core.exceptions import PermissionDenied
 import requests
 import json
 from django.views import View
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import auth
 
 # Create your views here.
+def login_user(req):
+    if req.method == 'POST':
+        login_id = req.POST.get('userLoginid')
+        password = req.POST.get('password')
+        
+        #사용자 인증
+        user = authenticate(req, username=login_id, password=password)
 
-def login(req):
-    login_id = req.GET.get('userLoginid')
-    password = req.GET.get('password')
-    # 로그인 실패 조건을 확인하고, 실패한 경우 PermissionDenied 예외를 발생시킵니다.
-    # if 로그인_실패_조건:
-        # raise PermissionDenied("Login failed")
-    
-    # 로그인 성공 처리
-    # ...
-    
-    return HttpResponse("Login successful")
+        if user is not None:
+            login(req, user)
+            return JsonResponse({'success': '로그인이 완료되었습니다.',
+                                 'login id':login_id, 
+                                 'username':user.user_name})
+        else:
+            return JsonResponse({'error': '로그인에 실패했습니다.'}, status=400)
+        
+    else:
+        return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
 
+def logout_user(req):
+    logout(req)
+    return JsonResponse({'success': '로그아웃이 완료되었습니다.'})
+   
 def signup(req):
-    login_id = req.POST.get('userLoginid')
-    password = req.POST.get('password')
-    user_name = req.POST.get('userName')
+    if req.method == 'POST':
+        login_id = req.POST.get('userLoginid')
+        password = req.POST.get('password')
+        user_name = req.POST.get('userName')
+
+        user = User.objects.create_user(
+            user_name=user_name, 
+            password=password
+            )
+        return JsonResponse({'login id':login_id, 'username':user_name})
+    else:
+        return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
-    #회원가입 로직
     
-    #가입후에 정보 다시 리턴
-    return ...
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 @method_decorator(csrf_exempt, name='dispatch')
@@ -53,3 +72,4 @@ class KakaoLogin(View):
         # 기존사용자가 아니면 새 사용자로 생성하고
         # 로그인로직실행 하면될듯
         return JsonResponse({"message": "success"})
+    
