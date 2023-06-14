@@ -38,7 +38,6 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-
 }
 
 .search-input {
@@ -53,7 +52,7 @@ export default {
 .search-icon {
   position: absolute;
     width: 17px;
-    right: 12px;
+        right: 12px;
     margin: 0;
    	z-index: 1;
 }
