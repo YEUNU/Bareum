@@ -87,9 +87,10 @@
         </div>
     </div>
   </div>
+  <router-link to="/"><button style="margin-top: 5%;">로그인</button></router-link>
 </div>
 
-<router-link to="/" style="margin-top: 10%;">로그인</router-link>
+
     </div>
   </template>
 
@@ -99,8 +100,6 @@
   }
 
   </script>
-
-  
 
   <style lang="css">
 
