@@ -10,9 +10,18 @@ import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
+import BottomNavBar from './components/NavBar/BottomNavBar.vue';
+import IngredientSearch from './components/IngredientSearch.vue';
+import PersonalizedSearch from './components/PersonalizedSearch.vue';
+
 
 const routes = [
     //로그인 페이지
+    {
+        path: "/test",
+        component: IngredientSearch,
+        name: 'test'
+    },
     {
         path: "/login",
         component: loginPage,
@@ -45,6 +54,23 @@ const routes = [
     },
     //홈 페이지
     {
+        path:"/search",
+        component:searchPage,
+        name:'searchPage',
+        children:[
+            {
+                path:'',
+                component:search,
+                name:"searchPageMain"
+            },
+            {
+                path:'detail',
+                component:detailSearchPage,
+                name:'detailSerachPage'
+        },
+        ]
+    },
+    {
         path:"/",
         component:mainPage,
         name:'homePage',
@@ -58,6 +84,7 @@ const routes = [
 
     //쇼핑페이지
     {
+        //예시
         path:"/shop",
         component:mainPage,
         name:'shoppingPage',
@@ -71,7 +98,7 @@ const routes = [
 
     },
     {
-        //커뮤니티 페이지
+        //예시
         path:"/community",
         component:mainPage,
         name:'community',
@@ -85,7 +112,7 @@ const routes = [
 
     },
     {
-        //마이페이지
+        //예시
         path:"/mypage",
         component:mainPage,
         name:'mypage',
