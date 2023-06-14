@@ -38,19 +38,11 @@ export default {
         const store = useStore();
         const router = useRouter();
         const searchPlaceholder = ref('건강기능식품을 검색해보세요');
-        const checkLogin = () => {
-            if(!store.isLoggedIn){
-                router.push({
-                    path: "/signup",
-                });
-            }
-        };
-        onMounted(() => checkLogin());
+
         return {
             store,
             router,
             searchPlaceholder,
-            checkLogin,
         };
     },
     };

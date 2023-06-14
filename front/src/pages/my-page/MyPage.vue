@@ -87,7 +87,7 @@
         </div>
     </div>
   </div>
-  <router-link to="/"><button style="margin-top: 5%;">로그인</button></router-link>
+  <router-link to="/login"><button style="margin-top: 5%;">로그인</button></router-link>
 </div>
 
 

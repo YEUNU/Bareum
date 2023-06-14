@@ -19,13 +19,14 @@
   
       const signup = () => {
         axios
-          .post('/api/signup/', {
+          .post('/api/account/signup', {
             userLoginid: userLoginid.value,
             password: password.value,
             userName: userName.value
           })
           .then(response => {
             // 회원가입 성공 처리
+            console.log(response)
           })
           .catch(error => {
             // 회원가입 실패 처리
