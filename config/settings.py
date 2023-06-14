@@ -36,9 +36,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders",
-    "api",
-    "rest_framework"
+    "rest_framework",
+    "account",
+    'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -70,6 +72,24 @@ TEMPLATES = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://vue:5173"
+    ]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://vue:5173',
+    'http://localhost:5173',
+]
+CORS_ALLOWED_ORIGINS = [
+    'http://vue:5173',
+    'http://localhost:5173',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 WSGI_APPLICATION = "config.wsgi.application"
 
 
@@ -77,9 +97,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aivle28',
+        'USER': 'jh',
+        'PASSWORD': 'aivle28!',
+        'HOST': 'aivle-28.mysql.database.azure.com',
+        'PORT': '3306',
     }
 }
 
@@ -124,3 +148,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

@@ -1,7 +1,7 @@
 <template>
     <div class="search">
-      <input type="text" :placeholder="placeholder" v-model="searchQuery" @keydown.enter="search">
-      <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search">
+      <input class="search-input" type="text" :placeholder="placeholder" v-model="searchQuery" @keydown.enter="search">
+      <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search">
     </div>
   </template>
   
@@ -37,7 +37,7 @@
     width: 100%;
   }
   
-  input {
+  .search-input {
     width: 100%;
     border: 1px solid #bbb;
     border-radius: 8px;
@@ -45,7 +45,7 @@
     font-size: 14px;
   }
   
-  img {
+  .search-icon {
     position: absolute;
     width: 17px;
     top: 10px;
