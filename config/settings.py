@@ -37,11 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "account",
     'corsheaders',
     
 ]
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -71,7 +69,8 @@ TEMPLATES = [
         },
     },
 ]
-
+CSRF_COOKIE_NAME = 'XSRF-TOKEN'
+CSRF_HEADER_NAME = 'X-XSRF-TOKEN'
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://vue:5173"
@@ -148,4 +147,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-

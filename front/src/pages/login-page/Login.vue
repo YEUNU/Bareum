@@ -8,76 +8,85 @@
   </div>
   <div>
     <img
-    src="@assets/kakao_login_medium.png"
-    alt="Kakao Login"
-    @click="loginWithKakao"
-  />
+      src="@assets/kakao_login_medium.png"
+      alt="Kakao Login"
+      @click="loginWithKakao"
+    />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { reactive, inject } from 'vue';
-import { useRouter } from 'vue-router';
+import axios from "axios";
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { loginWithKakao } from "/src/kakaoLogin.js";
 
 export default {
   setup() {
+
     const form = reactive({
-      userLoginid: '',
-      password: '',
+      userLoginid: "",
+      password: "",
       showErrorMessage: false,
     });
 
+    const error = ref(null);
     const router = useRouter();
 
-    const Kakao = inject('kakao'); // Kakao 객체를 가져옴
 
     const login = () => {
-      if (form.userLoginid === '' || form.password === '') {
+      if (form.userLoginid === "" || form.password === "") {
         form.showErrorMessage = true;
         return;
       }
 
       axios
-        .post('/api/account/login', {
+        .post("/api/account/login", {
           userLoginid: form.userLoginid,
           password: form.password,
         })
-        .then(response => {
+        .then((response) => {
           const loginResult = response.data;
-          if (loginResult === 'Login successful') {
-            router.push('/');
+          if (loginResult === "Login successful") {
+            router.push("/");
           } else {
-            throw new Error('Login failed');
+            throw new Error("Login failed");
           }
         })
-        .catch(error => {
-          console.error('Error during login:', error);
+        .catch((error) => {
+          console.error("Error during login:", error);
         });
     };
 
-    const loginWithKakao = () => {
-      Kakao.Auth.login({
-        success: (authObj) => {
-          axios
-            .post('/api/account/login-kakao', authObj)
-            .then((response) => {
-              console.log(response);
+
+    const kakaoLogin = () => {
+      loginWithKakao()
+        .then((authObj) => {
+          console.log(authObj)
+          axios.post("/api/account/kakao/login", authObj, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
             })
-            .catch((error) => {
-              console.log(error);
-            });
-        },
-        fail: (err) => {
-          console.log(err);
-        },
-      });
+          .then((response)=>{
+
+            router.push("/");
+
+          })
+          .catch((err)=>{
+
+          })
+        })
+        .catch((error) => {
+          console.error("Error during Kakao login:", error);
+        });
     };
 
     return {
       form,
       login,
-      loginWithKakao,
+      loginWithKakao: kakaoLogin, 
+      error,
     };
   },
 };

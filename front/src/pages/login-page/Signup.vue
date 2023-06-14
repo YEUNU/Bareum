@@ -1,7 +1,8 @@
 <template>
     <div>
-      <input type="text" v-model="username" placeholder="Username" />
+      <input type="text" v-model="userLoginid" placeholder="userLoginid" />
       <input type="password" v-model="password" placeholder="Password" />
+      <input type="text" v-model="userName" placeholder="userName" />
       <button @click="signup">Sign Up</button>
     </div>
   </template>
@@ -12,14 +13,16 @@
   
   export default {
     setup() {
-      const username = ref('');
+      const userLoginid = ref('');
       const password = ref('');
+      const userName = ref('');
   
       const signup = () => {
         axios
           .post('/api/signup/', {
-            username: username.value,
+            userLoginid: userLoginid.value,
             password: password.value,
+            userName: userName.value
           })
           .then(response => {
             // 회원가입 성공 처리
@@ -30,8 +33,9 @@
       };
   
       return {
-        username,
+        userLoginid,
         password,
+        userName,
         signup,
       };
     },

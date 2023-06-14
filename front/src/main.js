@@ -17,6 +17,7 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 axios.defaults.withCredentials = true;
 
+// main.js
 
 app.mount('#app');
 

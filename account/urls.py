@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('login',views.login),
     path('signup',views.signup),
-    path('login-kakao',views.login_kakao)
+    path('kakao/login',views.KakaoLogin.as_view())
 ]

@@ -2,3 +2,5 @@ django==4.2.1
 django-cors-headers
 django-rest-framework
 mysqlclient
+django-allauth
+dj-rest-auth
