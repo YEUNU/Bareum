@@ -9,7 +9,8 @@
 <script>
 
 import { useStore } from '../stores';
-import BottomNavBar from '../components/BottomNavBar.vue';
+import { useRouter } from "vue-router";
+import BottomNavBar from '../components/NavBar/BottomNavBar.vue';
 
 //예시코드 나중에 수정
 export default {
@@ -18,17 +19,21 @@ export default {
     ,
     setup() {
         const store = useStore();
+        const router = useRouter();
         const { count, isLoggedIn } = store;
 
         //state는 직접수정이 불가능하고 무조건 함수를통해서 수정해야함
-        const handleIncrement = () => {
-            store.increment();
+        const checkLogin = () => {
+            if(!isLoggedIn){
+                router.push({path:"/signup"});
+            }
         };
 
         return {
-          count,
-          isLoggedIn,
-          handleIncrement,
+            count,
+            router,
+            isLoggedIn,
+            checkLogin,
         };
   },
 };

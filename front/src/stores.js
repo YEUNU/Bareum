@@ -15,7 +15,6 @@ export const useStore = defineStore('app', {
     getCount(state){
         return state.count
     }
-
   },
   actions: {
     increment() {

@@ -1,10 +1,25 @@
 <script setup>
+
 </script>
 
+
+
+
 <template>
+
   <router-view></router-view>
+
 </template>
 
-<style scoped>
+
+
+
+<style>
+
+a{
+
+  text-decoration: none !important;
+
+}
 
 </style>
