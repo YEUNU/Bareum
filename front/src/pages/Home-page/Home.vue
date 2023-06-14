@@ -8,17 +8,17 @@
             <router-link to="/search"><SearchBar class="box_search_input" background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
-        <button class="box_alerts" @click="router.push({path: '/alam'});">
+        <button class="box_alerts" @click="router.push({path: '/alerts'});">
             <img class="alerts_icon" src="https://w7.pngwing.com/pngs/321/985/png-transparent-bell-computer-icons-bell-handbell-alert-school-bell.png"/>
         </button>
     </div>
 
     <div class="menu_container">
-        <router-link to="/test" class="item menus">제품</router-link>
-        <router-link to="/test" class="item menus">추천</router-link>
-        <router-link to="/test" class="item menus">알람설정</router-link>
-        <router-link to="/test" class="item menus">정기배송신청</router-link>
-        <router-link to="/test" class="item menus">영양제 촬영하기</router-link>
+        <router-link to="/product" class="item menus">제품</router-link>
+        <router-link to="/recommend" class="item menus">추천</router-link>
+        <router-link to="/set_alarm" class="item menus">알람설정</router-link>
+        <router-link to="/regular_delivery" class="item menus">정기배송신청</router-link>
+        <router-link to="/ocr" class="item menus">영양제 촬영하기</router-link>
     </div>
 
 </template>
@@ -130,7 +130,7 @@ export default {
     font-weight: 750;
     transition: 0.25s;
 
-    border: 3px solid #2dce89;
+    border: 2px solid #2dce89;
     border-radius: 5px;
 }
 .menus:hover {
