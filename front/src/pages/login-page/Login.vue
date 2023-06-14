@@ -1,46 +1,93 @@
-<template lang="">
-    <div>
-        <input type="text" id="id" name="id" placeholder="아이디" title="아이디" class="input_text" maxlength="41" value=""><br>
-        <input type="password" id="pw" name="pw" placeholder="비밀번호" title="비밀번호" class="input_text" maxlength="16"><br>
-        <button @click="userLogin()" type="submit" class="btn_login" id="log.login">
-            <span class="btn_text">로그인</span>
-        </button>
-        <button @click="router.push({path: '/signup'});" class="btn_signup" id="sign.signup">
-            <span class="btn_text">회원가입</span>
-        </button>
-    </div>
+<template>
+  <div>
+    <input type="text" v-model="form.userLoginid" placeholder="userLoginid" />
+    <input type="password" v-model="form.password" placeholder="Password" />
+    <button @click="login">Login</button>
+    <p v-if="form.showErrorMessage">모든 필드를 입력하세요.</p>
+    <router-link to="signup">회원가입</router-link>
+  </div>
+  <div>
+    <img
+      src="@assets/kakao_login_medium.png"
+      alt="Kakao Login"
+      @click="loginWithKakao"
+    />
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from '../../stores';
-import BottomNavBar from '../../components/NavBar/BottomNavBar.vue';
+import { loginWithKakao } from "/src/kakaoLogin.js";
 
-//예시코드 나중에 수정
 export default {
-    name:"LoginPage",
-    components:{BottomNavBar},
-    setup() {
-        const store = useStore();
-        const router = useRouter();
+  setup() {
 
-        const userLogin = () => {
-            store.login();
-            console.log('Login?:', store.isLoggedIn);
-            router.push({
-                path: "/mypage",
-            });
-        };
-        return {
-            store,
-            router,
-            userLogin,
-        };
-  }
+    const form = reactive({
+      userLoginid: "",
+      password: "",
+      showErrorMessage: false,
+    });
+
+    const error = ref(null);
+    const router = useRouter();
+
+
+    const login = () => {
+      if (form.userLoginid === "" || form.password === "") {
+        form.showErrorMessage = true;
+        return;
+      }
+
+      axios
+        .post("/api/account/login", {
+          userLoginid: form.userLoginid,
+          password: form.password,
+        })
+        .then((response) => {
+          const loginResult = response.data;
+          if (loginResult === "Login successful") {
+            router.push("/");
+          } else {
+            throw new Error("Login failed");
+          }
+        })
+        .catch((error) => {
+          console.error("Error during login:", error);
+        });
+    };
+
+
+    const kakaoLogin = () => {
+      loginWithKakao()
+        .then((authObj) => {
+          console.log(authObj)
+          axios.post("/api/account/kakao/login", authObj, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+          .then((response)=>{
+
+            router.push("/");
+
+          })
+          .catch((err)=>{
+
+          })
+        })
+        .catch((error) => {
+          console.error("Error during Kakao login:", error);
+        });
+    };
+
+    return {
+      form,
+      login,
+      loginWithKakao: kakaoLogin, 
+      error,
+    };
+  },
 };
 </script>
-
-
-<style lang="">
-    
-</style>
