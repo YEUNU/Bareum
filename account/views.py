@@ -5,7 +5,7 @@ import json
 from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, save
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -56,7 +56,6 @@ def signup(req):
                              'message': '회원가입이 완료되었습니다.'})
     else:
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
-    
     
 
 @method_decorator(csrf_exempt, name='dispatch')
