@@ -15,12 +15,14 @@ from . import models
 @csrf_exempt
 def login_user(req):
     if req.method == 'POST':
-        login_id = req.POST.get('userLoginid')
-        password = req.POST.get('password')
+        data = json.loads(req.body)
+        login_id = data.get('userLoginid')
+        password = data.get('password')
+        print(login_id, password)
         
         #사용자 인증
-        user = authenticate(req, username=login_id, password=password)
-
+        user = authenticate(username=login_id, password=password)
+        print(user)
         if user is not None:
             login(req, user)
             return JsonResponse({'success': '로그인이 완료되었습니다.',
@@ -45,12 +47,11 @@ def signup(req):
         password = data.get('password')
         user_name = data.get('userName')
         print(login_id, password, user_name)
-        user = models.User(
-            user_login_id = login_id,
-            user_login_password = password,
-            user_name = user_name,
-        )
-        user.save()
+        
+        user = models.User.objects.create_user(username = login_id,
+                                               password = password,
+                                               user_name = user_name)
+        
         return JsonResponse({'login id':login_id, 'username':user_name, 
                              'result': 'success', 
                              'message': '회원가입이 완료되었습니다.'})
