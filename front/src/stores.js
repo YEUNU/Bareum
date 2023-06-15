@@ -49,10 +49,9 @@ export const useUserInfo = defineStore('userInfo',{
 
   },
   actions:{
-    userLogin(name,age,sex,nutraceuticals){
+    userLogin(userId,name){
       this.name = name;
-      this.age = age;
-      this.sex = sex;
+      this.userId = userId;
     }
   }
 })
