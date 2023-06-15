@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse,HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 import requests
 import json
@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
+from . import models
 # Create your views here.
 
 @csrf_exempt
@@ -40,15 +40,20 @@ def logout_user(req):
 @csrf_exempt
 def signup(req):
     if req.method == 'POST':
-        login_id = req.POST.get('userLoginid')
-        password = req.POST.get('password')
-        user_name = req.POST.get('userName')
-
-        user = User.objects.create_user(
-            user_name=user_name, 
-            password=password
-            )
-        return JsonResponse({'login id':login_id, 'username':user_name})
+        data = json.loads(req.body)
+        login_id = data.get('userLoginid')
+        password = data.get('password')
+        user_name = data.get('userName')
+        print(login_id, password, user_name)
+        user = models.User(
+            user_login_id = login_id,
+            user_login_password = password,
+            user_name = user_name,
+        )
+        user.save()
+        return JsonResponse({'login id':login_id, 'username':user_name, 
+                             'result': 'success', 
+                             'message': '회원가입이 완료되었습니다.'})
     else:
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
