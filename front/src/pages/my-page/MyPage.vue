@@ -32,13 +32,13 @@
       <div class="row">
     <div class="col-sm-8" style="padding-top: 5%;">
       <div class="d-flex justify-content-between" style="align-items:center;">
-        <p class="card-text" style="padding-top: 5%;">나의 건강검진 기록</p>
+        <p class="card-text mb-2" style="padding-top: 5%;">나의 건강검진 기록</p>
         <router-link to="/">수정</router-link>
       </div>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8" style="padding-top: 5%;">
       <div class="d-flex justify-content-between" style="align-items:center;">
-        <p class="card-text">건강 상태, 복용 약물</p>
+        <p class="card-text mt-3">건강 상태, 복용 약물</p>
         <router-link to="/">수정</router-link>
       </div>
     </div>
@@ -55,7 +55,7 @@
       <p class="card-text">등록 등록 등록</p>
       <div class="col-sm-8">
       <div class="d-flex justify-content-between" style="align-items:center;">
-        <p class="card-text">건강 고민 & 섭취 목적</p>
+        <p class="card-text mt-3">건강 고민 & 섭취 목적</p>
         <router-link to="/">수정</router-link>
       </div>
     </div>
@@ -80,8 +80,8 @@
             <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">이용약관</h5></router-link>
             <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">개인정보 처리방침</h5></router-link>
             <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">로그아웃</h5></router-link>
-            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">회원탈퇴</h5></router-link>
-            <router-link to="/" style=" margin-top: 10%; margin-right: 15vh;">문의하기</router-link>
+            <router-link to="/myremove"><h5 style="text-align: left; margin-top: 10%;">회원탈퇴</h5></router-link>
+            <router-link to="/mysupport" style=" margin-top: 10%; margin-right: 15vh;">문의하기</router-link>
             <router-link to="/" style=" margin-top: 10%;">영양제 등록 요청</router-link>
         </div>
     </div>

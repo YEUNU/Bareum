@@ -12,6 +12,9 @@ import myupdatePage from './pages/my-page/MyupdatePage.vue'
 import mywishPage from './pages/my-page/MywishPage.vue'
 import myorderPage from './pages/my-page/MyorderPage.vue'
 import mypushPage from './pages/my-page/MypushPage.vue'
+import mysupportPage from './pages/my-page/MysupportPage.vue'
+import myremovePage from './pages/my-page/MyremovePage.vue'
+import myremovedetailPage from './pages/my-page/MyremovedetailPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
@@ -151,6 +154,24 @@ const routes = [
         path:'/mypush',
         name:'mypushPage',
         component:mypushPage
+    },
+    {   
+        // 문의하기 
+        path:'/mysupport',
+        name:'mysupportPage',
+        component:mysupportPage
+    },
+    {   
+        // 회원탈퇴 
+        path:'/myremove',
+        name:'myremovePage',
+        component:myremovePage
+    },
+    {   
+        // 회원탈퇴 약관
+        path:'/myremovedetail',
+        name:'myremovedetailPage',
+        component:myremovedetailPage
     },
 ]
 

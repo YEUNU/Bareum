@@ -12,7 +12,7 @@
         
         <div class="push container-fluid border pb-2 mb-2" style="border-radius:  10px;">
             <h3>시스템 알람 설정</h3>
-            <button type="button" class="btn" style="background-color: #2dce89;">설정하러가기</button>
+            <button type="button" class="btn" style="background-color: #2dce89; color: white;">설정하러가기</button>
         </div>
 
         <div class="select container-fluid border pb-2 mb-2" style="border-radius:  10px;">
@@ -21,15 +21,15 @@
   <div class="col-sm-8" style="padding-top: 5%;">
     <div class="d-flex justify-content-between align-items-center">
       <p class="card-text mb-2" style="padding-top: 5%;">혜택 알림</p>
-      <button type="button" class="btn ms-3" style="background-color: #2dce89;">켜기/끄기</button>
+      <button type="button" class="btn ms-3" style="background-color: #2dce89; color: white;">켜기/끄기</button>
     </div>
     <div class="d-flex justify-content-between align-items-center">
       <p class="card-text mb-2" style="padding-top: 5%;">정기배송</p>
-      <button type="button" class="btn ms-3" style="background-color: #2dce89;">켜기/끄기</button>
+      <button type="button" class="btn ms-3" style="background-color: #2dce89; color: white;">켜기/끄기</button>
     </div>
     <div class="d-flex justify-content-between align-items-center">
       <p class="card-text mb-2" style="padding-top: 5%;">알람알림</p>
-      <button type="button" class="btn ms-3" style="background-color: #2dce89;">켜기/끄기</button>
+      <button type="button" class="btn ms-3" style="background-color: #2dce89; color: white;">켜기/끄기</button>
     </div>
   </div>
 </div>
