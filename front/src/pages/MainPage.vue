@@ -10,7 +10,7 @@
 
 import { useStore } from '../stores';
 import { useRouter } from "vue-router";
-import BottomNavBar from '../components/NavBar/BottomNavBar.vue';
+import BottomNavBar from '../components/Navbar/BottomNavBar.vue';
 
 //예시코드 나중에 수정
 export default {

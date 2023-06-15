@@ -1,15 +1,12 @@
 <template lang="">
     
-    <div class="header-main">
+    <div class="navbar fixed-top bg-theme">
         <div class="box_search">
-            <!--
-                <input type="search" title="검색어 입력" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="form__input" placeholder="건강기능식품을 검색해보세요">
-            -->
             <router-link to="/search"><SearchBar class="box_search_input" background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
         <button class="box_alerts" @click="router.push({path: '/alerts'});">
-            <img class="alerts_icon" src="https://w7.pngwing.com/pngs/321/985/png-transparent-bell-computer-icons-bell-handbell-alert-school-bell.png"/>
+            <img class="alerts_icon" src="\src\assets\bell.png"/>
         </button>
     </div>
 
@@ -45,7 +42,7 @@ export default {
                 });
             }
         };
-        onMounted(() => checkLogin());
+        // onMounted(() => checkLogin());
         return {
             store,
             router,
@@ -57,24 +54,12 @@ export default {
 
 </script>
 <style>
-.header-main {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 3px;
-
-    display: flex;
-    width: 100vw;
-    height: 15vw;
-
-    justify-content: center;
-    align-items: center;
-
+.bg-theme {
     background-color: #2dce89;
 }
 
 .box_search {
-    margin-left: 10vw;
+    margin: 3vw;
     flex-grow: 1;
 }
 
@@ -83,11 +68,12 @@ export default {
 }
 
 .box_alerts {
-    margin: 5vw;
     border: 0;
     padding: 0;
     width: 10vw;
     height: 10vw;
+    background-color: rgba(255,255,255,0);
+    z-index: 1;
 }
 
 .alerts_icon {

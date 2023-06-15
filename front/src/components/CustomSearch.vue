@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar fixed-top bg-white">
             <div class="container-fluid">
-                <span class="navbar-brand" @click="$router.back()"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <span class="navbar-brand" @click="close_popup"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </span>
@@ -31,18 +31,25 @@
             <label :for="part.id">{{part.text}}</label>
         </div>
     </div>
-    <button @click='checkArr()'>check</button>
+    <button @click='sendCheckedArr()'>check</button>
 </template>
   
 <script>
-import { ref, computed } from "vue"
+import { ref, computed, defineEmits } from "vue"
 import { useRouter } from "vue-router";
 
 export default {
     name:"test2",
-    setup() {
+    props: {
+        selected_option: String,
+        popup: Boolean,
+    },
+    emits: ['close_popup'],
+
+    setup(props, context) {
         const router = useRouter();
-        const selected_option = ref('');
+        const selected_option = ref(props.selected_option);
+        const popup = ref(props.popup);
 
         const personalize_parts = ref([
             { id: 1, text: '눈 건강', checked: false },
@@ -77,17 +84,23 @@ export default {
             }
         });
         
-        const checkArr = () => {
-
+        const sendCheckedArr = () => {
+            close_popup();
             console.log(parts.value.filter((f) => f.checked).map(x => x.text));
             alert(parts.value.filter((f) => f.checked).map(x => x.text));
-        }
+        };
+
+        const close_popup = () => {
+            context.emit("close_popup");
+        };
 
         return {
             router,
             selected_option,
+            popup,
             parts,
-            checkArr,
+            sendCheckedArr,
+            close_popup,
         };
     },
 }
