@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     
     
 ]
+
+#AUTH_USER_MODEL = 'myapp.CustomUser'
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -102,7 +105,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aivle28',
+        'NAME': 'aivle28db',
         'USER': 'jh',
         'PASSWORD': 'aivle28!',
         'HOST': 'aivle-28.mysql.database.azure.com',

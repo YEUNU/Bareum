@@ -7,8 +7,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 # Create your views here.
+
+@csrf_exempt
 def login_user(req):
     if req.method == 'POST':
         login_id = req.POST.get('userLoginid')
@@ -27,11 +31,13 @@ def login_user(req):
         
     else:
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
-
+    
+@csrf_exempt
 def logout_user(req):
     logout(req)
     return JsonResponse({'success': '로그아웃이 완료되었습니다.'})
-   
+
+@csrf_exempt
 def signup(req):
     if req.method == 'POST':
         login_id = req.POST.get('userLoginid')
@@ -47,8 +53,7 @@ def signup(req):
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
     
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
+
 @method_decorator(csrf_exempt, name='dispatch')
 class KakaoLogin(View):
 
