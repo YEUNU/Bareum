@@ -5,7 +5,7 @@ import json
 from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout, save
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
