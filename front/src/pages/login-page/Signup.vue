@@ -19,7 +19,7 @@
   
       const signup = () => {
         axios
-          .post('/api/signup/', {
+          .post('/api/account/signup/', {
             userLoginid: userLoginid.value,
             password: password.value,
             userName: userName.value

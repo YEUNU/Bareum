@@ -8,12 +8,15 @@ import detailSearchPage from './pages/Search-page/DetailSearch.vue'
 import homePage from './pages/Home-page/Home.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
+import myupdatePage from './pages/my-page/MyupdatePage.vue'
+import mywishPage from './pages/my-page/MywishPage.vue'
+import myorderPage from './pages/my-page/MyorderPage.vue'
+import mypushPage from './pages/my-page/MypushPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
 import IngredientSearch from './components/IngredientSearch.vue';
 import PersonalizedSearch from './components/PersonalizedSearch.vue';
-
 
 const routes = [
     //로그인 페이지
@@ -123,10 +126,32 @@ const routes = [
                 component:myPage
             }
         ]
-
     },
-    
 
+    {   
+        // 개인정보수정
+        path:'/myupdate',
+        name:'myupdatePage',
+        component:myupdatePage
+    },
+    {   
+        // 찜 목록
+        path:'/mywish',
+        name:'mywishPage',
+        component:mywishPage
+    },
+    {   
+        // 주문 / 배송 내역
+        path:'/myorder',
+        name:'myorderPage',
+        component:myorderPage
+    },
+    {   
+        // 푸시 알람 설정
+        path:'/mypush',
+        name:'mypushPage',
+        component:mypushPage
+    },
 ]
 
 const router = createRouter({

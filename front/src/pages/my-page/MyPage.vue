@@ -1,4 +1,5 @@
 <template>
+  
     <div class="container">
       <nav class="navbar fixed-top bg-white">
         <div class="container-fluid">
@@ -9,15 +10,16 @@
         </router-link>
         </div>
       </nav>
+
       <div class="card-container" style="margin-top: 10%;">
   <div class="card" style="width: 100%; display:block;">
     <img src="" class="card-img-top" alt="">
     <div class="card-body" style="padding: 20px;">
       <h5 style="text-align: left;  margin-top: -5%;">닉네임</h5>
       <p class="card-text" style="padding-top: 5%;">나이 / 성별</p>
-      <router-link to="/">개인정보 수정</router-link>
+      <router-link to="/myupdate">개인정보 수정</router-link>
       <router-link to="/">내 리뷰 관리</router-link>
-      <router-link to="/">찜 목록</router-link>
+      <router-link to="/mywish">찜 목록</router-link>
     </div>
   </div>
 </div>
@@ -45,9 +47,6 @@
   </div>
 </div>
 
-
-
-
 <div class="card-container">
   <div class="card" style="width: 100%; display:block;">
     <img src="" class="card-img-top" alt="">
@@ -67,8 +66,8 @@
 <div class="card-container">
   <div class="card" style="width: 100%; display:block;">
     <div class="card-body">
-            <router-link to="/"><h5 style="text-align: left;">주문 / 배송 내역</h5></router-link>
-            <router-link to="/"><h5 style="text-align: left;  margin-top: 10%;">알람 설정</h5></router-link>
+            <router-link to="/myorder"><h5 style="text-align: left;">주문 / 배송 내역</h5></router-link>
+            <router-link to="/mypush"><h5 style="text-align: left;  margin-top: 10%;">알람 설정</h5></router-link>
     </div>
   </div>
 </div>
@@ -76,21 +75,19 @@
 <div class="card-container">
   <div class="card" style="width: 100%; display:block;">
     <div class="card-body">
-        <h5 style="text-align: left;  margin-top: -5%;">고객지원</h5>
+        <h5 style="text-align: left; margin-top: -5%;">고객지원</h5>
         <div class="m-title" style="margin-top: 5%">
-            <router-link to="/"><h5 style="text-align: left;  margin-top: 10%;">이용약관</h5></router-link>
-            <router-link to="/"><h5 style="text-align: left;  margin-top: 10%;">개인정보 처리방침</h5></router-link>
-            <router-link to="/"><h5 style="text-align: left;  margin-top: 10%;">로그아웃</h5></router-link>
-            <router-link to="/"><h5 style="text-align: left;  margin-top: 10%;">회원탈퇴</h5></router-link>
-            <router-link to="/" style="margin-top: 10%; margin-right: 15vh;">문의하기</router-link>
-            <router-link to="/" style="margin-top: 10%;">영양제 등록 요청</router-link>
+            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">이용약관</h5></router-link>
+            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">개인정보 처리방침</h5></router-link>
+            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">로그아웃</h5></router-link>
+            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">회원탈퇴</h5></router-link>
+            <router-link to="/" style=" margin-top: 10%; margin-right: 15vh;">문의하기</router-link>
+            <router-link to="/" style=" margin-top: 10%;">영양제 등록 요청</router-link>
         </div>
     </div>
   </div>
   <router-link to="/"><button style="margin-top: 5%;">로그인</button></router-link>
 </div>
-
-
     </div>
   </template>
 
