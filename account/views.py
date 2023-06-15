@@ -5,10 +5,11 @@ import json
 from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, save
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+import models
 
 # Create your views here.
 
@@ -43,15 +44,22 @@ def signup(req):
         login_id = req.POST.get('userLoginid')
         password = req.POST.get('password')
         user_name = req.POST.get('userName')
-
-        user = User.objects.create_user(
-            user_name=user_name, 
-            password=password
-            )
+        print(login_id, password, user_name)
+        user = models.User(
+            user_id = 1,
+            user_login_id = 'login_id',
+            user_loing_password = 'password',
+            user_age = 1,
+            user_name = 'user_name',
+            user_weight = None,
+            user_height = None,
+            user_nickname = 'user_name',
+            user_sex = 'm'
+        )
+        user.save()
         return JsonResponse({'login id':login_id, 'username':user_name})
     else:
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
-    
     
 
 @method_decorator(csrf_exempt, name='dispatch')

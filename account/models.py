@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class User(models.Model):
     user_id = models.IntegerField(primary_key=True)
@@ -14,6 +15,7 @@ class User(models.Model):
     class Meta:
         managed = True
         db_table = 'user'
+        swappable = "AUTH_USER_MODEL"
         
         
 class HealthInfo(models.Model):
@@ -23,5 +25,3 @@ class HealthInfo(models.Model):
     class Meta:
         managed = True
         db_table = 'health_info'
-
-
