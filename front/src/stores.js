@@ -37,6 +37,38 @@ export const useStore = defineStore('app', {
 
 
 
+//현재 로그인한 유저의 정보
+export const useUserInfo = defineStore('userInfo',{
+  state : ()=>({
+    name:"",
+    age:null,
+    sex:null,
+    nutraceuticals:[]
+  }),
+  getters:{
+
+  },
+  actions:{
+    userLogin(name,age,sex,nutraceuticals){
+      this.name = name;
+      this.age = age;
+      this.sex = sex;
+      this.nutraceuticals = nutraceuticals;
+    }
+  }
+})
+
+export const userNutraceuticals = defineStore('nutraceuticals',{
+  state:()=>({
+    name:"",
+  }),
+  getters:{
+
+  },
+  actions:{
+    
+  }
+})
 
 //  공식문서 예제파일
 export const useTodos = defineStore('todos', {
