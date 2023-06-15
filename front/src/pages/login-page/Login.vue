@@ -20,9 +20,12 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { loginWithKakao } from "/src/kakaoLogin.js";
+import {useUserInfo} from "../../stores.js"
 
 export default {
   setup() {
+    const userInfo = useUserInfo();
+    const {userLogin} = userInfo;
 
     const form = reactive({
       userLoginid: "",
@@ -47,7 +50,9 @@ export default {
         })
         .then((response) => {
           const loginResult = response.data;
-          if (loginResult === "Login successful") {
+          if (loginResult!=null) {
+            userLogin(loginResult.login_id,loginResult.user_name);
+            console.log(userInfo)
             router.push("/");
           } else {
             throw new Error("Login failed");

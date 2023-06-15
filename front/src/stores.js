@@ -40,20 +40,18 @@ export const useStore = defineStore('app', {
 //현재 로그인한 유저의 정보
 export const useUserInfo = defineStore('userInfo',{
   state : ()=>({
+    userId:"",
     name:"",
     age:null,
     sex:null,
-    nutraceuticals:[]
   }),
   getters:{
 
   },
   actions:{
-    userLogin(name,age,sex,nutraceuticals){
+    userLogin(userId,name){
       this.name = name;
-      this.age = age;
-      this.sex = sex;
-      this.nutraceuticals = nutraceuticals;
+      this.userId = userId;
     }
   }
 })

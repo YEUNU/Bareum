@@ -29,7 +29,7 @@ export default {
             console.log(response.data.message);
             // 회원가입 성공 및 로그인 페이지로 이동
             alert("회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
-            window.location.href = '/login';
+            router.push('/login');
           } else {
             console.error("회원가입 실패:", response.data.message);
           }
