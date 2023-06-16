@@ -83,42 +83,36 @@ export const userNutraceuticals = defineStore('nutraceuticals',{
   }
 })
 
-//  공식문서 예제파일
-export const useTodos = defineStore('todos', {
-    state: () => ({
-      /** @type {{ text: string, id: number, isFinished: boolean }[]} */
-      todos: [],
-      /** @type {'all' | 'finished' | 'unfinished'} */
-      filter: 'all',
-      // type will be automatically inferred to number
-      nextId: 0,
-    }),
-    getters: {
-      finishedTodos(state) {
-        // autocompletion! ✨
-        return state.todos.filter((todo) => todo.isFinished)
-      },
-      unfinishedTodos(state) {
-        return state.todos.filter((todo) => !todo.isFinished)
-      },
-      /**
-       * @returns {{ text: string, id: number, isFinished: boolean }[]}
-       */
-      filteredTodos(state) {
-        if (this.filter === 'finished') {
-          // call other getters with autocompletion ✨
-          return this.finishedTodos
-        } else if (this.filter === 'unfinished') {
-          return this.unfinishedTodos
-        }
-        return this.todos
-      },
+//  현재 로그인한 유저와 정보
+export const useUserInfo = defineStore('userInfo',{
+  state : ()=>({
+    isLoggedIn:true,
+    userId:"",
+    name:"",
+    age:null,
+    sex:null,
+  }),
+  getters:{
+    getIsLoggedIn(state){
+      return this.isLoggedIn
     },
-    actions: {
-      // any amount of arguments, return a promise or not
-      addTodo(text) {
-        // you can directly mutate the state
-        this.todos.push({ text, id: this.nextId++, isFinished: false })
-      },
+    getUserInfo(state){
+      return state.userId, state.name, state.age, state.sex
+    }
+  },
+  actions:{
+    userLogin(userId,name){
+      this.name = name;
+      this.userId = userId;
+      this.isLoggedIn = true;
     },
-  })
+    userLogout() {
+      this.isLoggedIn = false;
+      this.isLoggedIn=false;
+      this.userId="";
+      this.name="";
+      this.age=null;
+      this.sex=null;
+    },
+  }
+})

@@ -3,16 +3,11 @@
         <nav class="navbar fixed-top bg-light">
             <div class="container-fluid">
                 <span class="navbar-brand mb-0 h1">커뮤니티</span>
+                 <div class="search">
+                    <input class="search-input" type="text" :placeholder="placeholder" v-model="searchQuery" @keydown.enter="search">
+                    <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search">
+                </div>
             </div>
-            <nav class="navbar bg-light search-navbar">
-                <div class="search">
-
-<input class="search-input" type="text" :placeholder="placeholder" v-model="searchQuery" @keydown.enter="search">
-
-<img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search">
-
-</div>
-            </nav>
         </nav>
         
         <div class="container">
