@@ -12,25 +12,24 @@
                         </svg>
                     </span>
                 </div>
-            </nav>
+                <h3>{{rank_title}} 제품 순위</h3>
+                <div>
+                    <button @click="open_popup('personalize')">부위별</button>
+                    <button @click="open_popup('ingredient')">성분별</button>
+                </div>
+                <span>연령대 선택 : </span> 
+                <select v-model="age_group">
+                    <option disabled value="">연령대를 선택해 주세요</option>
+                    <option>total</option>
+                    <option>age1</option>
+                    <option>age2</option>
+                </select>
+                <h5 v-if="selected_items.length > 0" style="text-align: left;">선택항목: {{selected_items.join(', ')}}</h5>
+        </nav>
+            
         </div>
-
-        <div class="select_option">
-            <h3>종합랭킹</h3>
-            <div>
-                <button @click="open_popup('personalize')">부위별</button>
-                <button @click="open_popup('ingredient')">성분별</button>
-            </div>
-        </div>
-        <hr>
-        <span>연령대 선택 : </span> 
-        <select v-model="age_group">
-            <option disabled value="">연령대를 선택해 주세요</option>
-            <option>total</option>
-            <option>age1</option>
-            <option>age2</option>
-        </select>
         <div>
+            <div v-if="selected_items.length > 0"></div>
             <div class="rank_box" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
                 <div class="rank_order">{{i+1}}위</div>
                 <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지"/></div>
@@ -58,6 +57,20 @@ setup() {
     const selected_option = ref(null);
     const selected_items = ref([]);
     const dataset = ref(null);
+    const rank_title = computed(() => {
+        if(selected_items.value.length == 0) {
+            return '종합'
+        }
+
+        if(selected_option.value == 'personalize') {
+            return '부위별'
+        }
+        if(selected_option.value == 'ingredient') {
+            return '성분별'
+        }
+    });
+    
+    
     const filtered_dataset = computed(() => {
         if(selected_items.value.length == 0) {
             return dataset.value
@@ -132,6 +145,7 @@ setup() {
         selected_items,
         dataset,
         filtered_dataset,
+        rank_title,
         age_group,
         open_popup,
         getOptions,
@@ -140,6 +154,15 @@ setup() {
 }
 </script>
 <style>
+.rank_option_box {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: repeat(3, 5vh);
+
+    justify-content: space-between;
+    align-items: center;
+}
 
 .rank_box {
     align-self: center;
