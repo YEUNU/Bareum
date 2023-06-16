@@ -86,10 +86,14 @@
         </div>
     </div>
   </div>
-  <router-link to="/login"><button style="margin-top: 5%;">로그인</button></router-link>
 </div>
     </div>
-    <div v-else><h5>로그인이 필요합니다.</h5></div>
+    <div v-else>
+      
+      <h5>로그인이 필요합니다.</h5>
+      <router-link to="/login"><button style="margin-top: 5%;">로그인</button></router-link>
+    
+    </div>
     </div>
   
     

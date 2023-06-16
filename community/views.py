@@ -36,3 +36,11 @@ from .models import Post
 #    serializer = PostSerializer(paginated_posts, many=True)
 #
 #    return paginator.get_paginated_response(serializer.data)
+
+
+
+# api/community/newslist?page=${pageNumber}   영양뉴스를 페이징해서 가져옴
+# api/community/list?page=${pageNumber}  게시물을 페이징 해서 가져옴
+# api/community/detail?id=${this.postId}  게시글 가져오기  user id 랑 name 도 넘겨줄것
+# api/community/popularlist
+# api/community/write
