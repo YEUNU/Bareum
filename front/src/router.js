@@ -15,14 +15,11 @@ import IngredientSearch from './components/IngredientSearch.vue';
 import PersonalizedSearch from './components/PersonalizedSearch.vue';
 import writePage from './pages/Community-page/Write.vue';
 import postDetailPage from './pages/Community-page/PostDetail.vue';
+import CustomSearch from './components/CustomSearch.vue';
+import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
 
 const routes = [
     //로그인 페이지
-    {
-        path: "/test",
-        component: IngredientSearch,
-        name: 'test'
-    },
     {
         path: "/login",
         component: loginPage,
@@ -82,7 +79,21 @@ const routes = [
         }
         ]
     },
+    {
+        //예시
+        path:"/Ranking",
+        component:mainPage,
+        name:'Ranking',
+        children:[
+            {
+                path:'',
+                name:'TotalRanking',
+                component:TotalRanking
+            }
+        ]
 
+    },
+    
     //쇼핑페이지
     {
         //예시

@@ -1,15 +1,16 @@
 <template lang="">
-    <div>
+    <div class="container">
         <nav class="navbar fixed-top bg-white">
             <div class="container-fluid">
-                <span class="navbar-brand" @click="$router.back()"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <span class="navbar-brand" @click="closePopup">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </span>
             </div>
         </nav>
     </div>
-
+    
     <div class="select_option">
         <h3>항목선택</h3>
         <div>
@@ -24,25 +25,36 @@
             </label>
         </div>
     </div>
-    
-    <div class="search_option_items">
+    <div class="container">
+
+        <div class="search_option_items">
         <div class="search_option_item" v-for="part in parts" :key="part.id">
-            <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
-            <label :for="part.id">{{part.text}}</label>
+                <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
+                <label :for="part.id">{{part.text}}</label>
+            </div>
         </div>
+        <button @click='sendCheckedItems()'>check</button>
     </div>
-    <button @click='checkArr()'>check</button>
 </template>
   
 <script>
-import { ref, computed } from "vue"
+import { ref, computed, defineEmits } from "vue"
 import { useRouter } from "vue-router";
 
 export default {
-    name:"test2",
-    setup() {
+    name:"select_item_popup",
+    props: {
+        selected_option: String,
+        popup: Boolean,
+    },
+    emits: ['close_popup', 'selected_items'],
+
+    setup(props, context) {
         const router = useRouter();
-        const selected_option = ref('');
+        const selected_option = ref(props.selected_option);
+        const popup = ref(props.popup);
+        const searchList = ref('');
+
 
         const personalize_parts = ref([
             { id: 1, text: '눈 건강', checked: false },
@@ -77,17 +89,27 @@ export default {
             }
         });
         
-        const checkArr = () => {
+        const sendCheckedItems = () => {
 
-            console.log(parts.value.filter((f) => f.checked).map(x => x.text));
-            alert(parts.value.filter((f) => f.checked).map(x => x.text));
-        }
+            searchList.value = parts.value.filter((f) => f.checked).map(x => x.text);
+
+            context.emit("close_popup", false);
+            context.emit("selected_items", selected_option.value, searchList.value);
+            console.log(searchList.value);
+
+        };
+
+        const closePopup = () => {
+            context.emit("close_popup", false);
+        };
 
         return {
             router,
             selected_option,
+            popup,
             parts,
-            checkArr,
+            sendCheckedItems,
+            closePopup,
         };
     },
 }
@@ -103,8 +125,9 @@ export default {
 
 .select_option {
     display: flex;
-
     justify-content: space-between;
+    align-items: center;
+
 }
 
 .search_option_items {
@@ -114,15 +137,14 @@ export default {
     align-content: center;
     justify-content: center;
     
-    grid-template-columns: 27vw 27vw 27vw;
-    grid-template-rows: 27vw 27vw 27vw;
+    grid-template-columns: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
+    grid-template-rows: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
 }
 
 .search_option_item {
     position: relative;
-    align-content: center;
-    justify-content: center;
-    
+    align-self: center;
+    justify-self: center;
     height: 100%;
     width: 100%;
 }
@@ -152,23 +174,20 @@ input[type="checkbox"]{
 }
 
 input[type="checkbox"] + label{
-    display: block;
-    width: 24vw;
-    height: 24vw;
-    margin: 2vw;
+    width: min(20vw, 20vh);
+    height: min(20vw, 20vh);
+    margin: min(1vw, 1vh);
     position: relative;
-    place-content: center center;
     box-sizing: content-box;
     background-color: aquamarine;
+    justify-self: center;
 }
 
 input[type="checkbox"]:checked + label{
-    display: block;
-    width: 24vw;
-    height: 24vw;
-    margin: 2vw;
+    width: min(20vw, 20vh);
+    height: min(20vw, 20vh);
+    margin: min(1vw, 1vh);
     position: relative;
-    place-content: center center;
     box-sizing: content-box;
     background-color: #2dce89;
 
