@@ -30,7 +30,13 @@ export default {
             // 회원가입 성공 및 로그인 페이지로 이동
             alert("회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
             window.location.href = '/login';
-          } else {
+
+          } else if(response.data.result === "fail"){
+            alert("해당 아이디가 존재합니다.");
+            console.error("회원가입 실패:", response.data.message);
+
+          }else {
+            alert("회원가입 실패");
             console.error("회원가입 실패:", response.data.message);
           }
         })
