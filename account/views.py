@@ -21,7 +21,7 @@ def login_user(req):
         print(login_id, password)
         
         #사용자 인증
-        user = authenticate(username=login_id, password=password)
+        user = authenticate(login_id=login_id, password=password)
         print(user)
         if user is not None:
             login(req, user)
@@ -48,7 +48,7 @@ def signup(req):
         user_name = data.get('userName')
         print(login_id, password, user_name)
         
-        user = models.User.objects.create_user(username = login_id,
+        user = models.User.objects.create_user(login_id = login_id,
                                                password = password,
                                                user_name = user_name)
         
