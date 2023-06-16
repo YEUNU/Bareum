@@ -1,9 +1,10 @@
 <template>
   <div>
-    <input type="text" v-model="form.userLoginid" placeholder="userLoginid" />
-    <input type="password" v-model="form.password" placeholder="Password" />
-    <button @click="login">Login</button>
-    <p v-if="form.showErrorMessage">모든 필드를 입력하세요.</p>
+    <form @submit.prevent="login">
+      <input type="text" v-model="form.userLoginid" required placeholder="userLoginid" />
+      <input type="password" v-model="form.password" required placeholder="Password" />
+      <button type="submit">Login</button>
+    </form>
     <router-link to="signup">회원가입</router-link>
   </div>
   <div>
@@ -20,14 +21,16 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { loginWithKakao } from "/src/kakaoLogin.js";
+import {useUserInfo} from "../../stores.js"
 
 export default {
   setup() {
+    const userInfo = useUserInfo();
+    const {userLogin} = userInfo;
 
     const form = reactive({
       userLoginid: "",
       password: "",
-      showErrorMessage: false,
     });
 
     const error = ref(null);
@@ -35,26 +38,28 @@ export default {
 
 
     const login = () => {
-      if (form.userLoginid === "" || form.password === "") {
-        form.showErrorMessage = true;
-        return;
-      }
-
       axios
         .post("/api/account/login", {
           userLoginid: form.userLoginid,
           password: form.password,
+          withCredentials: true,
         })
         .then((response) => {
           const loginResult = response.data;
-          if (loginResult === "Login successful") {
+          if (loginResult!=null) {
+            userLogin(loginResult.login_id,loginResult.user_name);
+            console.log(userInfo)
             router.push("/");
           } else {
             throw new Error("Login failed");
+            
           }
         })
         .catch((error) => {
           console.error("Error during login:", error);
+          alert("아이디 또는 비밀번호가 틀림");
+          form.userLoginid = "";
+          form.password = "";
         });
     };
 
@@ -66,6 +71,7 @@ export default {
           axios.post("/api/account/kakao/login", authObj, {
                 headers: {
                     "Content-Type": "application/json",
+                    withCredentials: true,
                 },
             })
           .then((response)=>{

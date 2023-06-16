@@ -9,6 +9,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.middleware.csrf import get_token
 from . import models
 # Create your views here.
 
@@ -25,9 +27,12 @@ def login_user(req):
         print(user)
         if user is not None:
             login(req, user)
-            return JsonResponse({'success': '로그인이 완료되었습니다.',
-                                 'login id':login_id, 
-                                 'username':user.user_name})
+            csrf_token = get_token(req)
+            response = JsonResponse({'success': '로그인이 완료되었습니다.',
+                                     'login id': login_id, 
+                                     'username': user.user_name})
+            response["Token"] = csrf_token
+            return response
         else:
             return JsonResponse({'error': '로그인에 실패했습니다.'}, status=400)
         
@@ -85,4 +90,9 @@ class KakaoLogin(View):
         # 기존사용자가 아니면 새 사용자로 생성하고
         # 로그인로직실행 하면될듯
         return JsonResponse({"message": "success"})
-    
+
+@login_required
+def check_session(req):
+    #로그인 안되있으면 302 리턴
+    return JsonResponse({"logged_in": True})
+

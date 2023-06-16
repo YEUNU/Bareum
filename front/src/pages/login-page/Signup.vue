@@ -1,9 +1,12 @@
 <template>
   <div>
-    <input type="text" v-model="userLoginid" placeholder="userLoginid" />
-    <input type="password" v-model="password" placeholder="password" />
-    <input v-model="userName" type="text" placeholder="userName" />
-    <button @click="signup">Sign Up</button>
+    <form @submit.prevent="signup">
+
+      <input type="text" v-model="userLoginid" required placeholder="userLoginid" />
+      <input type="password" v-model="password" required placeholder="password" />
+      <input v-model="userName" type="text" required placeholder="userName" />
+      <button type="submit">Sign Up</button>
+    </form>
   </div>
 </template>
 
@@ -23,25 +26,24 @@ export default {
           userLoginid: userLoginid.value,
           password: password.value,
           userName: userName.value,
+          withCredentials: true,
         })
         .then((response) => {
           if (response.data.result === "success") {
             console.log(response.data.message);
             // 회원가입 성공 및 로그인 페이지로 이동
             alert("회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
-            window.location.href = '/login';
-
-          } else if(response.data.result === "fail"){
-            alert("해당 아이디가 존재합니다.");
+            router.push('/login');
+          } else {
             console.error("회원가입 실패:", response.data.message);
-
-          }else {
             alert("회원가입 실패");
-            console.error("회원가입 실패:", response.data.message);
+
           }
         })
         .catch((error) => {
           console.error("회원가입 중 오류 발생:", error);
+          alert("회원가입 중 오류 발생");
+
         });
     };
 

@@ -6,12 +6,13 @@ import router from './router.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import checkSession from './checkSession';
 
 const pinia = createPinia();
 const app = createApp(App);
 app.use(pinia);
 app.use(router);
-
+app.mixin(checkSession);
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
