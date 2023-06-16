@@ -2,7 +2,7 @@
     <div v-if="popup">
         <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
-    <div v-else>
+    <div v-else style="margin-bottom: 70px">
         <div class="container">
             <nav class="navbar fixed-top bg-white">
                 <div class="container-fluid">
@@ -145,7 +145,8 @@ setup() {
     align-self: center;
     justify-self: center;
     display: grid;
-	grid-template-columns: 5vh 30% 80%;
+    width: 80vw;
+	grid-template-columns: 5vh min(20vh, 20vw) auto;
 	grid-template-rows: repeat(3, 5vh);
     align-content: center;
     margin: 1vh;
@@ -160,9 +161,10 @@ setup() {
 .rank_image {
     grid-column: 2 / 3;
 	grid-row: 1 / 4;
-    height: 10vh;
-    width: 10vh;
+    height: min(15vh, 15vw);
+    width: min(15vh, 15vw);
     align-self: center;
+    justify-self: center;
 }
 
 .rank_name {

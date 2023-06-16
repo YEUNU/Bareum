@@ -59,19 +59,22 @@ export default {
 }
 
 .box_search {
-    margin: 3vw;
+    margin: 20px;
     flex-grow: 1;
 }
 
 .box_search_input {
+    max-height: 75px;
     height: 12vw;
 }
 
 .box_alerts {
     border: 0;
     padding: 0;
-    width: 10vw;
-    height: 10vw;
+    max-width: 85px;
+    max-height: 85px;
+    width: 12vw;
+    height: 12vw;
     background-color: rgba(255,255,255,0);
     z-index: 1;
 }
@@ -84,7 +87,7 @@ export default {
 }
 
 .menu_container {
-    padding-top: 15vw;
+    padding-top: 5vw;
     position: static;
     
     display: grid;

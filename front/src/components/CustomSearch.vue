@@ -25,14 +25,16 @@
             </label>
         </div>
     </div>
-    
-    <div class="search_option_items">
+    <div class="container">
+
+        <div class="search_option_items">
         <div class="search_option_item" v-for="part in parts" :key="part.id">
-            <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
-            <label :for="part.id">{{part.text}}</label>
+                <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
+                <label :for="part.id">{{part.text}}</label>
+            </div>
         </div>
+        <button @click='sendCheckedItems()'>check</button>
     </div>
-    <button @click='sendCheckedItems()'>check</button>
 </template>
   
 <script>
@@ -135,15 +137,14 @@ export default {
     align-content: center;
     justify-content: center;
     
-    grid-template-columns: 27vw 27vw 27vw;
-    grid-template-rows: 27vw 27vw 27vw;
+    grid-template-columns: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
+    grid-template-rows: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
 }
 
 .search_option_item {
     position: relative;
-    align-content: center;
-    justify-content: center;
-    
+    align-self: center;
+    justify-self: center;
     height: 100%;
     width: 100%;
 }
@@ -173,23 +174,20 @@ input[type="checkbox"]{
 }
 
 input[type="checkbox"] + label{
-    display: block;
-    width: 24vw;
-    height: 24vw;
-    margin: 2vw;
+    width: min(20vw, 20vh);
+    height: min(20vw, 20vh);
+    margin: min(1vw, 1vh);
     position: relative;
-    place-content: center center;
     box-sizing: content-box;
     background-color: aquamarine;
+    justify-self: center;
 }
 
 input[type="checkbox"]:checked + label{
-    display: block;
-    width: 24vw;
-    height: 24vw;
-    margin: 2vw;
+    width: min(20vw, 20vh);
+    height: min(20vw, 20vh);
+    margin: min(1vw, 1vh);
     position: relative;
-    place-content: center center;
     box-sizing: content-box;
     background-color: #2dce89;
 
