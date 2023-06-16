@@ -65,16 +65,16 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" v-for="post in posts" :key = "post.id">
             <div class="row">
                 <div class="col-6">
-                    <img src="..." class="card-img" alt="...">
+                    <img src="post.image" class="card-img" alt="post image">
                 </div>
                 <div class="col-6">
                     <div class="card-body">
-                        <p class="card-text">제목</p>
-                        <p class="card-text">작성자</p>
-                        <p class="card-text">기타등등</p>
+                        <p class="card-text">{{post.title}}</p>
+                        <p class="card-text">{{post.author }}</p>
+                        <p class="card-text">{{post.extra }}</p>
                     </div>
                 </div>
             </div>
@@ -124,6 +124,9 @@ export default {
     }
 }
 </script>
+
+
+
 <style lang="css">
 .container {
  /* fixed-top navbar의 높이만큼 여백 추가 */
