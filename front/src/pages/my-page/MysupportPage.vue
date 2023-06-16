@@ -32,14 +32,14 @@
                     <h4>문의 제목</h4>
                 </div>
                 <div class="col-9">
-                <input placeholder="제목을 입력해주세요." style="padding-right: 35%;">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="제목을 입력해주세요."></textarea>
                 </div>
 
                 <div class="col-9" style="padding-right: 51%;">
                     <h4>문의 내용</h4>
                 </div>
                 <div class="col-9">
-                <input placeholder="제목을 입력해주세요." style="padding-right: 35%;">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="내용을 입력해주세요."></textarea>
                 </div>
             </div>
             </div>

@@ -15,6 +15,8 @@ import mypushPage from './pages/my-page/MypushPage.vue'
 import mysupportPage from './pages/my-page/MysupportPage.vue'
 import myremovePage from './pages/my-page/MyremovePage.vue'
 import myremovedetailPage from './pages/my-page/MyremovedetailPage.vue'
+import mytermsPage from './pages/my-page/MytermsPage.vue'
+import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
@@ -172,6 +174,18 @@ const routes = [
         path:'/myremovedetail',
         name:'myremovedetailPage',
         component:myremovedetailPage
+    },
+    {   
+        // 이용 약관
+        path:'/myterms',
+        name:'mytermsPage',
+        component:mytermsPage
+    },
+    {   
+        // 개인정보 처리방침
+        path:'/myprivacy',
+        name:'myprivacyPage',
+        component:myprivacyPage
     },
 ]
 

@@ -16,24 +16,32 @@
         </div>
 
         <div class="select container-fluid border pb-2 mb-2" style="border-radius:  10px;">
-            <div><h3>세부설정</h3></div>
+            <div>
+              <h3>세부설정</h3>
+            </div>
             <div class="row">
-  <div class="col-sm-8" style="padding-top: 5%;">
-    <div class="d-flex justify-content-between align-items-center">
-      <p class="card-text mb-2" style="padding-top: 5%;">혜택 알림</p>
-      <button type="button" class="btn ms-3" style="background-color: #2dce89; color: white;">켜기/끄기</button>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <p class="card-text mb-2" style="padding-top: 5%;">정기배송</p>
-      <button type="button" class="btn ms-3" style="background-color: #2dce89; color: white;">켜기/끄기</button>
-    </div>
-    <div class="d-flex justify-content-between align-items-center">
-      <p class="card-text mb-2" style="padding-top: 5%;">알람알림</p>
-      <button type="button" class="btn ms-3" style="background-color: #2dce89; color: white;">켜기/끄기</button>
-    </div>
-  </div>
-</div>
-    </div>
+              <div class="col-sm-12" style="padding-top: 5%;">
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="card-text mb-2" style="padding-top: 5%;">혜택 알림</p>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="card-text mb-2" style="padding-top: 5%;">정기배송</p>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <p class="card-text mb-2" style="padding-top: 5%;">알람알림</p>
+                        <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
     </div>
 </template>
 

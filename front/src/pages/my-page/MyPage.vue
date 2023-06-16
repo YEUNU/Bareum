@@ -10,7 +10,7 @@
         </router-link>
         </div>
       </nav>
-
+      <div v-if="isLoggedIns.getIsLoggedIn">
       <div class="card-container" style="margin-top: 10%;">
   <div class="card" style="width: 100%; display:block;">
     <img src="" class="card-img-top" alt="">
@@ -77,8 +77,8 @@
     <div class="card-body">
         <h5 style="text-align: left; margin-top: -5%;">고객지원</h5>
         <div class="m-title" style="margin-top: 5%">
-            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">이용약관</h5></router-link>
-            <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">개인정보 처리방침</h5></router-link>
+            <router-link to="/myterms"><h5 style="text-align: left; margin-top: 10%;">이용약관</h5></router-link>
+            <router-link to="/myprivacy"><h5 style="text-align: left; margin-top: 10%;">개인정보 처리방침</h5></router-link>
             <router-link to="/"><h5 style="text-align: left; margin-top: 10%;">로그아웃</h5></router-link>
             <router-link to="/myremove"><h5 style="text-align: left; margin-top: 10%;">회원탈퇴</h5></router-link>
             <router-link to="/mysupport" style=" margin-top: 10%; margin-right: 15vh;">문의하기</router-link>
@@ -89,13 +89,26 @@
   <router-link to="/"><button style="margin-top: 5%;">로그인</button></router-link>
 </div>
     </div>
+    <div v-else><h5>로그인이 필요합니다.</h5></div>
+    </div>
+  
+    
   </template>
 
   <script>
-  export default {
-    components: {}
-  }
+  import { useUserInfo } from '../../stores.js';
 
+  export default {
+    setup() {
+    const isLoggedIns = useUserInfo();
+
+    return {
+      isLoggedIns,
+    };
+  },
+
+  components: {}
+};
   </script>
 
   <style lang="css">

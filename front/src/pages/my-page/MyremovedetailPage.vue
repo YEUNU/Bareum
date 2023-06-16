@@ -14,8 +14,11 @@
             <div class="row">
                 
                 <div class="col-9" style="padding-right: 40%;">
-                    <h4>탈퇴약관</h4>
-                    <h4>내용</h4>
+                    <label>탈퇴약관</label>
+                    <div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+  <label for="floatingTextarea2">약관내용</label>
+</div>
                     
                 </div>
                 <div class="col-9">
