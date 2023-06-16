@@ -7,5 +7,6 @@ urlpatterns = [
     path('login',views.login_user),
     path('signup',views.signup),
     path('login/signup', lambda request: redirect('login')),
-    path('kakao/login',views.KakaoLogin.as_view())
+    path('kakao/login',views.KakaoLogin.as_view()),
+    path('session',views.check_session)
 ]

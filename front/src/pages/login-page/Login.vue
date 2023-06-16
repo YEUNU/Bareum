@@ -47,6 +47,7 @@ export default {
         .post("/api/account/login", {
           userLoginid: form.userLoginid,
           password: form.password,
+          withCredentials: true,
         })
         .then((response) => {
           const loginResult = response.data;
@@ -56,10 +57,14 @@ export default {
             router.push("/");
           } else {
             throw new Error("Login failed");
+            
           }
         })
         .catch((error) => {
           console.error("Error during login:", error);
+          alert("아이디 또는 비밀번호가 틀림");
+          form.userLoginid = "";
+          form.password = "";
         });
     };
 
@@ -71,6 +76,7 @@ export default {
           axios.post("/api/account/kakao/login", authObj, {
                 headers: {
                     "Content-Type": "application/json",
+                    withCredentials: true,
                 },
             })
           .then((response)=>{
