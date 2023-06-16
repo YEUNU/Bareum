@@ -82,37 +82,3 @@ export const userNutraceuticals = defineStore('nutraceuticals',{
     
   }
 })
-
-//  현재 로그인한 유저와 정보
-export const useUserInfo = defineStore('userInfo',{
-  state : ()=>({
-    isLoggedIn:true,
-    userId:"",
-    name:"",
-    age:null,
-    sex:null,
-  }),
-  getters:{
-    getIsLoggedIn(state){
-      return this.isLoggedIn
-    },
-    getUserInfo(state){
-      return state.userId, state.name, state.age, state.sex
-    }
-  },
-  actions:{
-    userLogin(userId,name){
-      this.name = name;
-      this.userId = userId;
-      this.isLoggedIn = true;
-    },
-    userLogout() {
-      this.isLoggedIn = false;
-      this.isLoggedIn=false;
-      this.userId="";
-      this.name="";
-      this.age=null;
-      this.sex=null;
-    },
-  }
-})
