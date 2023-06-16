@@ -1,9 +1,12 @@
 <template>
   <div>
-    <input type="text" v-model="userLoginid" placeholder="userLoginid" />
-    <input type="password" v-model="password" placeholder="password" />
-    <input v-model="userName" type="text" placeholder="userName" />
-    <button @click="signup">Sign Up</button>
+    <form @submit.prevent="signup">
+
+      <input type="text" v-model="userLoginid" required placeholder="userLoginid" />
+      <input type="password" v-model="password" required placeholder="password" />
+      <input v-model="userName" type="text" required placeholder="userName" />
+      <button type="submit">Sign Up</button>
+    </form>
   </div>
 </template>
 
@@ -33,10 +36,14 @@ export default {
             router.push('/login');
           } else {
             console.error("회원가입 실패:", response.data.message);
+            alert("회원가입 실패");
+
           }
         })
         .catch((error) => {
           console.error("회원가입 중 오류 발생:", error);
+          alert("회원가입 중 오류 발생");
+
         });
     };
 

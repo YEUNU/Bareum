@@ -33,7 +33,7 @@
                     <input type="radio" class="btn-check visually-hidden" name="btnradio" id="btnradio2" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btnradio2">10추</label>
 
-                    <router-link to="/">
+                    <router-link to="/community/write">
                         <button type="button" class="btn btn-light write">글쓰기</button>
                     </router-link>
                 </div>
@@ -45,6 +45,15 @@
                     </router-link>
         </nav>
 
+        <div class="card" v-for="post in posts" :key="post.id">
+            <router-link :to="{ name: 'postDetailPage', params: { postId: post.id } }">{{ post.title }}</router-link>
+        </div>
+        <div class="pagination">
+            <button v-for="number in totalPages" @click="fetchPosts(number)">
+              {{ number }}
+            </button>
+        </div>
+
         <div class="card">
             <div class="row">
                 <div class="col-6">
@@ -52,7 +61,8 @@
                 </div>
                 <div class="col-6">
                     <div class="card-body">
-                        <p class="card-text">제목</p>
+                        <router-link to="/community/detail"><p class="card-text">제목</p></router-link>
+                        
                         <p class="card-text">작성자</p>
                         <p class="card-text">기타등등</p>
                     </div>
@@ -81,8 +91,42 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {ref, onMounted} from 'vue';
+
 export default {
-    
+    setup(){
+        const posts = ref([]);
+        const totalPages = ref(0);
+
+        async function fetchPosts(pageNumber){
+            try{
+                const response = await axios.get(`https://your-api-url-here/api/community?page=${pageNumber}`);
+                posts.value = response.data.results;
+                totalPages.value = Math.ceil(response.data.count / 10);
+            }catch(err){
+                console.error("err:",err);
+            }
+
+        }
+        posts.value=[
+            {
+            id:1,
+            title:"hello"
+        },
+        {
+            id:2,
+            title:"world"
+        }
+    ]
+
+        onMounted(()=> fetchPosts(1));
+        return{
+            posts,
+            totalPages,
+            fetchPosts
+        }
+    }
 }
 </script>
 <style lang="css">

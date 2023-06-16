@@ -13,7 +13,8 @@ import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
 import IngredientSearch from './components/IngredientSearch.vue';
 import PersonalizedSearch from './components/PersonalizedSearch.vue';
-
+import writePage from './pages/Community-page/Write.vue';
+import postDetailPage from './pages/Community-page/PostDetail.vue';
 
 const routes = [
     //로그인 페이지
@@ -107,6 +108,17 @@ const routes = [
                 path:'',
                 name:'communityMain',
                 component:commuPage
+            },
+            {
+                path:'write',
+                name:'writePage',
+                component:writePage
+            },
+            {
+                path:'detail/:postId',
+                name:'postDetailPage',
+                component:postDetailPage,
+                props:true
             }
         ]
 
