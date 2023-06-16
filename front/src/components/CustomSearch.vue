@@ -1,15 +1,16 @@
 <template lang="">
-    <div>
+    <div class="container">
         <nav class="navbar fixed-top bg-white">
             <div class="container-fluid">
-                <span class="navbar-brand" @click="close_popup"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <span class="navbar-brand" @click="closePopup">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
                     </svg>
                 </span>
             </div>
         </nav>
     </div>
-
+    
     <div class="select_option">
         <h3>항목선택</h3>
         <div>
@@ -31,7 +32,7 @@
             <label :for="part.id">{{part.text}}</label>
         </div>
     </div>
-    <button @click='sendCheckedArr()'>check</button>
+    <button @click='sendCheckedItems()'>check</button>
 </template>
   
 <script>
@@ -39,17 +40,19 @@ import { ref, computed, defineEmits } from "vue"
 import { useRouter } from "vue-router";
 
 export default {
-    name:"test2",
+    name:"select_item_popup",
     props: {
         selected_option: String,
         popup: Boolean,
     },
-    emits: ['close_popup'],
+    emits: ['close_popup', 'selected_items'],
 
     setup(props, context) {
         const router = useRouter();
         const selected_option = ref(props.selected_option);
         const popup = ref(props.popup);
+        const searchList = ref('');
+
 
         const personalize_parts = ref([
             { id: 1, text: '눈 건강', checked: false },
@@ -84,14 +87,18 @@ export default {
             }
         });
         
-        const sendCheckedArr = () => {
-            close_popup();
-            console.log(parts.value.filter((f) => f.checked).map(x => x.text));
-            alert(parts.value.filter((f) => f.checked).map(x => x.text));
+        const sendCheckedItems = () => {
+
+            searchList.value = parts.value.filter((f) => f.checked).map(x => x.text);
+
+            context.emit("close_popup", false);
+            context.emit("selected_items", selected_option.value, searchList.value);
+            console.log(searchList.value);
+
         };
 
-        const close_popup = () => {
-            context.emit("close_popup");
+        const closePopup = () => {
+            context.emit("close_popup", false);
         };
 
         return {
@@ -99,8 +106,8 @@ export default {
             selected_option,
             popup,
             parts,
-            sendCheckedArr,
-            close_popup,
+            sendCheckedItems,
+            closePopup,
         };
     },
 }
@@ -116,8 +123,9 @@ export default {
 
 .select_option {
     display: flex;
-
     justify-content: space-between;
+    align-items: center;
+
 }
 
 .search_option_items {

@@ -11,7 +11,7 @@
     </div>
 
     <div class="menu_container">
-        <router-link to="/product" class="item menus">제품</router-link>
+        <router-link to="/ranking" class="item menus">제품</router-link>
         <router-link to="/recommend" class="item menus">추천</router-link>
         <router-link to="/set_alarm" class="item menus">알람설정</router-link>
         <router-link to="/regular_delivery" class="item menus">정기배송신청</router-link>

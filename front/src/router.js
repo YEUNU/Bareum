@@ -12,7 +12,7 @@ import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
 import CustomSearch from './components/CustomSearch.vue';
-
+import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
 
 const routes = [
     //로그인 페이지
@@ -75,7 +75,21 @@ const routes = [
         }
         ]
     },
+    {
+        //예시
+        path:"/Ranking",
+        component:mainPage,
+        name:'Ranking',
+        children:[
+            {
+                path:'',
+                name:'TotalRanking',
+                component:TotalRanking
+            }
+        ]
 
+    },
+    
     //쇼핑페이지
     {
         //예시

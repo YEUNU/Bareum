@@ -93,7 +93,7 @@ export default {
 
 <style scoped>
 .bottom-nav-bar {
-    position: fixed;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -106,7 +106,7 @@ export default {
 
 
 .bottom-nav-bar ul {
-    display: flex;
+  display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -115,13 +115,13 @@ export default {
 
 
 .bottom-nav-bar li {
-    flex: 1;
+  flex: 1;
   text-align: center;
 }
 
 
 .bottom-nav-bar router-link {
-    display: block;
+  display: block;
   padding: 10px;
   text-decoration: none;
   color: #333;
@@ -129,14 +129,14 @@ export default {
 
 
 @media (max-width: 600px) {
-    .bottom-nav-bar li {
-        font-size: 12px;
+  .bottom-nav-bar li {
+      font-size: 12px;
   }
 }
 
 
 .nav-icon {
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   color: gray
@@ -144,29 +144,29 @@ export default {
 
 
 .nav-text {
-    margin-top: 4px; /* 아이콘 위로 약간의 간격 추가 */
+  margin-top: 4px; /* 아이콘 위로 약간의 간격 추가 */
   color: gray;
 }
 
 
 .active-icon {
-    fill: black; /* 활성화된 상태의 아이콘 색상 */
+  fill: black; /* 활성화된 상태의 아이콘 색상 */
 }
 
 
 .active-text {
-    color: black; /* 활성화된 텍스트 색상 */
+  color: black; /* 활성화된 텍스트 색상 */
 }
 
 
 .nav-text-active {
-    color: rgb(000, 204, 051);
+  color: rgb(000, 204, 051);
   font-weight: 10px;/* 활성화된 메뉴의 글자 색상을 변경 */
 }
 
 
 .nav-text-inactive {
-    color: gray; /* 비활성화된 메뉴의 글자 색상 */
+  color: gray; /* 비활성화된 메뉴의 글자 색상 */
 }
 
 </style>
