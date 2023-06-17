@@ -56,8 +56,9 @@ def write_post(req):
         contents = data.get('content')
         id = data.get('memberId')
         print(title, contents,id)
+        user = User.objects.get(member_id = id)
         post = Post.objects.create(post_title=title, post_contents=contents,
-                                   post_date = date.today(), post_like = 0, post_category = 'normal', user=id)
+                                   post_date = date.today(), post_like = 0, post_category = 'normal', user=user)
         
         response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
         

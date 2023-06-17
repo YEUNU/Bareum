@@ -19,12 +19,14 @@
   import { ref, computed } from 'vue';
   import axios from 'axios';
   import { useUserInfo } from '../../stores';
+  import { useRouter } from 'vue-router';
 
   export default {
     setup() {
       const postTitle = ref('');
       const postContent = ref('');
       const userInfo = useUserInfo();
+      const router = useRouter();
       console.log(userInfo)
       
       const submitPost = async () => {
@@ -32,7 +34,7 @@
           await axios.post('/api/community/write', { 
             title: postTitle.value, content: postContent.value, memberId : userInfo.memberId 
           });
-          this.$router.push('/community'); //  커뮤니티 페이지로 이동
+          router.push('/community'); //  커뮤니티 페이지로 이동
         } catch (error) {
           console.error('글 작성 중 에러가 발생했습니다:', error);
         }
