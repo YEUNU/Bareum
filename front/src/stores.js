@@ -40,7 +40,7 @@ export const useStore = defineStore('app', {
 //현재 로그인한 유저의 정보
 export const useUserInfo = defineStore('userInfo',{
   state : ()=>({
-    isLoggedIn:false,
+    isLoggedIn:true,
     userId:"",
     name:"",
     age:null,

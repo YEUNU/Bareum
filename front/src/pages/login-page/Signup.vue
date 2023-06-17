@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div class="logcontainer">
     <form @submit.prevent="signup">
 
-      <input type="text" v-model="userLoginid" required placeholder="userLoginid" />
+      <h1>Healthy Pal</h1>
+
+      <div class="back">
+      <input type="text" v-model="userLoginid" required placeholder="userLoginid"/>
       <input type="password" v-model="password" required placeholder="password" />
       <input v-model="userName" type="text" required placeholder="userName" />
       <button type="submit">Sign Up</button>
+    </div>
     </form>
   </div>
 </template>
@@ -56,4 +60,37 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.logcontainer h1{
+  color:#2dce89;
+  font-size:52px;
+  letter-spacing:-3px;
+  text-align:center;
+  margin:120px 0 80px 0 ;
+  transition:.2s linear;
+}
+
+.logcontainer input {
+  padding: 2%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  border:white;
+  background-color:#E1E1E1;
+}
+
+
+
+.logcontainer button {
+    cursor: pointer;
+    width: 50%;
+    border-radius: 10px;
+    border: none;
+    background-color: #2dce89;
+    color: white;
+    font-size: 15px;
+    box-shadow:0px 10px 10px -6px #2dce89;
+}
+</style>
 
