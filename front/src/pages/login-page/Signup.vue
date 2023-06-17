@@ -13,12 +13,15 @@
 <script>
 import axios from "axios";
 import { ref } from "vue";
+import {useRouter} from 'vue-router';
 
 export default {
   setup() {
     const userLoginid = ref("");
     const password = ref("");
     const userName = ref("");
+    const router = useRouter();
+
 
     const signup = () => {
       axios
