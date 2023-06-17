@@ -30,7 +30,9 @@ def login_user(req):
             csrf_token = get_token(req)
             response = JsonResponse({'success': '로그인이 완료되었습니다.',
                                      'login id': login_id, 
-                                     'username': user.user_name})
+                                     'username': user.user_name,
+                                     'member_id': user.member_id
+                                     })
             response["Token"] = csrf_token
             return response
         else:

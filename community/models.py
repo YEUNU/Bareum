@@ -8,7 +8,7 @@ class Post(models.Model):
     post_contents = models.CharField(max_length=100)
     post_like = models.IntegerField()
     post_category = models.CharField(max_length=9)
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
 
     class Meta:
         managed = True
@@ -20,7 +20,7 @@ class Comments(models.Model):
     comment_contents = models.CharField(max_length=100)
     comment_like = models.IntegerField()
     post = models.ForeignKey('Post', models.DO_NOTHING)
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
 
     class Meta:
         managed = True

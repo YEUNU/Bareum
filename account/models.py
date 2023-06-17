@@ -47,7 +47,7 @@ class User(AbstractUser):
         
 class HealthInfo(models.Model):
     health_id = models.BigAutoField(primary_key=True)
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
 
     class Meta:
         managed = True

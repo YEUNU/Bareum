@@ -37,7 +37,7 @@ class UserReview(models.Model):
     user_review_id = models.BigAutoField(primary_key=True)
     review_rating = models.IntegerField()
     review_contents = models.CharField(max_length=500)
-    user = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
     nutraceuticals = models.ForeignKey(Nutraceuticals, models.DO_NOTHING)
 
     class Meta:
