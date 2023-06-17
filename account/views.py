@@ -55,12 +55,12 @@ def signup(req):
         user_name = data.get('userName')
         print(login_id, password, user_name)
         
-        if models.User.objects.filter(username = login_id).exists():
+        if models.User.objects.filter(login_id = login_id).exists():
             return JsonResponse({'result':'fail'})
         
-        user = models.User.objects.create_user(username = login_id,
+        user = models.User.objects.create_user(login_id = login_id,
                                                password = password,
-                                               user_nickname = user_name)
+                                               user_name = user_name)
         
         return JsonResponse({'login id':login_id, 'user_nickname':user_name, 
                              'result': 'success', 
