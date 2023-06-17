@@ -3,36 +3,63 @@ from .models import Post
 from rest_framework import generics
 from .serializers import PostSerializer
 from django.http import HttpResponse, JsonResponse
-
-# Create your views here.
-class PostListAPIView(generics.ListAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    
-# def return_post(req):
-#     if req.method == 'GET':
-#         post_id = Post.post_id
-#         post_title = Post.post_title
-#         post_contents = Post.post_contents
-#         post_like = Post.post_like
-#         post_category = Post.post_category
-#         return JsonResponse({'post_id':post_id,'post_title':post_title,'post_contents':post_contents,
-#                              'post_like':post_like, 'post_category':post_category})
-
-#     else:
-#         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
-from rest_framework.decorators import api_view
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Post
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import serializers, status
+import json
+from django.views.decorators.csrf import csrf_exempt
+from datetime import date
+# Create your views here.
 
-#@api_view(['GET'])
-#def community_posts(request):
-#    queryset = Post.objects.all()
-#    paginator = PageNumberPagination()
-#    paginator.page_size = 10  # 원하는 페이지 크기를 직접 지정합니다.
-#
-#    paginated_posts = paginator.paginate_queryset(queryset, request)
-#    serializer = PostSerializer(paginated_posts, many=True)
-#
-#    return paginator.get_paginated_response(serializer.data)
+
+
+# 게시물을 표시하는 데 사용되는 직렬화 클래스
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post      # 게시물 모델 클래스
+        fields = '__all__'
+
+# 페이지 번호로 게시물을 반환하는 paginator 클래스
+class CustomPageNumberPagination(PageNumberPagination):
+    page_size = 10
+    page_query_param = 'page'
+    max_page_size = 1000
+
+class PostListView(APIView):
+    def get(self, request, *args, **kwargs):
+        queryset = Post.objects.all()
+        paginator = CustomPageNumberPagination()
+        paginated_posts = paginator.paginate_queryset(queryset, request)
+        serializer = PostSerializer(paginated_posts, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+
+
+
+# api/community/newslist?page=${pageNumber}   영양뉴스를 페이징해서 가져옴
+# api/community/list?page=${pageNumber}  게시물을 페이징 해서 가져옴
+# api/community/detail?id=${this.postId}  게시글 가져오기  user id 랑 name 도 넘겨줄것
+# api/community/popularlist
+# api/community/write
+
+
+
+@csrf_exempt   
+def write_post(req):
+    if req.method == 'POST':
+        data = json.loads(req.body)
+        print(data)
+        title = data.get('title')
+        contents = data.get('content')
+        id = data.get('userId')
+        print(title, contents)
+        
+        post = Post.objects.create(post_title=title, post_contents=contents, post_id=1,
+                                   post_date = date.today(), post_like = 0, post_category = 'normal', member_id=int(id))
+        
+        response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
+        
+        return JsonResponse(response_data, status=201)
+    

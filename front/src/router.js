@@ -26,6 +26,10 @@ import writePage from './pages/Community-page/Write.vue';
 import postDetailPage from './pages/Community-page/PostDetail.vue';
 import CustomSearch from './components/CustomSearch.vue';
 import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
+import postPage from './pages/Community-page/Post.vue'
+import popularPostPage from './pages/Community-page/PopularPost.vue'
+import newsPage from './pages/Community-page/HealthNews.vue'
+
 
 const routes = [
     //로그인 페이지
@@ -119,7 +123,6 @@ const routes = [
 
     },
     {
-        //예시
         path:"/community",
         component:mainPage,
         name:'community',
@@ -127,7 +130,25 @@ const routes = [
             {
                 path:'',
                 name:'communityMain',
-                component:commuPage
+                component:commuPage,
+                children:[
+                    {
+                        path:'',
+                        name:'postPage',
+                        component:postPage
+                    },
+                    {
+                        path:'popular-posts',
+                        name:'popularPostPage',
+                        component:popularPostPage
+                    },
+                    {
+                        path:'news',
+                        name:'newsPage',
+                        component:newsPage
+                    }
+
+                ]
             },
             {
                 path:'write',
@@ -144,7 +165,6 @@ const routes = [
 
     },
     {
-        //예시
         path:"/mypage",
         component:mainPage,
         name:'mypage',

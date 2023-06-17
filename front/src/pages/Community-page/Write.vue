@@ -18,15 +18,19 @@
   <script>
   import { ref, computed } from 'vue';
   import axios from 'axios';
-  
+  import { useUserInfo } from '../../stores';
+
   export default {
     setup() {
       const postTitle = ref('');
       const postContent = ref('');
-  
+      const userInfo = useUserInfo();
+
       const submitPost = async () => {
         try {
-          await axios.post('/api/comminity/write', { title: postTitle.value, content: postContent.value });
+          await axios.post('/api/community/write', { 
+            title: postTitle.value, content: postContent.value, userId : userInfo.userId 
+          });
           this.$router.push('/community'); //  커뮤니티 페이지로 이동
         } catch (error) {
           console.error('글 작성 중 에러가 발생했습니다:', error);

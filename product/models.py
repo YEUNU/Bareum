@@ -1,7 +1,7 @@
 from django.db import models
 from account.models import User
 class Company(models.Model):
-    company_id = models.IntegerField(primary_key=True)
+    company_id = models.BigAutoField(primary_key=True)
     company_name = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -11,14 +11,14 @@ class Company(models.Model):
 
 
 class Ingredient(models.Model):
-    ingredient_id = models.IntegerField(primary_key=True)
+    ingredient_id = models.BigAutoField(primary_key=True)
 
     class Meta:
         managed = True
         db_table = 'ingredient'
 
 class Nutraceuticals(models.Model):
-    nutraceuticals_id = models.IntegerField(primary_key=True)
+    nutraceuticals_id = models.BigAutoField(primary_key=True)
     nutraceuticals_name = models.CharField(max_length=100)
     nutraceuticals_categroy = models.CharField(max_length=1)
     nutraceuticals_rating = models.IntegerField()
@@ -34,7 +34,7 @@ class Nutraceuticals(models.Model):
 
 
 class UserReview(models.Model):
-    user_review_id = models.IntegerField(primary_key=True)
+    user_review_id = models.BigAutoField(primary_key=True)
     review_rating = models.IntegerField()
     review_contents = models.CharField(max_length=500)
     user = models.ForeignKey(User, models.DO_NOTHING)
@@ -45,7 +45,7 @@ class UserReview(models.Model):
         db_table = 'user_review'
         
 class OnelineReview(models.Model):
-    online_review_id = models.IntegerField(primary_key=True)
+    online_review_id = models.BigAutoField(primary_key=True)
     review_rating = models.IntegerField()
     review_contents = models.CharField(max_length=500)
     nutraceuticals = models.ForeignKey(Nutraceuticals, models.DO_NOTHING)

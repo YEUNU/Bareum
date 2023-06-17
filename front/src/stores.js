@@ -47,11 +47,12 @@ export const useUserInfo = defineStore('userInfo',{
     sex:null,
   }),
   getters:{
+
     getIsLoggedIn(state){
-      return this.isLoggedIn
+      return this.isLoggedIn;
     },
     getUserInfo(state){
-      return state.userId, state.name, state.age, state.sex
+      return state.userId, state.name, state.age, state.sex;
     }
   },
   actions:{

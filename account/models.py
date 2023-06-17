@@ -46,7 +46,7 @@ class User(AbstractUser):
         
         
 class HealthInfo(models.Model):
-    health_id = models.IntegerField(primary_key=True)
+    health_id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, models.DO_NOTHING)
 
     class Meta:
