@@ -14,8 +14,8 @@
   <div class="card" style="width: 100%; display:block;">
     <img src="" class="card-img-top" alt="">
     <div class="card-body" style="padding: 20px;">
-      <h5 style="text-align: left;  margin-top: -5%;">닉네임</h5>
-      <p class="card-text" style="padding-top: 5%;">나이 / 성별</p>
+      <h5 style="text-align: left;  margin-top: -5%;"></h5>
+      <p class="card-text" style="padding-top: 5%;"></p>
       <router-link to="/myupdate">개인정보 수정</router-link>
       <router-link to="/">내 리뷰 관리</router-link>
       <router-link to="/mywish">찜 목록</router-link>
@@ -93,6 +93,7 @@
 
 <script>
 import { useUserInfo } from '../../stores.js';
+import {ref} from 'vue'
   export default {
     setup() {
       const userInfo = useUserInfo()

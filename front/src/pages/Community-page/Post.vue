@@ -1,7 +1,7 @@
 <template>
     <div>
-      <div class="card" v-for="post in posts" :key="post.id">
-        <router-link :to="{ name: 'postDetailPage', params: { postId: Number(post.id) } }">
+      <div class="card" v-for="post in posts" :key="post.post_id">
+          <router-link :to="{ name: 'postDetailPage', params: { postId: post.post_id }}">
           <div class="row">
             <div class="col-6">
               <div class="card-body">

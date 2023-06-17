@@ -31,6 +31,9 @@ import popularPostPage from './pages/Community-page/PopularPost.vue'
 import newsPage from './pages/Community-page/HealthNews.vue'
 import checkLogin from './checkLogin';
 
+import commuSearchPage from './pages/Community-page/Search.vue'
+import commuSearchResultPage from './pages/Community-page/SearchResult.vue'
+import commuSearch from './components/CommuSearch.vue'
 const routes = [
     //로그인 페이지
     {
@@ -164,6 +167,30 @@ const routes = [
         ]
 
     },
+
+    {
+        path:"/community-search",
+        name:"commuSearchMainPage",
+        component:mainPage,
+        children:[{
+            path:'', 
+            name:'commuSearchPage',
+            component:commuSearchPage,
+            children:[
+            {
+                path:'',
+                name:'commuSearch',
+                component:commuSearch
+            },
+            {
+                path:'result',
+                name:'commuSearchResult',
+                component:commuSearchResultPage
+            }
+        ]
+        }]
+    },
+
     {
         path:"/mypage",
         component:mainPage,
@@ -239,14 +266,14 @@ const router = createRouter({
 })
 
 
-router.beforeEach(async(to, from, next) => {
-    const isLoggedIn = await checkLogin();
-    if (to.path !== '/login' && !isLoggedIn) {
-      next({ path: '/login' });
-    } else {
-      next();
-    }
-  });
+// router.beforeEach(async(to, from, next) => {
+//     const isLoggedIn = await checkLogin();
+//     if (to.path !== '/login' && !isLoggedIn) {
+//       next({ path: '/login' });
+//     } else {
+//       next();
+//     }
+//   });
 
   
 

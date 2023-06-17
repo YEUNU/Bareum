@@ -87,11 +87,27 @@ class KakaoLogin(View):
         }
         response = requests.get('https://kapi.kakao.com/v2/user/me', headers=headers)
         user_data = response.json()
-        print(user_data)
-        # 이미 가입한 회원인지 확인후
-        # 기존사용자가 아니면 새 사용자로 생성하고
-        # 로그인로직실행 하면될듯
-        return JsonResponse({"message": "success"})
+        user_id = str(user_data['id'])
+        email = user_data['kakao_account']['email']
+        name = user_data['properties']['nickname']
+        if models.User.objects.filter(login_id = email).exists():
+            user = authenticate(login_id=email, password=user_id)
+            login(request, user)
+        else:
+            user = models.User.objects.create_user(login_id = email,
+                                       password = user_id,
+                                       user_name = name,
+                                       email=email)
+            user = authenticate(login_id=email, password=user_id)
+            login(request, user)
+            
+        response = JsonResponse({'success': '로그인이 완료되었습니다.',
+                     'login id': email, 
+                     'username': user.user_name,
+                     'member_id': user.member_id
+                     })
+            
+        return response
 
 @login_required
 def check_session(req):

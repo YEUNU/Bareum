@@ -1,83 +1,46 @@
 <template>
     <div>
-        <p>{{postId}}</p>
-        <p>{{postDate}}</p>
-        <p>{{postTitle}}</p>
-        <p>{{postContent}}</p>
-        <p>{{postLike}}</p>
-        <p>{{postUserName}}</p>
+        <p>{{ postId }}</p>
+
+        <div v-for="comment in comments" :key="comment.commentId">
+            <p>{{comment.commentDate}}</p>
+            <p>{{comment.commentUserName}}</p>
+            <p>{{comment.commentContent}}</p>
+        </div>
     </div>
-    <div v-for="comment in comments" :key="comment.commentId">
-        <p>{{comment.commentDate}}</p>
-        <p>{{comment.commentUserName}}</p>
-        <p>{{comment.commentContent}}</p>
- 
-    </div>
-  </template>
+</template>
   
 <script>
 import axios from 'axios';
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { useUserInfo } from '../../stores';
 
-    export default {
-        props: {
-            postId: {
-            type: Number,
+export default {
+    props: {
+        postId: {
+            type: String,
             required: true,
-        },
+        }
     },
-        setup(){
-            const userInfo = useUserInfo();
-            
-            const postDate = ref("");
-            const postTitle = ref("");
-            const postContent = ref("");
-            const postLike = ref("");
-            const postUserName = ref("");
-            const postUserId = ref(0);
+    setup(){
+        const userInfo = useUserInfo();
+        const comments = ref([]);
 
-            const comments = ref([]);
-
-            async function fetchPostDetail(postId){
-                try{
-                    const response = await axios.get(`api/community/detail/${this.postId}`);
-                    postDate.value = response.data.postDate;
-                    postTitle.value = response.data.postTitle;
-                    postContent.value = response.data.postContent;
-                    postLike.value = response.data.postLike;
-                    postUserName.value = response.data.postUser;
-                    postUserId.value = postUserId.data.postUserId;
-                }catch(err){
-                    console.error("err",err);
-                }
+        async function fetchPostComment(postId){
+            try {
+                const response = await axios.get(`api/community/comments/${postId}`);
+                comments.value = response.data.comments;
+            } catch(err) {
+                console.error("error",err);
             }
-
-            async function fetchPostComment(postId){
-                try{
-                    const response = await axios.get(`api/community/comments/${this.postId}`);
-                    comments.value = response.data.comments;
-
-                }catch(err){
-                    console.error("error",err);
-                }
-            }
-            onMounted(()=>{
-                fetchPostDetail,
-                fetchPostComment
-            });
-            return{
-                fetchPostDetail,
-                fetchPostComment,
-                postDate,
-                postTitle,
-                postContent,
-                postLike,
-                postUserName,
-                postUserId,
-                postUserId,
-                comments
-            }
+        }
+        onMounted(() => {
+            // fetchPostComment(postId);
+        });
+        return {
+            fetchPostComment,
+            comments,
+        }
     }
-  };
-  </script>
+};
+</script>
