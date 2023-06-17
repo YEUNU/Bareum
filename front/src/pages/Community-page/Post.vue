@@ -5,9 +5,9 @@
           <div class="row">
             <div class="col-6">
               <div class="card-body">
-                <p class="card-text">{{ post.title }}</p>
-                <p class="card-text">{{ post.author }}</p>
-                <p class="card-text">{{ post.extra }}</p>
+                <p class="card-text">{{ post.post_title }}</p>
+                <p class="card-text">{{ post.post_content }}</p>
+                <p class="card-text">{{ post.post_like }}</p>
               </div>
             </div>
             <div class="col-6">
@@ -29,7 +29,6 @@
 <script>
   import axios from 'axios';
   import { ref, onMounted } from 'vue';
-  
   export default {
     setup() {
       const posts = ref([]);
