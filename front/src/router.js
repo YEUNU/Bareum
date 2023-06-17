@@ -29,7 +29,7 @@ import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
 import postPage from './pages/Community-page/Post.vue'
 import popularPostPage from './pages/Community-page/PopularPost.vue'
 import newsPage from './pages/Community-page/HealthNews.vue'
-
+import checkLogin from './checkLogin';
 
 const routes = [
     //로그인 페이지
@@ -237,5 +237,17 @@ const router = createRouter({
     history:createWebHistory(),
     routes
 })
+
+
+router.beforeEach(async(to, from, next) => {
+    const isLoggedIn = await checkLogin();
+    if (to.path !== '/login' && !isLoggedIn) {
+      next({ path: '/login' });
+    } else {
+      next();
+    }
+  });
+
+  
 
 export default router

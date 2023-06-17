@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('login',views.login_user),
     path('signup',views.signup),
+    path('logout',views.logout_user),
     path('login/signup', lambda request: redirect('login')),
     path('kakao/login',views.KakaoLogin.as_view()),
     path('session',views.check_session)

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { defineStore } from 'pinia';
 
 
@@ -70,6 +71,10 @@ export const useUserInfo = defineStore('userInfo',{
       this.name="";
       this.age=null;
       this.sex=null;
+      axios.get("/api/account/logout")
+      .then(()=>{
+        window.alert("로그아웃 되었습니다.")
+      })
     },
   }
 })
