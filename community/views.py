@@ -10,6 +10,7 @@ from rest_framework import serializers, status
 import json
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
+from .models import User
 # Create your views here.
 
 
@@ -53,11 +54,10 @@ def write_post(req):
         print(data)
         title = data.get('title')
         contents = data.get('content')
-        id = data.get('userId')
-        print(title, contents)
-        
-        post = Post.objects.create(post_title=title, post_contents=contents, post_id=1,
-                                   post_date = date.today(), post_like = 0, post_category = 'normal', member_id=int(id))
+        id = data.get('memberId')
+        print(title, contents,id)
+        post = Post.objects.create(post_title=title, post_contents=contents,
+                                   post_date = date.today(), post_like = 0, post_category = 'normal', user=id)
         
         response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
         

@@ -41,7 +41,8 @@ export const useStore = defineStore('app', {
 export const useUserInfo = defineStore('userInfo',{
   state : ()=>({
     isLoggedIn:false,
-    userId:"",
+    memberId:null,
+    loginId:"",
     name:"",
     age:null,
     sex:null,
@@ -56,9 +57,10 @@ export const useUserInfo = defineStore('userInfo',{
     }
   },
   actions:{
-    userLogin(userId,name){
+    userLogin(memberId,loginId,name){
       this.name = name;
-      this.userId = userId;
+      this.loginId = loginId;
+      this.memberId = memberId;
       this.isLoggedIn = true;
     },
     userLogout() {

@@ -25,11 +25,12 @@
       const postTitle = ref('');
       const postContent = ref('');
       const userInfo = useUserInfo();
-
+      console.log(userInfo)
+      
       const submitPost = async () => {
         try {
           await axios.post('/api/community/write', { 
-            title: postTitle.value, content: postContent.value, userId : userInfo.userId 
+            title: postTitle.value, content: postContent.value, memberId : userInfo.memberId 
           });
           this.$router.push('/community'); //  커뮤니티 페이지로 이동
         } catch (error) {
