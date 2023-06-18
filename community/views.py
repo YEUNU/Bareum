@@ -30,7 +30,7 @@ class CustomPageNumberPagination(PageNumberPagination):
 
 class PostListView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().order_by('-post_date')  # 레코드를 명시적으로 정렬
         paginator = CustomPageNumberPagination()
         paginated_posts = paginator.paginate_queryset(queryset, request)
         serializer = PostSerializer(paginated_posts, many=True)
@@ -73,4 +73,14 @@ def search_posts(request):
     filtered_posts = Post.objects.filter(post_title__icontains=search_query)
     serialized_posts = dserializers.serialize('json', filtered_posts)
     return JsonResponse(serialized_posts, safe=False)
+
+
+
+from django.db.models import Count
+from rest_framework.decorators import api_view
+@api_view(['GET'])
+def popular_posts(request):
+    popular_posts = Post.objects.filter(post_like__gte=0).annotate(num_likes=Count('post_like')).order_by('-num_likes', '-post_date')
+    serialized_posts = dserializers.serialize('json', popular_posts)
+    return JsonResponse({"data": serialized_posts}, safe=False)
         

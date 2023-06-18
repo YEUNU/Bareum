@@ -9,5 +9,5 @@ urlpatterns = [
     path("api/product/",include('product.urls')),
     path("api/community/",include('community.urls')),
     path("api/shop/",include('shop.urls')),
-    path("api/community-search/result", views.search_posts)
+    path("api/community-search/result", views.search_posts),
 ]
