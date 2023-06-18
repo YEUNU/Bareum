@@ -15,8 +15,7 @@ import BottomNavBar from '../components/Navbar/BottomNavBar.vue';
 //예시코드 나중에 수정
 export default {
     name:"MainPage",
-    components:{BottomNavBar}
-    ,
+    components:{BottomNavBar},
     setup() {
         const store = useStore();
         const router = useRouter();

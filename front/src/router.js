@@ -20,12 +20,11 @@ import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
-import IngredientSearch from './components/IngredientSearch.vue';
-import PersonalizedSearch from './components/PersonalizedSearch.vue';
 import writePage from './pages/Community-page/Write.vue';
 import postDetailPage from './pages/Community-page/PostDetail.vue';
 import CustomSearch from './components/CustomSearch.vue';
 import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
+import TotalResult from './pages/Search-page/Result-page/TotalResult.vue';
 
 const routes = [
     //로그인 페이지
@@ -49,32 +48,20 @@ const routes = [
             {
                 path:'',
                 component:search,
-                name:"searchPageMain"
+                name:"searchPageMain",
             },
             //성분, 개인관심사 로 검색하기 위한 디테일 페이지
             {
                 path:'detail',
                 component:detailSearchPage,
-                name:'detailSerachPage'
-        },
-        ]
-    },
-    //홈 페이지
-    {
-        path:"/search",
-        component:searchPage,
-        name:'searchPage',
-        children:[
-            {
-                path:'',
-                component:search,
-                name:"searchPageMain"
+                name:'detailSerachPage',
             },
             {
-                path:'detail',
-                component:detailSearchPage,
-                name:'detailSerachPage'
-        },
+                path:'result',
+                component:TotalResult,
+                name:'resultPage',
+                props: (route) => ({ query: route.query.q }),
+            },
         ]
     },
     {
