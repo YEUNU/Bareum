@@ -11,6 +11,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 from .models import User
+import django.core.serializers as dserializers 
 # Create your views here.
 
 
@@ -63,4 +64,13 @@ def write_post(req):
         response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
         
         return JsonResponse(response_data, status=201)
+  
+ 
+def search_posts(request):
+    search_query = request.GET.get('searchQuery', '')
+    print(f"Search query: {search_query}")
     
+    filtered_posts = Post.objects.filter(post_title__icontains=search_query)
+    serialized_posts = dserializers.serialize('json', filtered_posts)
+    return JsonResponse(serialized_posts, safe=False)
+        
