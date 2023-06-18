@@ -17,6 +17,7 @@ import myremovePage from './pages/my-page/MyremovePage.vue'
 import myremovedetailPage from './pages/my-page/MyremovedetailPage.vue'
 import mytermsPage from './pages/my-page/MytermsPage.vue'
 import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
+import mynewaddPage from './pages/my-page/MynewaddPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
@@ -230,6 +231,12 @@ const routes = [
         path:'/myprivacy',
         name:'myprivacyPage',
         component:myprivacyPage
+    },
+    {   
+        // 영양제 등록 요청
+        path:'/mynewadd',
+        name:'mynewaddPage',
+        component:mynewaddPage
     },
 ]
 

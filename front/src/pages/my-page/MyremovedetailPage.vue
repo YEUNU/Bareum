@@ -10,27 +10,20 @@
           </div>
         </nav>
         
-        <div class="content" style="margin-top: 20%;">
+        <div class="supcontent">
             <div class="row">
-                
-                <div class="col-9" style="padding-right: 40%;">
-                    <label>탈퇴약관</label>
-                    <div class="form-floating">
-  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-  <label for="floatingTextarea2">약관내용</label>
-</div>
-                    
+                <div class="col-9" style="text-align: left;">
+                    <h4>탈퇴 약관</h4>
                 </div>
                 <div class="col-9">
-                    <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" style="float: right;">
-  <label class="form-check-label" for="flexCheckIndeterminate" style="float: left; margin-right: 30%;">
-    탈퇴약관에 동의하십니까?
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="내용을 입력해주세요."></textarea>
+                </div>
+                <div class="form-check form-check-reverse custom-form-check">
+  <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+  <label class="form-check-label" for="reverseCheck1">
+    동의하시겠습니까?
   </label>
 </div>
-                </div>
-
-
             </div>
             </div>
             <router-link to="/"><button style="background-color: #2dce89; border-radius: 5px; color:white; margin-right: 30%;">탈퇴</button></router-link>
@@ -58,25 +51,4 @@ export default {
     display:block;
 }
 
-.card {
-    margin-top: 10%;
-}
-
-.push {
-    width: 100%;
-    height: 100%;
-    padding: 20%;
-}
-
-.select {
-    width: 100%;
-    height: 100%;
-    margin-top: 10%;
-    padding: 20%;
-    border-bottom: 2px;
-}
-
-.col-9 {
-    margin: 10%;
-}
 </style>
