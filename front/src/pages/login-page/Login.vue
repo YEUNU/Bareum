@@ -50,7 +50,7 @@ export default {
         .then((response) => {
           const loginResult = response.data;
           if (loginResult!=null) {
-            userLogin(loginResult.member_id,loginResult.login_id,loginResult.user_name);
+            userLogin(loginResult.login_id,loginResult.user_name);
             console.log(userInfo)
             router.push("/");
           } else {
