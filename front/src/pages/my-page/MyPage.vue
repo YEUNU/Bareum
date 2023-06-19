@@ -141,4 +141,6 @@ import { useUserInfo } from '../../stores.js';
   margin-right: 0.6vw; /* 버튼들 사이의 간격을 조절 */
   margin-top: 5px;
 }
+
+
   </style>
