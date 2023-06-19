@@ -96,5 +96,5 @@ def post_detail(request, post_id):
         return JsonResponse({"message": "Post not found"}, status=404)
 
     post_data = serializers.serialize('json', [post])
-
+    
     return JsonResponse(post_data, safe=False)
