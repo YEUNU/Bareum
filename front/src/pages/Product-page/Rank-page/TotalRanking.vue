@@ -31,7 +31,7 @@
         <div class="background" style="top: 210px; padding-bottom: 55px; min-height: 70%">
             <div class="rank_box" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
                 <div class="rank_order">{{i+1}}위</div>
-                <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지"/></div>
+                <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
                 <div class="rank_manufacturer">{{product['manufacturer']}}</div>
                 <div class="rank_name">{{product['name']}}</div>
                 <div class="rank_mount">판매량: {{product[age_group]}}</div>
@@ -162,12 +162,13 @@ export default {
     display: grid;
     width: 100vw;
     background-color: white;
-	grid-template-columns: 10vw min(25vh, 25vw) 50vw;
+	grid-template-columns: 10vw min(27vh, 27vw) 50vw;
 	grid-template-rows: 2vh 3vh 3vh 3vh;
     align-content: center;
     margin-bottom: 2vh;
     padding: 5vw;
     font-weight: bold;
+    box-shadow: 0 3px 3px -3px black;
 }
 
 .rank_order {
@@ -179,10 +180,9 @@ export default {
 .rank_image {
     grid-column: 2 / 3;
 	grid-row: 1 / 5;
-    height: min(25vh, 25vw);
-    width: min(25vh, 25vw);
     align-self: center;
     justify-self: center;
+    padding: 2vw;
 }
 
 .rank_manufacturer {

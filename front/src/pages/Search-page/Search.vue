@@ -1,11 +1,10 @@
 <template lang="">
   <div v-if="popup">
-    <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchOptions(option, item)" ></customSearch>
+    <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchItems(option, item)" ></customSearch>
   </div>
   <div v-else>
-    <button style="width: 100%" @click="open_popup('personalize')">관심 분야로 검색</button>
-    <button style="width: 100%" @click="open_popup('ingredient')">영양 성분으로 검색</button>
-    
+    <button style="width: 100%; margin: 3% 0; border-radius: 10px; border: none; background-color: #2dce89; color: white;" @click="open_popup('personalize')">관심 분야로 검색</button>
+    <button style="width: 100%; margin: 3% 0; border-radius: 10px; border: none; background-color: #2dce89; color: white;" @click="open_popup('ingredient')">영양 성분으로 검색</button>
     <router-link to="/search/detail"> 상세 검색하기</router-link>
   </div>
 </template>
@@ -29,7 +28,7 @@ export default {
       popup.value = true;
     }
     
-    const searchOptions = (option, items) => {
+    const searchItems = (option, items) => {
       console.log(option, items);
       if(items.length != 0) {
         router.push({name: 'resultPage', query: { q: items }});
@@ -41,7 +40,7 @@ export default {
       popup,
       selected_option,
       open_popup,
-      searchOptions,
+      searchItems,
     };
   }
 }

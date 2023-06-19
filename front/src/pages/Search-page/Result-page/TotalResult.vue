@@ -2,7 +2,7 @@
     <div class="background">
         <div style="position: relative;">
             <div class="result_box" v-for="(product, i) in dataset" :key="i">
-                <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지"/></div>
+                <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
                 <div class="result_manufacturer">{{product['manufacturer']}}</div>
                 <div class="result_name">{{product['name']}}</div>
                 <div class="result_mount">별점: {{product['star']}}</div>
@@ -78,17 +78,16 @@ export default {
 	grid-template-columns: min(30vh, 30vw) 60vw;
 	grid-template-rows: 2vh 3vh 3vh 4vh;
     align-content: center;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
     padding: 5vw;
     font-weight: bold;
+    box-shadow: 0 3px 3px -3px black;
 }
 
 
 .result_image {
     grid-column: 1 / 2;
 	grid-row: 1 / 5;
-    height: min(25vh, 25vw);
-    width: min(25vh, 25vw);
     align-self: center;
     justify-self: center;
 }
