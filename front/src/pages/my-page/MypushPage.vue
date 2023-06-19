@@ -10,12 +10,12 @@
           </div>
         </nav>
         
-        <div class="push container-fluid border pb-2 mb-2" style="border-radius:  10px;">
+        <div class="push container-fluid border">
             <h3>시스템 알람 설정</h3>
             <button type="button" class="btn" style="background-color: #2dce89; color: white;">설정하러가기</button>
         </div>
 
-        <div class="select container-fluid border pb-2 mb-2" style="border-radius:  10px;">
+        <div class="select container-fluid border pb-2 mb-2">
             <div>
               <h3>세부설정</h3>
             </div>
@@ -67,6 +67,7 @@ export default {
     width: 100%;
     height: 100%;
     padding: 20%;
+    border-radius: 10px;
 }
 
 .select {
@@ -75,6 +76,7 @@ export default {
     margin-top: 10%;
     padding: 20%;
     border-bottom: 2px;
+    border-radius: 10px;
 }
 
 </style>

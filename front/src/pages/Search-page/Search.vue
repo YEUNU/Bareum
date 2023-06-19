@@ -11,17 +11,19 @@
             </svg>
           </span>
       </div>
-  </nav>
-    <div>
+      <div style="width: 90%; margin-top: 2%; margin-left: 5%;">
       <searchBar :placeholder=searchPlaceholder></searchBar>
     </div>
+  </nav>
+    
     <div>
-      검색페이지임
     </div>
     <router-link to="/search/detail"> 상세 검색하기</router-link>
     <div>
-      <button @click="open_popup('personalize')">personalize</button>
-      <button @click="open_popup('ingredient')">ingredient</button>
+      <button @click="open_popup('personalize')" style="width: 100%; border-radius: 10px; border: none; background-color: #2dce89; color: white;">personalize</button>
+    </div>
+    <div style="margin-top: 20%;">
+      <button @click="open_popup('personalize')" style="width: 100%; border-radius: 10px; border: none; background-color: #2dce89; color: white;">ingredient</button>
     </div>
   </div>
 </template>

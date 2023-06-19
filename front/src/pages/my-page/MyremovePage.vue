@@ -10,7 +10,7 @@
           </div>
         </nav>
         
-        <div class="content" style="margin-top: 20%;">
+        <div class="content">
             <div class="row">
                 <div class="col-9">
                     <h4>정말 탈퇴하시겠습니까?</h4>
@@ -20,8 +20,9 @@
                     <input  class="form-control" id="exampleFormControlInput1" placeholder="내용을 입력해주세요." style="margin-bottom: 5%;">
                     <input  class="form-control" id="exampleFormControlInput1" placeholder="내용을 입력해주세요." style="margin-bottom: 5%;">
             </div>
+            <router-link to="/myremovedetail"><button style="margin-top: 10%; background-color: #2dce89; border-radius: 5px; color:white;">다음</button></router-link>
             </div>
-            <router-link to="/myremovedetail"><button style="background-color: #2dce89; border-radius: 5px; color:white;">다음</button></router-link>
+            
     </div>
 </template>
 
@@ -36,34 +37,8 @@ export default {
     width: 100%; /* 화면 너비에 꽉 차도록 설정 */
     height: 100%; /* 화면 높이에 꽉 차도록 설정 */
     display: block;
-    margin-bottom: 10%;
 }
 
-.content {
-    width: 100%;
-    height:100%;
-    display:block;
-}
 
-.card {
-    margin-top: 10%;
-}
 
-.push {
-    width: 100%;
-    height: 100%;
-    padding: 20%;
-}
-
-.select {
-    width: 100%;
-    height: 100%;
-    margin-top: 10%;
-    padding: 20%;
-    border-bottom: 2px;
-}
-
-.col-9 {
-    margin: 10%;
-}
 </style>
