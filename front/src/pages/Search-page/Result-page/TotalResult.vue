@@ -7,7 +7,7 @@
                 <div class="result_name">{{product['name']}}</div>
                 <div class="result_mount">별점: {{product['star']}}</div>
             </div>
-        </div>
+        </div>x
     </div>
 </template>
 
@@ -18,11 +18,10 @@ export default {
     name:"select_item_popup",
     props: {
         selected_option: String,
-        query: Array,
+        query: String,
     },
 
-    setup(props, context) {
-        const selected_option = ref(props.selected_option);
+    setup(props) {
         const searchList = ref(props.query);
         const dataset = ref(null);
 
@@ -51,7 +50,6 @@ export default {
 
         return {
             searchList,
-            selected_option,
             dataset,
             };
     },

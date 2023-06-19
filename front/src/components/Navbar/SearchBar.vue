@@ -12,17 +12,19 @@
 import { ref } from 'vue';
 
 export default {
+    emits: ['searchQuery'],
     props: {
         placeholder: {
             type: String,
             default: '검색어 입력'
         }
     },
-    setup(props) {
+    setup(props, context) {
         const searchQuery = ref('');
     
     const search = () => {
         // 검색 로직
+        context.emit('searchQuery', searchQuery.value);
         console.log('검색어:', searchQuery.value);
     };
     

@@ -31,7 +31,7 @@ export default {
     const searchItems = (option, items) => {
       console.log(option, items);
       if(items.length != 0) {
-        router.push({name: 'resultPage', query: { q: items }});
+        router.push({name: 'resultPage', query: { q: items.join(',') }});
       }
     };
 
