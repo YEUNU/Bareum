@@ -11,6 +11,9 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 from .models import User
+import django.core.serializers as dserializers 
+from django.db.models import Count
+from rest_framework.decorators import api_view
 # Create your views here.
 
 
@@ -29,7 +32,7 @@ class CustomPageNumberPagination(PageNumberPagination):
 
 class PostListView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().order_by('-post_date')  # 레코드를 명시적으로 정렬
         paginator = CustomPageNumberPagination()
         paginated_posts = paginator.paginate_queryset(queryset, request)
         serializer = PostSerializer(paginated_posts, many=True)
@@ -46,7 +49,7 @@ class PostListView(APIView):
 # api/community/write
 
 
-
+#글쓰기
 @csrf_exempt   
 def write_post(req):
     if req.method == 'POST':
@@ -63,6 +66,25 @@ def write_post(req):
         response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
         
         return JsonResponse(response_data, status=201)
+  
+#게시글 제목 검색 
+def search_posts(request):
+    search_query = request.GET.get('searchQuery', '')
+    print(f"Search query: {search_query}")
+    
+    filtered_posts = Post.objects.filter(post_title__icontains=search_query)
+    serialized_posts = dserializers.serialize('json', filtered_posts)
+    return JsonResponse(serialized_posts, safe=False)
+
+
+#인기글 보여주기(좋아요0개임)
+@api_view(['GET'])
+def popular_posts(request):
+    popular_posts = Post.objects.filter(post_like__gte=0).annotate(num_likes=Count('post_like')).order_by('-num_likes', '-post_date')
+    serialized_posts = dserializers.serialize('json', popular_posts)
+    return JsonResponse({"data": serialized_posts}, safe=False)
+        
+
     
     
 from django.core import serializers

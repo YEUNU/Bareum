@@ -11,8 +11,21 @@
 </template>
 <script>
 export default {
-    
-}
+  data() {
+    return {
+      searchQuery: '',
+      placeholder: '검색어를 입력하세요',
+    };
+  },
+  methods: {
+    search() {
+      this.$router.push({
+        name: 'commuSearchResult', 
+        query: { searchQuery: this.searchQuery }, 
+      });
+    },
+  },
+};
 </script>
 <style>
     
