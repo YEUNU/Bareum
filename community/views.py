@@ -87,14 +87,25 @@ def popular_posts(request):
 
     
     
-from django.core import serializers
+from django.http import JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
 
 def post_detail(request, post_id):
     try:
-        post = Post.objects.get(post_id=post_id)
+        post = Post.objects.select_related('user').get(post_id=post_id)
     except Post.DoesNotExist:
         return JsonResponse({"message": "Post not found"}, status=404)
 
-    post_data = serializers.serialize('json', [post])
+    post_data = {
+        "post_id": post.post_id,
+        "post_date": post.post_date,
+        "post_title": post.post_title,
+        "post_contents": post.post_contents,
+        "post_like": post.post_like,
+        "post_category": post.post_category,
+        "user_id": post.user.member_id,
+        #나중에 닉네임으로 수정해야할듯
+        "user_name": post.user.user_name,
+    }
 
-    return JsonResponse(post_data, safe=False)
+    return JsonResponse(post_data, encoder=DjangoJSONEncoder)
