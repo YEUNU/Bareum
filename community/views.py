@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 from .models import User
 import django.core.serializers as dserializers 
+from django.db.models import Count
+from rest_framework.decorators import api_view
 # Create your views here.
 
 
@@ -47,7 +49,7 @@ class PostListView(APIView):
 # api/community/write
 
 
-
+#글쓰기
 @csrf_exempt   
 def write_post(req):
     if req.method == 'POST':
@@ -65,7 +67,7 @@ def write_post(req):
         
         return JsonResponse(response_data, status=201)
   
- 
+#게시글 제목 검색 
 def search_posts(request):
     search_query = request.GET.get('searchQuery', '')
     print(f"Search query: {search_query}")
@@ -75,9 +77,7 @@ def search_posts(request):
     return JsonResponse(serialized_posts, safe=False)
 
 
-
-from django.db.models import Count
-from rest_framework.decorators import api_view
+#인기글 보여주기(좋아요0개임)
 @api_view(['GET'])
 def popular_posts(request):
     popular_posts = Post.objects.filter(post_like__gte=0).annotate(num_likes=Count('post_like')).order_by('-num_likes', '-post_date')

@@ -266,14 +266,14 @@ const router = createRouter({
 })
 
 
-// router.beforeEach(async(to, from, next) => {
-//     const isLoggedIn = await checkLogin();
-//     if (to.path !== '/login' && !isLoggedIn) {
-//       next({ path: '/login' });
-//     } else {
-//       next();
-//     }
-//   });
+router.beforeEach(async(to, from, next) => {
+    const isLoggedIn = await checkLogin();
+    if (to.path !== '/login' && !isLoggedIn) {
+      next({ path: '/login' });
+    } else {
+      next();
+    }
+  });
 
   
 
