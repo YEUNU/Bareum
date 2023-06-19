@@ -21,6 +21,7 @@ class Comments(models.Model):
     comment_like = models.IntegerField()
     post = models.ForeignKey('Post', models.DO_NOTHING)
     user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
 
     class Meta:
         managed = True

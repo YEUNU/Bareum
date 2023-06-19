@@ -3,7 +3,8 @@
         <nav class="navbar fixed-top bg-light">
             <div class="container-fluid">
               <router-link to="/community-search">
-                    <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <input class="search-input" type="text" :placeholder="placeholder">
+              <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search"> 
               </router-link>
 
             </div>
@@ -31,12 +32,10 @@
 import {ref} from 'vue'
 export default {
     setup(){
-        const searchQuery = ref('')
-        const placeholder = ref('')
+        const placeholder = ref('검색어를 입력하세요')
 
 
         return{
-            searchQuery,
             placeholder
         }
     }
