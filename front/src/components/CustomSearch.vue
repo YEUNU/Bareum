@@ -1,5 +1,4 @@
 <template lang="">
-    <div class="container">
         <nav class="navbar fixed-top bg-white">
             <div class="container-fluid">
                 <span class="navbar-brand" @click="closePopup">
@@ -9,7 +8,7 @@
                 </span>
             </div>
         </nav>
-    </div>
+
     
     <div class="select_option">
         <h3>항목선택</h3>
@@ -25,20 +24,17 @@
             </label>
         </div>
     </div>
-    <div class="container">
-
         <div class="search_option_items">
-        <div class="search_option_item" v-for="part in parts" :key="part.id">
+            <div class="search_option_item" v-for="part in parts" :key="part.id">
                 <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
                 <label :for="part.id">{{part.text}}</label>
             </div>
         </div>
         <button @click='sendCheckedItems()'>check</button>
-    </div>
 </template>
   
 <script>
-import { ref, computed, defineEmits } from "vue"
+import { ref, computed } from "vue"
 import { useRouter } from "vue-router";
 
 export default {
@@ -127,16 +123,12 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .search_option_items {
     position: static;
-
     display: grid;
-    align-content: center;
-    justify-content: center;
-    
+
     grid-template-columns: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
     grid-template-rows: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
 }
@@ -144,9 +136,9 @@ export default {
 .search_option_item {
     position: relative;
     align-self: center;
-    justify-self: center;
-    height: 100%;
-    width: 100%;
+    justify-self: center;   
+    width: min(20vw, 20vh);
+    height: min(20vw, 20vh);
 }
 
 .option_kind input[type="radio"] {
@@ -166,8 +158,6 @@ export default {
     background-color: #113a6b;
     color: #ffffff;
 }
-
-
 
 input[type="checkbox"]{
     display: none;

@@ -21,8 +21,6 @@ import mynewaddPage from './pages/my-page/MynewaddPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
-import IngredientSearch from './components/IngredientSearch.vue';
-import PersonalizedSearch from './components/PersonalizedSearch.vue';
 import writePage from './pages/Community-page/Write.vue';
 import postDetailPage from './pages/Community-page/PostDetail.vue';
 import CustomSearch from './components/CustomSearch.vue';
@@ -31,6 +29,7 @@ import postPage from './pages/Community-page/Post.vue'
 import popularPostPage from './pages/Community-page/PopularPost.vue'
 import newsPage from './pages/Community-page/HealthNews.vue'
 import checkLogin from './checkLogin';
+import TotalResult from './pages/Search-page/Result-page/TotalResult.vue';
 
 import commuSearchPage from './pages/Community-page/Search.vue'
 import commuSearchResultPage from './pages/Community-page/SearchResult.vue'
@@ -57,32 +56,20 @@ const routes = [
             {
                 path:'',
                 component:search,
-                name:"searchPageMain"
+                name:"searchPageMain",
             },
             //성분, 개인관심사 로 검색하기 위한 디테일 페이지
             {
                 path:'detail',
                 component:detailSearchPage,
-                name:'detailSerachPage'
-        },
-        ]
-    },
-    //홈 페이지
-    {
-        path:"/search",
-        component:searchPage,
-        name:'searchPage',
-        children:[
-            {
-                path:'',
-                component:search,
-                name:"searchPageMain"
+                name:'detailSerachPage',
             },
             {
-                path:'detail',
-                component:detailSearchPage,
-                name:'detailSerachPage'
-        },
+                path:'result',
+                component:TotalResult,
+                name:'resultPage',
+                props: (route) => ({ query: route.query.q }),
+            },
         ]
     },
     {

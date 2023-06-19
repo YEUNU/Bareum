@@ -82,8 +82,7 @@ export default {
 }
 
 .box_search_input {
-    max-height: 75px;
-    height: 12vw;
+    height: 8vh;
 }
 
 .box_alerts {
@@ -105,12 +104,12 @@ export default {
 }
 
 .menu_container {
-    padding-top: 5vw;
+    margin-top: 10vh;
+    margin-bottom: 62px;
     position: static;
-    
     display: grid;
     grid-template-columns: 40vw 40vw;
-    grid-template-rows: 30vw 30vw 30vw;
+    grid-template-rows: 21vh 21vh 21vh;
 
     justify-content: center;
     align-items: center;
@@ -129,7 +128,7 @@ export default {
     justify-content: center;
     align-items: center;
     
-    line-height: 25vw;
+    line-height: min(25vw, 15vh);
     font-family: "paybooc-Light", sans-serif;
     color: #6e6e6e;
     font-size: 1.2em;
