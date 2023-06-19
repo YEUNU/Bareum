@@ -3,8 +3,8 @@
     <form @submit.prevent="login">
 
       <h1>Healthy Pal</h1>
-
-      <input type="text" v-model="form.userLoginid" required placeholder="userLoginid" />
+      <input type="hidden" name="csrfmiddlewaretoken" :value="csrf_token" />
+            <input type="text" v-model="form.userLoginid" required placeholder="userLoginid" />
       <input type="password" v-model="form.password" required placeholder="Password" />
       <button type="submit">Login</button>
     </form>
@@ -25,7 +25,7 @@ import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { loginWithKakao } from "/src/kakaoLogin.js";
 import {useUserInfo} from "../../stores.js"
-
+import Cookies from 'js-cookie';
 export default {
   setup() {
     const userInfo = useUserInfo();
@@ -38,19 +38,18 @@ export default {
 
     const error = ref(null);
     const router = useRouter();
-
+    const csrf_token = Cookies.get('csrftoken');
 
     const login = () => {
       axios
         .post("/api/account/login", {
           userLoginid: form.userLoginid,
           password: form.password,
-          withCredentials: true,
         })
         .then((response) => {
           const loginResult = response.data;
           if (loginResult!=null) {
-            userLogin(loginResult.login_id,loginResult.user_name);
+            userLogin(loginResult.member_id,loginResult.login_id,loginResult.username);
             console.log(userInfo)
             router.push("/");
           } else {
@@ -102,6 +101,7 @@ export default {
       login,
       loginWithKakao: kakaoLogin, 
       error,
+      csrf_token,
     };
   },
 };

@@ -7,11 +7,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 from . import models
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 @csrf_exempt
@@ -29,7 +29,7 @@ def login_user(req):
             login(req, user)
             csrf_token = get_token(req)
             response = JsonResponse({'success': '로그인이 완료되었습니다.',
-                                     'login id': login_id, 
+                                     'login_id': login_id, 
                                      'username': user.user_name,
                                      'member_id': user.member_id
                                      })
@@ -41,12 +41,10 @@ def login_user(req):
     else:
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
-@csrf_exempt
 def logout_user(req):
     logout(req)
     return JsonResponse({'success': '로그아웃이 완료되었습니다.'})
 
-@csrf_exempt
 def signup(req):
     if req.method == 'POST':
         data = json.loads(req.body.decode('utf-8'))
@@ -69,7 +67,6 @@ def signup(req):
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
 
-@method_decorator(csrf_exempt, name='dispatch')
 class KakaoLogin(View):
 
     def dispatch(self, request, *args, **kwargs):

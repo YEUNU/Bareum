@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "account",
     "product",
     "community",
-    
+    "djangorestframework-recursive"
     
 ]
 
@@ -61,7 +61,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     
 ]
-
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
@@ -79,8 +78,13 @@ TEMPLATES = [
         },
     },
 ]
-CSRF_COOKIE_NAME = 'XSRF-TOKEN'
-CSRF_HEADER_NAME = 'X-XSRF-TOKEN'
+
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
+
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://vue:5173"
@@ -139,14 +143,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_L10N = True
 
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

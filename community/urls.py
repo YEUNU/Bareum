@@ -8,4 +8,5 @@ urlpatterns = [
     path('write',views.write_post),
     path('detail/<int:post_id>/',views.post_detail),
     path('popularlist/', views.popular_posts, name='popular_posts'),
+    path('comments/<int:post_id>', views.CommentListView.as_view(), name='comments_list'),
 ]
