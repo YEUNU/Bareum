@@ -26,7 +26,7 @@
 
 
 
-    <div class="navbar fixed-top bg-theme">
+    <div class="navbar fixed-top bg-theme" style="padding: 10px;">
         <div class="box_search">
             <router-link to="/search"><SearchBar class="box_search_input" background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
@@ -72,12 +72,23 @@ export default {
 
 </script>
 <style>
+.background {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    width: 100vw;
+}
+
 .bg-theme {
     background-color: #2dce89;
 }
 
+.bg-whitesmoke {
+    background-color: whitesmoke;
+}
+
 .box_search {
-    margin: 20px;
+    margin: 10px;
     flex-grow: 1;
 }
 
@@ -90,6 +101,7 @@ export default {
     padding: 0;
     max-width: 85px;
     max-height: 85px;
+    margin: 5px;
     width: 12vw;
     height: 12vw;
     background-color: rgba(255,255,255,0);
@@ -142,6 +154,14 @@ export default {
 .menus:hover {
     background-color: #2dce89;
     color: #d4dfe6;
+}
+
+.roundbox {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    background-color: #2dce89;
+    color: white;
 }
 
 </style>

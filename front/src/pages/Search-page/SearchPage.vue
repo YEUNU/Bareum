@@ -9,7 +9,6 @@
         <searchBar ref="searchbarAPI" :placeholder=searchPlaceholder @searchQuery="(searchQuery) => search(searchQuery)" style="width: calc(100% - 42px)"></searchBar>
     </div>
 </nav>
-
 <router-view/>
 
 </template>
@@ -21,26 +20,25 @@ import { useRouter } from "vue-router";
 import searchBar from '../../components/Navbar/SearchBar.vue';
 export default {
     components:{searchBar},
+
     setup() {
         const router = useRouter();
-        const serchWord = ref('a');
         const searchPlaceholder = ref('검색어를 입력해주세요');
-
         const searchbarAPI = ref(null);
-
         const search = (searchQuery) => {
             console.log(searchQuery);
             if(searchQuery) {
+                searchbarAPI.value.getQuery(searchQuery);
+
                 router.push({name: 'resultPage', query: { q: searchQuery }});
             }
         };
 
         const searchbarClear = () => {
-            searchbarAPI.value.search_clear();
+            searchbarAPI.value.searchbar_clear();
         };
 
         return {
-            serchWord,
             searchPlaceholder,
             search,
             searchbarAPI,

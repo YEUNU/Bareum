@@ -15,8 +15,9 @@ import { useRouter } from "vue-router";
 import customSearch from '../../components/CustomSearch.vue';
 
 export default {
+  name: 'search',
   components:{ customSearch },
-  emits: ['search_word'],
+  emits: ['searchQuery'],
   setup(context) {
     const searchPlaceholder = ref('검색어를 입력해주세요');
     const router = useRouter()
