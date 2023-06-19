@@ -13,10 +13,10 @@
             </div>
         </nav>
         <div class="bg-white" style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 1030;">
-            <h3>{{rank_title}} 제품 순위</h3>
+            <h2 style="font-family: 'paybooc-Light', 'sans-serif';font-weight: bold;">{{rank_title}} 제품 순위</h2>
             <div>
-                <button class="roundbox bg-theme" style="width: 40%; margin: 3%" @click="open_popup('personalize')">부위별</button>
-                <button class="roundbox bg-theme" style="width: 40%; margin: 3%" @click="open_popup('ingredient')">성분별</button>
+                <button class="roundbox bg-theme" style="width: 40%; margin: 3%" @click="open_popup('personalize')">관심 항목</button>
+                <button class="roundbox bg-theme" style="width: 40%; margin: 3%" @click="open_popup('ingredient')">영양소</button>
             </div>
             <select class="roundbox bg-theme" style="width: 86%; border-radius: 4px;" v-model="age_group">
                 <option disabled value="">연령대를 선택해 주세요</option>

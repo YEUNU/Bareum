@@ -11,7 +11,7 @@
 
     
     <div class="select_option_box" style="position: fixed; top: 50px; left: 0; margin: 0; width: 100%; z-index: 1030;">
-        <h3>항목선택</h3>
+        <h2 style="font-family: 'paybooc-Light', 'sans-serif';font-weight: bold;">항목선택</h2>
         <div>
             <label class="option_kind">
                 <input  type="radio" name="options" value="personalize" v-model="selected_option">
@@ -154,6 +154,11 @@ export default {
     background-color: white;
     text-align: center;
     cursor: pointer;
+    font-family: "paybooc-Light", sans-serif;
+    color: #6e6e6e;
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: 750;
 }
 
 .option_kind input[type="radio"]:checked + span {
@@ -177,6 +182,11 @@ input[type="checkbox"] + label{
     text-align: center;
     justify-content: center;
     align-items: center;
+    font-family: "paybooc-Light", sans-serif;
+    color: #6e6e6e;
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: 750;
 }
 
 input[type="checkbox"]:checked + label{

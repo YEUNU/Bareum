@@ -3,12 +3,11 @@
     <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchItems(option, item)" ></customSearch>
   </div>
   <div v-else>
-    <button style="width: 100%; margin: 3% 0; border-radius: 10px; border: none; background-color: #2dce89; color: white;" @click="open_popup('personalize')">관심 분야로 검색</button>
-    <button style="width: 100%; margin: 3% 0; border-radius: 10px; border: none; background-color: #2dce89; color: white;" @click="open_popup('ingredient')">영양 성분으로 검색</button>
+    <button class="search_option" @click="open_popup('personalize')">관심 분야로 검색</button>
+    <button class="search_option" @click="open_popup('ingredient')">영양 성분으로 검색</button>
     <router-link to="/search/detail"> 상세 검색하기</router-link>
   </div>
 </template>
-
 <script>
 import { ref } from 'vue';
 import { useRouter } from "vue-router";
@@ -47,5 +46,17 @@ export default {
 }
 </script>
 <style>
+.search_option {
+  width: 100%;
+  margin: 3% 0;
+  border-radius: 10px;
+  border: none;
+  background-color: #2dce89;
+  color: white;
+  font-family: "paybooc-Light", sans-serif;
+  font-size: 1.1em;
+  text-decoration: none;
+  font-weight: 750;
+}
 
 </style>
