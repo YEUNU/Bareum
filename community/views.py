@@ -64,3 +64,15 @@ def write_post(req):
         
         return JsonResponse(response_data, status=201)
     
+    
+from django.core import serializers
+
+def post_detail(request, post_id):
+    try:
+        post = Post.objects.get(post_id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({"message": "Post not found"}, status=404)
+
+    post_data = serializers.serialize('json', [post])
+
+    return JsonResponse(post_data, safe=False)
