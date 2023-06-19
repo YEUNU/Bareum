@@ -6,6 +6,7 @@ import searchPage from './pages/Search-page/SearchPage.vue'
 import search from './pages/Search-page/Search.vue'
 import detailSearchPage from './pages/Search-page/DetailSearch.vue'
 import homePage from './pages/Home-page/Home.vue'
+import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
 import myupdatePage from './pages/my-page/MyupdatePage.vue'
@@ -92,6 +93,12 @@ const routes = [
             component:homePage
         }
         ]
+    },
+    // 촬영 가이드 페이지
+    {
+        path: "/cameraguide",
+        component:cameraguidePage,
+        name:'cameraguidePage'
     },
     {
         //예시
