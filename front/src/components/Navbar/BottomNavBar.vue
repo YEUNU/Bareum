@@ -68,12 +68,25 @@
 </nav>
 
   <div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="cameraModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90%; margin: 0;">
+            <div class="modal-content" style="width:80%; margin-left: 10%; margin-right: 2%;">            
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
+                <div class="modal-body">
+                    <h5 style="text-align: center;">촬영 가이드 확인</h5>
+                    <router-link to="/cameraguide"><button class="yesbutton" data-bs-dismiss="modal" aria-label="Close" style="width: 100%; margin-top: 10%;" @click="closeModal()">네</button></router-link>
+                    <button style="width: 100%;">그만 보겠습니다.</button>
+                </div>
+
+            </div>
+        </div>
   
 
       
 
-  <div class="modal-dialog">
+    <div class="modal-dialog" style="position: fixed; left: 50%; bottom: 0; transform: translate(-50%, 0); width: 90%; margin: 0;">
 
       <div class="modal-content" style="width:105%; margin-top: 180%; margin-left: -2%; margin-right: 2%;">
 

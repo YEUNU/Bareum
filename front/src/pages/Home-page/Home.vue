@@ -20,24 +20,30 @@
 
 
     <div class="modal fade" id="homeModal" tabindex="-1" aria-labelledby="homeModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog" style="margin-top: 95%; margin-bottom: 20%;">
-
-                <div class="modal-content" style="width:80%; margin-left: 10%; margin-right: 2%;">            
-                    <div class="modal-header">
+        <video ref="cameraPreview" width="100%" height="100%" autoplay playsinline></video>
+        <input
+        type="file"
+        accept="image/*"
+        @change="onFileSelected"
+        style="display: none"
+        ref="fileInput"
+        />
+        <div class="modal-dialog" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90%; margin: 0;">
+            <div class="modal-content" style="width:80%; margin-left: 10%; margin-right: 2%;">            
+                <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                </div>
 
-                    <div class="modal-body">
+                <div class="modal-body">
                     <h5 style="text-align: center;">촬영 가이드 확인</h5>
                     <router-link to="/cameraguide"><button class="yesbutton" data-bs-dismiss="modal" aria-label="Close" style="width: 100%; margin-top: 10%;" @click="closeModal()">네</button></router-link>
                     <button style="width: 100%;">그만 보겠습니다.</button>
-                    </div>
-
                 </div>
+
             </div>
+        </div>
         
-            <div class="modal-dialog">
+        <div class="modal-dialog" style="position: fixed; left: 50%; bottom: 0; transform: translate(-50%, 0); width: 90%; margin: 0;">
             
                 <div class="modal-content" style="width:105%; margin-left: -2%; margin-right: 2%;">
 
@@ -66,59 +72,52 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from '../../stores';
-import SearchBar from '../../components/Navbar/SearchBar.vue';
+import { useStore } from "../../stores";
+import SearchBar from "../../components/Navbar/SearchBar.vue";
 
 export default {
-    name:"HomePage",
-    components: {
-        SearchBar
-    },
-    setup() {
-        const store = useStore();
-        const router = useRouter();
-        const searchPlaceholder = ref('건강기능식품을 검색해보세요');
-        return {
-            store,
-            router,
-            searchPlaceholder,
-        };
-    },
-    methods: {
-        openCamera() {
-        this.showMenu = false;
-        this.getImage(true);
-        },
-        openGallery() {
-        this.showMenu = false;
-        this.getImage(false);
-        },
-        getImage(camera) {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        if (camera) {
-        input.capture = 'camera';
-        }
-
-        input.onchange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-            const img = new Image();
-            img.src = e.target.result;
-        };
-
-        reader.readAsDataURL(file);
-        };
-
-        input.click();
-        },
-        },
+  name: "HomePage",
+  components: {
+    SearchBar,
+  },
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+    const searchPlaceholder = ref("건강기능식품을 검색해보세요");
+    return {
+      store,
+      router,
+      searchPlaceholder,
     };
+  },
+  methods: {
+    openCamera() {
+      this.showMenu = false;
+      this.$refs.fileInput.setAttribute("capture", "camera");
+      this.$refs.fileInput.click();
+    },
+    openGallery() {
+      this.showMenu = false;
+      this.$refs.fileInput.removeAttribute("capture");
+      this.$refs.fileInput.click();
+    },
+    onFileSelected(event) {
+      const selectedFile = event.target.files[0];
+
+      // 선택한 파일에 대한 로직
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+      };
+
+      reader.readAsDataURL(selectedFile);
+    },
+  },
+};
 
 </script>
 <style>
