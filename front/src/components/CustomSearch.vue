@@ -166,11 +166,11 @@ export default {
     color: white;
 }
 
-input[type="checkbox"]{
+.search_option_item input[type="checkbox"] {
     display: none;
 }
 
-input[type="checkbox"] + label{
+.search_option_item input[type="checkbox"] + label{
     display: flex;
     width: min(22vw, 22vh);
     height: min(22vw, 22vh);
@@ -189,7 +189,7 @@ input[type="checkbox"] + label{
     font-weight: 750;
 }
 
-input[type="checkbox"]:checked + label{
+.search_option_item input[type="checkbox"]:checked + label{
     background-color: #2dce89;
     color: white;
 }
