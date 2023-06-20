@@ -8,9 +8,8 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import serializers, status
 import json
-from django.views.decorators.csrf import csrf_exempt
-from datetime import date
-from .models import User
+from datetime import datetime
+from .models import User, Comments
 import django.core.serializers as dserializers 
 from django.db.models import Count
 from rest_framework.decorators import api_view
@@ -50,7 +49,6 @@ class PostListView(APIView):
 
 
 #글쓰기
-@csrf_exempt   
 def write_post(req):
     if req.method == 'POST':
         data = json.loads(req.body)
@@ -61,7 +59,7 @@ def write_post(req):
         print(title, contents,id)
         user = User.objects.get(member_id = id)
         post = Post.objects.create(post_title=title, post_contents=contents,
-                                   post_date = date.today(), post_like = 0, post_category = 'normal', user=user)
+                                   post_date = datetime.today(), post_like = 0, post_category = 'normal', user=user)
         
         response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
         
@@ -109,3 +107,74 @@ def post_detail(request, post_id):
     }
 
     return JsonResponse(post_data, encoder=DjangoJSONEncoder)
+
+
+
+
+from .serializers import CommentsSerializer
+class CommentListView(APIView):
+    serializer_class = CommentsSerializer
+    
+    def get(self,request,post_id):
+        
+        try:
+            comments = Comments.objects.select_related('user').filter(post_id=post_id, parent=None)
+            
+        except Comments.DoesNotExist:
+            return JsonResponse({"message": "Post not found"}, status=404)
+        
+
+
+        serializer = self.serializer_class(comments, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    
+    def post(self, request, post_id):
+        try:
+            user = User.objects.get(pk=request.data['memberId'])
+            post_instance = Post.objects.get(pk=post_id)
+
+            request.data['user'] = user.member_id
+            request.data['post'] = post_instance.post_id
+            request.data['comment_date'] = datetime.today()
+            request.data['comment_like'] = 0
+            request.data['parent'] = None
+            print(request.data['comment_date'])
+            
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Post.DoesNotExist:
+            return Response({"error": "게시물이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
+        
+class CommentReplyListView(APIView):
+    serializer_class = CommentsSerializer
+    
+    def post(self, request, post_id):
+        try:
+            user = User.objects.get(pk=request.data['memberId'])
+            post_instance = Post.objects.get(pk=post_id)
+            parent_id = request.data.get('parent', None)
+
+            request.data['user'] = user.member_id
+            request.data['post'] = post_instance.post_id
+            request.data['comment_date'] = datetime.today()
+            request.data['comment_like'] = 0
+
+            if parent_id:      # if 'parent_id' provided in request data
+                parent_instance = Comments.objects.get(pk=parent_id)
+                request.data['parent'] = parent_instance.comments_id
+            else:
+                request.data['parent'] = None   # set parent to None if there is no parent
+
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Post.DoesNotExist:
+            return Response({"error": "게시물이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
+        except Comments.DoesNotExist:
+            return Response({"error": "댓글이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)

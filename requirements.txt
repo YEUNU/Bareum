@@ -4,3 +4,4 @@ django-rest-framework
 mysqlclient
 django-allauth
 dj-rest-auth
+djangorestframework-recursive
