@@ -4,7 +4,7 @@
       <img :src="imageData" alt="Captured image" style="width: 50%;" />
       <div v-if="ocrResult">
         <h2>인식된 텍스트</h2>
-        <pre>{{ ocrResult }}</pre>
+        <!-- <pre>{{ ocrResult }}</pre> -->
       </div>
     </div>
   </template>

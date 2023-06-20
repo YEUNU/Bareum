@@ -17,5 +17,7 @@ def process_image(request):
         
         result_ocr = model("./ocr/temp/temp_ocr.png")
         print(result_ocr)
+        for i in result_ocr:
+            print(i)
 
     return JsonResponse({"error": "Invalid request"})
