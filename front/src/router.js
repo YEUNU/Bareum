@@ -279,7 +279,7 @@ const routes = [
         component:mainPage,
         children:[
             {
-                path:'result',
+                path:'result/:imageData',
                 component:ocrResultPage
             },
             {
