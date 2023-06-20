@@ -2,20 +2,41 @@
   <div class="logcontainer">
     <form @submit.prevent="login">
 
-      <h1>Healthy Pal</h1>
-      <input type="hidden" name="csrfmiddlewaretoken" :value="csrf_token" />
-            <input type="text" v-model="form.userLoginid" required placeholder="userLoginid" />
-      <input type="password" v-model="form.password" required placeholder="Password" />
-      <button type="submit">Login</button>
+      <h1>바름</h1>
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <input type="text" v-model="form.userLoginid" required placeholder=" 아이디" />
+        <input type="password" v-model="form.password" required placeholder=" 비밀번호" />
+        <button type="submit">로그인</button>
+      </div>
     </form>
-    <router-link to="signup"><button style="margin-top:5%;">회원가입</button></router-link>
-  </div>
-  <div style="margin-top:5%;">
-    <img
-      src="@assets/kakao_login_medium.png"
-      alt="Kakao Login"
-      @click="loginWithKakao"
-    />
+    <div style="margin-top: 5vh; transition:.2s linear; font-weight: lighter; color: gray;">또는</div>
+    <hr style="width: min(67vw, 50vh); margin: auto; text-align: center;">
+    <div style="margin-top: 3vh; color: gray;">소셜 로그인</div>
+    <div style="display: flex; justify-content: center;">
+      <div style="margin: 2vh 2vh;">
+        <img style="height: 45px; border: 0.75px solid #FFFFFF; border-radius: 10px;"
+        src="@assets/kakao_login_icon.png"
+        alt="Kakao Login"
+        @click="loginWithKakao"
+        />
+      </div>
+      <div style="margin: 2vh 2vh;">
+        <img style="height: 45px; border: 0.75px solid #FFFFFF; border-radius: 10px;"
+        src="@assets/naver_login_icon.png"
+        alt="Naver Login"
+        @click=""
+        />
+      </div>
+      <div style="margin: 2vh 2vh;">
+        <img style="height: 45px; border: 0.75px solid #CCCCCC; border-radius: 10px;"
+        src="@assets/google_login_icon.png"
+        alt="Google Login"
+        @click=""
+        />
+      </div>
+    </div>
+    <div style="margin-top: 2vh; color: gray;">아직 회원이 아니신가요?</div>
+    <router-link to="signup"><button>회원가입</button></router-link>
   </div>
 </template>
 
@@ -107,32 +128,35 @@ export default {
 };
 </script>
 <style>
-.logcontainer h1{
+.logcontainer h1 {
   color:#2dce89;
   font-size:52px;
-  letter-spacing:-3px;
   text-align:center;
-  margin:120px 0 80px 0 ;
   transition:.2s linear;
+  letter-spacing: 6px;
+  margin: 2vh auto 3vh auto;
+  font-weight: bold;
 }
 
 .logcontainer input {
-  padding: 2%;
-  margin-bottom: 5%;
-  border-radius: 10px;
+  width: min(67vw, 50vh);
+  padding: 2vh;
+  margin-bottom: 1vh;
+  border-radius: 8px;
   border:white;
   background-color:#E1E1E1;
 }
 
 
 .logcontainer button {
-    cursor: pointer;
-    width: 50%;
-    border-radius: 10px;
-    border: none;
-    background-color: #2dce89;
-    color: white;
-    font-size: 15px;
-    box-shadow:0px 10px 10px -6px #2dce89;
+  cursor: pointer;
+  width: calc(160px + 10vh);
+  border-radius: 8px;
+  border: none;
+  background-color: #2dce89;
+  color: white;
+  font-size: 15px;
+  box-shadow:0px 10px 10px -6px #2dce89;
+  margin: 2vh;
 }
 </style>

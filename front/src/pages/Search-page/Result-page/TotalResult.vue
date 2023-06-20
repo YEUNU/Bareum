@@ -1,7 +1,7 @@
 <template>
-    <div class="background">
+    <div class="background bg-whitesmoke">
         <div style="position: relative;">
-            <div class="result_box" v-for="(product, i) in dataset" :key="i">
+            <div class="result_box bg-white" v-for="(product, i) in dataset" :key="i">
                 <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
                 <div class="result_manufacturer">{{product['manufacturer']}}</div>
                 <div class="result_name">{{product['name']}}</div>
@@ -18,11 +18,10 @@ export default {
     name:"select_item_popup",
     props: {
         selected_option: String,
-        query: Array,
+        query: String,
     },
 
-    setup(props, context) {
-        const selected_option = ref(props.selected_option);
+    setup(props) {
         const searchList = ref(props.query);
         const dataset = ref(null);
 
@@ -51,7 +50,6 @@ export default {
 
         return {
             searchList,
-            selected_option,
             dataset,
             };
     },
@@ -61,22 +59,13 @@ export default {
 
 <style>
 
-.background {
-    position: absolute;
-    left: 0;
-    top: 60px;
-    width: 100vw;
-    background-color: white;
-}
-
 .result_box {
     align-self: center;
     justify-self: center;
     display: grid;
     width: 100vw;
-    background-color: white;
 	grid-template-columns: min(30vh, 30vw) 60vw;
-	grid-template-rows: 2vh 3vh 3vh 4vh;
+	grid-template-rows: 3vh 4vh 5vh 5vh;
     align-content: center;
     margin-bottom: 2vh;
     padding: 5vw;

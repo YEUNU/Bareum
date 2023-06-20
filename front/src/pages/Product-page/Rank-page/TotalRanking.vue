@@ -12,14 +12,13 @@
                 </span>
             </div>
         </nav>
-        <div style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 1030; background-color: white">
-            <h3>{{rank_title}} 제품 순위</h3>
+        <div class="bg-white" style="position: fixed; top: 50px; left: 0; width: 100%; z-index: 1030;">
+            <h2 style="font-weight: bold;">{{rank_title}} 제품 순위</h2>
             <div>
-                <button @click="open_popup('personalize')">부위별</button>
-                <button @click="open_popup('ingredient')">성분별</button>
+                <button class="roundbox bg-theme" style="width: 40%; margin: 3%" @click="open_popup('personalize')">관심 항목</button>
+                <button class="roundbox bg-theme" style="width: 40%; margin: 3%" @click="open_popup('ingredient')">영양소</button>
             </div>
-            <span>연령대 선택 : </span> 
-            <select v-model="age_group">
+            <select class="roundbox bg-theme" style="width: 86%; border-radius: 4px;" v-model="age_group">
                 <option disabled value="">연령대를 선택해 주세요</option>
                 <option>total</option>
                 <option>age1</option>
@@ -28,8 +27,8 @@
             <div v-if="selected_items.length > 0" style="font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
             <hr>
         </div>
-        <div class="background" style="top: 210px; padding-bottom: 55px; min-height: 70%">
-            <div class="rank_box" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
+        <div class="background bg-whitesmoke" style="top: 210px; padding-bottom: 55px; min-height: 70%">
+            <div class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
                 <div class="rank_order">{{i+1}}위</div>
                 <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
                 <div class="rank_manufacturer">{{product['manufacturer']}}</div>
@@ -161,7 +160,6 @@ export default {
     justify-self: center;
     display: grid;
     width: 100vw;
-    background-color: white;
 	grid-template-columns: 10vw min(27vh, 27vw) 50vw;
 	grid-template-rows: 2vh 3vh 3vh 3vh;
     align-content: center;

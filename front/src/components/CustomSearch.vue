@@ -1,4 +1,4 @@
-<template lang="">
+<template>
         <nav class="navbar fixed-top bg-white">
             <div class="container-fluid">
                 <span class="navbar-brand" @click="closePopup">
@@ -10,17 +10,17 @@
         </nav>
 
     
-    <div class="select_option">
-        <h3>항목선택</h3>
+    <div class="select_option_box" style="position: fixed; top: 50px; left: 0; margin: 0; width: 100%; z-index: 1030;">
+        <h2 style="font-weight: bold;">항목선택</h2>
         <div>
             <label class="option_kind">
-                <input type="radio" name="options" value="personalize" v-model="selected_option">
-                <span>맞춤</span>
+                <input  type="radio" name="options" value="personalize" v-model="selected_option">
+                <span style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">관심 항목</span>
             </label>
             
             <label class="option_kind">
                 <input type="radio" name="options" value="ingredient" v-model="selected_option  ">
-                <span>영양소</span>
+                <span style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">영양소</span>
             </label>
         </div>
     </div>
@@ -29,8 +29,8 @@
                 <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
                 <label :for="part.id">{{part.text}}</label>
             </div>
-        </div>
-        <button @click='sendCheckedItems()'>check</button>
+        </div>          
+        <button class="roundbox" @click='sendCheckedItems()'>check</button>
 </template>
   
 <script>
@@ -119,26 +119,28 @@ export default {
     margin-bottom: 10%;
 }
 
-.select_option {
+.select_option_box {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    margin: min(5vw, 5vh);
 }
 
 .search_option_items {
     position: static;
     display: grid;
-
-    grid-template-columns: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
-    grid-template-rows: min(22vw, 22vh) min(22vw, 22vh) min(22vw, 22vh);
+    width: 100%;
+    grid-template-columns: min(25vw, 25vh) min(25vw, 25vh) min(25vw, 25vh);
+    grid-template-rows: min(25vw, 25vh) min(25vw, 25vh) min(25vw, 25vh);
 }
 
 .search_option_item {
     position: relative;
     align-self: center;
-    justify-self: center;   
-    width: min(20vw, 20vh);
-    height: min(20vw, 20vh);
+    justify-self: center;
+    width: min(23vw, 23vh);
+    height: min(23vw, 23vh);
 }
 
 .option_kind input[type="radio"] {
@@ -148,39 +150,46 @@ export default {
 .option_kind input[type="radio"] + span {
     display: inline-block;
     padding: 15px 10px;
-    border: 1px solid #dfdfdf;
-    background-color: #ffffff;
+    border: 2px solid #2dce89;
+    background-color: white;
     text-align: center;
     cursor: pointer;
+    color: #6e6e6e;
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: 750;
 }
 
 .option_kind input[type="radio"]:checked + span {
-    background-color: #113a6b;
-    color: #ffffff;
+    background-color: #2dce89;
+    color: white;
 }
 
-input[type="checkbox"]{
+.search_option_item input[type="checkbox"] {
     display: none;
 }
 
-input[type="checkbox"] + label{
-    width: min(20vw, 20vh);
-    height: min(20vw, 20vh);
-    margin: min(1vw, 1vh);
+.search_option_item input[type="checkbox"] + label{
+    display: flex;
+    width: min(22vw, 22vh);
+    height: min(22vw, 22vh);
     position: relative;
     box-sizing: content-box;
-    background-color: aquamarine;
-    justify-self: center;
+    border-radius: 5pt;
+    border: 2px solid #2dce89;
+    background-color: white;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #6e6e6e;
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: 750;
 }
 
-input[type="checkbox"]:checked + label{
-    width: min(20vw, 20vh);
-    height: min(20vw, 20vh);
-    margin: min(1vw, 1vh);
-    position: relative;
-    box-sizing: content-box;
+.search_option_item input[type="checkbox"]:checked + label{
     background-color: #2dce89;
-
+    color: white;
 }
 
 </style>
