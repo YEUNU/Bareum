@@ -25,7 +25,7 @@
             <p>댓글 내용 {{ comment.comment_contents }}</p>
             <p>좋아요{{ comment.comment_like }}</p>
             <p>댓글 작성자 {{ comment.user.user_name }}</p>
-            <button @click="showReplyForm = !showReplyForm">답글 작성</button>
+            <button @click="showReplyForm = !showReplyForm; ">답글 작성</button>
             <div v-if="showReplyForm">
                 <input type="text" v-model="replyInput"/>
                 <button @click="submitReply(comment.comments_id)">확인</button>
@@ -94,7 +94,7 @@ export default {
          try {
            const postId = post.value.post_id;
            await axios.post(`/api/community/comments/${postId}`, {
-             comment_contents: commentInput.value, memberId : userInfo.memberId 
+             comment_contents: commentInput.value, memberId : userInfo.memberId
            },{
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export default {
         async function submitReply(parentCommentId) {
         try {
             const postId = post.value.post_id;
-            await axios.post(`/api/community/comments/${postId}`, {
+            await axios.post(`/api/community/comments/reply/${postId}`, {
                 comment_contents: replyInput.value, 
                 memberId: userInfo.memberId,
                 parent: parentCommentId

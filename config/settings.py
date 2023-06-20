@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "account",
     "product",
     "community",
-    "djangorestframework-recursive"
+    
     
 ]
 
