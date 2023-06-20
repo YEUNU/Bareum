@@ -1,10 +1,9 @@
 <template>
-    <div>
-       뒤로가기 홈 등등
-    </div>
+    <CommuTopNavBar/>
     <router-view :postId="postId" :commentsId="commentsId" />
 </template>
 <script>
+import CommuTopNavBar from '../../components/Navbar/CommuTopNavBar.vue';
 export default {
     props: {
     postId: {
