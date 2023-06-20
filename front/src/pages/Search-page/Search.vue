@@ -53,7 +53,6 @@ export default {
   border: none;
   background-color: #2dce89;
   color: white;
-  font-family: "paybooc-Light", sans-serif;
   font-size: 1.1em;
   text-decoration: none;
   font-weight: 750;

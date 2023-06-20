@@ -141,7 +141,6 @@ export default {
     align-items: center;
     
     line-height: min(25vw, 15vh);
-    font-family: "paybooc-Light", sans-serif;
     color: #6e6e6e;
     font-size: 1.2em;
     text-decoration: none;
@@ -162,7 +161,6 @@ export default {
     border: none;
     background-color: #2dce89;
     color: white;
-    font-family: "paybooc-Light", sans-serif;
     font-size: 1.1em;
     text-decoration: none;
     font-weight: 750;
