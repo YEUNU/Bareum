@@ -44,6 +44,7 @@ export default {
       if (page.value <= postTotalPages.value) {
         try {
           const response = await axios.get(`api/community/list?page=${page.value}`);
+          console.log(response.data)
           posts.value.push(...response.data.results);
           postTotalPages.value = Math.ceil(response.data.count / per_page);
           page.value += 1;

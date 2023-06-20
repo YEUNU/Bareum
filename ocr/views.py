@@ -1,23 +1,27 @@
 from PIL import Image
 from django.core.files.storage import default_storage
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .modules.modules_ocr import ocr
+import numpy as np
 
-@csrf_exempt
 def process_image(request):
     if request.method == "POST" and request.FILES["image"]:
         image = request.FILES["image"]
 
-        image_path = default_storage.save("temp.jpg", image)
-        img = Image.open(image_path)
-        img.save('./ocr/temp/temp_ocr.png')
-        
+ 
+
+        img = np.array(Image.open(image))
+
         model = ocr()
-        
-        result_ocr = model("./ocr/temp/temp_ocr.png")
-        print(result_ocr)
+
+        result_ocr = model(img)
+        string=""
         for i in result_ocr:
-            print(i)
+            if i[2] > 0.6:
+                string += " " + i[1]
+        string = string[1:]
+        print(string)
+
+ 
 
     return JsonResponse({"error": "Invalid request"})

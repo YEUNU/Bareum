@@ -9,8 +9,8 @@ import homePage from './pages/Home-page/Home.vue'
 import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
-import myupdatePage from './pages/my-page/MyupdatePage.vue'
 
+// import myupdatePage from './pages/my-page/MyupdatePage.vue'/
 // import mywishPage from './pages/my-page/MywishPage.vue'
 // import myorderPage from './pages/my-page/MyorderPage.vue'
 // import mypushPage from './pages/my-page/MypushPage.vue'
@@ -282,6 +282,22 @@ const routes = [
     //     name:'mynewaddPage',
     //     component:mynewaddPage
     // },
+    {
+        path:'/ocr',
+        name:'ocrResultPage',
+        component:mainPage,
+        children:[
+            {
+                path:'result/:imageData',
+                component:ocrResultPage
+            },
+            {
+                path:'camera',
+                component:ocrCameraPage
+            }
+        ]
+    }
+    
 ]
 
 const router = createRouter({
