@@ -35,6 +35,9 @@ import TotalResult from './pages/Search-page/Result-page/TotalResult.vue';
 import commuSearchPage from './pages/Community-page/Search.vue'
 import commuSearchResultPage from './pages/Community-page/SearchResult.vue'
 import commuSearch from './components/CommuSearch.vue'
+import ocrResultPage from './pages/Ocr-page/result.vue'
+import ocrCameraPage from './pages/Ocr-page/camera.vue'
+
 const routes = [
     //로그인 페이지
     {
@@ -259,6 +262,22 @@ const routes = [
         name:'mynewaddPage',
         component:mynewaddPage
     },
+
+    {
+        path:'/ocr',
+        name:'ocrResultPage',
+        component:mainPage,
+        children:[
+            {
+                path:'result',
+                component:ocrResultPage
+            },
+            {
+                path:'camera',
+                component:ocrCameraPage
+            }
+        ]
+    }
 ]
 
 const router = createRouter({
