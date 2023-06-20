@@ -34,19 +34,16 @@ export default {
     const store = useStore();
     const router = useRouter();
     const searchPlaceholder = ref("건강기능식품을 검색해보세요");
-    return {
-      store,
-      router,
-      searchPlaceholder,
+    const fileInput = ref(null);
+    const showMenu = ref(false);
+
+    const openGallery = () => {
+      showMenu.value = false;
+      fileInput.value.removeAttribute("capture");
+      fileInput.value.click();
     };
-  },
-  methods: {
-    openGallery() {
-      this.showMenu = false;
-      this.$refs.fileInput.removeAttribute("capture");
-      this.$refs.fileInput.click();
-    },
-    onFileSelected(event) {
+
+    const onFileSelected = (event) => {
       const selectedFile = event.target.files[0];
 
       // 선택한 파일에 대한 로직
@@ -58,7 +55,16 @@ export default {
       };
 
       reader.readAsDataURL(selectedFile);
-    },
+    };
+
+    return {
+      store,
+      router,
+      searchPlaceholder,
+      fileInput,
+      openGallery,
+      onFileSelected,
+    };
   },
 };
 

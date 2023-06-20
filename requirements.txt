@@ -5,3 +5,8 @@ mysqlclient
 django-allauth
 dj-rest-auth
 djangorestframework-recursive
+Pillow
+easyocr
+torch
+torchvision
+torchaudio
