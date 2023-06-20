@@ -13,6 +13,7 @@ from .models import User, Comments
 import django.core.serializers as dserializers 
 from django.db.models import Count
 from rest_framework.decorators import api_view
+from django.utils import timezone
 # Create your views here.
 
 
@@ -59,7 +60,7 @@ def write_post(req):
         print(title, contents,id)
         user = User.objects.get(member_id = id)
         post = Post.objects.create(post_title=title, post_contents=contents,
-                                   post_date = datetime.today(), post_like = 0, post_category = 'normal', user=user)
+                                   post_date = timezone.now(), post_like = 0, post_category = 'normal', user=user)
         
         response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
         
@@ -136,15 +137,15 @@ class CommentListView(APIView):
 
             request.data['user'] = user.member_id
             request.data['post'] = post_instance.post_id
-            request.data['comment_date'] = datetime.today()
+            request.data['comment_date'] = timezone.now()
             request.data['comment_like'] = 0
             request.data['parent'] = None
-            print(request.data['comment_date'])
-            
+
             serializer = self.serializer_class(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
+            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Post.DoesNotExist:
             return Response({"error": "게시물이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
