@@ -168,7 +168,7 @@ export default {
     margin-bottom: 2vh;
     padding: 5vw;
     font-weight: bold;
-    box-shadow: 0 3px 3px -3px black;
+    box-shadow: 2px 2px 2px 2px #eeeeee;
 }
 
 .rank_order {

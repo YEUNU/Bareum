@@ -4,12 +4,11 @@
 
       <h1>Healthy Pal</h1>
 
-      <div class="back">
       <input type="text" v-model="userLoginid" required placeholder="userLoginid"/>
       <input type="password" v-model="password" required placeholder="password" />
       <input v-model="userName" type="text" required placeholder="userName" />
       <button type="submit">Sign Up</button>
-    </div>
+
     </form>
   </div>
 </template>

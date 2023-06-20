@@ -10,19 +10,13 @@
           </div>
         </nav>
         
-        <div class="content">
+        <div class="supcontent">
             <div class="row">
-                <div class="col-9">
                     <h4>정말 탈퇴하시겠습니까?</h4>
-                    <h5>불편했던점을 알려주세요!</h5>
-                </div>
-                    <input  class="form-control" id="exampleFormControlInput1" placeholder="내용을 입력해주세요." style="margin-bottom: 5%;">
-                    <input  class="form-control" id="exampleFormControlInput1" placeholder="내용을 입력해주세요." style="margin-bottom: 5%;">
-                    <input  class="form-control" id="exampleFormControlInput1" placeholder="내용을 입력해주세요." style="margin-bottom: 5%;">
             </div>
-            <router-link to="/myremovedetail"><button style="margin-top: 10%; background-color: #2dce89; border-radius: 5px; color:white;">다음</button></router-link>
             </div>
-            
+            <router-link to="/login"><button style="background-color: #2dce89; border-radius: 5px; color:white; margin-top: 20%; margin-right: 30%;">탈퇴</button></router-link>
+            <router-link to="/mypage"><button style="background-color: #2dce89; border-radius: 5px; color:white;">취소</button></router-link>
     </div>
 </template>
 
@@ -37,8 +31,13 @@ export default {
     width: 100%; /* 화면 너비에 꽉 차도록 설정 */
     height: 100%; /* 화면 높이에 꽉 차도록 설정 */
     display: block;
+    margin-bottom: 10%;
 }
 
-
+.content {
+    width: 100%;
+    height:100%;
+    display:block;
+}
 
 </style>
