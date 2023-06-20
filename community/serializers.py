@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         
 class CommentsSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only = True)
-    replies = RecursiveField(many=True)
+    replies = RecursiveField(many=True,required=False)
     class Meta:
         model = Comments
         fields = '__all__'

@@ -22,7 +22,8 @@ import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
 import writePage from './pages/Community-page/Write.vue';
-import postDetailPage from './pages/Community-page/PostDetail.vue';
+import postDetailContent from './pages/Community-page/PostDetailContent.vue';
+import postDetailPage from './pages/Community-page/postDetail.vue';
 import CustomSearch from './components/CustomSearch.vue';
 import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
 import postPage from './pages/Community-page/Post.vue'
@@ -146,15 +147,24 @@ const routes = [
                 name:'writePage',
                 component:writePage
             },
-            {
-                path:'detail/:postId',
-                name:'postDetailPage',
-                component:postDetailPage,
-                props:true
-            }
         ]
 
     },
+    {
+        path:'/community/detail/:postId',
+        name:'postDetailPage',
+        component:postDetailPage,
+        props:true,
+        children:[
+            {
+                path:'postDetailContent',
+                name:"postDetailContentPage",
+                component:postDetailContent,
+            },
+
+        ]
+    },
+
 
     {
         path:"/community-search",

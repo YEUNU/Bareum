@@ -135,17 +135,16 @@ class CommentListView(APIView):
             user = User.objects.get(pk=request.data['memberId'])
             post_instance = Post.objects.get(pk=post_id)
 
-            request.data['user'] = user.member_id
+            # request.data['user'] = user.member_id
             request.data['post'] = post_instance.post_id
             request.data['comment_date'] = timezone.now()
             request.data['comment_like'] = 0
             request.data['parent'] = None
-
+            print(request.data)
             serializer = self.serializer_class(data=request.data)
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(user=user, post=post_instance)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-            print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Post.DoesNotExist:
             return Response({"error": "게시물이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
@@ -172,7 +171,7 @@ class CommentReplyListView(APIView):
 
             serializer = self.serializer_class(data=request.data)
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(user=user, post=post_instance)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Post.DoesNotExist:
