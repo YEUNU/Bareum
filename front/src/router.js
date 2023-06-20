@@ -6,6 +6,7 @@ import searchPage from './pages/Search-page/SearchPage.vue'
 import search from './pages/Search-page/Search.vue'
 import detailSearchPage from './pages/Search-page/DetailSearch.vue'
 import homePage from './pages/Home-page/Home.vue'
+import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
 import myupdatePage from './pages/my-page/MyupdatePage.vue'
@@ -35,6 +36,9 @@ import TotalResult from './pages/Search-page/Result-page/TotalResult.vue';
 import commuSearchPage from './pages/Community-page/Search.vue'
 import commuSearchResultPage from './pages/Community-page/SearchResult.vue'
 import commuSearch from './components/CommuSearch.vue'
+import ocrResultPage from './pages/Ocr-page/result.vue'
+import ocrCameraPage from './pages/Ocr-page/camera.vue'
+
 const routes = [
     //로그인 페이지
     {
@@ -83,6 +87,12 @@ const routes = [
             component:homePage
         }
         ]
+    },
+    // 촬영 가이드 페이지
+    {
+        path: "/cameraguide",
+        component:cameraguidePage,
+        name:'cameraguidePage'
     },
     {
         //예시
@@ -262,6 +272,22 @@ const routes = [
         name:'mynewaddPage',
         component:mynewaddPage
     },
+
+    {
+        path:'/ocr',
+        name:'ocrResultPage',
+        component:mainPage,
+        children:[
+            {
+                path:'result',
+                component:ocrResultPage
+            },
+            {
+                path:'camera',
+                component:ocrCameraPage
+            }
+        ]
+    }
 ]
 
 const router = createRouter({

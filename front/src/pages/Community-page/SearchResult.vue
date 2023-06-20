@@ -9,6 +9,7 @@
                 <p class="card-text">제목 : {{ post.post_title }}</p>
                 <p class="card-text">내용 : {{ post.post_contents }}</p>
               </div>
+            
             </div>
             <div class="col-6">
               <img :src="post.image" class="card-img" alt="post image" />
