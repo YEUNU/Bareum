@@ -4,7 +4,7 @@ from django.utils import timezone
 # Create your models here.
 class Post(models.Model):
     post_id = models.BigAutoField(primary_key=True)
-    post_date = models.DateField(default=timezone.now)
+    post_date = models.DateTimeField(default=timezone.now)
     post_title = models.CharField(max_length=100)
     post_contents = models.CharField(max_length=100)
     post_like = models.IntegerField()
@@ -17,7 +17,7 @@ class Post(models.Model):
 
 class Comments(models.Model):
     comments_id = models.BigAutoField(primary_key=True)
-    comment_date = models.DateField(default=timezone.now)
+    comment_date = models.DateTimeField(default=timezone.now)
     comment_contents = models.CharField(max_length=100)
     comment_like = models.IntegerField()
     post = models.ForeignKey('Post', models.DO_NOTHING)
