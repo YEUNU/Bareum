@@ -15,7 +15,6 @@
 
 
 <style>
-#app{width:100%; height:100%;}
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
