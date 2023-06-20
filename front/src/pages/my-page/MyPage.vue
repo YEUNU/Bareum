@@ -70,7 +70,7 @@
     <div class="card-body">
       
       <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
-      <img src="..." class="card-img-top" alt="...">
+      <img src="" class="card-img-top" alt="">
       <p class="card-text">등록 등록 등록</p>
       <div class="col-sm-8">
       <div class="d-flex justify-content-between" style="align-items:center;">

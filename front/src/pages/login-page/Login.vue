@@ -36,7 +36,7 @@
       </div>
     </div>
     <div style="margin-top: 2vh; color: gray;">아직 회원이 아니신가요?</div>
-    <router-link to="signup"><button>회원가입</button></router-link>
+    <router-link to="/agreesignup"><button>회원가입</button></router-link>
   </div>
 </template>
 
