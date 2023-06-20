@@ -1,11 +1,11 @@
 <template>
-  <form @submit.prevent="signup">
-    <div class="logcontainer">
+<form @submit.prevent="signup">
+  <div class="logcontainer">
 
-      <h1>바름</h1>
+    <h1>바름</h1>
 
-      <div class="back" style="margin-bottom: 15vh;">
-        <input v-model="userName" type="text" required placeholder=" 이름" />
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 15vh;">
+      <input v-model="userName" type="text" required placeholder=" 이름" />
       <input type="text" v-model="userLoginid" required placeholder=" 아이디"/>
       <input type="password" v-model="password" required placeholder=" 비밀번호" />
       <button type="submit">회원가입</button>

@@ -3,38 +3,39 @@
     <form @submit.prevent="login">
 
       <h1>바름</h1>
-
-      <input type="text" v-model="form.userLoginid" required placeholder=" 아이디" />
-      <input type="password" v-model="form.password" required placeholder=" 비밀번호" />
-      <button type="submit">로그인</button>
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <input type="text" v-model="form.userLoginid" required placeholder=" 아이디" />
+        <input type="password" v-model="form.password" required placeholder=" 비밀번호" />
+        <button type="submit">로그인</button>
+      </div>
     </form>
-    <div style="margin-top: 5vh; transition:.2s linear; font-weight: lighter;">또는</div>
-    <hr style="width: 80%; margin: auto; text-align: center;">
-    <div style="margin-top: 3vh;">소셜 로그인</div>
+    <div style="margin-top: 5vh; transition:.2s linear; font-weight: lighter; color: gray;">또는</div>
+    <hr style="width: min(67vw, 50vh); margin: auto; text-align: center;">
+    <div style="margin-top: 3vh; color: gray;">소셜 로그인</div>
     <div style="display: flex; justify-content: center;">
       <div style="margin: 2vh 2vh;">
-        <img style="height: 45px;"
+        <img style="height: 45px; border: 0.75px solid #FFFFFF; border-radius: 10px;"
         src="@assets/kakao_login_icon.png"
         alt="Kakao Login"
         @click="loginWithKakao"
         />
       </div>
       <div style="margin: 2vh 2vh;">
-        <img style="height: 45px;"
+        <img style="height: 45px; border: 0.75px solid #FFFFFF; border-radius: 10px;"
         src="@assets/naver_login_icon.png"
         alt="Naver Login"
         @click=""
         />
       </div>
       <div style="margin: 2vh 2vh;">
-        <img style="height: 45px; border: 0.75px solid #999999; border-radius: 5px;"
+        <img style="height: 45px; border: 0.75px solid #CCCCCC; border-radius: 10px;"
         src="@assets/google_login_icon.png"
         alt="Google Login"
         @click=""
         />
       </div>
     </div>
-    <div style="margin-top: 3vh;">아직 회원이 아니신가요?</div>
+    <div style="margin-top: 2vh; color: gray;">아직 회원이 아니신가요?</div>
     <router-link to="signup"><button>회원가입</button></router-link>
   </div>
 </template>
@@ -133,12 +134,12 @@ export default {
   text-align:center;
   transition:.2s linear;
   letter-spacing: 6px;
-  margin: 3vh auto 30px auto;
+  margin: 2vh auto 3vh auto;
   font-weight: bold;
 }
 
 .logcontainer input {
-  width: 80%;
+  width: min(67vw, 50vh);
   padding: 2vh;
   margin-bottom: 1vh;
   border-radius: 8px;

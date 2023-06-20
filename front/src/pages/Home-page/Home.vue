@@ -1,8 +1,5 @@
 <template lang="">
 
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
 
 <div class="modal" v-if="modalopen==true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
   <div class="modal-dialog">
@@ -88,7 +85,7 @@ export default {
 }
 
 .box_search {
-    margin: 10px;
+    margin: 10px 10px 10px 8vw;
     flex-grow: 1;
 }
 
