@@ -15,10 +15,10 @@ import myorderPage from './pages/my-page/MyorderPage.vue'
 import mypushPage from './pages/my-page/MypushPage.vue'
 import mysupportPage from './pages/my-page/MysupportPage.vue'
 import myremovePage from './pages/my-page/MyremovePage.vue'
-import myremovedetailPage from './pages/my-page/MyremovedetailPage.vue'
 import mytermsPage from './pages/my-page/MytermsPage.vue'
 import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
 import mynewaddPage from './pages/my-page/MynewaddPage.vue'
+import mysettingPage from './pages/my-page/MysettingPage.vue'
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
@@ -236,12 +236,6 @@ const routes = [
         component:myremovePage
     },
     {   
-        // 회원탈퇴 약관
-        path:'/myremovedetail',
-        name:'myremovedetailPage',
-        component:myremovedetailPage
-    },
-    {   
         // 이용 약관
         path:'/myterms',
         name:'mytermsPage',
@@ -258,6 +252,12 @@ const routes = [
         path:'/mynewadd',
         name:'mynewaddPage',
         component:mynewaddPage
+    },
+    {   
+        // 환경설정
+        path:'/mysetting',
+        name:'mysettingPage',
+        component:mysettingPage
     },
 ]
 

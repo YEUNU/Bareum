@@ -1,0 +1,76 @@
+<template>
+
+    <div class="mycontainer">
+      <nav class="navbar fixed-top bg-white">
+        <div class="container-fluid">
+          <router-link to="/mypage" class="navbar-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+        </router-link>
+        </div>
+        
+      </nav>
+
+      
+
+<div class="mycard-container" style="margin-bottom: 160%;">
+  <div class="card" style="width: 100%; padding:0;  display:block; box-shadow: 2px 2px 2px 2px #eeeeee">
+    <div class="card-body"> 
+        <div class="m-title">
+            <router-link to="/myterms"><h5 style="text-align: left; font-weight: bold; color:black;">이용약관</h5></router-link>
+            <router-link to="/myprivacy"><h5 style="text-align: left; margin-top: 10%; font-weight: bold; color:black;">개인정보 처리방침</h5></router-link>
+            <router-link to="/myremove"><h5 style="text-align: left; margin-top: 10%; font-weight: bold; color:black;">회원탈퇴</h5></router-link>
+            <router-link to="/mysupport"><h5 style="text-align: left; margin-top: 10%; font-weight: bold; color:black;">문의하기</h5></router-link>
+        </div>
+    </div>
+  </div>
+</div>
+    </div>
+  
+    
+  </template>
+
+<script>
+import { useUserInfo } from '../../stores.js';
+import {ref} from 'vue'
+  export default {
+    setup() {
+      const userInfo = useUserInfo()
+      const {userLogout} = userInfo
+    const isLoggedIns = userInfo.isLoggedIns;
+    return {
+      isLoggedIns,
+      userInfo,
+      userLogout
+    };
+  },
+
+  components: {}
+};
+  </script>
+
+  <style lang="css">
+
+  .mycontainer {
+    width: 100%; /* 화면 너비에 꽉 차도록 설정 */
+    height: 100%; /* 화면 높이에 꽉 차도록 설정 */
+    display: block;
+    margin-bottom: 10%;
+    border-radius: 10px;
+  }
+  
+  .mycard-container {
+    margin-bottom: 5%;
+  }
+
+  .btn {
+  margin-right: 0.6vw; /* 버튼들 사이의 간격을 조절 */
+  margin-top: 5px;
+}
+
+.navbar-brand {
+    margin-left: 5%;
+}
+
+  </style>
