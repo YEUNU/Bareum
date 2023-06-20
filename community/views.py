@@ -178,3 +178,15 @@ class CommentReplyListView(APIView):
             return Response({"error": "게시물이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
         except Comments.DoesNotExist:
             return Response({"error": "댓글이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
+        
+    
+    def get(self,request,comments_id):
+        try:
+            comment = Comments.objects.select_related('user').filter(comments_id=comments_id, parent=None)
+        except Comments.DoesNotExist:
+            return JsonResponse({"message": "comment not found"}, status=404)
+        
+
+
+        serializer = self.serializer_class(comment, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)

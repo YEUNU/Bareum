@@ -10,15 +10,18 @@ import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
 import myupdatePage from './pages/my-page/MyupdatePage.vue'
-import mywishPage from './pages/my-page/MywishPage.vue'
-import myorderPage from './pages/my-page/MyorderPage.vue'
-import mypushPage from './pages/my-page/MypushPage.vue'
-import mysupportPage from './pages/my-page/MysupportPage.vue'
-import myremovePage from './pages/my-page/MyremovePage.vue'
-import myremovedetailPage from './pages/my-page/MyremovedetailPage.vue'
-import mytermsPage from './pages/my-page/MytermsPage.vue'
-import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
-import mynewaddPage from './pages/my-page/MynewaddPage.vue'
+
+// import mywishPage from './pages/my-page/MywishPage.vue'
+// import myorderPage from './pages/my-page/MyorderPage.vue'
+// import mypushPage from './pages/my-page/MypushPage.vue'
+// import mysupportPage from './pages/my-page/MysupportPage.vue'
+// import myremovePage from './pages/my-page/MyremovePage.vue'
+// import myremovedetailPage from './pages/my-page/MyremovedetailPage.vue'
+// import mytermsPage from './pages/my-page/MytermsPage.vue'
+// import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
+// import mynewaddPage from './pages/my-page/MynewaddPage.vue'
+
+
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
 import BottomNavBar from './components/NavBar/BottomNavBar.vue';
@@ -32,7 +35,7 @@ import popularPostPage from './pages/Community-page/PopularPost.vue'
 import newsPage from './pages/Community-page/HealthNews.vue'
 import checkLogin from './checkLogin';
 import TotalResult from './pages/Search-page/Result-page/TotalResult.vue';
-
+import replyPage from './pages/Community-page/Reply.vue'
 import commuSearchPage from './pages/Community-page/Search.vue'
 import commuSearchResultPage from './pages/Community-page/SearchResult.vue'
 import commuSearch from './components/CommuSearch.vue'
@@ -167,10 +170,17 @@ const routes = [
         props:true,
         children:[
             {
-                path:'postDetailContent',
+                path:'',
                 name:"postDetailContentPage",
                 component:postDetailContent,
+                props:true
             },
+            {
+                path: 'replyPage/:commentsId',
+                name: 'postReplyPage',
+                component: replyPage,
+                props: true,
+              },
 
         ]
     },
@@ -212,82 +222,66 @@ const routes = [
         ]
     },
 
-    {   
-        // 개인정보수정
-        path:'/myupdate',
-        name:'myupdatePage',
-        component:myupdatePage
-    },
-    {   
-        // 찜 목록
-        path:'/mywish',
-        name:'mywishPage',
-        component:mywishPage
-    },
-    {   
-        // 주문 / 배송 내역
-        path:'/myorder',
-        name:'myorderPage',
-        component:myorderPage
-    },
-    {   
-        // 푸시 알람 설정
-        path:'/mypush',
-        name:'mypushPage',
-        component:mypushPage
-    },
-    {   
-        // 문의하기 
-        path:'/mysupport',
-        name:'mysupportPage',
-        component:mysupportPage
-    },
-    {   
-        // 회원탈퇴 
-        path:'/myremove',
-        name:'myremovePage',
-        component:myremovePage
-    },
-    {   
-        // 회원탈퇴 약관
-        path:'/myremovedetail',
-        name:'myremovedetailPage',
-        component:myremovedetailPage
-    },
-    {   
-        // 이용 약관
-        path:'/myterms',
-        name:'mytermsPage',
-        component:mytermsPage
-    },
-    {   
-        // 개인정보 처리방침
-        path:'/myprivacy',
-        name:'myprivacyPage',
-        component:myprivacyPage
-    },
-    {   
-        // 영양제 등록 요청
-        path:'/mynewadd',
-        name:'mynewaddPage',
-        component:mynewaddPage
-    },
-
-    {
-        path:'/ocr',
-        name:'ocrResultPage',
-        component:mainPage,
-        children:[
-            {
-                path:'result',
-                component:ocrResultPage
-            },
-            {
-                path:'camera',
-                component:ocrCameraPage
-            }
-        ]
-    }
+    // {   
+    //     // 개인정보수정
+    //     path:'/myupdate',
+    //     name:'myupdatePage',
+    //     component:myupdatePage
+    // },
+    // {   
+    //     // 찜 목록
+    //     path:'/mywish',
+    //     name:'myWishPage',
+    //     component:mywishPage
+    // },
+    // {   
+    //     // 주문 / 배송 내역
+    //     path:'/myorder',
+    //     name:'myOrderPage',
+    //     component:myorderPage
+    // },
+    // {   
+    //     // 푸시 알람 설정
+    //     path:'/mypush',
+    //     name:'mypushPage',
+    //     component:mypushPage
+    // },
+    // {   
+    //     // 문의하기 
+    //     path:'/mysupport',
+    //     name:'mysupportPage',
+    //     component:mysupportPage
+    // },
+    // {   
+    //     // 회원탈퇴 
+    //     path:'/myremove',
+    //     name:'myremovePage',
+    //     component:myremovePage
+    // },
+    // {   
+    //     // 회원탈퇴 약관
+    //     path:'/myremovedetail',
+    //     name:'myremovedetailPage',
+    //     component:myremovedetailPage
+    // },
+    // {   
+    //     // 이용 약관
+    //     path:'/myterms',
+    //     name:'mytermsPage',
+    //     component:mytermsPage
+    // },
+    // {   
+    //     // 개인정보 처리방침
+    //     path:'/myprivacy',
+    //     name:'myprivacyPage',
+    //     component:myprivacyPage
+    // },
+    // {   
+    //     // 영양제 등록 요청
+    //     path:'/mynewadd',
+    //     name:'mynewaddPage',
+    //     component:mynewaddPage
+    // },
 ]
 
 const router = createRouter({

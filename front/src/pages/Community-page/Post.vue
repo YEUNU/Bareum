@@ -32,6 +32,7 @@ import axios from 'axios';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 export default {
+
   setup() {
     const posts = ref([]);
     const page = ref(1);
