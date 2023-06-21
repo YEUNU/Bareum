@@ -1,21 +1,21 @@
 <template>
-  <div class="camera-page">
-    <h1>☆영양제 촬영하기★</h1>
-    <div class="video-container" ref="videoContainer">
-      <video ref="cameraPreview" autoplay style="width:100%;"></video>
-      <img ref="capturedImage" style="display:none;width:100%;">
+    <div class="camera-page">
+      <h1>☆영양제 촬영하기★</h1>
+      <div class="video-container" ref="videoContainer">
+        <video ref="cameraPreview" autoplay style="width:100%;"></video>
+        <img ref="capturedImage" style="display:none;width:100%;">
+      </div>
+      <div class="button-container">
+        <button class="capture-button" @click="capturePhoto">촬영하기</button>
+        <button class="submit-button" @click="submitPhoto">제출하기</button>
+        <button class="retake-button" @click="retakePhoto">재촬영</button>
+      </div>
     </div>
-    <div class="button-container">
-      <button class="capture-button" @click="capturePhoto">촬영하기</button>
-      <button class="submit-button" @click="submitPhoto">제출하기</button>
-      <button class="retake-button" @click="retakePhoto">재촬영</button>
-    </div>
-  </div>
-</template>
-
+  </template>
+  
 <script>
 import { ref, reactive, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
@@ -23,13 +23,13 @@ export default {
     const capturedImage = ref(null);
     const router = useRouter();
     const image = reactive({
-      data: null,
+      data: null
     });
 
     onMounted(() => {
       openCamera();
     });
-
+  
     const openCamera = async () => {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
@@ -70,16 +70,16 @@ export default {
 
     const submitPhoto = () => {
       if (!image.data) {
-        alert("제품을 촬영해주세요.");
-        return;
-      }
-      if (cameraPreview.value.srcObject) {
-        const stream = cameraPreview.value.srcObject;
-        const tracks = stream.getTracks();
-        tracks.forEach((track) => {
-          track.stop();
-        });
-      }
+      alert("제품을 촬영해주세요.");
+      return;
+    }
+    if (cameraPreview.value.srcObject) {
+      const stream = cameraPreview.value.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => {
+        track.stop();
+      });
+    }
       router.push("/ocr/result/" + encodeURIComponent(image.data));
     };
 
@@ -101,7 +101,6 @@ export default {
   },
 };
 </script>
-
   
   
 <style lang="">

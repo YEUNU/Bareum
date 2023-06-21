@@ -28,6 +28,8 @@
         <div>
             ------------------
         </div>
+        <button @click="likePost">개추좀용 ㅎ</button>
+        <span>{{ post.post_like }}</span>
         <div v-for="comment in comments" :key="comment.comments_id">
             <p>댓글 작성일 {{ comment.comment_date }}</p>
             <p>댓글 내용 {{ comment.comment_contents }}</p>
@@ -68,7 +70,6 @@ import Cookies from 'js-cookie';
 import CommuInput from '../../components/CommuInput.vue';
 
 export default {
-
     props: {
         postId: {
             type: String,
@@ -82,6 +83,25 @@ export default {
         const commentInput = ref("");
         const csrf_token = Cookies.get("csrftoken");
         const replyInput = ref("");
+
+        const likePost = () => {
+            axios.post('/api/community/like_post', { post_id: post.value.post_id, member_id: post.value.memberId }, {
+                headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrf_token,
+                },
+            })
+                .then(response => {
+                    if (response.data.success) {
+                        post.value.post_like += 1;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+
         async function fetchPostDetail(postId) {
             try {
                 const response = await axios.get(`/api/community/detail/${postId}`);
@@ -91,6 +111,7 @@ export default {
                 console.error("error", err);
             }
         }
+
         async function fetchPostComment(postId) {
             try {
                 const response = await axios.get(`/api/community/comments/${postId}`);
@@ -100,8 +121,9 @@ export default {
                 console.error("error", err);
             }
         }
+
         const submitComment = async (commentInput) => {
-              try {
+            try {
                 const postId = post.value.post_id;
                 await axios.post(`/api/community/comments/${postId}`, {
                   comment_contents: commentInput,
@@ -113,16 +135,16 @@ export default {
                   },
                 });
                 await fetchPostComment(postId);
-              } catch (error) {
+            } catch (error) {
                 console.error(error);
-              }
-            };
-
+            }
+        };
 
         onMounted(() => {
             fetchPostComment(props.postId);
             fetchPostDetail(props.postId);
         });
+
         return {
             fetchPostComment,
             comments,
@@ -130,10 +152,11 @@ export default {
             post,
             submitComment,
             commentInput,
-            userInfo
-
+            userInfo,
+            likePost // likePost 함수를 반환하여 템플릿에서 사용할 수 있게합니다.
         };
     },
     components: { CommuInput }
 };
 </script>
+

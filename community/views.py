@@ -15,6 +15,8 @@ from django.db.models import Count
 from rest_framework.decorators import api_view
 from django.utils import timezone
 from django.core.files.storage import default_storage
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 # Create your views here.
 
 
@@ -192,3 +194,21 @@ class CommentReplyListView(APIView):
         serializer = self.serializer_class(comment, many=True)
         print(serializer.data)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+    
+    
+#좋아요 추가
+@require_POST
+@csrf_exempt
+def like_post(request):
+    try:
+        data = json.loads(request.body)
+        post_id = data.get('post_id')
+        user_id = data.get('user_id')
+
+        post = Post.objects.get(post_id=post_id)
+        post.post_like += 1  # 좋아요 수 직접 증가시키기
+        post.save()
+
+        return JsonResponse({'success': True, 'message': '좋아요 추가되었습니다.'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
