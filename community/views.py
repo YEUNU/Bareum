@@ -142,11 +142,11 @@ class CommentListView(APIView):
 class CommentReplyListView(APIView):
     serializer_class = CommentsSerializer
     
-    def post(self, request, post_id):
+    def post(self, request, comments_id):
         try:
             user = User.objects.get(pk=request.data['memberId'])
-            post_instance = Post.objects.get(pk=post_id)
-            parent_id = request.data.get('parent', None)
+            post_instance = Post.objects.get(pk=request.data['postId'])
+            parent_id = comments_id
 
             request.data['user'] = user.member_id
             request.data['post'] = post_instance.post_id
@@ -179,4 +179,5 @@ class CommentReplyListView(APIView):
 
 
         serializer = self.serializer_class(comment, many=True)
+        print(serializer.data)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
