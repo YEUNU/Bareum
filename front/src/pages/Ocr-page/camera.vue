@@ -68,6 +68,13 @@
         alert("제품을 촬영해주세요.");
         return;
       }
+      if (cameraPreview.value.srcObject) {
+        const stream = cameraPreview.value.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => {
+          track.stop();
+        });
+      }
         router.push("/ocr/result/" + encodeURIComponent(image.data));
       };
   
