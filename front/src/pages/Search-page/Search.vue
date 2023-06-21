@@ -5,7 +5,6 @@
   <div v-else>
     <button class="search_option" @click="open_popup('personalize')">관심 분야로 검색</button>
     <button class="search_option" @click="open_popup('ingredient')">영양 성분으로 검색</button>
-    <router-link to="/search/detail"> 상세 검색하기</router-link>
   </div>
 </template>
 <script>
