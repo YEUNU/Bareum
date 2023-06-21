@@ -68,7 +68,7 @@ import { ref, onMounted } from 'vue';
 import { useUserInfo } from '../../stores';
 import Cookies from 'js-cookie';
 import CommuInput from '../../components/CommuInput.vue';
-import { computed } from 'vue';
+
 export default {
     props: {
         postId: {
@@ -77,36 +77,36 @@ export default {
         }
     },
     setup(props) {
-        const userInfo = useUserInfo();
         const comments = ref([]);
-        const post = ref({});
         const commentInput = ref("");
         const csrf_token = Cookies.get("csrftoken");
         const replyInput = ref("");
-        const userInfoComputed = computed(() => userInfo.value);
+        const userInfo = useUserInfo();
+        const post = ref({});
+
         const likePost = () => {
-            if (post.value.member_id !== userInfoComputed.value.memberId) {
-            axios
+            if (post.value.member_id !== userInfo.memberId) {
+                axios
                 .post(
-                "/api/community/like_post",
-                { post_id: post.value.post_id, member_id: userInfoComputed.value.memberId },
-                {
+                    "/api/community/like_post",
+                    { post_id: post.value.post_id, member_id: post.value.member_Id },
+                    {
                     headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrf_token,
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrf_token,
                     },
-                }
+                    }
                 )
                 .then((response) => {
-                if (response.data.success) {
+                    if (response.data.success) {
                     post.value.post_like += 1;
-                }
+                    }
                 })
                 .catch((error) => {
-                console.error(error);
+                    console.error(error);
                 });
             } else {
-            console.log("게시물 작성자는 좋아요를 누를 수 없습니다.");
+                console.log("게시물 작성자는 좋아요를 누를 수 없습니다.");
             }
         }
 
