@@ -38,7 +38,7 @@
       async fetchPosts(query) {
         try {
           const response = await axios.get(
-            `http://localhost:8000/api/community-search/result?searchQuery=${query}&page=${this.page}`
+            `http://localhost:5173/api/community-search/result?searchQuery=${query}&page=${this.page}`
           );
           this.posts = [
             ...this.posts,
