@@ -45,25 +45,46 @@ def logout_user(req):
     logout(req)
     return JsonResponse({'success': '로그아웃이 완료되었습니다.'})
 
+@csrf_exempt
+
 def signup(req):
+
     if req.method == 'POST':
+
         data = json.loads(req.body.decode('utf-8'))
+
         login_id = data.get('userLoginid')
+
         password = data.get('password')
+
         user_name = data.get('userName')
+
         print(login_id, password, user_name)
-        
+
+       
+
         if models.User.objects.filter(login_id = login_id).exists():
+
             return JsonResponse({'result':'fail'})
-        
+
+       
+
         user = models.User.objects.create_user(login_id = login_id,
+
                                                password = password,
+
                                                user_name = user_name)
-        
-        return JsonResponse({'login id':login_id, 'user_nickname':user_name, 
-                             'result': 'success', 
+
+       
+
+        return JsonResponse({'login id':login_id, 'user_nickname':user_name,
+
+                             'result': 'success',
+
                              'message': '회원가입이 완료되었습니다.'})
+
     else:
+
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
 
