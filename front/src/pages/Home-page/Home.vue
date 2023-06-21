@@ -5,13 +5,13 @@
             <router-link to="/search"><SearchBar background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
-        <button class="box_alerts" @click="router.push({path: '/alerts'});">
-            <img class="alerts_icon" src="../../assets/received_alarm.png" alt="">
+        <button class="box_alarm" @click="router.push({path: '/received_alarms'});">
+            <img class="alarm_icon" src="../../assets/received_alarm.png" alt="">
         </button>
     </div>
-    <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 60px;">
+    <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 90px;">
         <div class="bg-whitesmoke"
-             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: 100%">
+             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: calc(100vh - 153px);">
             <div class="menu_container">
                 <router-link to="/ranking" class="item menus">
                 <div id="menu_comment">많은 사람들이 구매한</div>
@@ -32,6 +32,11 @@
                 <div id="menu_comment">내가 까먹어도 기사님은 안까먹는</div>
                 <div id="menu_name">정기배송신청</div>
                 <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
+            </router-link>
+            <router-link to="/mynutrients" class="item menus" style="grid-column: 1/3">
+                <div id="menu_comment">현재 내가</div>
+                <div id="menu_name">복용 중인 영양제</div>
+                <div id="menu_icon"><img src="../../assets/taking.png" alt=""></div>
             </router-link>
         </div>
     </div>
@@ -102,7 +107,7 @@ video {
     left: 0;
     top: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 0;
     /*
     display: flex;
@@ -124,7 +129,7 @@ video {
     flex-grow: 1;
 }
 
-.box_alerts {
+.box_alarm {
     border: 0;
     padding: 0;
     margin: 5px;
@@ -132,7 +137,7 @@ video {
     z-index: 1;
 }
 
-.alerts_icon {
+.alarm_icon {
     border: 0;
     padding: 0;
     width: 30px;
@@ -140,12 +145,10 @@ video {
 }
 
 .menu_container {
-
-    position: static;
     display: grid;
     grid-template-columns: 45vw 45vw;
-    grid-template-rows: 50% 50%;
-    padding: 4% 5%;
+    grid-template-rows: min(33vw, 33vh) min(33vw, 33vh) min(33vw, 33vh);
+    padding: 4vh 5vw;
     justify-content: center;
     align-items: center;
 
@@ -173,20 +176,20 @@ video {
 
 #menu_comment {
     align-self: start;
-    padding: 2.5% 0 0 2.5%;
+    padding: 0.5vh 0 0 0.5vh;
     color: gray;
     font-size: min(1.7vw, 1.7vh);
 }
 
 #menu_name {
     align-self: start;
-    padding: 0.5% 0 0 2.5%;
+    padding: 0.2vh 0 0 0.5vh;
     color: black;
     font-size: min(5vw, 5vh);
 }
 
 #menu_icon {
-    margin: 0 5% 5% 0;
+    margin: 0 1vh 1vh 0;
     align-self: end;
 }
 
@@ -204,6 +207,7 @@ video {
     text-decoration: none;
     font-weight: 750;
 }
+
 .modal-container {
   position: relative;
   height: 100vh;

@@ -29,8 +29,8 @@ a{
 }
 
 #app {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   font-family: 'Nanum Gothic', sans-serif;
 }
 

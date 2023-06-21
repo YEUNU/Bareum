@@ -9,7 +9,7 @@
         <searchBar ref="searchbarAPI" :placeholder=searchPlaceholder @searchQuery="(searchQuery) => search(searchQuery)" style="width: calc(100% - 37px)"></searchBar>
     </div>
 </nav>
-<router-view style="display: flex; flex-direction: column;"/>
+<router-view style=""/>
 </template>
 
 
