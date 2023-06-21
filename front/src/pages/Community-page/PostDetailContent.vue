@@ -15,7 +15,10 @@
             <div>
                내용: {{ post.post_contents }}
             </div>
-
+        </div>
+        <div v-if="post.member_id == userInfo.memberId">
+            <button>수정</button>
+            <button>삭제</button>
         </div>
         <div>
             ------------------
@@ -24,13 +27,21 @@
             <p>댓글 작성일 {{ comment.comment_date }}</p>
             <p>댓글 내용 {{ comment.comment_contents }}</p>
             <p>좋아요{{ comment.comment_like }}</p>
-            <p>댓글 작성자 {{ comment.user.user_name }}</p>            
+            <p>댓글 작성자 {{ comment.user.user_name }}</p>
+            <div v-if="comment.user.member_id == userInfo.memberId">
+                <button>수정</button>
+                <button>삭제</button>
+            </div>            
             <div v-if="comment.replies.length" class="replies">
                 <div v-for="reply in comment.replies" :key="reply.comments_id">
                     <p>대댓글 작성일 {{ reply.comment_date }}</p>
                     <p>대댓글 내용 {{ reply.comment_contents }}</p>
                     <p>좋아요 {{ reply.comment_like }}</p>
                     <p>대댓글 작성자 {{ reply.user.user_name }}</p>
+                    <div v-if="reply.user.member_id == userInfo.memberId">
+                        <button>수정</button>
+                        <button>삭제</button>
+                    </div> 
                 </div>
             </div>
             <router-link :to="{ name: 'postReplyPage', params: { postId: post.post_id, commentsId: comment.comments_id }}">
@@ -113,6 +124,7 @@ export default {
             post,
             submitComment,
             commentInput,
+            userInfo
 
         };
     },

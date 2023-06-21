@@ -9,11 +9,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import serializers, status
 import json
 from datetime import datetime
-from .models import User, Comments
+from .models import User, Comments, PostImage
 import django.core.serializers as dserializers 
 from django.db.models import Count
 from rest_framework.decorators import api_view
 from django.utils import timezone
+from django.core.files.storage import default_storage
 # Create your views here.
 
 
@@ -42,18 +43,24 @@ class PostListView(APIView):
 #글쓰기
 def write_post(req):
     if req.method == 'POST':
-        data = json.loads(req.body)
-        print(data)
-        title = data.get('title')
-        contents = data.get('content')
-        id = data.get('memberId')
-        print(title, contents,id)
+        title = req.POST['title']
+        contents = req.POST['content']
+        id = req.POST['memberId']
         user = User.objects.get(member_id = id)
+        
+        
         post = Post.objects.create(post_title=title, post_contents=contents,
-                                   post_date = timezone.now(), post_like = 0, post_category = 'normal', user=user)
+                                   post_date=timezone.now(), post_like=0, post_category='normal', user=user)
         
-        response_data = {'post_title':post.post_title, 'post_contents':post.post_contents}
-        
+        # 이미지 파일 저장
+        for key in req.FILES:
+            image_file = req.FILES[key]
+            image = PostImage()
+            image.image = default_storage.save("post_images/%s" % (image_file.name, ), image_file)
+            image.post = post   
+            image.save()
+
+        response_data = {'post_title': post.post_title, 'post_contents': post.post_contents}
         return JsonResponse(response_data, status=201)
   
 #게시글 제목 검색 
@@ -92,7 +99,7 @@ def post_detail(request, post_id):
         "post_contents": post.post_contents,
         "post_like": post.post_like,
         "post_category": post.post_category,
-        "user_id": post.user.member_id,
+        "member_id": post.user.member_id,
         #나중에 닉네임으로 수정해야할듯
         "user_name": post.user.user_name,
     }

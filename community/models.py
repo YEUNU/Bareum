@@ -28,3 +28,6 @@ class Comments(models.Model):
         managed = True
         db_table = 'comments'
     
+class PostImage(models.Model):
+    image = models.ImageField(upload_to='images/')  # 이미지 저장할 위치
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)  # 외래키로 게시물(Post) 연결

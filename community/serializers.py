@@ -9,7 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_name']
+        fields = ['user_name','member_id']
         
 class CommentsSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only = True)

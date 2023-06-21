@@ -10,6 +10,14 @@
           <label for="content">내용</label>
           <textarea id="content" v-model="postContent" required ></textarea>
         </div>
+        <div>
+          <label for="image">이미지 첨부</label>
+          <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" />
+        </div>
+        <div v-for="(url, index) in imagePreviewUrls" :key="index">
+          <img :src="url" class="preview-image" />
+          <button @click="removeImage(index)">x</button>
+        </div>
         <button type="submit">글쓰기</button>
       </form>
     </div>
@@ -30,32 +38,73 @@
       const router = useRouter();
       console.log(userInfo)
       const csrf_token = Cookies.get('csrftoken');
+
+      const imageInput = ref(null); // 이미지 input 참조를 위한 ref
+      const selectedImageFiles = ref([]); // 선택된 이미지 파일 리스트 ref
+      const imagePreviewUrls = ref([]); // 미리보기 이미지 URL ref
+      const previewImages = () => {
+      const files = Array.from(imageInput.value.files); // FileList를 배열로 변환
+        selectedImageFiles.value = files; // 선택된 이미지 리스트 저장
+        
+        // 각 이미지 파일을 브라우저에서 URL를 생성하여 뷰에 바인딩
+        imagePreviewUrls.value = files.map(file => URL.createObjectURL(file));
+    }
  
-      const submitPost = async () => {
-        try {
-          await axios.post('/api/community/write', {
-          title: postTitle.value, content: postContent.value, memberId: userInfo.memberId
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrf_token
-          }
+    const submitPost = async () => {
+      try {
+        const formData = new FormData();
+        formData.append("title", postTitle.value);
+        formData.append("content", postContent.value);
+        formData.append("memberId", userInfo.memberId);
+        // 이미지 파일 첨부 시 formData에 추가 (복수 파일 처리)
+        selectedImageFiles.value.forEach((file, index) => {
+          formData.append(`image${index}`, file);
         });
-          router.push('/community'); //  커뮤니티 페이지로 이동
-        } catch (error) {
-          console.error('글 작성 중 에러가 발생했습니다:', error);
-        }
-      };
+      
+        await axios.post("/api/community/write", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", // 폼 데이터 전송을 위해 수정
+            "X-CSRFToken": csrf_token,
+          },
+        });
+      
+        router.push("/community"); // 커뮤니티 페이지로 이동
+      } catch (error) {
+        console.error("글 작성 중 에러가 발생했습니다:", error);
+      }
+    };
+
+      const removeImage = (index) => {
+      // 미리보기 이미지 URL 리스트에서 해당 이미지 제거
+      imagePreviewUrls.value.splice(index, 1);
+
+      // 선택된 이미지 파일 리스트에서 해당 파일 제거
+      selectedImageFiles.value.splice(index, 1);
+    };
+
   
       return {
         postTitle,
         postContent,
         submitPost,
+        
+        imageInput,
+        selectedImageFiles,
+        imagePreviewUrls,
+        previewImages,
+        removeImage
+        
       };
     },
   };
   </script>
   
   <style>
+  .preview-image {
+  width: 100px;
+  height: 100px;
+
+  object-fit: cover;
+}
   </style>
   
