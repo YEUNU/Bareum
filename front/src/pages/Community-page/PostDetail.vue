@@ -15,6 +15,7 @@ export default {
       required: true,
     },
   },
+  components:{CommuTopNavBar}
 }
 </script>
 <style >

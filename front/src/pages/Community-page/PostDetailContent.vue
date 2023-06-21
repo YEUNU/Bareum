@@ -39,7 +39,7 @@
         </div>
         
     </div>
-    <CommuInput></CommuInput>
+    <CommuInput @submit="submitComment"></CommuInput>
 
 </template>
   
@@ -83,25 +83,25 @@ export default {
                 console.error("error", err);
             }
         }
-        async function submitComment() {
-            try {
+        const submitComment = async (commentInput) => {
+              try {
                 const postId = post.value.post_id;
                 await axios.post(`/api/community/comments/${postId}`, {
-                    comment_contents: commentInput.value,
-                    memberId: userInfo.memberId
+                  comment_contents: commentInput,
+                  memberId: userInfo.memberId,
                 }, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRFToken": csrf_token
-                    }
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrf_token,
+                  },
                 });
-                commentInput.value = "";
                 await fetchPostComment(postId);
-            }
-            catch (error) {
+              } catch (error) {
                 console.error(error);
-            }
-        }
+              }
+            };
+
+
         onMounted(() => {
             fetchPostComment(props.postId);
             fetchPostDetail(props.postId);
@@ -113,6 +113,7 @@ export default {
             post,
             submitComment,
             commentInput,
+
         };
     },
     components: { CommuInput }
