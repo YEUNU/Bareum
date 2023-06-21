@@ -28,7 +28,7 @@
         <div>
             ------------------
         </div>
-        <button v-if="post.member_id != userInfo.memberId" @click="likePost">개추좀용 ㅎ</button>
+        <button @click="likePost">개추좀용 ㅎ</button>
         <span>{{ post.post_like }}</span>
         <div v-for="comment in comments" :key="comment.comments_id">
             <p>댓글 작성일 {{ comment.comment_date }}</p>
@@ -68,7 +68,7 @@ import { ref, onMounted } from 'vue';
 import { useUserInfo } from '../../stores';
 import Cookies from 'js-cookie';
 import CommuInput from '../../components/CommuInput.vue';
-
+import { computed } from 'vue';
 export default {
     props: {
         postId: {
@@ -83,22 +83,31 @@ export default {
         const commentInput = ref("");
         const csrf_token = Cookies.get("csrftoken");
         const replyInput = ref("");
-
+        const userInfoComputed = computed(() => userInfo.value);
         const likePost = () => {
-            axios.post('/api/community/like_post', { post_id: post.value.post_id, member_id: post.value.memberId }, {
-                headers: {
-                "Content-Type": "application/json",
-                "X-CSRFToken": csrf_token,
-                },
-            })
-                .then(response => {
-                    if (response.data.success) {
-                        post.value.post_like += 1;
-                    }
+            if (post.value.member_id !== userInfoComputed.value.memberId) {
+            axios
+                .post(
+                "/api/community/like_post",
+                { post_id: post.value.post_id, member_id: userInfoComputed.value.memberId },
+                {
+                    headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrf_token,
+                    },
+                }
+                )
+                .then((response) => {
+                if (response.data.success) {
+                    post.value.post_like += 1;
+                }
                 })
-                .catch(error => {
-                    console.error(error);
+                .catch((error) => {
+                console.error(error);
                 });
+            } else {
+            console.log("게시물 작성자는 좋아요를 누를 수 없습니다.");
+            }
         }
 
 
