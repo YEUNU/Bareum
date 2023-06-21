@@ -13,7 +13,6 @@
         <div class="card">
             <div class="row">
                 <div class="col-6">
-                    <img src="..." class="card-img" alt="...">
                 </div>
                 <div class="col-6">
                     <div class="card-body">
@@ -26,7 +25,6 @@
         <div class="card">
             <div class="row">
                 <div class="col-6">
-                    <img src="..." class="card-img" alt="...">
                 </div>
                 <div class="col-6">
                     <div class="card-body">

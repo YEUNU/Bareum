@@ -45,6 +45,7 @@ def logout_user(req):
     logout(req)
     return JsonResponse({'success': '로그아웃이 완료되었습니다.'})
 
+@csrf_exempt
 def signup(req):
     if req.method == 'POST':
         data = json.loads(req.body.decode('utf-8'))
