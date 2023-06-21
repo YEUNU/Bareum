@@ -9,28 +9,29 @@
         </div>
     </nav>
 
-    
-    <div class="select_option_box">
-        <h2 style="font-weight: bold;">항목선택</h2>
-        <div>
-            <label class="option_kind">
-                <input  type="radio" name="options" value="personalize" v-model="selected_option">
-                <span style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">관심 항목</span>
-            </label>
-            
-            <label class="option_kind">
-                <input type="radio" name="options" value="ingredient" v-model="selected_option  ">
-                <span style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">영양소</span>
-            </label>
+    <div class="bg-white" style="display: flex; flex-direction: column; padding-top: 63px;">
+        <div class="select_option_box">
+            <h2 style="font-weight: bold;">항목선택</h2>
+            <div>
+                <label class="option_kind">
+                    <input  type="radio" name="options" value="personalize" v-model="selected_option">
+                    <span style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">관심 항목</span>
+                </label>
+                
+                <label class="option_kind">
+                    <input type="radio" name="options" value="ingredient" v-model="selected_option  ">
+                    <span style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">영양소</span>
+                </label>
+            </div>
         </div>
+        <div class="search_option_items">
+            <div class="search_option_item" v-for="part in parts" :key="part.id">
+                <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
+                <label :for="part.id">{{part.text}}</label>
+            </div>
+        </div>          
+        <button class="roundbox" @click='sendCheckedItems()'>check</button>
     </div>
-    <div class="search_option_items">
-        <div class="search_option_item" v-for="part in parts" :key="part.id">
-            <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
-            <label :for="part.id">{{part.text}}</label>
-        </div>
-    </div>          
-    <button class="roundbox" @click='sendCheckedItems()'>check</button>
 </template>
   
 <script>

@@ -11,7 +11,7 @@
     </div>
     <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 90px;">
         <div class="bg-whitesmoke"
-             style="border-top-left-radius: 10px; border-top-right-radius: 10px; padding-bottom: 90px; min-height: 100%">
+             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: calc(100vh - 153px);">
             <div class="menu_container">
                 <router-link to="/ranking" class="item menus">
                 <div id="menu_comment">많은 사람들이 구매한</div>
@@ -107,7 +107,7 @@ video {
     left: 0;
     top: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 0;
     /*
     display: flex;
