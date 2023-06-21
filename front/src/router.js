@@ -20,6 +20,7 @@ import mytermsPage from './pages/my-page/MytermsPage.vue'
 import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
 import mynewaddPage from './pages/my-page/MynewaddPage.vue'
 import mysettingPage from './pages/my-page/MysettingPage.vue'
+import myupdatePage from './pages/my-page/MyupdatePage.vue'
 
 
 import commuPage from './pages/Community-page/Community.vue'
