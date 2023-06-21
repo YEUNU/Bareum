@@ -192,7 +192,21 @@ const routes = [
         ]
     },
 
-
+    {
+        path:'/ocr',
+        name:'ocrResultPage',
+        component:mainPage,
+        children:[
+            {
+                path:'result/:imageData',
+                component:ocrResultPage
+            },
+            {
+                path:'camera',
+                component:ocrCameraPage
+            }
+        ]
+    },
     {
         path:"/community-search",
         name:"commuSearchMainPage",
