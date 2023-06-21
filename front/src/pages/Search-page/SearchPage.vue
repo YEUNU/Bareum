@@ -1,5 +1,5 @@
 <template lang="">
-<nav class="navbar fixed-top bg-theme" style="padding: 10px auto;">
+<nav class="navbar fixed-top bg-theme" style="padding: 10px 0;">
     <div class="container-fluid">
         <span class="navbar-brand" @click="() => {$router.back(); searchbarClear();}" style="margin-right: 0px">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">

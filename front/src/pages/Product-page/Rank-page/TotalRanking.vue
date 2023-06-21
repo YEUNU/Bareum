@@ -1,5 +1,5 @@
-<template lang="">
-    <div v-if="popup">
+<template>
+    <div v-if="popup" style="display: flex; flex-direction: column;">
         <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
     <div v-else>
@@ -24,7 +24,7 @@
                 <option>age1</option>
                 <option>age2</option>
             </select>
-            <div v-if="selected_items.length > 0" style="font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
+            <div v-if="selected_items.length > 0" style="margin-top: 1vh; font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
             <hr>
         </div>
         <div class="background bg-whitesmoke" style="padding-top: 230px; padding-bottom: 60px;">
