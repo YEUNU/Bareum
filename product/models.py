@@ -1,16 +1,23 @@
 from django.db import models
+
 from account.models import User
+
 class Company(models.Model):
+
     company_id = models.BigAutoField(primary_key=True)
     company_name = models.CharField(max_length=100, blank=True, null=True)
-
+    
     class Meta:
         managed = True
         db_table = 'company'
 
-class Nutraceuticals(models.Model):
+
+
+
+class Nutraceuticals(models.Model): 
+    
     nutraceuticals_id = models.BigAutoField(primary_key=True)
-    품목명 = models.CharField(max_length=100)
+    nutraceuticals_name = models.CharField(max_length=100)
     섭취시주의사항 = models.TextField()
     업소명 = models.TextField()
     섭취방법 = models.TextField()
@@ -19,13 +26,17 @@ class Nutraceuticals(models.Model):
     보관방법 = models.TextField()
     원재료 = models.TextField()
 
+
     class Meta:
         managed = True
         db_table = 'nutraceuticals'
 
+
+
+
 class Ingredient(models.Model):
+
     nutraceuticals_name = models.CharField(max_length=100, primary_key=True)
-    베타카로틴 = models.FloatField(max_length=10)
     비타민D = models.FloatField(max_length=10)
     비타민E = models.FloatField(max_length=10)
     비타민k = models.FloatField(max_length=10)
@@ -55,26 +66,25 @@ class Ingredient(models.Model):
     EPA_DHA_Sum= models.FloatField(max_length=10)
     비타민A= models.FloatField(max_length=10)
 
+
+
+
     class Meta:
         managed = True
         db_table = 'ingredient'
 
-class UserReview(models.Model):
-    user_review_id = models.BigAutoField(primary_key=True)
-    review_rating = models.IntegerField()
-    review_contents = models.CharField(max_length=500)
-    user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
-
-    class Meta:
-        managed = True
-        db_table = 'user_review'
         
-class OnelineReview(models.Model):
-    online_review_id = models.BigAutoField(primary_key=True)
-    review_rating = models.IntegerField()
-    review_contents = models.CharField(max_length=500)
+
+class Review(models.Model):
+
+    online_review_number = models.BigAutoField(primary_key=True)
+    nutraceuticals_name = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100, null=True)
+    lowest = models.IntegerField()
+    reviews = models.TextField()
+    total_reviews = models.IntegerField()
 
     class Meta:
-        managed = True
-        db_table = 'oneline_review'
 
+        managed = True
+        db_table = 'review'
