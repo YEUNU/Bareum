@@ -21,6 +21,8 @@ import myprivacyPage from './pages/my-page/MyprivacyPage.vue'
 import mynewaddPage from './pages/my-page/MynewaddPage.vue'
 import mysettingPage from './pages/my-page/MysettingPage.vue'
 import myupdatePage from './pages/my-page/MyupdatePage.vue'
+import myreviewPage from './pages/my-page/MyreviewPage.vue'
+import mynutrientsPage from './pages/my-page/MynutrientsPage.vue'
 
 
 import commuPage from './pages/Community-page/Community.vue'
@@ -191,7 +193,35 @@ const routes = [
 
         ]
     },
+    {
 
+        path:'/ocr',
+
+        name:'ocrResultPage',
+
+        component:mainPage,
+
+        children:[
+
+            {
+
+                path:'result/:imageData',
+
+                component:ocrResultPage
+
+            },
+
+            {
+
+                path:'camera',
+
+                component:ocrCameraPage
+
+            }
+
+        ]
+
+    },
 
     {
         path:"/community-search",
@@ -289,11 +319,24 @@ const routes = [
         name:'mysettingPage',
         component:mysettingPage
     },
+    {   
+        // 내 리뷰 관리
+        path:'/myreview',
+        name:'myreviewPage',
+        component:myreviewPage
+    },
+    {   
+        // 복용중인 영양제
+        path:'/mynutrients',
+        name:'mynutrientsPage',
+        component:mynutrientsPage
+    },
 ]
 
 const router = createRouter({
     history:createWebHistory(),
-    routes
+    routes,
+    
 })
 
 
@@ -305,6 +348,7 @@ const router = createRouter({
 //       next();
 //     }
 //   });
+
 
   
 

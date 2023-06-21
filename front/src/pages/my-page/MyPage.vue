@@ -36,7 +36,7 @@
               </div>
             </div>
             <div style="text-align: left; margin-bottom: 2%;"><router-link to="/myupdate"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 10%; color:black;">개인정보 수정</button></router-link></div>
-            <div style="text-align: left; margin-bottom: 2%;"><router-link to="/"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 10%; color:black;">내 리뷰 관리</button></router-link></div>
+            <div style="text-align: left; margin-bottom: 2%;"><router-link to="/myreview"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 10%; color:black;">내 리뷰 관리</button></router-link></div>
             <div style="text-align: left;"><router-link to="/mywish"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;">찜 목록</button></router-link></div>
           </div>
         </div>
@@ -55,8 +55,8 @@
     
     
       <div class="d-flex justify-content-between" style="align-items:center; margin-top: 2%;">
-        <p class="card-text mt-3">건강 상태, 복용 약물</p>
-        <router-link to="/">수정</router-link>
+        <p class="card-text mt-3">건강 기능 식품</p>
+        <router-link to="/mynutrients">수정</router-link>
       </div>
     
   </div>
@@ -92,7 +92,7 @@
   </div>
 </div>
 
-<router-link to="/"><button style="width:100%; margin-top: 5%; margin-bottom: 5%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">로그아웃</button></router-link>
+<router-link to="/login"><button style="width:100%; margin-top: 5%; margin-bottom: 5%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">로그아웃</button></router-link>
     </div>
   
     
