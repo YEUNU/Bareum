@@ -163,7 +163,7 @@ video {
     transition: 0.25s;
 
     border: 2px solid #2dce89;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 0 2px 2px #EAEAEA;
 
     flex-direction: column;
