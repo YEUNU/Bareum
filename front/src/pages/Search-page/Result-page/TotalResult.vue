@@ -1,5 +1,5 @@
 <template>
-    <div class="background bg-whitesmoke">
+    <div class="background bg-whitesmoke" style="margin-top: 59px;">
         <div style="position: relative;">
             <div class="result_box bg-white" v-for="(product, i) in dataset" :key="i">
                 <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>

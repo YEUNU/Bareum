@@ -1,38 +1,39 @@
 <template lang="">
 
-    <div class="navbar fixed-top bg-theme">
+    <div class="navbar fixed-top bg-theme" style="padding: 10px 5vw;">
         <div class="box_search">
-            <router-link to="/search"><SearchBar class="box_search_input" background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
+            <router-link to="/search"><SearchBar background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
         <button class="box_alerts" @click="router.push({path: '/alerts'});">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-            </svg>
+            <img class="alerts_icon" src="../../assets/received_alarm.png" alt="">
         </button>
     </div>
-    <div class="background bg-whitesmoke" style="padding-top: 7vh;">
-        <div class="menu_container">
-            <router-link to="/ranking" class="item menus">
-            <div id="menu_comment">많은 사람들이 구매한</div>
-            <div id="menu_name">제품</div>
-            <div id="menu_icon"><img height="" src="../../assets/product.png" alt=""></div>
-        </router-link>
-        <router-link to="/recommend" class="item menus">
-            <div id="menu_comment">당신을 위한 맞춤</div>
-            <div id="menu_name">추천</div>
-            <div id="menu_icon"><img src="../../assets/recommand.png" alt=""></div>
-        </router-link>
-        <router-link to="/set_alarm" class="item menus">
-            <div id="menu_comment">규칙적인 나만의 비서</div>
-            <div id="menu_name">알림설정</div>
-            <div id="menu_icon"><img src="../../assets/alarm.png" alt=""></div>
-        </router-link>
-        <router-link to="/regular_delivery" class="item menus">
-            <div id="menu_comment">내가 까먹어도 기사님은 안까먹는</div>
-            <div id="menu_name">정기배송신청</div>
-            <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
-        </router-link>
+    <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 60px;">
+        <div class="bg-whitesmoke"
+             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: 100%">
+            <div class="menu_container">
+                <router-link to="/ranking" class="item menus">
+                <div id="menu_comment">많은 사람들이 구매한</div>
+                <div id="menu_name">제품</div>
+                <div id="menu_icon"><img height="" src="../../assets/product.png" alt=""></div>
+            </router-link>
+            <router-link to="/recommend" class="item menus">
+                <div id="menu_comment">당신을 위한 맞춤</div>
+                <div id="menu_name">추천</div>
+                <div id="menu_icon"><img src="../../assets/recommand.png" alt=""></div>
+            </router-link>
+            <router-link to="/set_alarm" class="item menus">
+                <div id="menu_comment">규칙적인 나만의 비서</div>
+                <div id="menu_name">알림설정</div>
+                <div id="menu_icon"><img src="../../assets/alarm.png" alt=""></div>
+            </router-link>
+            <router-link to="/regular_delivery" class="item menus">
+                <div id="menu_comment">내가 까먹어도 기사님은 안까먹는</div>
+                <div id="menu_name">정기배송신청</div>
+                <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
+            </router-link>
+        </div>
     </div>
 </div>
 
@@ -89,20 +90,25 @@ export default {
 
 </script>
 <style>
+
 video {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .background {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     width: 100vw;
-    min-height: 100%;
+    height: 100vh;
     z-index: 0;
+    /*
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    */
 }
 
 .bg-theme {
@@ -114,22 +120,14 @@ video {
 }
 
 .box_search {
-    margin: 10px 10px 10px 8vw;
+    margin-right: 10px;
     flex-grow: 1;
-}
-
-.box_search_input {
-    height: 8vh;
 }
 
 .box_alerts {
     border: 0;
     padding: 0;
-    max-width: 85px;
-    max-height: 85px;
     margin: 5px;
-    width: 12vw;
-    height: 12vw;
     background-color: rgba(255,255,255,0);
     z-index: 1;
 }
@@ -137,8 +135,8 @@ video {
 .alerts_icon {
     border: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+    width: 30px;
+    height: 30px;
 }
 
 .menu_container {
@@ -147,7 +145,7 @@ video {
     display: grid;
     grid-template-columns: 45vw 45vw;
     grid-template-rows: 50% 50%;
-    padding: 5%;
+    padding: 4% 5%;
     justify-content: center;
     align-items: center;
 
@@ -164,8 +162,9 @@ video {
     transition: 0.25s;
 
     border: 2px solid #2dce89;
-    border-radius: 5px;
-    
+    border-radius: 8px;
+    box-shadow: 0 0 2px 2px #EAEAEA;
+
     flex-direction: column;
     display: flex;
     justify-content: space-evenly;
