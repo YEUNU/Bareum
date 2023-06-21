@@ -42,14 +42,58 @@
       const imageInput = ref(null); // 이미지 input 참조를 위한 ref
       const selectedImageFiles = ref([]); // 선택된 이미지 파일 리스트 ref
       const imagePreviewUrls = ref([]); // 미리보기 이미지 URL ref
-      const previewImages = () => {
-      const files = Array.from(imageInput.value.files); // FileList를 배열로 변환
-        selectedImageFiles.value = files; // 선택된 이미지 리스트 저장
+      const resizeImage = (file) => {
+        const maxWidth = 800;
+        const maxHeight = 800;
+        const img = new Image();
+        const canvas = document.createElement('canvas');
+            
+        return new Promise((resolve, reject) => {
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+          
+            if (width > height) {
+              if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+              }
+            } else {
+              if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+              }
+            }
+          
+            canvas.width = width;
+            canvas.height = height;
+            canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          
+            canvas.toBlob(blob => {
+              resolve(new File([blob], file.name, { type: file.type }));
+            }, file.type);
+          };
+          img.onerror = (err) => reject(err);
+          img.src = URL.createObjectURL(file);
+        });
+      };
+      
+      const previewImages = async () => {
+        const files = Array.from(imageInput.value.files);
+        const resizedFiles = [];
+      
+        for (const file of files) {
+          try {
+            const resizedFile = await resizeImage(file);
+            resizedFiles.push(resizedFile);
+          } catch (err) {
+            console.error('Image resize failed:', err);
+          }
+        }
         
-        // 각 이미지 파일을 브라우저에서 URL를 생성하여 뷰에 바인딩
-        imagePreviewUrls.value = files.map(file => URL.createObjectURL(file));
-    }
- 
+        selectedImageFiles.value = resizedFiles;
+        imagePreviewUrls.value = resizedFiles.map(file => URL.createObjectURL(file));
+      };
     const submitPost = async () => {
       try {
         const formData = new FormData();

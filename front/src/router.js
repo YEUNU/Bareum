@@ -289,6 +289,22 @@ const routes = [
         name:'mysettingPage',
         component:mysettingPage
     },
+    {
+        path:'/ocr',
+        name:'ocrResultPage',
+        component:mainPage,
+        children:[
+            {
+                path:'result/:imageData',
+                component:ocrResultPage
+            },
+            {
+                path:'camera',
+                component:ocrCameraPage
+            }
+        ]
+    }
+    
 ]
 
 const router = createRouter({
