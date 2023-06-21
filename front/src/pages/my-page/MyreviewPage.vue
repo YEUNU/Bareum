@@ -7,7 +7,6 @@
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
               </svg>
           </router-link>
-          
           </div>
         </nav>
   
@@ -16,16 +15,16 @@
           <div class="card-body">
             <div class="d-flex align-items-center mb-4">
               <div class="flex-shrink-0">
-                <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+                <img src="https://phinf.pstatic.net/checkout.phinf/20230609_102/1686302703140lFrWz_JPEG/1686302655160.jpg?type=w640"
                   alt=""
                   style="height: min(25vh, 25vw); width: min(25vh, 25vw);">
               </div>
               <div class="flex-grow-1 ms-3">
                 <div class="d-flex flex-row align-items-center mb-2">
-                  <h4 class="mb-0 me-2" style="text-align: left; font-weight: bold;">닥터린 덴마크 락토지지 유산균</h4>
+                  <h4 class="mb-0 me-2" style="text-align: left; font-weight: bold;">닥터린 비타민C</h4>
                 </div>
                 <div>
-                  <p class="mb-0 me-2" style="text-align: left; margin-top: 10%;">58000원</p>
+                  <p class="word" style="text-align: left; margin-top: 10%;">한입에 먹기 딱좋았고, 4달간은 영양제 걱정없이 먹을수있을거같아요~</p>
                 </div>
               </div>
             </div>
@@ -38,7 +37,7 @@
           <div class="card-body">
             <div class="d-flex align-items-center mb-4">
               <div class="flex-shrink-0">
-                <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSdLUrGJYVpSCoxC9SENnc6gk3vtdt1ppZD-2Wt4fIM24LCmmlJwTAoCcC7csepDE6qnzrEShb_Ipbd_EimvyvPfWz9K0FlIDlY-dNvjw5mMkZ7rRySeHtdnKtvzs6QeTccag&usqp=CAc"
+                <img src="https://phinf.pstatic.net/checkout.phinf/20221220_264/1671497268579wX6Iq_JPEG/B612_20221016_180356_596.jpg?type=w640"
                   alt=""
                   style="height: min(25vh, 25vw); width: min(25vh, 25vw);">
               </div>
@@ -47,7 +46,7 @@
                   <h4 class="mb-0 me-2" style="text-align: left; font-weight: bold;">닥터린 비타민C</h4>
                 </div>
                 <div>
-                  <p class="mb-0 me-2" style="text-align: left; margin-top: 10%;">48000원</p>
+                  <p class="word" style="text-align: left; margin-top: 10%;">가격대비 정말 좋습니다.</p>
                 </div>
               </div>
             </div>
