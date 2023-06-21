@@ -15,6 +15,11 @@
             <div>
                내용: {{ post.post_contents }}
             </div>
+            <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
+              <div v-for="(url, index) in post.post_image_urls" :key="index">
+                <img :src="url" :alt="'Image ' + (index + 1)" />
+              </div>
+            </div>
         </div>
         <div v-if="post.member_id == userInfo.memberId">
             <button>수정</button>
@@ -28,6 +33,7 @@
             <p>댓글 내용 {{ comment.comment_contents }}</p>
             <p>좋아요{{ comment.comment_like }}</p>
             <p>댓글 작성자 {{ comment.user.user_name }}</p>
+
             <div v-if="comment.user.member_id == userInfo.memberId">
                 <button>수정</button>
                 <button>삭제</button>

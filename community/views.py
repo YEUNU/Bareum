@@ -91,6 +91,10 @@ def post_detail(request, post_id):
         post = Post.objects.select_related('user').get(post_id=post_id)
     except Post.DoesNotExist:
         return JsonResponse({"message": "Post not found"}, status=404)
+    
+    # Get post images
+    post_images = PostImage.objects.filter(post=post)
+    post_image_urls = [default_storage.url(post_image.image.name) for post_image in post_images]
 
     post_data = {
         "post_id": post.post_id,
@@ -102,10 +106,10 @@ def post_detail(request, post_id):
         "member_id": post.user.member_id,
         #나중에 닉네임으로 수정해야할듯
         "user_name": post.user.user_name,
+        "post_image_urls": post_image_urls  # Add this line
     }
 
     return JsonResponse(post_data, encoder=DjangoJSONEncoder)
-
 
 
 
