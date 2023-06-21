@@ -12,7 +12,7 @@
               <img src="#" alt="Product image" class="fill-image" />
             </div>
             <div class="product-details">
-              <h5>{{ index + 1 }}. 품목명: {{ product.품목명 }}</h5>
+              <h5>{{ index + 1 }}. 품목명: {{ product.nutraceuticals_name }}</h5>
               <p>업소명: {{ product.업소명 }}</p>
             </div>
           </div>

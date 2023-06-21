@@ -45,8 +45,9 @@ def process_image(request):
         
         result = []
         for i in related_pr[:20]:
-            pr_info = Nutraceuticals.objects.filter(품목명=i).values('품목명','업소명')
+            pr_info = Nutraceuticals.objects.filter(nutraceuticals_name=i).values('nutraceuticals_name','업소명')
             result.append(list(pr_info))
+        
         flattened_result = [item for sublist in result for item in sublist]
         return JsonResponse({'products':flattened_result})
     
