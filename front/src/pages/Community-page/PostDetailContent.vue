@@ -28,7 +28,7 @@
         <div>
             ------------------
         </div>
-        <button @click="likePost">개추좀용 ㅎ</button>
+        <button v-if="post.member_id != userInfo.memberId" @click="likePost">개추좀용 ㅎ</button>
         <span>{{ post.post_like }}</span>
         <div v-for="comment in comments" :key="comment.comments_id">
             <p>댓글 작성일 {{ comment.comment_date }}</p>
