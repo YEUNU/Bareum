@@ -2,35 +2,38 @@
 
     <div class="navbar fixed-top bg-theme" style="padding: 10px 5vw;">
         <div class="box_search">
-            <router-link to="/search"><SearchBar class="box_search_input" background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
+            <router-link to="/search"><SearchBar background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
         <button class="box_alerts" @click="router.push({path: '/alerts'});">
             <img class="alerts_icon" src="../../assets/received_alarm.png" alt="">
         </button>
     </div>
-    <div class="background bg-whitesmoke" style="padding-top: calc(63px + 1vh);">
-        <div class="menu_container">
-            <router-link to="/ranking" class="item menus">
-            <div id="menu_comment">많은 사람들이 구매한</div>
-            <div id="menu_name">제품</div>
-            <div id="menu_icon"><img height="" src="../../assets/product.png" alt=""></div>
-        </router-link>
-        <router-link to="/recommend" class="item menus">
-            <div id="menu_comment">당신을 위한 맞춤</div>
-            <div id="menu_name">추천</div>
-            <div id="menu_icon"><img src="../../assets/recommand.png" alt=""></div>
-        </router-link>
-        <router-link to="/set_alarm" class="item menus">
-            <div id="menu_comment">규칙적인 나만의 비서</div>
-            <div id="menu_name">알림설정</div>
-            <div id="menu_icon"><img src="../../assets/alarm.png" alt=""></div>
-        </router-link>
-        <router-link to="/regular_delivery" class="item menus">
-            <div id="menu_comment">내가 까먹어도 기사님은 안까먹는</div>
-            <div id="menu_name">정기배송신청</div>
-            <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
-        </router-link>
+    <div class="background bg-theme">
+        <div class="background bg-whitesmoke"
+             style="margin-top: 63px; margin-bottom: 60px; border-top-left-radius: 10px; border-top-right-radius: 10px; height: calc(100% - 123px)">
+            <div class="menu_container">
+                <router-link to="/ranking" class="item menus">
+                <div id="menu_comment">많은 사람들이 구매한</div>
+                <div id="menu_name">제품</div>
+                <div id="menu_icon"><img height="" src="../../assets/product.png" alt=""></div>
+            </router-link>
+            <router-link to="/recommend" class="item menus">
+                <div id="menu_comment">당신을 위한 맞춤</div>
+                <div id="menu_name">추천</div>
+                <div id="menu_icon"><img src="../../assets/recommand.png" alt=""></div>
+            </router-link>
+            <router-link to="/set_alarm" class="item menus">
+                <div id="menu_comment">규칙적인 나만의 비서</div>
+                <div id="menu_name">알림설정</div>
+                <div id="menu_icon"><img src="../../assets/alarm.png" alt=""></div>
+            </router-link>
+            <router-link to="/regular_delivery" class="item menus">
+                <div id="menu_comment">내가 까먹어도 기사님은 안까먹는</div>
+                <div id="menu_name">정기배송신청</div>
+                <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
+            </router-link>
+        </div>
     </div>
 </div>
 
@@ -99,7 +102,7 @@ video {
     left: 0;
     top: 0;
     width: 100vw;
-    min-height: 100%;
+    height: 100vh;
     z-index: 0;
     /*
     display: flex;
@@ -119,10 +122,6 @@ video {
 .box_search {
     margin-right: 10px;
     flex-grow: 1;
-}
-
-.box_search_input {
-    height: 8vh;
 }
 
 .box_alerts {
@@ -146,7 +145,7 @@ video {
     display: grid;
     grid-template-columns: 45vw 45vw;
     grid-template-rows: 50% 50%;
-    padding: 5%;
+    padding: 4% 5%;
     justify-content: center;
     align-items: center;
 
