@@ -69,9 +69,4 @@ import {ref} from 'vue'
   margin-right: 0.6vw; /* 버튼들 사이의 간격을 조절 */
   margin-top: 5px;
 }
-
-.navbar-brand {
-    margin-left: 5%;
-}
-
   </style>
