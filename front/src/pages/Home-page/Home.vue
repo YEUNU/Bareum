@@ -9,9 +9,9 @@
             <img class="alerts_icon" src="../../assets/received_alarm.png" alt="">
         </button>
     </div>
-    <div class="background bg-theme">
-        <div class="background bg-whitesmoke"
-             style="margin-top: 63px; margin-bottom: 60px; border-top-left-radius: 10px; border-top-right-radius: 10px; height: calc(100% - 123px)">
+    <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 60px;">
+        <div class="bg-whitesmoke"
+             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: 100%">
             <div class="menu_container">
                 <router-link to="/ranking" class="item menus">
                 <div id="menu_comment">많은 사람들이 구매한</div>
@@ -98,7 +98,7 @@ video {
 }
 
 .background {
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     width: 100vw;
