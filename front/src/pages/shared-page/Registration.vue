@@ -11,26 +11,13 @@
   
         <label for="productImage">제품 사진 첨부</label>
         <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
-  
-        <button type="button" class="camera-button" @click="openCamera">제품 직접 촬영하기</button>
+        <router-link to="/ocr/cam" class="request-link">
+            <button type="button" class="camera-button" @click="openCamera">제품 직접 촬영하기</button>
+        </router-link>
         <button type="button" @click="submitForm">완료하기</button>
       </form>
-      <div v-if="capturedImage">
-        <img :src="capturedImage" />
-      </div>
-      <div v-if="cameraIsVisible" class="camera-overlay">
-        <video id="video" autoplay muted playsinline></video>
-        <div class="camera-controls">
-          <button @click.stop.prevent="capturePhoto">사진 찍기</button>
-          <button @click.stop.prevent="closeCamera">취소하기</button>
-        </div>
-      </div>
     </div>
   </template>
-  
-  
-  
-  
   
   
 <script>

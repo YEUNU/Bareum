@@ -45,6 +45,7 @@ import commuSearch from './components/CommuSearch.vue'
 import ocrResultPage from './pages/Ocr-page/result.vue'
 import ocrCameraPage from './pages/Ocr-page/camera.vue'
 import registrationPage from './pages/shared-page/Registration.vue'
+import camPage from './pages/shared-page/cam.vue'
 
 const routes = [
     //로그인 페이지
@@ -193,6 +194,10 @@ const routes = [
               },
 
         ]
+    },
+    {
+        path:'/ocr/cam',
+        component:camPage
     },
     {
         path:'/ocr',
