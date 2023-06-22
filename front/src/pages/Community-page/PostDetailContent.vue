@@ -12,12 +12,7 @@
         </nav>
 
         <div style="width: 100%; height: 100%; position: relative; top: 10vh;" >
-            
-            <!-- <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
-              <div v-for="(url, index) in post.post_image_urls" :key="index">
-                <img :src="url" :alt="'Image ' + (index + 1)" class="post-image"/>
-              </div>
-            </div> -->
+        
             
 
             <div style="text-align: left; font-weight: bold; font-size: 35px;">
@@ -53,6 +48,11 @@
                 
                 </div>
             </div>
+                <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
+                    <div v-for="(url, index) in post.post_image_urls" :key="index">
+                        <img :src="url" :alt="'Image ' + (index + 1)" class="post-image"/>
+                    </div>
+                </div>
 
             <div v-if="post.member_id == userInfo.memberId" style="  padding-top: 2%; padding-bottom: 2%; border-bottom: 2px solid #eeeeee;">
                 <button class="postbutton" style="margin-right: 50%;">수정</button>
