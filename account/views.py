@@ -12,6 +12,23 @@ from django.middleware.csrf import get_token
 from . import models
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import User
+
+def save_profile(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        nickname = data.get('nickname')
+        birthday = data.get('birthday')
+        height = data.get('height')
+        weight = data.get('weight')
+        gender = data.get('gender')
+        profile = User(nickname=nickname, birthday=birthday, height=height, weight=weight, gender=gender)
+        profile.save()
+        return HttpResponse("프로필이 저장되었습니다.")
+    
 # Create your views here.
 
 @csrf_exempt

@@ -25,6 +25,10 @@ class User(AbstractUser):
     member_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='member_id')
     nickname = models.CharField(max_length=100)
     user_name = models.CharField(max_length=100)
+    birthday = models.DateField(null=True)
+    height = models.FloatField(null=True)
+    weight = models.FloatField(null=True)
+    gender = models.CharField(max_length=100, null=True)
     first_name = None
     last_name = None
 
