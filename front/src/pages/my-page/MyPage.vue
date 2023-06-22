@@ -77,7 +77,7 @@
         <p class="card-text mt-3" style="margin-top: 2%;">건강 고민 & 섭취 목적</p>
         <router-link to="/">수정</router-link>
       </div>
-      <router-link to="/myremovedetail"><button style="width: 100%; margin-top: 2%; background-color: #2dce89; border-radius: 5px; color:white;">영양제 등록 요청</button></router-link>
+      <router-link to="/ocr/registration"><button style="width: 100%; margin-top: 2%; background-color: #2dce89; border-radius: 5px; color:white;">영양제 등록 요청</button></router-link>
     
     </div>
   </div>
