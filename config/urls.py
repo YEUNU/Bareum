@@ -22,7 +22,5 @@ urlpatterns = [
     re_path(r'^workbox-fa446783.js$', serve, {'path': 'workbox-fa446783.js', 'document_root': settings.STATIC_ROOT}),
     re_path(r'^icons/(?P<path>.*)$', serve, {'document_root': os.path.join(settings.BASE_DIR, 'front', 'public', 'icons')}),
     re_path(r'^.*', TemplateView.as_view(template_name="index.html")),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

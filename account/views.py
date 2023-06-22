@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 from . import models
 from django.views.decorators.csrf import csrf_exempt
-
+from django.utils.decorators import method_decorator
 # Create your views here.
 
 @csrf_exempt
@@ -86,7 +86,7 @@ def signup(req):
 
         return JsonResponse({'error': '잘못된 요청입니다.'}, status=400)
     
-
+@method_decorator(csrf_exempt, name='dispatch')
 class KakaoLogin(View):
 
     def dispatch(self, request, *args, **kwargs):
