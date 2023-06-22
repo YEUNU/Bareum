@@ -1,10 +1,19 @@
 <template>
     <div class="background bg-whitesmoke" style="margin-top: 59px;">
+        <div style="width: 100%; font-size: 0.8em; font-weight: bold;">
+            <button v-if="route.query.option != null" @click="router.push({name: 'resultPage', query: { 'q': route.query.q }})">전체 검색</button>
+            <button v-if="route.query.option != 'name'" @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'name' }})">이름으로 검색</button>
+            <button v-if="route.query.option != 'personalize'" @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'personalize' }})">관심분야로 검색</button>
+            <button v-if="route.query.option != 'ingredient'" @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'ingredient' }})">영양성분으로 검색</button>
+            <div v-if="route.query.option">
+                <div>{{ route.query.q }}에 대한 {{ {'name':'이름', 'personalize':'관심분야', 'ingredient':'영양성분'}[route.query.option] }} 검색 결과</div>
+            </div>
+        </div>
         <div style="position: relative;">
-            <div class="result_box bg-white" v-for="(product, i) in dataset" :key="i">
+            <div class="result_box bg-white" v-for="(product, i) in products" :key="i">
                 <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
                 <div class="result_manufacturer">{{product['manufacturer']}}</div>
-                <div class="result_name">{{product['name']}}</div>
+                <div class="result_name"> {{product['name']}}</div>
                 <div class="result_mount">별점: {{product['star']}}</div>
             </div>
         </div>
@@ -13,16 +22,19 @@
 
 <script>
 import { ref } from 'vue';
+import { useRoute, useRouter } from "vue-router";
 
 export default {
     name:"select_item_popup",
     props: {
-        query: String,
+        q: String,
+        option: String,
     },
 
     setup(props) {
-        const searchQuery = ref(props.query);
-        const dataset = ref(null);
+        const route = useRoute();
+        const router = useRouter();
+        const products = ref([]);
 
         const example_data = ref([
             { id: 1, name: '제품1', manufacturer: '제조업체1', personalize: '눈 건강',    ingredient: '오메가3',     price: 3413,     total: 43291,    age1: 5427,     age2: 64,       star: 3.5,
@@ -45,11 +57,48 @@ export default {
             img: "https://m.fromvet.com/web/product/big/202012/51436f8621129cdd29f47c2b94fa1b76.png" },
         ]);
 
-        dataset.value = example_data.value;
+        const fetchProductsByName = (word) => {
+            // DB에서 단어를 포함하는 이름 검색
+            return null;
+        };
+
+        const fetchProductsByPersonalize = (word) => {
+            // DB에서 단어를 포함하는 분야 검색
+            return null;
+        };
+
+        const fetchProductsByIngredient = (word) => {
+            // DB에서 단어를 포함하는 영양성분 검색
+            return null;
+        };
+
+        const fetchProducts = (option, word) => {
+            if(option == null) {    // 전부 검색
+                fetchProductsByName(word);
+                fetchProductsByPersonalize(word);
+                fetchProductsByName(word);
+            }
+            
+            if(option == 'name') {  // 제품명 검색
+                fetchProductsByName(word);
+            }
+
+            if(option == 'personalize') {  // 관심 분야 검색
+                fetchProductsByPersonalize(word);
+            }
+
+            if(option == 'ingredient') {  // 영양 성분 검색
+                fetchProductsByName(word);
+            }
+
+        };
+
+        products.value = example_data.value;
 
         return {
-            searchQuery,
-            dataset,
+            route,
+            router,
+            products,
             };
     },
 }

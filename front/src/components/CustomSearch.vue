@@ -1,36 +1,29 @@
 <template>
-    <nav class="navbar fixed-top bg-white" style="padding: 11.5px 0;">
-        <div class="container-fluid">
-            <span class="navbar-brand" @click="closePopup">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
-                </svg>
-            </span>
-        </div>
-    </nav>
 
-    <div class="bg-white" style="display: flex; flex-direction: column; padding-top: 63px;">
-        <div class="select_option_box">
-            <h2 style="font-weight: bold;">항목선택</h2>
-            <div>
-                <label class="option_kind">
-                    <input  type="radio" name="options" value="personalize" v-model="selected_option">
-                    <span style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">관심 항목</span>
-                </label>
+    <div class="bg-white" style="display: flex; flex-direction: column;">
+        <!--
+            <div class="select_option_box">
+                <h2 style="font-weight: bold;">항목선택</h2>
+                <div>
+                    <label class="option_kind">
+                        <input  type="radio" name="options" value="personalize" v-model="selected_option">
+                        <span style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">관심 항목</span>
+                    </label>
                 
-                <label class="option_kind">
-                    <input type="radio" name="options" value="ingredient" v-model="selected_option  ">
-                    <span style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">영양소</span>
-                </label>
+                    <label class="option_kind">
+                        <input type="radio" name="options" value="ingredient" v-model="selected_option">
+                        <span style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">영양소</span>
+                    </label>
+                </div>
             </div>
-        </div>
+        -->
         <div class="search_option_items">
             <div class="search_option_item" v-for="part in parts" :key="part.id">
                 <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
                 <label :for="part.id">{{part.text}}</label>
             </div>
         </div>          
-        <button class="roundbox" @click='sendCheckedItems()'>check</button>
+        <button class="roundbox" style="margin-top: 3vh;" @click='sendCheckedItems()'>{{ searchList.length > 0 ? '확인' : '닫기' }}</button>
     </div>
 </template>
   
@@ -50,9 +43,8 @@ export default {
         const router = useRouter();
         const selected_option = ref(props.selected_option);
         const popup = ref(props.popup);
-        const searchList = ref('');
-
-
+        
+        
         const personalize_parts = ref([
             { id: 1, text: '눈 건강', checked: false },
             { id: 2, text: '피로감', checked: false },
@@ -78,17 +70,19 @@ export default {
         ]);
 
         const parts = computed(() => {
-            if(selected_option.value == 'ingredient'){
+            if(props.selected_option == 'ingredient'){
                 return ingredient_parts.value
             }
             else{
                 return personalize_parts.value
             }
         });
+
+        const searchList = computed(() => {
+            return parts.value.filter((f) => f.checked).map(x => x.text);
+        });
         
         const sendCheckedItems = () => {
-
-            searchList.value = parts.value.filter((f) => f.checked).map(x => x.text);
 
             context.emit("close_popup", false);
             context.emit("selected_items", selected_option.value, searchList.value);
@@ -103,6 +97,7 @@ export default {
         return {
             router,
             selected_option,
+            searchList,
             popup,
             parts,
             sendCheckedItems,
@@ -130,16 +125,16 @@ export default {
 .search_option_items {
     align-self: center;
     display: grid;
-    grid-template-columns: min(25vw, 25vh) min(25vw, 25vh) min(25vw, 25vh);
-    grid-template-rows: min(25vw, 25vh) min(25vw, 25vh) min(25vw, 25vh);
+    grid-template-columns: min(24vw, 22vh) min(24vw, 22vh) min(24vw, 22vh);
+    grid-template-rows: min(24vw, 22vh) min(24vw, 22vh) min(24vw, 22vh);
 }
 
 .search_option_item {
     position: relative;
     align-self: center;
     justify-self: center;
-    width: min(23vw, 23vh);
-    height: min(23vw, 23vh);
+    width: min(23vw, 20vh);
+    height: min(23vw, 20vh);
 }
 
 .option_kind input[type="radio"] {
@@ -170,8 +165,8 @@ export default {
 
 .search_option_item input[type="checkbox"] + label{
     display: flex;
-    width: min(22vw, 22vh);
-    height: min(22vw, 22vh);
+    width: min(22vw, 20vh);
+    height: min(22vw, 20vh);
     position: relative;
     box-sizing: content-box;
     border-radius: 5pt;
