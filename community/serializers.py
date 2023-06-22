@@ -1,11 +1,7 @@
 from rest_framework import serializers
 from .models import Post, Comments, User
 from rest_framework_recursive.fields import RecursiveField
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = '__all__'
-        
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -17,3 +13,10 @@ class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = '__all__'
+        
+class PostSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only = True)
+    class Meta:
+        model = Post
+        fields = '__all__'
+        

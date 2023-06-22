@@ -8,6 +8,8 @@
                 <p class="card-text">{{ post.post_date }}</p>
                 <p class="card-text">제목 : {{ post.post_title }}</p>
                 <p class="card-text">내용 : {{ post.post_contents }}</p>
+                <p class="card-text">작성자 : {{ post.user.user_name }}</p>
+
               </div>
             </div>
             <div class="col-6">

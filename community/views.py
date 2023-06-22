@@ -19,12 +19,6 @@ from django.core.files.storage import default_storage
 
 
 
-# 게시물을 표시하는 데 사용되는 직렬화 클래스
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post      # 게시물 모델 클래스
-        fields = '__all__'
-
 # 페이지 번호로 게시물을 반환하는 paginator 클래스
 class CustomPageNumberPagination(PageNumberPagination):
     page_size = 10
@@ -33,7 +27,7 @@ class CustomPageNumberPagination(PageNumberPagination):
 
 class PostListView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.all().order_by('-post_date')  # 레코드를 명시적으로 정렬
+        queryset = Post.objects.select_related('user').order_by('-post_date')  # 레코드를 명시적으로 정렬
         paginator = CustomPageNumberPagination()
         paginated_posts = paginator.paginate_queryset(queryset, request)
         serializer = PostSerializer(paginated_posts, many=True)
