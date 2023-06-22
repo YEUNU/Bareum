@@ -17,12 +17,11 @@ import { ref } from 'vue';
 export default {
     name:"select_item_popup",
     props: {
-        selected_option: String,
         query: String,
     },
 
     setup(props) {
-        const searchList = ref(props.query);
+        const searchQuery = ref(props.query);
         const dataset = ref(null);
 
         const example_data = ref([
@@ -49,7 +48,7 @@ export default {
         dataset.value = example_data.value;
 
         return {
-            searchList,
+            searchQuery,
             dataset,
             };
     },

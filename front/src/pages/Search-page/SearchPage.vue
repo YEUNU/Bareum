@@ -9,7 +9,7 @@
         <searchBar ref="searchbarAPI" :placeholder=searchPlaceholder @searchQuery="(searchQuery) => search(searchQuery)" style="width: calc(100% - 37px)"></searchBar>
     </div>
 </nav>
-<router-view style=""/>
+<router-view :key="$route.fullPath"/>
 </template>
 
 
