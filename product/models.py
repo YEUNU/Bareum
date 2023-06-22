@@ -25,6 +25,8 @@ class Nutraceuticals(models.Model):
     유통기한 = models.TextField()
     보관방법 = models.TextField()
     원재료 = models.TextField()
+    업체코드 = models.IntegerField(default=0)
+
 
 
     class Meta:
