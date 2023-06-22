@@ -1,20 +1,23 @@
 <template>
     <div>
-      <div class="card" v-for="post in posts" :key="post.post_id">
+      <div class="card" v-for="post in posts" :key="post.post_id" style="box-shadow: 2px 2px 2px 2px #eeeeee">
           <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.post_id }}">
           <div class="row">
-            <div class="col-6">
-              <div class="card-body">
-                <p class="card-text">{{ post.post_date }}</p>
-                <p class="card-text">제목 : {{ post.post_title }}</p>
-                <p class="card-text">내용 : {{ post.post_contents }}</p>
-                <p class="card-text">작성자 : {{ post.user.user_name }}</p>
-
+            <div class="flex-shrink-0">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                  alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+                  style="width: 70px;">
               </div>
-            </div>
-            <div class="col-6">
-              <img :src="post.image" class="card-img" alt="post image" />
-            </div>
+              <!-- <img :src="post.image" class="card-img" alt="post image" /> -->
+            
+            
+              <div class="card-body">
+                <p class="card-text" style=" color: black; font-weight: bold;">제목 : {{ post.post_title }}</p>
+                <p class="card-text" style=" color: black; font-size: 13px; margin-top: -2%;">작성자 : {{ post.user.user_name }}</p>
+                <p class="card-text" style=" color:black;">{{ formatDate(post.post_date) }}</p>
+                <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
+              </div>
+            
           </div>
         </router-link>
       </div>
@@ -34,13 +37,20 @@ import axios from 'axios';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 export default {
-
+  methods: {
+  formatDate(date) {
+    const dateObj = new Date(date);
+    const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}. ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+    return formattedDate;
+  }
+},
   setup() {
     const posts = ref([]);
     const page = ref(1);
     const per_page = 10;
     const postTotalPages = ref(1);
     const loader = ref(null);
+    
 
     async function fetchPosts() {
       if (page.value <= postTotalPages.value) {

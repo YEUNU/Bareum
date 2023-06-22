@@ -1,8 +1,8 @@
 <template>
-    <form @submit.prevent="onSubmitInternal">
-      <label for="comment-input">댓글</label>
-      <input type="text" id="comment-input" v-model="commentInput" required />
-      <button type="submit">작성</button>
+    <form @submit.prevent="onSubmitInternal" style="text-align: left; width:100%;">
+      <input type="text" id="comment-input" v-model="commentInput" required placeholder="댓글 작성"
+        style=" width: 73%; margin-top: 10%; border-radius: 8px; border:1px solid #eeeeee;" />
+      <button type="submit" style="margin-left: 5%; background-color: #2dce89; border-radius: 5px; color:white;">작성</button>
     </form>
   </template>
   

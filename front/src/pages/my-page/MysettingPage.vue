@@ -14,14 +14,14 @@
 
       
 
-<div class="mycard-container">
+<div class="mysettingcard-container">
   <div class="card" style="width: 100%; padding:0;  display:block; box-shadow: 2px 2px 2px 2px #eeeeee">
     <div class="card-body"> 
         <div class="m-title">
             <router-link to="/myterms"><h5 style="text-align: left; font-weight: bold; color:black;">이용약관</h5></router-link>
-            <router-link to="/myprivacy"><h5 style="text-align: left; margin-top: 3%; font-weight: bold; color:black;">개인정보 처리방침</h5></router-link>
-            <router-link to="/myremove"><h5 style="text-align: left; margin-top: 3%; font-weight: bold; color:black;">회원탈퇴</h5></router-link>
-            <router-link to="/mysupport"><h5 style="text-align: left; margin-top: 3%; font-weight: bold; color:black;">문의하기</h5></router-link>
+            <router-link to="/myprivacy"><h5 style="text-align: left; margin-top: 8%; font-weight: bold; color:black;">개인정보 처리방침</h5></router-link>
+            <router-link to="/myremove"><h5 style="text-align: left; margin-top: 8%; font-weight: bold; color:black;">회원탈퇴</h5></router-link>
+            <router-link to="/mysupport"><h5 style="text-align: left; margin-top: 8%; font-weight: bold; color:black;">문의하기</h5></router-link>
         </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ import {ref} from 'vue'
     padding-bottom: 180%;
   }
   
-  .mycard-container {
+  .mysettingcard-container {
     margin-bottom: 5%;
   }
 

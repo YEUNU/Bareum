@@ -1,13 +1,13 @@
 <template>
     <div>
-      <div class="card" v-for="post in popularPosts" :key="post.id">
+      <div class="card" v-for="post in popularPosts" :key="post.id" style="box-shadow: 2px 2px 2px 2px #eeeeee">
         <router-link :to="{ name: 'postDetailPage', params: { postId: post.id }}">
           <div class="row">
             <div class="col-6">
               <div class="card-body">
                 <p class="card-text">{{ post.post_date }}</p>
                 <p class="card-text">제목 : {{ post.post_title }}</p>
-                <p class="card-text">내용 : {{ post.post_contents }}</p>
+                <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
               </div>
             </div>
             <div class="col-6">
