@@ -36,7 +36,6 @@
       const postContent = ref('');
       const userInfo = useUserInfo();
       const router = useRouter();
-      console.log(userInfo)
       const csrf_token = Cookies.get('csrftoken');
 
       const imageInput = ref(null); // 이미지 input 참조를 위한 ref

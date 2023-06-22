@@ -186,7 +186,6 @@ class CommentReplyListView(APIView):
 
 
         serializer = self.serializer_class(comment, many=True)
-        print(serializer.data)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
     
     
