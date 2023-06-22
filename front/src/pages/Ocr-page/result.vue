@@ -26,6 +26,9 @@
       </div>
       <div v-else>
         <p>관련된 제품을 찾지 못했습니다.</p>
+        <router-link to="/ocr/registration" class="request-link">
+          <button class="request-btn">등록 요청</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -92,6 +95,19 @@ export default {
 
 
 <style scoped>
+.request-btn {
+  background-color: #3498db;
+  color: white;
+  font-size: 1.125em;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.request-btn:hover {
+  background-color: #2c80b9;
+}
 .loading-container {
   display: flex;
   justify-content: center;
