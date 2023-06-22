@@ -322,8 +322,8 @@ const routes = [
 const router = createRouter({
     history:createWebHistory(),
     routes,
-    
 })
+
 
 
 // router.beforeEach(async(to, from, next) => {

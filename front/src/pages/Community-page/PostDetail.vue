@@ -1,9 +1,9 @@
 <template>
-    <CommuTopNavBar/>
+    
     <router-view :postId="postId" :commentsId="commentsId" />
 </template>
 <script>
-import CommuTopNavBar from '../../components/Navbar/CommuTopNavBar.vue';
+
 export default {
     props: {
     postId: {
@@ -15,7 +15,7 @@ export default {
       required: true,
     },
   },
-  components:{CommuTopNavBar}
+  components:{}
 }
 </script>
 <style >

@@ -20,7 +20,7 @@
     <div class="d-flex justify-content-between" style="align-items:center; margin-top: 2%;">
       <p class="card-text mb-2">혜택 알림</p>
       <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="margin-left: 100%;">
                   </div>
     </div>
   
@@ -28,7 +28,7 @@
     <div class="d-flex justify-content-between" style="align-items:center; margin-top: 2%;">
       <p class="card-text mb-2">건강 상태, 복용 약물</p>
       <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="margin-left: 100%;">
                   </div>
     </div>
   
@@ -36,7 +36,7 @@
     <div class="d-flex justify-content-between" style="align-items:center; margin-top: 2%;">
       <p class="card-text mb-2">알람 알림</p>
       <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" style="margin-right:0;">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"  style="margin-left: 100%;">
                   </div>
     </div>
   

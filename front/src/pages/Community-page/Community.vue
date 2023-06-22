@@ -64,6 +64,7 @@ export default {
 .commu-item {
   margin-right: 1rem;
   flex:1;
+  
 }
 .commu-link {
   text-decoration: none;

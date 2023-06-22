@@ -10,8 +10,8 @@
         </div>
       </nav>
       
-      <div class="chart-container">
-    <canvas id="myChart" style="margin-left: 5%;"></canvas>
+      <div class="chart-container" style="text-align: center;">
+    <canvas id="myChart"></canvas>
   </div>
       
     </div>
@@ -85,18 +85,15 @@ export default {
 .mynutrientscontainer {
     width: 100%; /* 화면 너비에 꽉 차도록 설정 */
     height: 100%; /* 화면 높이에 꽉 차도록 설정 */
-    display: block;
     margin-bottom: 10%;
-    padding-bottom: 80%;
+    padding-bottom: 100%;
+    
   }
 
-  .card {
-  margin-top: 10%;
-}
 .chart-container {
-  margin-top: 10%;
   width: 100%;
-  height: 80%;
+  height: 100%;
+  margin-top: 10%;
   border: 1px solid #d3d3d3;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px #eeeeee;

@@ -20,4 +20,6 @@ app.use(router);
 app.use(csrf);
 app.use(InfiniteScroll);
 
+
+
 app.mount('#app');

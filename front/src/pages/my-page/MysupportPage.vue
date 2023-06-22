@@ -1,6 +1,6 @@
 <template>
     <div class="supportcontainer">
-        <nav class="navbar fixed-top bg-light">
+        <nav class="navbar fixed-top bg-white">
             <div class="container-fluid">
                 <router-link to="/mysetting" class="navbar-brand" style="margin-left: 2vh;">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
