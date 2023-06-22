@@ -50,7 +50,7 @@
             </div>
                 <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
                     <div v-for="(url, index) in post.post_image_urls" :key="index">
-                        <img :src="url" :alt="'Image ' + (index + 1)" class="post-image"/>
+                        <img :src="`${url}`" :alt="'Image ' + (index + 1)" class="post-image"/>
                     </div>
                 </div>
 
@@ -174,13 +174,7 @@ import Cookies from 'js-cookie';
 import CommuInput from '../../components/CommuInput.vue';
 
 export default {
-    methods: {
-    formatDate(date) {
-        const dateObj = new Date(date);
-        const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}  ${dateObj.getHours()}:${dateObj.getMinutes()}`;
-        return formattedDate;
-    }
-    },
+
     props: {
         postId: {
             type: String,
@@ -194,6 +188,13 @@ export default {
         const replyInput = ref("");
         const userInfo = useUserInfo();
         const post = ref({});
+        
+        const formatDate=(date)=>{
+            const dateObj = new Date(date);
+            const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}  ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+            return formattedDate;
+        }
+
 
         const likePost = () => {
             if (post.value.member_id !== userInfo.memberId) {
@@ -224,7 +225,12 @@ export default {
 
         async function fetchPostDetail(postId) {
             try {
-                const response = await axios.get(`/api/community/detail/${postId}`);
+                const response = await axios.get(`/api/community/detail/${postId}`,{
+                    
+                    headers:{
+                        withCredentials: false, 
+                    }
+                });
                 post.value = response.data;
             }
             catch (err) {
@@ -273,7 +279,9 @@ export default {
             submitComment,
             commentInput,
             userInfo,
-            likePost // likePost 함수를 반환하여 템플릿에서 사용할 수 있게합니다.
+            likePost, // likePost 함수를 반환하여 템플릿에서 사용할 수 있게합니다.
+            formatDate,
+
         };
     },
     components: { CommuInput }
@@ -285,5 +293,10 @@ export default {
     background-color: #2dce89;
     border-radius: 5px;
     color:white;
+}
+
+.post-image {
+    width: 100px ;
+    height: 100px ;
 }
 </style>
