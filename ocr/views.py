@@ -39,16 +39,22 @@ def process_image(request):
             
         sorted_dict = sorted(res.items(), key=lambda x: x[1]) # 유사도에 따른 정렬
         sorted_dict = sorted_dict[::-1]
+        print(sorted_dict[:3])
         related_pr = []
         for i in sorted_dict:
-            related_pr.append(i[0])
+            if i[1] >= 0.3:
+                related_pr.append(i[0])
         
         result = []
         for i in related_pr[:20]:
             pr_info = Nutraceuticals.objects.filter(nutraceuticals_name=i).values('nutraceuticals_name','업소명')
             result.append(list(pr_info))
-        
+
         flattened_result = [item for sublist in result for item in sublist]
-        return JsonResponse({'products':flattened_result})
+        print(flattened_result)
+        if len(flattened_result) == 0:
+            return JsonResponse({'results':'fail'})
+        
+        return JsonResponse({'results': 'success', 'products':flattened_result})
     
     return JsonResponse({"error": "Invalid request"})

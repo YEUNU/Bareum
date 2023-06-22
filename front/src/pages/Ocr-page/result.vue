@@ -2,25 +2,35 @@
   <div class="ocr-result-page">
     <h1>OCR 결과</h1>
     <img :src="imageData" alt="Captured image" style="width: 50%;" />
-    <div v-if="productResults">
-      <h2>인식된 제품 정보(유사도순)</h2>
-      <div class="grid-container">
-        <div v-for="(product, index) in productResults" :key="index" class="grid-item">
-          <div class="product-card">
-            <div class="product-image">
-              <!-- 추후에 이미지를 여기에 추가하세요 -->
-              <img src="#" alt="Product image" class="fill-image" />
-            </div>
-            <div class="product-details">
-              <h5>{{ index + 1 }}. 품목명: {{ product.nutraceuticals_name }}</h5>
-              <p>업소명: {{ product.업소명 }}</p>
+    <div v-if="isLoading" class="loading-container">
+      <div class="spinner"></div>
+      <p>제품을 찾는 중입니다...</p>
+    </div>
+    <div v-else>
+      <div v-if="productResults">
+        <h2>인식된 제품 정보(유사도순)</h2>
+        <div class="grid-container">
+          <div v-for="(product, index) in productResults" :key="index" class="grid-item">
+            <div class="product-card">
+              <div class="product-image">
+                <!-- 추후에 이미지를 여기에 추가하세요 -->
+                <img src="#" alt="Product image" class="fill-image" />
+              </div>
+              <div class="product-details">
+                <h5>{{ index + 1 }}. 품목명: {{ product.nutraceuticals_name }}</h5>
+                <p>업소명: {{ product.업소명 }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div v-else>
+        <p>관련된 제품을 찾지 못했습니다.</p>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import { ref, onMounted } from 'vue'
@@ -34,46 +44,74 @@ export default {
     const productResults = ref(null);
     const route = useRoute();
     const csrf_token = Cookies.get('csrftoken');
+    const isLoading = ref(true);
+
     async function sendImageToBackend() {
-        try {
-          const url = '/api/ocr/result'
+      try {
+        const url = '/api/ocr/result';
 
-          const response = await fetch(imageData.value)
-          const blob = await response.blob()
+        const response = await fetch(imageData.value);
+        const blob = await response.blob();
 
-          const formData = new FormData()
-          formData.append('image', blob, 'image.jpg')
+        const formData = new FormData();
+        formData.append('image', blob, 'image.jpg');
 
-          const result = await axios.post(url, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'X-CSRFToken': csrf_token
-            },
-          })
+        const result = await axios.post(url, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'X-CSRFToken': csrf_token,
+          },
+        });
 
-          productResults.value = result.data.products
-
-        } catch (error) {
-          console.error('Error sending image to backend:', error)
-          alert('서버와 통신 중 문제가 발생했습니다. 다시 시도해 주세요.')
+        if (result.data.results === 'success') {
+          productResults.value = result.data.products;
+        } else {
+          productResults.value = null;
         }
+      } catch (error) {
+        console.error('Error sending image to backend:', error);
+        alert('서버와 통신 중 문제가 발생했습니다. 다시 시도해 주세요.');
+      }finally {
+        isLoading.value = false; // 동작 완료 후, 로딩 인디케이터를 숨김
+      }
     }
 
     onMounted(async () => {
-      imageData.value = decodeURIComponent(route.params.imageData)
-      await sendImageToBackend()
-    })
+      imageData.value = decodeURIComponent(route.params.imageData);
+      await sendImageToBackend();
+    });
 
     return {
       imageData,
-      productResults
-    }
+      productResults,
+      isLoading,
+    };
+  },
+};
+</script>
+
+
+<style scoped>
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid #f3f3f3;
+  border-top-color: #3498db;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
   }
 }
 
-</script>
-
-<style scoped>
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
