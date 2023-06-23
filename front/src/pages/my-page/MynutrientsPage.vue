@@ -2,7 +2,7 @@
   <div class="mynutrientscontainer">
       <nav class="navbar fixed-top bg-white">
         <div class="container-fluid">
-          <router-link to="/mypage" class="navbar-brand">
+          <router-link to="/mypage" @click="goBack" class="navbar-brand">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16" style="margin-left: 2vh;">
               <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
@@ -22,6 +22,11 @@
 import Chart from "chart.js/auto";
 
 export default {
+  methods: {
+        goBack() {
+            this.$router.go(-1); // 이전 페이지로 이동
+        },
+    },
   mounted() {
     // 차트를 렌더링할 캔버스를 선택합니다.
     const ctx = document.getElementById("myChart").getContext("2d");
