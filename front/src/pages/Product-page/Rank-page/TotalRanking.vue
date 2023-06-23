@@ -23,7 +23,7 @@
         <div v-if="selected_items.length > 0" style="margin-top: 1vh; font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
         <hr>
     </div>
-    <div class="background bg-whitesmoke" style="padding-top: 225px; padding-bottom: 60px;">
+    <div class="background bg-whitesmoke" style="padding-top: 230px; padding-bottom: 60px;">
         <div style="min-height: 100%; padding-bottom: 60px;">
             <div class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
                 <div class="rank_order">{{i+1}}위</div>
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px;  z-index: 1200;">
+    <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
         <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
 
@@ -70,7 +70,7 @@ export default {
         
         
         const filtered_dataset = computed(() => {
-            if(selected_items.value.length == 0) {
+            if(selected_items.value.length == 0 || selected_option.value == null) {
                 return dataset.value
             }
             if(selected_option.value == 'personalize') {
@@ -84,10 +84,9 @@ export default {
 
         const open_popup = (params) => {
             if(popup.value == true & selected_option.value == params) {
-				selected_option.value = null;
 				popup.value = false;
 			}
-            
+
             else {
                 selected_option.value = params;
 				popup.value = true;
