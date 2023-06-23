@@ -1,57 +1,97 @@
 <template>
-    <div class="camera-wrapper">
-      <div class="camera-container">
-        <video id="video" ref="videoRef" width="100%" height="100%" autoplay playsinline></video>
-      </div>
+  <div class="camera-wrapper">
+    <div class="camera-container">
+      <video v-if="!capturedImage" id="video" ref="videoRef" width="100%" height="100%" autoplay playsinline></video>
+      <img v-else id="capturedImage" :src="capturedImage" width="100%" height="100%" />
+    </div>
     <button class="cancel-button" @click="cancelCapture">취소</button>
     <button class="capture-button" @click="capturePhoto">
-        <span class="inner-circle"></span>
+      <span class="inner-circle"></span>
     </button>
-    </div>
-  </template>
-  
-  <script>
-  import { ref, onMounted } from 'vue';
-  
-  export default {
-    setup() {
-      const cameraIsVisible = ref(false);
-      const videoRef = ref(null);
-  
-      const startCamera = async () => {
-        cameraIsVisible.value = true;
+    <button class="submit-button" @click="submitPhoto">제출하기</button>
+    <button class="retake-button" @click="retakePhoto">재촬영</button>
+  </div>
+</template>
 
-        const constraints = { video: { facingMode: "environment" }, audio: false };
-        const video = document.getElementById('video');
+<script>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-        navigator.mediaDevices
-            .getUserMedia(constraints)
-            .then(stream => {
-            video.srcObject = stream;
-            })
-            .catch(error => {
-            console.error(error);
-            });
-      };
-  
-      const capturePhoto = () => {
-       
-      };
-  
-      onMounted(() => {
+export default {
+  setup() {
+    const router = useRouter();
+    const videoRef = ref(null);
+    const capturedImage = ref(null);
+
+    const cancelCapture = () => {
+      if (videoRef.value.srcObject) {
+        videoRef.value.srcObject.getTracks().forEach((track) => track.stop());
+      }
+      router.back();
+    };
+
+    const startCamera = async () => {
+      const constraints = { video: { facingMode: 'environment' }, audio: false };
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        videoRef.value.srcObject = stream;
+        await videoRef.value.play();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const capturePhoto = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = videoRef.value.videoWidth;
+      canvas.height = videoRef.value.videoHeight;
+      canvas.getContext("2d").drawImage(videoRef.value, 0, 0, canvas.width, canvas.height);
+      videoRef.value.pause();
+      capturedImage.value = canvas.toDataURL("image/png");
+    };
+
+    const retakePhoto = () => {
+      if (capturedImage.value) {
+        capturedImage.value = null;
         startCamera();
+      }
+    };
+    const submitPhoto = () => {
+      if (!capturedImage.value) {
+      alert("제품을 촬영해주세요.");
+      return;
+    }
+    if (videoRef.value.srcObject) {
+      const stream = videoRef.value.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => {
+        track.stop();
       });
-  
-      return {
-        videoRef,
-        capturePhoto,
-      };
-    },
-  };
-  </script>
+    }
+      router.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
+    };
+    onMounted(() => {
+      startCamera();
+    });
+
+    return {
+      videoRef,
+      retakePhoto,
+      capturePhoto,
+      cancelCapture,
+      submitPhoto,
+      capturedImage: capturedImage.value, 
+    };
+  },
+};
+</script>
+
+
+
 
 <style scoped>
-  .camera-wrapper {
+  .camera-wrapper { 
     position: fixed;
     top: 0;
     left: 0;
@@ -89,7 +129,7 @@
     border-radius: 50%;
     background-color: white;
     position: fixed;
-    bottom: 20px;
+    bottom: 19px;
     left: 50%;
     transform: translateX(-50%);
     border: 3px solid black;
@@ -115,7 +155,31 @@
     border: none;
     position: absolute;
     left: 20px; 
+    top: 0;
+    margin-top: 23px;
+  }
+  .submit-button {
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    position: absolute;
+    right: 20px; 
     bottom: 0;
-    margin-bottom: 25px;
+    margin-bottom: 23px;
+  }
+  .retake-button {
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    position: absolute;
+    left: 20px; 
+    bottom: 0;
+    margin-bottom: 23px;
   }
 </style>
