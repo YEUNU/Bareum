@@ -15,7 +15,7 @@
           <div class="card-body">
               <div>
                 <input type="file" accept="image/*" @change="profileImgUpload" style="display: none" ref="imageInput">
-                <img :src="userInfo.profileImgUrl" alt="Profile image" class="img-fluid rounded-circle border border-dark border-3" style="width: 100px; cursor: pointer" @click="openFilePicker">
+                <img :src="imageInput" alt="Profile image" class="img-fluid rounded-circle border border-dark border-3" style="width: 100px; cursor: pointer" @click="openFilePicker">
               </div>
 
               <div style="margin-top: 5%;"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
@@ -97,6 +97,9 @@ export default {
     const updateProfile = async () =>{
 
     }
+    onMounted(() => {
+      imageInput.value = userInfo.profileImgUrl  
+    })
 
     return {
       imageInput,

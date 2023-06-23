@@ -51,7 +51,7 @@ def login_user(req):
         if user is not None:
             login(req, user)
             csrf_token = get_token(req)
-            img_url = ProfileSerializer.get_profile_image_url(user)
+            img_url = ProfileSerializer.get_profile_image_url(user=user)
             
             response = JsonResponse({'success': '로그인이 완료되었습니다.',
                                      'login_id': login_id, 
