@@ -22,6 +22,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import User, ProfileImage
 from .serializer import ProfileSerializer
+import logging
 
 def save_profile(request):
     if request.method == 'POST':
@@ -158,14 +159,11 @@ def check_session(req):
     return JsonResponse({"logged_in": True})
 
 class UserProfileImageView(APIView):
-    
     def post(self, request, member_id):
         try:
             user = User.objects.get(pk=member_id)
-
             if len(request.FILES) > 0:
                 image_file = request.FILES['image']
-
                 # 프로필 이미지가 이미 존재하는 경우에는 해당 이미지를 먼저 삭제
                 try:
                     existing_image = ProfileImage.objects.get(user=user)
@@ -173,7 +171,6 @@ class UserProfileImageView(APIView):
                     image = existing_image
                 except ProfileImage.DoesNotExist:
                     image = ProfileImage()
-
                 image.image = default_storage.save(
                     "profile_images/%s" % (image_file.name,),
                     image_file
