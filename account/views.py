@@ -21,6 +21,7 @@ from django.core.files.storage import default_storage
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import User, ProfileImage
+from .serializer import ProfileSerializer
 
 def save_profile(request):
     if request.method == 'POST':
@@ -50,12 +51,13 @@ def login_user(req):
         if user is not None:
             login(req, user)
             csrf_token = get_token(req)
-            ProfileImage.objects.get(user=user)
+            img_url = ProfileSerializer.get_profile_image_url(user)
             
             response = JsonResponse({'success': '로그인이 완료되었습니다.',
                                      'login_id': login_id, 
                                      'username': user.user_name,
-                                     'member_id': user.member_id
+                                     'member_id': user.member_id,
+                                     'profile_img_url':img_url
                                      })
             response["Token"] = csrf_token
             return response
@@ -160,20 +162,26 @@ class UserProfileImageView(APIView):
     def post(self, request, member_id):
         try:
             user = User.objects.get(pk=member_id)
+
             if len(request.FILES) > 0:
                 image_file = request.FILES['image']
-                image = ProfileImage()
+
+                # 프로필 이미지가 이미 존재하는 경우에는 해당 이미지를 먼저 삭제
+                try:
+                    existing_image = ProfileImage.objects.get(user=user)
+                    default_storage.delete(existing_image.image.path)
+                    image = existing_image
+                except ProfileImage.DoesNotExist:
+                    image = ProfileImage()
+
                 image.image = default_storage.save(
                     "profile_images/%s" % (image_file.name,),
                     image_file
                 )
                 image.user = user
                 image.save()
+
         except User.DoesNotExist:
             return Response({"error": "회원이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
-        
-        return Response({}, status=status.HTTP_201_CREATED)
-    
-                 
 
-             
+        return Response({}, status=status.HTTP_201_CREATED)

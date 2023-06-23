@@ -50,7 +50,7 @@
             </div>
                 <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
                     <div v-for="(url, index) in post.post_image_urls" :key="index">
-                        <img :src="`${url}`" :alt="'Image ' + (index + 1)" class="post-image"/>
+                        <img :src="url" :alt="'Image ' + (index + 1)" class="post-image"/>
                     </div>
                 </div>
 

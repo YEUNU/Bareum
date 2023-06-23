@@ -14,8 +14,8 @@
         <div class="card" style="width: 100%; padding:0; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
           <div class="card-body">
               <div>
-                <input type="file" accept="image/*" @change="handleFileUpload" style="display: none" ref="fileInput">
-                <img :src="imageUrl" alt="Profile image" class="img-fluid rounded-circle border border-dark border-3" style="width: 100px; cursor: pointer" @click="openFilePicker">
+                <input type="file" accept="image/*" @change="profileImgUpload" style="display: none" ref="imageInput">
+                <img :src="userInfo.profileImgUrl" alt="Profile image" class="img-fluid rounded-circle border border-dark border-3" style="width: 100px; cursor: pointer" @click="openFilePicker">
               </div>
 
               <div style="margin-top: 5%;"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
@@ -24,7 +24,7 @@
               </div>
 
               <form action="{% url 'save_profile' %}" method="POST">
-    {% csrf_token %}
+                
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">닉네임</p>
         <div class="input-group mb-3">
@@ -83,26 +83,29 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useUserInfo } from '../../stores';
 export default {
-  data() {
+  setup() {
+    const imageInput = ref(null);
+    const userInfo = useUserInfo();
+
+    function openFilePicker() {
+      imageInput.value.click();
+    };
+
+    const updateProfile = async () =>{
+
+    }
+
     return {
-      imageUrl: 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp'
-    }
+      imageInput,
+      openFilePicker,
+      profileImgUpload,
+      userInfo
+    };
   },
-  methods: {
-    openFilePicker() {
-      this.$refs.fileInput.click();
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageUrl = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  },
-    components: {}
+  components: {}
 }
 </script>
 
