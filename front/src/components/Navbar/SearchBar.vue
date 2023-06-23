@@ -60,11 +60,13 @@ export default {
 
 .search-input {
     width: 100%;
-    border: 1px solid #bbb;
+    border: 1px solid rgba(235, 242, 233, 1);
     border-radius: 8px;
     padding: 10px 12px;
     font-size: 14px;
     box-sizing : border-box;
+    background-color: white;
+    color: #333;
 }
 
 .search-icon {

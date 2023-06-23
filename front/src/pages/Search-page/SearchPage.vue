@@ -9,7 +9,7 @@
         <searchBar ref="searchbarAPI" :placeholder=searchPlaceholder @searchQuery="(searchQuery) => search(searchQuery)" style="width: calc(100% - 37px)"></searchBar>
     </div>
 </nav>
-<router-view style=""/>
+<router-view :key="$route.fullPath"/>
 </template>
 
 
@@ -31,6 +31,9 @@ export default {
 
                 router.push({name: 'resultPage', query: { q: searchQuery }});
             }
+            else {
+				router.push({name: 'searchPageMain'});
+			}
         };
 
         const searchbarClear = () => {

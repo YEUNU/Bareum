@@ -1,11 +1,33 @@
 <template>
-    <div class="background bg-whitesmoke" style="margin-top: 59px;">
+    <div class="background bg-whitesmoke" style="margin-top: 59px; min-height: calc(100vh - 59px);">
+        <div class="search_detail_option_box bg-theme">
+
+            <div id="option_button_container">
+                <button v-if="route.query.option != null"
+                @click="router.push({name: 'resultPage', query: { 'q': route.query.q }})">전체 검색</button>
+                <button v-if="route.query.option != 'name'"
+                @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'name' }})">이름으로 검색</button>
+                <button v-if="route.query.option != 'personalize'"
+                @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'personalize' }})">관심분야로 검색</button>
+                <button v-if="route.query.option != 'ingredient'"
+                @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'ingredient' }})">영양성분으로 검색</button>
+            </div>
+            
+            <div v-if="route.query.option" class="bg-white" style="text-align: left; padding: 1vh 4vw; color: #333;">
+                <div>{{ route.query.q }}에 대한 {{ {'name':'이름', 'personalize':'관심분야', 'ingredient':'영양성분'}[route.query.option] }} 검색 결과</div>
+            </div>
+        </div>
         <div style="position: relative;">
-            <div class="result_box bg-white" v-for="(product, i) in dataset" :key="i">
+            <div class="result_box bg-white" v-for="(product, i) in products" :key="i">
                 <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
                 <div class="result_manufacturer">{{product['manufacturer']}}</div>
-                <div class="result_name">{{product['name']}}</div>
+                <div class="result_name"> {{product['name']}}</div>
                 <div class="result_mount">별점: {{product['star']}}</div>
+            </div>
+            <div style="bottom: 0; display: flex; flex-direction: column; text-align: start; background-color: white; margin-bottom: 1vh; padding: 5vw; color: gray;">
+                <span>찾으시는 제품이 없나요?</span>
+                <span style="font-size: 0.9em;">제품 등록을 요청하시면, 금방 추가해드리겠습니다.</span>
+                <router-link :to="{name: 'mynewaddPage'}">제품등록 요청하러 가기</router-link>
             </div>
         </div>
     </div>
@@ -13,17 +35,19 @@
 
 <script>
 import { ref } from 'vue';
+import { useRoute, useRouter } from "vue-router";
 
 export default {
     name:"select_item_popup",
     props: {
-        selected_option: String,
-        query: String,
+        q: String,
+        option: String,
     },
 
     setup(props) {
-        const searchList = ref(props.query);
-        const dataset = ref(null);
+        const route = useRoute();
+        const router = useRouter();
+        const products = ref([]);
 
         const example_data = ref([
             { id: 1, name: '제품1', manufacturer: '제조업체1', personalize: '눈 건강',    ingredient: '오메가3',     price: 3413,     total: 43291,    age1: 5427,     age2: 64,       star: 3.5,
@@ -46,18 +70,79 @@ export default {
             img: "https://m.fromvet.com/web/product/big/202012/51436f8621129cdd29f47c2b94fa1b76.png" },
         ]);
 
-        dataset.value = example_data.value;
+        const fetchProductsByName = (word) => {
+            // DB에서 단어를 포함하는 이름 검색
+            return null;
+        };
+
+        const fetchProductsByPersonalize = (word) => {
+            // DB에서 단어를 포함하는 분야 검색
+            return null;
+        };
+
+        const fetchProductsByIngredient = (word) => {
+            // DB에서 단어를 포함하는 영양성분 검색
+            return null;
+        };
+
+        const fetchProducts = (option, word) => {
+            if(option == null) {    // 전부 검색
+                fetchProductsByName(word);
+                fetchProductsByPersonalize(word);
+                fetchProductsByName(word);
+            }
+            
+            if(option == 'name') {  // 제품명 검색
+                fetchProductsByName(word);
+            }
+
+            if(option == 'personalize') {  // 관심 분야 검색
+                fetchProductsByPersonalize(word);
+            }
+
+            if(option == 'ingredient') {  // 영양 성분 검색
+                fetchProductsByName(word);
+            }
+
+        };
+
+        products.value = example_data.value;
 
         return {
-            searchList,
-            dataset,
+            route,
+            router,
+            products,
             };
     },
 }
 </script>
 
-
 <style>
+
+.search_detail_option_box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#option_button_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    position: sticky;
+}
+
+.search_detail_option_box button {
+    flex-grow: 1;
+    border-radius: 10px;
+    margin: 2vh 2vw;
+    font-size: 0.9em;
+    color: #333;
+    background-color: white;
+}
 
 .result_box {
     align-self: center;

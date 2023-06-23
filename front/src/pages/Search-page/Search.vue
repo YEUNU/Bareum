@@ -1,10 +1,10 @@
 <template lang="">
-	<div v-if="popup" style="display: flex; flex-direction: column; padding-top: 63px;">
-		<customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchItems(option, item)" ></customSearch>
-	</div>
-	<div v-else style="padding-top: 63px;">
+	<div class="background" style="display: flex; flex-direction:column; justify-content: center; align-items: center; padding-top: 63px;">
 		<button class="search_option" @click="open_popup('personalize')">관심 분야로 검색</button>
 		<button class="search_option" @click="open_popup('ingredient')">영양 성분으로 검색</button>
+		<div v-if="popup" style="display: flex; flex-direction: column;">
+			<customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchItems(option, item)" ></customSearch>
+		</div>
 	</div>
 </template>
 
@@ -24,14 +24,21 @@ export default {
 		const selected_option = ref(null);
 		
 		const open_popup = (params) => {
-			selected_option.value = params;
-			popup.value = true;
+            if(popup.value == true & selected_option.value == params) {
+				selected_option.value = null;
+				popup.value = false;
+			}
+            
+            else {
+                selected_option.value = params;
+				popup.value = true;
+			}
 		}
 		
 		const searchItems = (option, items) => {
 			console.log(option, items);
 			if(items.length != 0) {
-				router.push({name: 'resultPage', query: { q: items.join(',') }});
+				router.push({name: 'resultPage', query: { 'q': items.join(','), 'option': option }});
 			}
 		};
 
@@ -48,8 +55,8 @@ export default {
 
 <style>
 .search_option {
-	width: 100%;
-	margin: 3% 0;
+	width: min(72vw, 66vh);
+	margin: 2vh 0;
 	border-radius: 10px;
 	border: none;
 	background-color: #2dce89;
