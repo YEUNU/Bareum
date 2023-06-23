@@ -70,7 +70,7 @@ export default {
         .then((response) => {
           const loginResult = response.data;
           if (loginResult!=null) {
-            userLogin(loginResult.member_id,loginResult.login_id,loginResult.username);
+            userLogin(loginResult.member_id,loginResult.login_id,loginResult.username,loginResult.profile_img_url);
             console.log(userInfo)
             router.push("/");
           } else {

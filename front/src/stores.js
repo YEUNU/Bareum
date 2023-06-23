@@ -45,6 +45,7 @@ export const useUserInfo = defineStore('userInfo',{
     memberId:null,
     loginId:"",
     name:"",
+    profileImgUrl:"",
     age:null,
     sex:null,
   }),
@@ -58,11 +59,12 @@ export const useUserInfo = defineStore('userInfo',{
     }
   },
   actions:{
-    userLogin(memberId,loginId,name){
+    userLogin(memberId,loginId,name,profileImgUrl){
       this.name = name;
       this.loginId = loginId;
       this.memberId = memberId;
       this.isLoggedIn = true;
+      this.profileImgUrl = profileImgUrl
     },
     userLogout() {
       this.isLoggedIn = false;

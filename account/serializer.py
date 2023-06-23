@@ -29,7 +29,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_profile_image_url(self, user):
-        no_image_url = '/media/profile_images/default_profile_image.jpg'
+        no_image_url = '/media/profile_images/default_profile_image.png'
         profile_image_url = no_image_url  # 기본값으로 no-image.jpg 경로를 지정합니다.
 
         try:
