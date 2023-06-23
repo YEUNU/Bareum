@@ -68,8 +68,11 @@ export default {
       tracks.forEach((track) => {
         track.stop();
       });
+    router.push({ 
+        path: router.currentRoute.value.query.returnPath, 
+        query: { capturedImage: encodeURIComponent(capturedImage.value) } 
+      });
     }
-      router.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
     };
     onMounted(() => {
       startCamera();
