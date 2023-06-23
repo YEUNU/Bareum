@@ -27,7 +27,7 @@ import mysettingPage from './pages/my-page/MysettingPage.vue'
 import myupdatePage from './pages/my-page/MyupdatePage.vue'
 import myreviewPage from './pages/my-page/MyreviewPage.vue'
 import mynutrientsPage from './pages/my-page/MynutrientsPage.vue'
-
+import myalarmPage from './pages/my-page/MyalarmPage.vue'
 
 import commuPage from './pages/Community-page/Community.vue'
 import shopPage from './pages/Shopping-page/shop.vue'
@@ -290,6 +290,12 @@ const routes = [
         path:'/myorder',
         name:'myOrderPage',
         component:myorderPage
+    },
+    {
+        // 알림 설정 페이지
+        path:'/alarm',
+        name:'alarmPage',
+        component:myalarmPage
     },
     {   
         // 푸시 알람 설정
