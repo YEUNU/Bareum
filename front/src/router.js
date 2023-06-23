@@ -12,6 +12,8 @@ import homePage from './pages/Home-page/Home.vue'
 import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
+import regulardeliveryPage from './pages/Home-page/Regulardelivery.vue'
+
 
 import mywishPage from './pages/my-page/MywishPage.vue'
 import myorderPage from './pages/my-page/MyorderPage.vue'
@@ -112,6 +114,12 @@ const routes = [
         path: "/cameraguide",
         component:cameraguidePage,
         name:'cameraguidePage'
+    },
+    // 정기 배송 신청 페이지
+    {
+        path: "/regulardelivery",
+        component:regulardeliveryPage,
+        name:'regulardeliveryPage'
     },
     {
         //예시

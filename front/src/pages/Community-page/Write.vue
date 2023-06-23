@@ -1,24 +1,35 @@
 <template>
-    <div>
-      <h1>글쓰기 페이지</h1>
+    <div class="writecontainer">
+      <nav class="navbar fixed-top bg-white">
+        <div class="container-fluid">
+          <router-link to="/community" class="navbar-brand" style="margin-left: 2vh;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg>
+            
+        </router-link>
+        
+        </div>
+        
+      </nav>
+
+      
       <form @submit.prevent="submitPost">
-        <div>
-          <label for="title">제목</label>
-          <input id="title" v-model="postTitle" required />
+        <div class="writetitle" >
+          <input id="title" placeholder="제목" style="width:100%; border: none; border-bottom: 1px solid #eeeeee;" v-model="postTitle" require/>
         </div>
-        <div>
-          <label for="content">내용</label>
-          <textarea id="content" v-model="postContent" required ></textarea>
+        <div class="writecontent">
+          <textarea id="content" placeholder="내용을 입력하세요" style=" width:100%; height: 20vh; border: none; border-bottom: 1px solid #eeeeee;" v-model="postContent" required ></textarea>
         </div>
-        <div>
-          <label for="image">이미지 첨부</label>
-          <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" />
+        <div style="margin-top: 10%; text-align: left;">
+          
+          <div><input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" /></div>
         </div>
-        <div v-for="(url, index) in imagePreviewUrls" :key="index">
-          <img :src="url" class="preview-image" />
+        <div style="margin-top: 5%; text-align: left;" v-for="(url, index) in imagePreviewUrls" :key="index">
+          <img :src="url" class="preview-image" style="width:100%; height:30%;" />
           <button @click="removeImage(index)">x</button>
         </div>
-        <button type="submit">글쓰기</button>
+        <button class="postbutton" type="submit" style="margin-top: 5%; border-radius: 10px; width:30%;">완료</button>
       </form>
     </div>
   </template>
@@ -149,5 +160,19 @@
 
   object-fit: cover;
 }
+.writecontainer {
+    width: 100%; /* 화면 너비에 꽉 차도록 설정 */
+    height: 100%; /* 화면 높이에 꽉 차도록 설정 */
+    display: block;
+    border-radius: 10px;
+    padding-top:10%;
+    padding-bottom: 20%;
+  }
+
+  .writetitle{
+    width:100%;
+    height:100%;
+    display: block;
+  }
   </style>
   

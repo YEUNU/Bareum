@@ -28,7 +28,7 @@
                 <div id="menu_name">알림설정</div>
                 <div id="menu_icon"><img src="../../assets/alarm.png" alt=""></div>
             </router-link>
-            <router-link to="/regular_delivery" class="item menus">
+            <router-link to="/regulardelivery" class="item menus">
                 <div id="menu_comment">내가 까먹어도 기사님은 안까먹는</div>
                 <div id="menu_name">정기배송신청</div>
                 <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
