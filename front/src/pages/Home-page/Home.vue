@@ -23,7 +23,7 @@
                 <div id="menu_name">추천</div>
                 <div id="menu_icon"><img src="../../assets/recommand.png" alt=""></div>
             </router-link>
-            <router-link to="/set_alarm" class="item menus">
+            <router-link to="/alarm" class="item menus">
                 <div id="menu_comment">규칙적인 나만의 비서</div>
                 <div id="menu_name">알림설정</div>
                 <div id="menu_icon"><img src="../../assets/alarm.png" alt=""></div>
