@@ -48,17 +48,17 @@ export const useUserInfo = defineStore('userInfo',{
     profileImgUrl:"",
     birthDay:'',
     age:null,
-    sex:null,
+    gender:null,
     nickName:"",
+    weight:null,
+    height:null,
   }),
   getters:{
 
     getIsLoggedIn(state){
       return this.isLoggedIn;
     },
-    getUserInfo(state){
-      return state.userId, state.name, state.age, state.sex;
-    }
+
   },
   actions:{
     userLogin(memberId,loginId,name,profileImgUrl){
@@ -68,6 +68,15 @@ export const useUserInfo = defineStore('userInfo',{
       this.isLoggedIn = true;
       this.profileImgUrl = profileImgUrl
     },
+
+    userAddInfo(birthDay,gender,nickName,weight,height){
+      this.birthDay = birthDay;
+      this.gender = gender;
+      this.nickName = nickName;
+      this.weight = weight;
+      this.height = height;
+    },
+
     userLogout() {
       this.isLoggedIn = false;
       this.isLoggedIn=false;
