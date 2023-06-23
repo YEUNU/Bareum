@@ -1,0 +1,279 @@
+<template>
+    <div class="mycontainer">
+            <nav class="navbar fixed-top bg-white">
+                    <div class="container-fluid">
+                    <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                        </svg>
+                    </router-link>
+                    </div>
+                </nav>
+    
+                <div class="calendar" style="margin-top: 10%; width: 100%;">
+  <h2>
+    <a href="#" v-on:click="onClickPrev(currentMonth)" style="color: #2dce89;">◀</a>
+    {{ currentYear }}년 {{ currentMonth }}월
+    <a href="#" v-on:click="onClickNext(currentMonth)" style="color: #2dce89;">▶</a>
+  </h2>
+  <table class="table table-hover" style="table-layout: fixed;">
+    <colgroup>
+      <col style="width: 15%;">
+      <col style="width: 15%;">
+      <col style="width: 15%;">
+      <col style="width: 15%;">
+      <col style="width: 15%;">
+      <col style="width: 15%;">
+      <col style="width: 15%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <td v-for="(weekName, index) in weekNames" :key="index">
+          {{ weekName.slice(0, 1) }} <!-- 요일 텍스트를 첫 글자로 줄여 표시 -->
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(row, rowIndex) in currentCalendarMatrix" :key="rowIndex">
+        <td v-for="(day, dayIndex) in row" :key="dayIndex" style="padding: 20px;">
+          <span
+            v-if="isSelected(currentYear, currentMonth, day)"
+            class="rounded"
+            v-on:click="selectDate(currentYear, currentMonth, day)"
+          >
+            {{ day }}
+          </span>
+          <span v-else v-on:click="selectDate(currentYear, currentMonth, day)">
+            {{ day }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+    <div class="mycard-container">
+  <div class="card" style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
+    
+                <div class="card-body">
+                
+                <h5 style="text-align: left; font-weight: bold;">정기 배송 품목</h5>
+                
+                <div class="d-flex align-items-center mt-4 mb-2">
+    <div class="flex-shrink-0" style="text-align: left; width:100%;">
+      <img style="margin-right: 5%;"
+        :src="images[0].src"
+        :alt="images[0].alt"
+        :style="{ height: imageSize, width: imageSize, border: images[0].isChecked ? '10px solid #2dce89'  : 'none' }"
+        @click="toggleCheck(0)"
+      />
+      <img 
+        :src="images[1].src"
+        :alt="images[1].alt"
+        :style="{ height: imageSize, width: imageSize, margin: '0 10px', border: images[1].isChecked ? '10px solid #2dce89' : 'none' }"
+        @click="toggleCheck(1)"
+      />
+      <img style="margin-left: 5%;"
+        src="../../assets/plus.png"
+        :alt="images[2].alt"
+        :style="{ height: imageSize, width: imageSize, border: images[2].isChecked ? '10px solid #2dce89' : 'none' }"
+        @click="toggleCheck(2)"
+      />
+    </div>
+  </div>
+                
+                
+                
+                </div>
+            </div>
+    </div>
+
+    <div class="mycard-container">
+        <div class="card" style="width: 100%; padding:0; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
+          <div class="card-body">
+            
+    <div style="text-align: left; ">
+        <h5 style="color: black; font-weight: bold; margin-bottom: 5%;">배송지</h5>
+        <div class="input-group mb-3" style="border-bottom: 2px solid #eeeeee;">
+            <input type="text" name="gender" class="form-control" placeholder="주소" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+        </div>
+    </div>
+
+   
+
+
+          </div>
+        </div>
+      </div>
+      <router-link to="/"><button style="width:100%; margin-top: 5%; margin-bottom: 10%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">완 료</button></router-link>
+</div> 
+  </template>
+  
+  <script>
+  export default {
+    name: 'Calendar',
+    data() {
+      return {
+        weekNames: ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"],
+        rootYear: 1904,
+        rootDayOfWeekIndex: 4, // 2000년 1월 1일은 토요일
+        currentYear: new Date().getFullYear(),
+        currentMonth: new Date().getMonth() + 1,
+        currentDay: new Date().getDate(),
+        currentMonthStartWeekIndex: null,
+        currentCalendarMatrix: [],
+        endOfDay: null,
+        memoDatas: [],
+        selectedDate: null,
+        images: [
+        {
+          src: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc',
+          alt: 'Image 1',
+          isChecked: false,
+        },
+        {
+          src: 'https://img.danawa.com/prod_img/500000/591/160/img/6160591_1.jpg?_v=20220804162302',
+          alt: 'Image 2',
+          isChecked: false,
+        },
+        {
+          src: "../../assets/product.png",
+          alt: 'Image 3',
+          isChecked: false,
+        },
+      ],
+      }
+    },
+    
+    mounted() {
+      this.init();
+    },
+    computed: {
+    imageSize() {
+      return `min(20vh, 20vw)`;
+    },
+  },
+    methods: {
+      init() {
+        this.currentMonthStartWeekIndex = this.getStartWeek(this.currentYear, this.currentMonth);
+        this.endOfDay = this.getEndOfDay(this.currentYear, this.currentMonth);
+        this.initCalendar();
+      },
+      toggleCheck(index) {
+      this.images[index].isChecked = !this.images[index].isChecked;
+    },
+      initCalendar() {
+        this.currentCalendarMatrix = [];
+        let day = 1;
+        for (let i = 0; i < 6; i++) {
+          let calendarRow = [];
+          for (let j = 0; j < 7; j++) {
+            if (i == 0 && j < this.currentMonthStartWeekIndex) {
+              calendarRow.push("");
+            } else if (day <= this.endOfDay) {
+              calendarRow.push(day);
+              day++;
+            } else {
+              calendarRow.push("");
+            }
+          }
+          this.currentCalendarMatrix.push(calendarRow);
+        }
+      },
+      getEndOfDay(year, month) {
+        switch (month) {
+          case 1:
+          case 3:
+          case 5:
+          case 7:
+          case 8:
+          case 10:
+          case 12:
+            return 31;
+          case 4:
+          case 6:
+          case 9:
+          case 11:
+            return 30;
+          case 2:
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+              return 29;
+            } else {
+              return 28;
+            }
+          default:
+            console.log("unknown month " + month);
+            return 0;
+        }
+      },
+      getStartWeek(targetYear, targetMonth) {
+        let year = this.rootYear;
+        let month = 1;
+        let sumOfDay = this.rootDayOfWeekIndex;
+        while (true) {
+          if (targetYear > year) {
+            for (let i = 0; i < 12; i++) {
+              sumOfDay += this.getEndOfDay(year, month + i);
+            }
+            year++;
+          } else if (targetYear == year) {
+            if (targetMonth > month) {
+              sumOfDay += this.getEndOfDay(year, month);
+              month++;
+            } else if (targetMonth == month) {
+              return (sumOfDay) % 7;
+            }
+          }
+        }
+      },
+      onClickPrev(month) {
+        month--;
+        if (month <= 0) {
+          this.currentMonth = 12;
+          this.currentYear -= 1;
+        } else {
+          this.currentMonth -= 1;
+        }
+        this.init();
+      },
+      onClickNext(month) {
+        month++;
+        if (month > 12) {
+          this.currentMonth = 1;
+          this.currentYear += 1;
+        } else {
+          this.currentMonth += 1;
+        }
+        this.init();
+      },
+      isToday(year, month, day) {
+        let date = new Date();
+        return year == date.getFullYear() && month == date.getMonth() + 1 && day == date.getDate();
+      },
+      isSelected(year, month, day) {
+        return this.selectedDate && year === this.selectedDate.year && month === this.selectedDate.month && day === this.selectedDate.day;
+      },
+      selectDate(year, month, day) {
+        this.selectedDate = { year, month, day };
+      },
+    },
+  };
+  </script>
+  
+  <style>
+  .mycontainer {
+    width: 100%; /* 화면 너비에 꽉 차도록 설정 */
+    height: 100%; /* 화면 높이에 꽉 차도록 설정 */
+    display: block;
+    margin-bottom: 10%;
+    border-radius: 10px;
+  }
+  .rounded {
+    -moz-border-radius: 20px 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px;
+    border: solid 1px #ffffff;
+    background-color: #2dce89;
+    padding: 10px;
+    color: #ffffff;
+  }
+  </style>
