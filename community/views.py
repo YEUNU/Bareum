@@ -42,21 +42,34 @@ def write_post(req):
         title = req.POST['title']
         contents = req.POST['content']
         id = req.POST['memberId']
-        user = User.objects.get(member_id = id)
-        
-        
-        post = Post.objects.create(post_title=title, post_contents=contents,
-                                   post_date=timezone.now(), post_like=0, post_category='normal', user=user)
-        
-        # 이미지 파일 저장
-        for key in req.FILES:
-            image_file = req.FILES[key]
-            image = PostImage()
-            image.image = default_storage.save("post_images/%s" % (image_file.name, ), image_file)
-            image.post = post   
-            image.save()
+        user = User.objects.get(member_id=id)
 
-        response_data = {'post_title': post.post_title, 'post_contents': post.post_contents}
+        post = Post.objects.create(
+            post_title=title,
+            post_contents=contents,
+            post_date=timezone.now(),
+            post_like=0,
+            post_category='normal',
+            user=user
+        )
+
+        # 이미지 파일 저장
+        if len(req.FILES) > 0:
+            for key in req.FILES:
+                image_file = req.FILES[key]
+                image = PostImage()
+                image.image = default_storage.save(
+                    "post_images/%s" % (image_file.name,),
+                    image_file
+                )
+                image.post = post
+                image.save()
+
+        response_data = {
+            'post_title': post.post_title,
+            'post_contents': post.post_contents
+        }
+
         return JsonResponse(response_data, status=201)
   
 #게시글 제목 검색 

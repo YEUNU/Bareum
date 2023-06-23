@@ -12,10 +12,15 @@ from django.middleware.csrf import get_token
 from . import models
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from rest_framework.views import APIView
+from rest_framework import status
 
+from rest_framework.response import Response
+
+from django.core.files.storage import default_storage
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
+from .models import User, ProfileImage
 
 def save_profile(request):
     if request.method == 'POST':
@@ -45,6 +50,8 @@ def login_user(req):
         if user is not None:
             login(req, user)
             csrf_token = get_token(req)
+            ProfileImage.objects.get(user=user)
+            
             response = JsonResponse({'success': '로그인이 완료되었습니다.',
                                      'login_id': login_id, 
                                      'username': user.user_name,
@@ -148,3 +155,25 @@ def check_session(req):
     #로그인 안되있으면 302 리턴
     return JsonResponse({"logged_in": True})
 
+class UserProfileImageView(APIView):
+    
+    def post(self, request, member_id):
+        try:
+            user = User.objects.get(pk=member_id)
+            if len(request.FILES) > 0:
+                image_file = request.FILES['image']
+                image = ProfileImage()
+                image.image = default_storage.save(
+                    "profile_images/%s" % (image_file.name,),
+                    image_file
+                )
+                image.user = user
+                image.save()
+        except User.DoesNotExist:
+            return Response({"error": "회원이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({}, status=status.HTTP_201_CREATED)
+    
+                 
+
+             

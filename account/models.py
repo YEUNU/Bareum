@@ -56,3 +56,8 @@ class HealthInfo(models.Model):
     class Meta:
         managed = True
         db_table = 'health_info'
+
+class ProfileImage(models.Model):
+    image = models.ImageField(upload_to='profile_images/')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
