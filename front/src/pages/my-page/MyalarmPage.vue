@@ -266,4 +266,7 @@ export default {
     margin: 2vh;
 }
 
+.add_new_alarm {
+    margin: 1vh auto;
+}
 </style>
