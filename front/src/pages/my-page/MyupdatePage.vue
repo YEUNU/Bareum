@@ -79,14 +79,13 @@
         </svg>
       <span>저장</span>
     </button>
-
+</form>
           </div>
         </div>
       </div>
 
-
-
     </div>
+    
 </template>
 
 <script>
@@ -129,6 +128,9 @@ export default {
             "X-CSRFToken": csrf_token,
           }
         })
+
+        if (userInfo.sex)
+
         router.push('/mypage');
       } 
 
