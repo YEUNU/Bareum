@@ -63,8 +63,8 @@
             </div>
 
             <div v-if="post.member_id == userInfo.memberId" style="  padding-top: 2%; padding-bottom: 2%; border-bottom: 2px solid #eeeeee;">
-                <button class="postbutton" style="margin-right: 50%;">수정</button>
-                <button class="postbutton">삭제</button>
+                <button class="postbutton" style="margin-right: 50%;" @click="editPost">수정</button>
+                <button class="postbutton" @click="confirmDelete">삭제</button>
             </div>
 
             <div v-for="comment in comments" :key="comment.comments_id">
@@ -189,6 +189,7 @@ import { ref, onMounted } from 'vue';
 import { useUserInfo } from '../../stores';
 import Cookies from 'js-cookie';
 import CommuInput from '../../components/CommuInput.vue';
+import { useRouter } from "vue-router";
 
 export default {
     data() {
@@ -248,6 +249,36 @@ methods: {
                 console.log("게시물 작성자는 좋아요를 누를 수 없습니다.");
             }
         }
+
+        const router = useRouter();
+        async function deletePost() {
+            try {
+                const csrf_token = Cookies.get("csrftoken");
+                const response = await axios.delete(`/api/community/detail/${post.value.post_id}/`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrf_token,
+                },
+            });
+            if (response.status === 204) {
+                router.push({ name: "postPage" });
+                } else {
+                console.error("포스트 삭제에 실패했습니다.");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        const confirmDelete = () => {
+            if (window.confirm("정말로 삭제하시겠습니까?")) {
+                deletePost();
+            }
+        };
+
+        const editPost = () => {
+            router.push({ name: "EditPostPage", params: { postId: post.value.post_id } });
+        };
 
 
         async function fetchPostDetail(postId) {
@@ -309,6 +340,9 @@ methods: {
             likePost, // likePost 함수를 반환하여 템플릿에서 사용할 수 있게합니다.
             formatDate,
 
+            deletePost,
+            confirmDelete,
+            editPost,
         };
     },
     components: { CommuInput }

@@ -1,4 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router"
+import { createApp } from 'vue';
+import App from './App.vue';
 
 import loginPage from './pages/login-page/Login.vue'
 import signupPage from './pages/login-page/Signup.vue'
@@ -47,6 +49,8 @@ import ocrCameraPage from './pages/Ocr-page/camera.vue'
 import registrationPage from './pages/shared-page/Registration.vue'
 import camPage from './pages/shared-page/cam.vue'
 import camCheckPage from './pages/shared-page/check.vue'
+import PostList from './pages/Community-page/Community.vue';
+import EditPostPage from './pages/Community-page/PostUpdatePage.vue';
 
 const routes = [
     //로그인 페이지
@@ -122,6 +126,12 @@ const routes = [
             }
         ]
 
+    },
+    //게시물 수정 페이지
+    {
+        path: "/community/update/:postId",
+        name: "EditPostPage",
+        component: EditPostPage,
     },
     
     //쇼핑페이지
@@ -337,6 +347,10 @@ const router = createRouter({
     history:createWebHistory(),
     routes,
 })
+
+const app = createApp(App);
+app.use(router);
+app.mount('#app');
 
 
 
