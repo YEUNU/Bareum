@@ -38,7 +38,7 @@ class Nutraceuticals(models.Model):
 
 class Ingredient(models.Model):
 
-    nutraceuticals_name = models.CharField(max_length=100, primary_key=True)
+    nutraceuticals_name = models.CharField(unique=True,max_length=100, primary_key=True)
     비타민D = models.FloatField(max_length=10)
     비타민E = models.FloatField(max_length=10)
     비타민k = models.FloatField(max_length=10)
@@ -80,7 +80,7 @@ class Ingredient(models.Model):
 class Review(models.Model):
 
     online_review_number = models.BigAutoField(primary_key=True)
-    nutraceuticals_name = models.CharField(max_length=100)
+    nutraceuticals_name = models.CharField(unique=True,max_length=100)
     company_name = models.CharField(max_length=100, null=True)
     lowest = models.IntegerField()
     reviews = models.TextField()
@@ -90,3 +90,23 @@ class Review(models.Model):
 
         managed = True
         db_table = 'review'
+
+class new_Nutraceuticals(models.Model): 
+    input_number = models.BigAutoField(primary_key=True)
+    nutraceuticals_name = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100, null=True)
+    image = models.ImageField(upload_to='new_Nutraceuticals/')
+    class Meta:
+        managed = True
+        db_table = 'new_nutraceuticals'
+
+class eating_Nutraceuticals(models.Model): 
+    checking_number = models.BigAutoField(primary_key=True)
+    nutraceuticals_name = models.CharField(max_length=100)
+    login_id = models.CharField(max_length=150)
+
+    class Meta:
+        managed = True
+        db_table = 'eating_nutraceuticals'
+
+    

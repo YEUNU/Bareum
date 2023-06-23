@@ -23,19 +23,17 @@
                 <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/></svg>
               </div>
 
-              <form action="{% url 'save_profile' %}" method="POST">
-    {% csrf_token %}
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">닉네임</p>
         <div class="input-group mb-3">
-            <input type="text" name="nickname" class="form-control" placeholder="닉네임" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+          <input type="text" name="nickname" class="form-control" placeholder="닉네임"  style="border:none;" v-model="닉네임">
         </div>
         <hr>
     </div>
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">생년월일</p>
         <div class="input-group mb-3">
-            <input type="text" name="birthday" class="form-control" placeholder="YYYY-MM-DD" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+            <input type="text" name="birthday" class="form-control" placeholder="YYYY-MM-DD" style="border:none;" v-model="생년월일">
                   
         </div>
         <hr>
@@ -44,7 +42,7 @@
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">키</p>
         <div class="input-group mb-3">
-            <input type="text" name="height" class="form-control" placeholder="cm" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+            <input type="text" name="height" class="form-control" placeholder="cm" style="border:none;" v-model="키">
                 
         </div>
         <hr>
@@ -53,7 +51,7 @@
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">몸무게</p>
         <div class="input-group mb-3">
-            <input type="text" name="weight" class="form-control" placeholder="kg" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+            <input type="text" name="weight" class="form-control" placeholder="kg" style="border:none;" v-model="몸무게">
         </div>
         <hr>
     </div>
@@ -61,7 +59,7 @@
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">성별</p>
         <div class="input-group mb-3">
-            <input type="text" name="gender" class="form-control" placeholder="남녀" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+            <input type="text" name="gender" class="form-control" placeholder="남녀" style="border:none;" v-model="성별">
         </div>
     </div>
     <button type="submit">
@@ -71,7 +69,6 @@
         </svg>
         <span>저장</span>
     </button>
-</form>
 
           </div>
         </div>
@@ -83,27 +80,44 @@
 </template>
 
 <script>
-export default {
-  data() {
+import { useUserInfo } from '../../stores';
+import axios from 'axios'
+import {ref} from 'vue'
+import Cookies from 'js-cookie';
+
+  export default {
+    data () {
+      const 닉네임 = ref('')
+      const 생년월일 = ref('')
+      const 키 = ref('')
+      const 몸무게 = ref('')
+      const 성별 = ref('')
+      const userInfo = useUserInfo()
+      const csrf_token = Cookies.get('csrftoken');
+
+    const myupdate_post = () => {
+      axios
+      .post("/api/account/myupdate", {
+        nickname: 닉네임.value,
+        birthday: 생년월일.value,
+        height: 키.value,
+        weight: 몸무게.value,
+        gender: 성별.value,
+        userdata: userInfo.loginId,
+      },
+      {
+      headers: {
+        "X-CSRFToken": csrf_token, // 토큰 추가
+        "Content-Type": "application/json", // Content-Type 추가
+      },
+    })
     return {
-      imageUrl: 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp'
+      myupdate_post,
+      csrf_token
     }
-  },
-  methods: {
-    openFilePicker() {
-      this.$refs.fileInput.click();
-    },
-    handleFileUpload(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageUrl = reader.result;
-      };
-      reader.readAsDataURL(file);
     }
-  },
-    components: {}
-}
+    }
+  }
 </script>
 
 <style>
