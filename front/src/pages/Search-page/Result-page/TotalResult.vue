@@ -1,10 +1,15 @@
 <template>
-    <div class="background bg-whitesmoke" style="margin-top: 59px;">
+    <div class="background bg-whitesmoke" style="margin-top: 59px; min-height: calc(100vh - 59px);">
         <div style="width: 100%; font-size: 0.8em; font-weight: bold;">
-            <button v-if="route.query.option != null" @click="router.push({name: 'resultPage', query: { 'q': route.query.q }})">전체 검색</button>
-            <button v-if="route.query.option != 'name'" @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'name' }})">이름으로 검색</button>
-            <button v-if="route.query.option != 'personalize'" @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'personalize' }})">관심분야로 검색</button>
-            <button v-if="route.query.option != 'ingredient'" @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'ingredient' }})">영양성분으로 검색</button>
+            <button v-if="route.query.option != null" class="roundbox" style="width: auto; font-size: 1em;"
+            @click="router.push({name: 'resultPage', query: { 'q': route.query.q }})">전체 검색</button>
+            <button v-if="route.query.option != 'name'" class="roundbox" style="width: auto; font-size: 1em;"
+            @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'name' }})">이름으로 검색</button>
+            <button v-if="route.query.option != 'personalize'" class="roundbox" style="width: auto; font-size: 1em;"
+            @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'personalize' }})">관심분야로 검색</button>
+            <button v-if="route.query.option != 'ingredient'" class="roundbox" style="width: auto; font-size: 1em;"
+            @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'ingredient' }})">영양성분으로 검색</button>
+            
             <div v-if="route.query.option">
                 <div>{{ route.query.q }}에 대한 {{ {'name':'이름', 'personalize':'관심분야', 'ingredient':'영양성분'}[route.query.option] }} 검색 결과</div>
             </div>
@@ -15,6 +20,11 @@
                 <div class="result_manufacturer">{{product['manufacturer']}}</div>
                 <div class="result_name"> {{product['name']}}</div>
                 <div class="result_mount">별점: {{product['star']}}</div>
+            </div>
+            <div style="bottom: 0; display: flex; flex-direction: column; text-align: start; background-color: white; margin-bottom: 1vh; padding: 5vw; color: gray;">
+                <span>찾으시는 제품이 없나요?</span>
+                <span style="font-size: 0.9em;">제품 등록을 요청하시면, 금방 추가해드리겠습니다.</span>
+                <router-link to="/">제품등록 요청하러 가기</router-link>
             </div>
         </div>
     </div>
