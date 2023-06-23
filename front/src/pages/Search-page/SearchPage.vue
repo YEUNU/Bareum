@@ -31,6 +31,9 @@ export default {
 
                 router.push({name: 'resultPage', query: { q: searchQuery }});
             }
+            else {
+				router.push({name: 'searchPageMain'});
+			}
         };
 
         const searchbarClear = () => {
