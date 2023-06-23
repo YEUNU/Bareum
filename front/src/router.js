@@ -52,12 +52,19 @@ import camCheckPage from './pages/shared-page/check.vue'
 import PostList from './pages/Community-page/Community.vue';
 import EditPostPage from './pages/Community-page/PostUpdatePage.vue';
 
+import addInfoPage from './pages/login-page/AddInfo.vue';
+
 const routes = [
     //로그인 페이지
     {
         path: "/login",
         component: loginPage,
-        name:'loginPage'
+        name:'loginPage',
+    },
+    {
+        path:"/addInfo",
+        component:addInfoPage,
+        name:'addInfoPage'
     },
     //회원가입 페이지
     {

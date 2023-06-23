@@ -23,22 +23,47 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import User, ProfileImage
-from .serializer import ProfileSerializer
+from .serializer import ProfileSerializer, UserAddInfoSerializer
+from django.core.exceptions import ObjectDoesNotExist
 import logging
+import traceback
 
-def myupdate(request):
-     if request.method == 'POST':
+class UserAddInfoView(APIView):
+
+    def put(self, request, member_id):
         data = json.loads(request.body)
-
-        nickname = data.get('nickname')
-        birthday = data.get('birthday')
-        height = data.get('height')
-        weight = data.get('weight')
-        gender = data.get('gender')
-        id = data.get('userdata')
-        #유저 아이디 확인해서 동일한 아이디에 
-
-       
+        try:
+            user = User.objects.get(pk=member_id)
+            user.nickname = data['nickname']
+            user.birthday = data['birthday']
+            user.height = data['height']
+            user.weight = data['weight']
+            user.gender = data['gender']
+            user.save()
+            return Response({'message': 'User updated successfully'}, status=200)
+        except ObjectDoesNotExist:
+            return Response({'message': 'User does not exist'}, status=404)
+        except KeyError:
+            return Response({'message': 'Invalid parameters'}, status=400)
+        except Exception as e:
+            print(traceback.format_exc())  # 예외 정보를 추적 및 출력합니다.
+            return Response({'message': 'Something went wrong'}, status=500)
+    def get(self, request, member_id):
+        try:
+            user = User.objects.get(pk=member_id)
+            user_data = {
+                'nickname': user.nickname,
+                'birthday': user.birthday,
+                'height': user.height,
+                'weight': user.weight,
+                'gender': user.gender
+            }
+            return Response(user_data, status=200)
+        except ObjectDoesNotExist:
+            return Response({'message': 'User does not exist'}, status=404)
+        except:
+            return Response({'message': 'Something went wrong'}, status=500)
+        
     
 # Create your views here.
 

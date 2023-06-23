@@ -60,6 +60,26 @@ export default {
     const error = ref(null);
     const router = useRouter();
     const csrf_token = Cookies.get('csrftoken');
+    
+
+    const getUserAddInfo = (member_id) => {
+      axios.get(`/api/account/addInfo/${member_id}/`)
+        .then(response => {
+          // 서버로부터 받은 데이터 처리
+          const data = response.data;
+          userInfo.userAddInfo(data.birthday,data.gender,data.nickname,data.weight, data.height);
+          console.log(data.birthday,data.gender,data.nickname,data.weight, data.height);
+          if (data.birthday == undefined || data.gender == undefined || data.nickname == undefined || data.weight == undefined || data.height == undefined) {
+            router.push("/addInfo");
+          } else {
+            router.push("/");
+          }
+        })
+        .catch(error => {
+          // 서버와의 통신 오류 처리
+          console.error('Error:', error);
+        });
+    }
 
     const login = () => {
       axios
@@ -71,8 +91,7 @@ export default {
           const loginResult = response.data;
           if (loginResult!=null) {
             userLogin(loginResult.member_id,loginResult.login_id,loginResult.username,loginResult.profile_img_url);
-            console.log(userInfo)
-            router.push("/");
+            getUserAddInfo(loginResult.member_id)
           } else {
             throw new Error("Login failed");
             
@@ -101,8 +120,7 @@ export default {
             const loginResult = response.data;
             if (loginResult!=null) {
               userLogin(loginResult.member_id,loginResult.login_id,loginResult.user_name);
-              console.log(userInfo)
-              router.push("/");
+              getUserAddInfo(loginResult.member_id);
             } else {
               throw new Error("Login failed");
 

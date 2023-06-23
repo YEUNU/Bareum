@@ -25,16 +25,16 @@
                 <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/></svg>
     </div>               
     <div style="text-align: left; margin-top: 10%;">
-        <p style="color: black; margin-left: 3%; font-weight: bold;">닉네임</p>
+        <p style="color: black; margin-left: 3%; font-weight: bold;" >닉네임</p>
         <div class="input-group mb-3">
           <input type="text" name="nickname" class="form-control" placeholder="닉네임"  style="border:none;" v-model="닉네임">
         </div>
         <hr>
     </div>
     <div style="text-align: left; margin-top: 10%;">
-        <p style="color: black; margin-left: 3%; font-weight: bold;">생년월일</p>
+        <p style="color: black; margin-left: 3%; font-weight: bold;" >생년월일</p>
         <div class="input-group mb-3">
-            <input type="text" name="birthday" class="form-control" placeholder="YYYY-MM-DD" style="border:none;" v-model="생년월일">
+          <input type="date" name="birthday" class="form-control" style="border:none;" v-model="생년월일">
                   
         </div>
         <hr>
@@ -60,7 +60,10 @@
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">성별</p>
         <div class="input-group mb-3">
-            <input type="text" name="gender" class="form-control" placeholder="남녀" style="border:none;" v-model="성별">
+            <label for="male">남자</label>
+            <input type="radio" id="male" name="gender" value="male" v-model="성별">
+            <label for="female">여자</label>
+            <input type="radio" id="female" name="gender" value="female" v-model="성별">
         </div>
     </div>
     <button type="submit">
@@ -106,6 +109,19 @@ export default {
       profileImg.value = URL.createObjectURL(file);
     }
 
+    const getUserAddInfo = (member_id) => {
+      axios.get(`/api/account/addInfo/${member_id}/`)
+        .then(response => {
+          // 서버로부터 받은 데이터 처리
+          const data = response.data;
+          userInfo.userAddInfo(data.birthday,data.gender,data.nickname,data.weight, data.height);
+        })
+        .catch(error => {
+          // 서버와의 통신 오류 처리
+          console.error('Error:', error);
+        });
+    }
+
     const updateProfile = async () => {
       try{
         if (profileImg.value != userInfo.profileImgUrl){
@@ -118,13 +134,25 @@ export default {
             "Content-Type": "multipart/form-data", // 폼 데이터 전송을 위해 수정
             "X-CSRFToken": csrf_token,
           }
+        });
+      }
+      
+
+        await axios.put(`/api/account/addInfo/${userInfo.memberId}/`,{
+          nickname: 닉네임.value,
+          birthday: 생년월일.value,
+          height: 키.value,
+          weight: 몸무게.value,
+          gender: 성별.value
+        },{
+          headers:{
+            "X-CSRFToken": csrf_token,
+            "Content-Type": "application/json",
+          }
         })
-
-        if (userInfo.sex)
-
+        getUserAddInfo(userInfo.memberId);
+        window.alert("수정되었습니다.");
         router.push('/mypage');
-      } 
-
       }catch(error){
         console.error(error);
       }
@@ -133,7 +161,12 @@ export default {
     }
 
     onMounted(() => {
-      profileImg.value = userInfo.profileImgUrl  
+      profileImg.value = userInfo.profileImgUrl;
+      닉네임.value = userInfo.nickName
+      생년월일.value = userInfo.birthDay
+      키.value = userInfo.height
+      몸무게.value = userInfo.weight
+      성별.value = userInfo.gender
     })
 
     return {
@@ -141,7 +174,13 @@ export default {
       imageInput,
       userInfo,
       updateProfile,
-      previewImages
+      previewImages,
+      닉네임,
+      생년월일,
+      키,
+      몸무게,
+      성별
+
     };
   },
   components: {}

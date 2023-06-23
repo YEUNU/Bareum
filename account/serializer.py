@@ -41,3 +41,9 @@ class ProfileSerializer(serializers.ModelSerializer):
             pass
 
         return profile_image_url
+
+class UserAddInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields= ['nickname','birthday','height','weight','gender']
+    
