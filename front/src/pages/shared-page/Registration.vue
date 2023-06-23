@@ -11,24 +11,35 @@
   
         <label for="productImage">제품 사진 첨부</label>
         <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
-        <router-link to="/cam" class="request-link">
-            <button type="button" class="camera-button" @click="openCamera">제품 직접 촬영하기</button>
+        <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }">
+          <button type="button" class="camera-button">제품 직접 촬영하기</button>
         </router-link>
-        <button type="button" @click="submitForm">완료하기</button>
+        <img v-if="capturedImage" :src="capturedImage" width="100" />
+        <button type="button" @click="submitForm">등록 요청하기</button>
       </form>
     </div>
   </template>
   
   
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 export default {
   setup() {
+    const router = useRouter();
+    const route = useRoute();
     const productName = ref('');
     const brandName = ref('');
     const cameraIsVisible = ref(false);
     const capturedImage = ref(null);
+
+    onMounted(() => {
+      const imageUrl = decodeURIComponent(route.query.capturedImage || '');
+      if (imageUrl) {
+        capturedImage.value = imageUrl;
+      }
+    });
 
     const onFileChange = (event) => {
       const file = event.target.files[0];
@@ -79,7 +90,9 @@ export default {
       closeCamera();
     };
 
-    const submitForm = () => { /* 폼 제출 처리 코드 */ };
+    const submitForm = () => { 
+      
+    };
 
     return {
       productName,
