@@ -11,6 +11,6 @@ urlpatterns = [
     path('login/signup', lambda request: redirect('login')),
     path('kakao/login',views.KakaoLogin.as_view()),
     path('session',views.check_session),
-    path('profile/img',views.UserProfileImageView.as_view()),
+    path('profile/img/<int:member_id>',views.UserProfileImageView.as_view()),
     
 ]

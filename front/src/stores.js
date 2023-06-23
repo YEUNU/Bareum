@@ -46,8 +46,10 @@ export const useUserInfo = defineStore('userInfo',{
     loginId:"",
     name:"",
     profileImgUrl:"",
+    birthDay:'',
     age:null,
     sex:null,
+    nickName:"",
   }),
   getters:{
 
