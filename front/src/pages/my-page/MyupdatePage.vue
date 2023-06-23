@@ -95,7 +95,12 @@ export default {
     const userInfo = useUserInfo();
     const profileImg = ref("")
     const router = useRouter();
-    const csrf_token = Cookies.get('csrftoken');
+    const csrf_token = Cookies.get('csrftoken');  
+    const 닉네임 = ref('')
+    const 생년월일 = ref('')
+    const 키 = ref('')
+    const 몸무게 = ref('')    
+    const 성별 = ref('')
 
     const previewImages = async () =>{
       console.log(imageInput.value.files[0]);
