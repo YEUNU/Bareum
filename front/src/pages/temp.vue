@@ -205,7 +205,7 @@
   
         axios
   
-        .post("/api/account/myupdate", {
+        .post(`/api/account/myupdate/${userInfo.memberId}`, {
   
           nickname: 닉네임.value,
   
@@ -217,7 +217,6 @@
   
           gender: 성별.value,
   
-          userdata: userInfo.loginId,
   
         },
   
