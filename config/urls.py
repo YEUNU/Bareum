@@ -15,6 +15,9 @@ urlpatterns = [
     path("api/shop/",include('shop.urls')),
     path("api/community-search/result", views.search_posts),
     path("api/ocr/",include('ocr.urls')),
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
     re_path(r'^assets/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     re_path(r'^registerSW.js$', serve, {'path': 'registerSW.js', 'document_root': settings.STATIC_ROOT}),
     re_path(r'^manifest.webmanifest$', serve, {'path': 'manifest.webmanifest', 'document_root': settings.STATIC_ROOT}),

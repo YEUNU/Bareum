@@ -14,9 +14,9 @@ export default defineConfig({
       },
       includeAssets: ['/icons/*'],
       manifest: {
-        name: 'My Awesome App',
-        short_name: 'MyApp',
-        description: 'My Awesome App description',
+        name: '바름',
+        short_name: '바름',
+        description: '건강의 시작 - 바름',
         theme_color: '#ffffff',
         icons: [
           {
