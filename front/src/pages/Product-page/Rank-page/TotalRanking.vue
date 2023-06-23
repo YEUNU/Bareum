@@ -1,44 +1,42 @@
 <template>
-    <div v-if="popup" style="display: flex; flex-direction: column;">
-        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
+    <nav class="navbar fixed-top bg-white">
+        <div class="container-fluid">
+            <span class="navbar-brand" @click="$router.back()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
+                </svg>
+            </span>
+        </div>
+    </nav>
+    <div class="bg-white" style="position: fixed; top: 50px; left: 0; width: 100%; height: 174px; z-index: 1030;">
+        <h2 style="font-weight: bold;">{{rank_title}} 제품 순위</h2>
+        <div>
+            <button class="roundbox bg-theme" style="width: 40%; margin: 10px 3%" @click="open_popup('personalize')">관심 항목</button>
+            <button class="roundbox bg-theme" style="width: 40%; margin: 10px 3%" @click="open_popup('ingredient')">영양소</button>
+        </div>
+        <select class="roundbox bg-theme" style="width: 86%; height: 35px; border-radius: 4px;" v-model="age_group">
+            <option disabled value="">연령대를 선택해 주세요</option>
+            <option>total</option>
+            <option>age1</option>
+            <option>age2</option>
+        </select>
+        <div v-if="selected_items.length > 0" style="margin-top: 1vh; font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
+        <hr>
     </div>
-    <div v-else>
-        <nav class="navbar fixed-top bg-white">
-            <div class="container-fluid">
-                <span class="navbar-brand" @click="$router.back()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
-                    </svg>
-                </span>
-            </div>
-        </nav>
-        <div class="bg-white" style="position: fixed; top: 50px; left: 0; width: 100%; height: 174px; z-index: 1030;">
-            <h2 style="font-weight: bold;">{{rank_title}} 제품 순위</h2>
-            <div>
-                <button class="roundbox bg-theme" style="width: 40%; margin: 10px 3%" @click="open_popup('personalize')">관심 항목</button>
-                <button class="roundbox bg-theme" style="width: 40%; margin: 10px 3%" @click="open_popup('ingredient')">영양소</button>
-            </div>
-            <select class="roundbox bg-theme" style="width: 86%; height: 35px; border-radius: 4px;" v-model="age_group">
-                <option disabled value="">연령대를 선택해 주세요</option>
-                <option>total</option>
-                <option>age1</option>
-                <option>age2</option>
-            </select>
-            <div v-if="selected_items.length > 0" style="margin-top: 1vh; font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
-            <hr>
-        </div>
-        <div class="background bg-whitesmoke" style="padding-top: 230px; padding-bottom: 60px;">
-            <div style="min-height: 100%; padding-bottom: 60px;">
-                <div class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
-                    <div class="rank_order">{{i+1}}위</div>
-                    <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
-                    <div class="rank_manufacturer">{{product['manufacturer']}}</div>
-                    <div class="rank_name">{{product['name']}}</div>
-                    <div class="rank_mount">판매량: {{product[age_group]}}</div>
-                    <div class="rank_price">가격: {{product['price']}}원</div>
-                </div>
+    <div class="background bg-whitesmoke" style="padding-top: 225px; padding-bottom: 60px;">
+        <div style="min-height: 100%; padding-bottom: 60px;">
+            <div class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
+                <div class="rank_order">{{i+1}}위</div>
+                <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
+                <div class="rank_manufacturer">{{product['manufacturer']}}</div>
+                <div class="rank_name">{{product['name']}}</div>
+                <div class="rank_mount">판매량: {{product[age_group]}}</div>
+                <div class="rank_price">가격: {{product['price']}}원</div>
             </div>
         </div>
+    </div>
+    <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px;  z-index: 1200;">
+        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
 
 </template>
@@ -51,7 +49,7 @@ import customSearch from '../../../components/CustomSearch.vue';
 import axios from "axios";
 
 export default {
-    components:{searchBar, customSearch},
+    components:{ searchBar, customSearch },
     setup() {
         const router = useRouter();
         const popup = ref(false);
@@ -62,7 +60,6 @@ export default {
             if(selected_items.value.length == 0) {
                 return '종합'
             }
-
             if(selected_option.value == 'personalize') {
                 return '부위별'
             }
@@ -86,8 +83,15 @@ export default {
         const age_group = ref('total');
 
         const open_popup = (params) => {
-            selected_option.value = params;
-            popup.value = true;
+            if(popup.value == true & selected_option.value == params) {
+				selected_option.value = null;
+				popup.value = false;
+			}
+            
+            else {
+                selected_option.value = params;
+				popup.value = true;
+			}
         }
 
         const example_data = ref([

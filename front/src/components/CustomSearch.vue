@@ -85,7 +85,7 @@ export default {
         const sendCheckedItems = () => {
 
             context.emit("close_popup", false);
-            context.emit("selected_items", selected_option.value, searchList.value);
+            context.emit("selected_items", props.selected_option, searchList.value);
             console.log(searchList.value);
 
         };

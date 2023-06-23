@@ -3,7 +3,7 @@
 		<button class="search_option" @click="open_popup('personalize')">관심 분야로 검색</button>
 		<button class="search_option" @click="open_popup('ingredient')">영양 성분으로 검색</button>
 		<div v-if="popup" style="display: flex; flex-direction: column;">
-			<customSearch :selected_option.sync="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchItems(option, item)" ></customSearch>
+			<customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => searchItems(option, item)" ></customSearch>
 		</div>
 	</div>
 </template>
@@ -24,12 +24,13 @@ export default {
 		const selected_option = ref(null);
 		
 		const open_popup = (params) => {
-			if(selected_option.value == params) {
+            if(popup.value == true & selected_option.value == params) {
 				selected_option.value = null;
 				popup.value = false;
 			}
-			else {
-				selected_option.value = params;
+            
+            else {
+                selected_option.value = params;
 				popup.value = true;
 			}
 		}
