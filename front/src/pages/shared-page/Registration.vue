@@ -4,101 +4,98 @@
   
       <form>
         <label for="productName">제품명</label>
-        <input type="text" id="productName" v-model="productName" placeholder="제품명을 입력하세요">
+        <input type="text" id="productName" v-model="productName" placeholder="제품명을 입력하세요" />
   
         <label for="brandName">브랜드</label>
-        <input type="text" id="brandName" v-model="brandName" placeholder="브랜드를 입력하세요">
+        <input type="text" id="brandName" v-model="brandName" placeholder="브랜드를 입력하세요" />
   
         <label for="productImage">제품 사진 첨부</label>
-        <input type="file" id="productImage" @change="onFileChange">
-  
-        <button type="button" class="camera-button" @click="openCamera">제품 직접 촬영하기</button>
+        <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
+        <router-link to="/ocr/cam" class="request-link">
+            <button type="button" class="camera-button" @click="openCamera">제품 직접 촬영하기</button>
+        </router-link>
         <button type="button" @click="submitForm">완료하기</button>
       </form>
     </div>
   </template>
   
-  <script>
-  import { ref } from "vue";
   
-  export default {
-    setup() {
-      const productName = ref("");
-      const brandName = ref("");
-      const productImage = ref("");
-  
-      const openCamera = () => {
-        navigator.mediaDevices
-          .getUserMedia({
-            video: true,
-            audio: false
-          })
-          .then(stream => {
-            const video = document.createElement("video");
-            const canvas = document.createElement("canvas");
-            const videoWrapper = document.createElement("div");
-            video.setAttribute("autoplay", "autoplay");
-            
-            const captureButton = document.createElement("button");
-            captureButton.innerText = "사진 찍기";
-            const closeButton = document.createElement("button");
-            closeButton.innerText = "취소하기";
-            
-            videoWrapper.appendChild(video);
-            videoWrapper.appendChild(canvas);
-            videoWrapper.appendChild(captureButton);
-            videoWrapper.appendChild(closeButton);
-          
-            document.body.appendChild(videoWrapper);
-  
-            video.srcObject = stream;
-            video.play();
-  
-            const ctx = canvas.getContext("2d");
-  
-            captureButton.addEventListener("click", () => {
-              canvas.width = video.videoWidth;
-              canvas.height = video.videoHeight;
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-              const imageDataUrl = canvas.toDataURL("image/png");
-              productImage.value = imageDataUrl;
-            });
-  
-            closeButton.addEventListener("click", () => {
-              video.srcObject.getTracks()[0].stop();
-              document.body.removeChild(videoWrapper);
-            });
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      };
-  
-      const onFileChange = e => {
-        const files = e.target.files || e.dataTransfer.files;
-        if (!files.length) return;
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const productName = ref('');
+    const brandName = ref('');
+    const cameraIsVisible = ref(false);
+    const capturedImage = ref(null);
+
+    const onFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
         const reader = new FileReader();
-        reader.onload = e => {
-          productImage.value = e.target.result;
+        reader.onload = (e) => {
+          capturedImage.value = e.target.result;
         };
-        reader.readAsDataURL(files[0]);
-      };
-  
-      const submitForm = () => {
-        console.log(productImage.value);
-      };
-  
-      return {
-        productName,
-        brandName,
-        productImage,
-        openCamera,
-        onFileChange,
-        submitForm
-      };
-    }
-  };
-  </script>
+        reader.readAsDataURL(file);
+      }
+    };
+
+    const openCamera = () => {
+      cameraIsVisible.value = true;
+
+      const constraints = { video: { facingMode: "environment" }, audio: false };
+      const video = document.getElementById('video');
+
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(stream => {
+          video.srcObject = stream;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    };
+
+    const closeCamera = () => {
+      const video = document.getElementById('video');
+      const tracks = video.srcObject.getTracks();
+
+      tracks.forEach(track => track.stop());
+      cameraIsVisible.value = false;
+    };
+
+    const capturePhoto = () => {
+      const video = document.getElementById('video');
+      const canvas = document.createElement('canvas');
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+      const dataUrl = canvas.toDataURL('image/jpeg');
+      capturedImage.value = dataUrl;
+
+      closeCamera();
+    };
+
+    const submitForm = () => { /* 폼 제출 처리 코드 */ };
+
+    return {
+      productName,
+      brandName,
+      cameraIsVisible,
+      onFileChange,
+      openCamera,
+      closeCamera,
+      capturePhoto,
+      submitForm,
+      capturedImage,
+    };
+  },
+};
+
+</script>
   
   
   
