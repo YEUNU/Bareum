@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from rest_framework import generics
 from .serializers import PostSerializer
@@ -17,6 +17,11 @@ from django.utils import timezone
 from django.core.files.storage import default_storage
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.forms.models import model_to_dict
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 
 
@@ -205,3 +210,48 @@ def like_post(request):
         return JsonResponse({'success': True, 'message': '좋아요 추가되었습니다.'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
+    
+# 게시글 수정
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.shortcuts import get_object_or_404
+from .models import Post
+import json
+
+from django.http import JsonResponse, HttpResponseNotAllowed
+@csrf_exempt
+def update_post(request, post_id):
+    allowed_methods = ['PUT']
+    
+    if request.method not in allowed_methods:
+        return HttpResponseNotAllowed(allowed_methods)
+    
+    if request.method == 'PUT':
+        post = get_object_or_404(Post, pk=post_id)
+        data = json.loads(request.body)
+        post.post_title = data.get('post_title', post.post_title)
+        post.post_contents = data.get('post_contents', post.post_contents)
+        post.save()
+        response_data = {
+            'post_title': post.post_title,
+            'post_contents': post.post_contents,
+        }
+        return JsonResponse(response_data, status=200)
+
+
+
+    
+    
+# 게시글 삭제
+@csrf_exempt
+def delete_post(request, post_id):
+    if request.method == 'DELETE':
+        try:
+            post = Post.objects.get(pk=post_id)
+            post.delete()
+            return JsonResponse({'success': True}, status=204)
+        except Post.DoesNotExist:
+            return JsonResponse({'error': "게시물이 존재하지 않습니다."}, status=404)
+
+    return JsonResponse({'error': "잘못된 요청입니다."}, status=405)

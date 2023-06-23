@@ -10,5 +10,9 @@ urlpatterns = [
     path('detail/<int:post_id>',views.post_detail),
     path('popularlist', views.popular_posts, name='popular_posts'),
     path('comments/<int:post_id>', views.CommentListView.as_view(), name='comments_list'),
-    path('comments/reply/<int:comments_id>',views.CommentReplyListView.as_view(), name='comments_reply_list')
+    path('comments/reply/<int:comments_id>',views.CommentReplyListView.as_view(), name='comments_reply_list'),
+    path('detail/<int:post_id>/', views.delete_post, name='delete-post'),
+    path('update/<int:post_id>', views.update_post, name='update_post'),
+    
+    
 ]

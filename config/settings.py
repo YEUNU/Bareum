@@ -106,6 +106,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://vue:5173',
     'http://localhost:5173',
 ]
+ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH']
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
