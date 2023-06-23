@@ -65,6 +65,8 @@ export default {
     padding: 10px 12px;
     font-size: 14px;
     box-sizing : border-box;
+    background-color: white;
+    color: #333;
 }
 
 .search-icon {
