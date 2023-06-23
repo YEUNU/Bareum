@@ -197,12 +197,12 @@ const routes = [
         ]
     },
     {
-        path:'/ocr/cam',
+        path:'/cam',
         component:camPage
     },
     {
-        path:'/ocr/cam/check',
-        component:camCheckPage
+        path:'/ocr/camera',
+        component:ocrCameraPage
     },
     {
         path:'/ocr',
@@ -212,10 +212,6 @@ const routes = [
             {
                 path:'result/:imageData',
                 component:ocrResultPage
-            },
-            {
-                path:'camera',
-                component:ocrCameraPage
             },
             {
                 path:'registration',

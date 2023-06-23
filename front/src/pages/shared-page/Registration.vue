@@ -11,7 +11,7 @@
   
         <label for="productImage">제품 사진 첨부</label>
         <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
-        <router-link to="/ocr/cam" class="request-link">
+        <router-link to="/cam" class="request-link">
             <button type="button" class="camera-button" @click="openCamera">제품 직접 촬영하기</button>
         </router-link>
         <button type="button" @click="submitForm">완료하기</button>
