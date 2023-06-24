@@ -66,16 +66,19 @@ def register(request):
     if request.method == 'POST':
         product_name = request.POST['productName']
         brand_name = request.POST['brandName']
-        image = request.FILES['image']
-        print(product_name, brand_name)
-        print(image)
+        pr_image = request.FILES['image']
+        
+        new = new_Nutraceuticals.objects.last().input_number
+        pr_image.name = "captured_image{}.jpg".format(new + 1).replace(' ','')
+        print(product_name, brand_name, pr_image)
+
         try:
-        #     new_nutraceutical = new_Nutraceuticals(
-        #         nutraceuticals_name=product_name,
-        #         company_name=brand_name,
-        #         image=image
-        #     )
-        #     new_nutraceutical.save()
+            new_nutraceutical = new_Nutraceuticals(
+                nutraceuticals_name=product_name,
+                company_name=brand_name,
+                image=pr_image
+            )
+            new_nutraceutical.save()
 
             return JsonResponse({"success": True})
         except Exception as e:

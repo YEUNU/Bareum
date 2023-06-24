@@ -1,20 +1,23 @@
 <template>
     <div class="registration-page">
       <h1>영양제 등록 요청</h1>
-  
+      
       <form>
+        <label for="productImage">제품 사진 첨부</label>
+        <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
+        <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }">
+          <button type="button" class="camera-button">제품 직접 촬영하기</button>
+        </router-link>
+        
+        <img v-if="capturedImage" :src="capturedImage" width="100" />
         <label for="productName">제품명</label>
         <input type="text" id="productName" v-model="productName" placeholder="제품명을 입력하세요" />
   
         <label for="brandName">브랜드</label>
         <input type="text" id="brandName" v-model="brandName" placeholder="브랜드를 입력하세요" />
   
-        <label for="productImage">제품 사진 첨부</label>
-        <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
-        <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }">
-          <button type="button" class="camera-button">제품 직접 촬영하기</button>
-        </router-link>
-        <img v-if="capturedImage" :src="capturedImage" width="100" />
+        
+        
         <button type="button" @click="submitForm">등록 요청하기</button>
       </form>
     </div>
@@ -88,12 +91,27 @@ export default {
       capturedImage.value = dataUrl;
       closeCamera();
     };
-
+    const dataURLtoFile = (dataurl, filename) => {
+      let arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+        
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      
+      return new File([u8arr], filename, { type: mime });
+    };
     const submitForm = () => {
+      const filename = "captured_image.jpg";
+      const file = dataURLtoFile(capturedImage.value, filename);
+
       const formData = new FormData();
-      formData.append('productName', productName.value);
-      formData.append('brandName', brandName.value);
-      formData.append('image', capturedImage.value);
+      formData.append("productName", productName.value);
+      formData.append("brandName", brandName.value);
+      formData.append("image", file, filename);
 
       fetch('/api/ocr/regi', {
         method: 'POST',
