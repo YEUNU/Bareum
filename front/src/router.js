@@ -55,6 +55,7 @@ import PostList from './pages/Community-page/Community.vue';
 import EditPostPage from './pages/Community-page/PostUpdatePage.vue';
 
 import addInfoPage from './pages/login-page/AddInfo.vue';
+import addressPage from './pages/my-page/Address.vue';
 
 const routes = [
     //로그인 페이지
@@ -358,6 +359,18 @@ const routes = [
         name:'mynutrientsPage',
         component:mynutrientsPage
     },
+    {
+        path:'/address',
+        name:'userAddressMain',
+        component:mainPage,
+        children:[
+        {
+            path:'',
+            name:'userAddressPage',
+            component:addressPage,
+        }
+        ]
+    }
 ]
 
 const router = createRouter({

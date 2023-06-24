@@ -61,3 +61,10 @@ class ProfileImage(models.Model):
     image = models.ImageField(upload_to='profile_images/')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
+    
+class Address(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    postcode = models.CharField(max_length=10)
+    address = models.CharField(max_length=255)
+    extra_address = models.CharField(max_length=255, blank=True)
+    detailed_address = models.CharField(max_length=255)

@@ -38,6 +38,7 @@
             <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/myupdate"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 5%; color:black;">개인정보 수정</button></router-link></div>
             <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/myreview"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 5%; color:black;">내 리뷰 관리</button></router-link></div>
             <div style="text-align: left; margin-left: -1%;"><router-link to="/mywish"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;">찜 목록</button></router-link></div>
+            <div style="text-align: left; margin-left: -1%;"><router-link to="/address"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;">내 주소 관리</button></router-link></div>
           </div>
         </div>
       </div>

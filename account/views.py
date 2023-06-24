@@ -211,3 +211,38 @@ class UserProfileImageView(APIView):
             return Response({"error": "회원이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
 
         return Response({}, status=status.HTTP_201_CREATED)
+    
+    
+    
+    
+
+class UserAddressView(View):
+    def get(self, request):
+        user = request.user
+        if user.is_authenticated:
+            address = Address.objects.get(user=user)
+            address_info = {
+                "postcode": address.postcode,
+                "address": address.address,
+                "extra_address": address.extra_address,
+                "detailed_address": address.detailed_address
+            }
+            return JsonResponse(address_info)
+        else:
+            return JsonResponse({"error": "Not authenticated"}, status=401)
+
+    def post(self, request):
+        user = request.user
+        if user.is_authenticated:
+            data = json.loads(request.body)
+            address = Address.objects.create(
+                user=user,
+                postcode=data["postcode"],
+                address=data["address"],
+                extra_address=data["extra_address"],
+                detailed_address=data["detailed_address"],
+            )
+            address.save()
+            return JsonResponse({"success": True})
+        else:
+            return JsonResponse({"error": "Not authenticated"}, status=401)
