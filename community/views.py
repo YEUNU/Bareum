@@ -164,6 +164,17 @@ class CommentListView(APIView):
         except Post.DoesNotExist:
             return Response({"error": "게시물이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
         
+        
+    def delete(self, request, post_id, comment_id):
+        try:
+            comment = Comments.objects.get(pk=comment_id, post_id=post_id)
+            comment.delete()
+            return Response({"message": "댓글이 삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+        except Comments.DoesNotExist:
+            return Response({"error": "댓글이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
+        
+
+        
 class CommentReplyListView(APIView):
     serializer_class = CommentsSerializer
     
@@ -206,6 +217,14 @@ class CommentReplyListView(APIView):
         serializer = self.serializer_class(comment, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
     
+    def delete(self, request, comments_id):
+        try:
+            comment = Comments.objects.get(pk=comments_id)
+            comment.delete()  # delete the comment instance
+            return Response({"message": "삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+        except Comments.DoesNotExist:
+            return Response({"error": "댓글이 존재하지 않습니다."}, status=status.HTTP_404_NOT_FOUND)
+            
     
 #좋아요 추가
 @require_POST

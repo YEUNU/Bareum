@@ -12,7 +12,7 @@
         </div>
         
       </nav>
-
+      
       
       <form @submit.prevent="submitPost">
         <div class="writetitle" >

@@ -61,9 +61,8 @@
                     
                 </button>
             </div>
-
-            <div v-if="post.member_id == userInfo.memberId" style="  padding-top: 2%; padding-bottom: 2%; border-bottom: 2px solid #eeeeee;">
-                <button class="postbutton" style="margin-right: 50%;" @click="editPost">수정</button>
+            <div v-if="post.member_id == userInfo.memberId" style=" display: flex; justify-content: flex-end; padding-top: 1%;">
+                <button class="postbutton" style="margin-right: 0.5%;" @click="editPost">수정</button>
                 <button class="postbutton" @click="confirmDelete">삭제</button>
             </div>
 
@@ -108,8 +107,7 @@
                 <div style="text-align: left; font-size: 15px;"> {{ comment.comment_contents }}</div>
                 
                 <div v-if="comment.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
-                        <button class="postbutton">수정</button>
-                        <button class="postbutton">삭제</button>
+                        <button class="postbutton" @click="deleteComment(comment.comments_id)">삭제</button>
                     </div>
                 
             
@@ -162,10 +160,9 @@
 
                         <div style="text-align: left; font-size: 15px;"> {{ reply.comment_contents }}</div>
 
-                                    <div v-if="reply.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
-                                        <button class="postbutton">수정</button>
-                                        <button class="postbutton">삭제</button>
-                                    </div> 
+                                    <!-- <div v-if="reply.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
+                                        <button>삭제</button>
+                                    </div>  -->
                     </div>
                 </div>
             </div>
@@ -202,6 +199,7 @@ methods: {
         this.isLiked = !this.isLiked;
     }
 },
+
     props: {
         postId: {
             type: String,
@@ -221,6 +219,27 @@ methods: {
             const dateObj = new Date(date);
             const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}  ${dateObj.getHours()}:${dateObj.getMinutes()}`;
             return formattedDate;
+        }
+
+        const deleteComment = async (comments_id) => {
+            if (window.confirm("정말로 댓글을 삭제하시겠습니까?")) {
+                try {
+                    const csrf_token = Cookies.get("csrftoken");
+                    const response = await axios.delete(`/api/community/posts/comments/delete/${comments_id}`, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": csrf_token,
+                        },
+                    });
+                    if (response.status === 204) {
+                        await fetchPostComment(post.value.post_id); // 댓글이 삭제된 후 댓글 목록 갱신
+                    } else {
+                        console.error("댓글 삭제에 실패했습니다.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
         }
 
 
@@ -335,6 +354,7 @@ methods: {
             fetchPostDetail,
             post,
             submitComment,
+            deleteComment,
             commentInput,
             userInfo,
             likePost, // likePost 함수를 반환하여 템플릿에서 사용할 수 있게합니다.
@@ -343,6 +363,7 @@ methods: {
             deletePost,
             confirmDelete,
             editPost,
+            
         };
     },
     components: { CommuInput }
