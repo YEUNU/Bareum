@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework.views import APIView
 from rest_framework import status
-
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
 from django.core.files.storage import default_storage
@@ -22,8 +22,8 @@ from django.shortcuts import get_object_or_404
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User, ProfileImage
-from .serializer import ProfileSerializer, UserAddInfoSerializer
+from .models import User, ProfileImage, Address
+from .serializer import ProfileSerializer, UserAddInfoSerializer, AddressSerializer
 from django.core.exceptions import ObjectDoesNotExist
 import logging
 import traceback
@@ -216,33 +216,43 @@ class UserProfileImageView(APIView):
     
     
 
+
 class UserAddressView(View):
-    def get(self, request):
-        user = request.user
+    def get(self, request, member_id):
+        user = User.objects.get(pk=member_id)
         if user.is_authenticated:
-            address = Address.objects.get(user=user)
-            address_info = {
-                "postcode": address.postcode,
-                "address": address.address,
-                "extra_address": address.extra_address,
-                "detailed_address": address.detailed_address
-            }
-            return JsonResponse(address_info)
+            try:
+                address = Address.objects.get(user=user)
+                serializer = AddressSerializer(address)
+                return JsonResponse(serializer.data, safe=False)
+            except Address.DoesNotExist:
+                return JsonResponse({
+                    "postcode": "",
+                    "address": "",
+                    "extra_address": "",
+                    "detailed_address": ""
+                }, safe=False)
         else:
             return JsonResponse({"error": "Not authenticated"}, status=401)
-
-    def post(self, request):
-        user = request.user
+        
+    def post(self, request, member_id):
+        user = User.objects.get(pk=member_id)
         if user.is_authenticated:
-            data = json.loads(request.body)
-            address = Address.objects.create(
-                user=user,
-                postcode=data["postcode"],
-                address=data["address"],
-                extra_address=data["extra_address"],
-                detailed_address=data["detailed_address"],
-            )
-            address.save()
-            return JsonResponse({"success": True})
+            data = JSONParser().parse(request)
+            data["user"] = user.pk
+
+            try:
+                # 해당 사용자가 이미 주소를 가지고 있다면 기존 주소를 업데이트 합니다.
+                existing_address = Address.objects.get(user=user)
+                serializer = AddressSerializer(existing_address, data=data)
+            except Address.DoesNotExist:
+                # 해당 사용자의 주소가 없다면 새로운 주소를 생성합니다.
+                serializer = AddressSerializer(data=data)
+
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse(serializer.errors, status=400)
         else:
             return JsonResponse({"error": "Not authenticated"}, status=401)
