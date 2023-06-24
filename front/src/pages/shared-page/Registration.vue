@@ -71,7 +71,7 @@ export default {
     const closeCamera = () => {
       const video = document.getElementById('video');
       const tracks = video.srcObject.getTracks();
-
+      
       tracks.forEach(track => track.stop());
       cameraIsVisible.value = false;
     };
@@ -86,12 +86,32 @@ export default {
 
       const dataUrl = canvas.toDataURL('image/jpeg');
       capturedImage.value = dataUrl;
-
       closeCamera();
     };
 
-    const submitForm = () => { 
-      
+    const submitForm = () => {
+      const formData = new FormData();
+      formData.append('productName', productName.value);
+      formData.append('brandName', brandName.value);
+      formData.append('image', capturedImage.value);
+
+      fetch('/api/ocr/regi', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert('제품 등록이 완료되었습니다.');
+            router.push('/'); // 모든 처리가 완료된 후 사용자를 원하는 페이지로 리디렉션합니다.
+          } else {
+            alert('제품 등록 중 오류가 발생했습니다. 다시 시도하십시오.');
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('제품 등록 중 오류가 발생했습니다. 다시 시도하십시오.');
+        });
     };
 
     return {

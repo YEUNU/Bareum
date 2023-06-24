@@ -6,7 +6,8 @@ import pandas as pd
 from collections import defaultdict
 import difflib
 import os 
-from product.models import Nutraceuticals
+from product.models import Nutraceuticals, new_Nutraceuticals
+from django.views.decorators.csrf import csrf_exempt
 
 def process_image(request):
     if request.method == "POST" and request.FILES["image"]:
@@ -58,3 +59,27 @@ def process_image(request):
         return JsonResponse({'results': 'success', 'products':flattened_result})
     
     return JsonResponse({"error": "Invalid request"})
+
+
+@csrf_exempt
+def register(request):
+    if request.method == 'POST':
+        product_name = request.POST['productName']
+        brand_name = request.POST['brandName']
+        image = request.FILES['image']
+        print(product_name, brand_name)
+        print(image)
+        try:
+        #     new_nutraceutical = new_Nutraceuticals(
+        #         nutraceuticals_name=product_name,
+        #         company_name=brand_name,
+        #         image=image
+        #     )
+        #     new_nutraceutical.save()
+
+            return JsonResponse({"success": True})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"success": False})
+    else:
+        return JsonResponse({"success": False})
