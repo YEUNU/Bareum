@@ -70,12 +70,20 @@
             <button class="roundbox" style="width: 80%;" @click="add_new_alarm()">추가</button>
         </div>
         <div v-else class="card" style="width: 80%; display:flex; padding: 0; margin: 1vh auto; box-shadow: 2px 2px 2px 2px #eeeeee">
-            <div class="card-body">
+            <div v-if="new_alarm.name == null" class="card-body">
+                <div class="select_nutraceutical_box" v-for="(nutraceutical, i) in my_nutraceuticals" :key="i">
+                    <input type="radio" v-model="checked_nutraceutical" :value="nutraceutical" :name="nutraceutical.name" :id="i">
+                    <label class="nutraceutical_img" :for="i"><img :src="nutraceutical.img" :alt="nutraceutical.name"></label>
+                    <label class="nutraceutical_name" :for="i">{{nutraceutical.name}}</label>
+                </div>
+                <button class="roundbox" @click="check_nutraceutical(checked_nutraceutical);">선택</button>
+            </div>
+            <div v-else class="card-body">
                 <svg style="position: absolute; width: 17px; right: 17px; margin: 0; z-index: 1;" @click="delete_new_alarm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
                 </svg>
                 <div class="product_image">
-                    <img :src="new_alarm.img" :alt="new_alarm.name" style="width: min(33vw, 33vh);">
+                    <img @click="() => {new_alarm.name = null; new_alarm.img = null;}" :src="new_alarm.img" :alt="new_alarm.name" style="width: min(33vw, 33vh);">
                 </div>
 
                 <div class="product_name">
@@ -111,7 +119,7 @@
                 </div>
 
                 <div class="save_buttons">
-                    <button class="roundbox" @click="save_new_alarm(new_alarm)">저장</button>
+                    <button class="roundbox" @click="save_new_alarm(new_alarm)">추가</button>
                 </div>
             </div>
         </div>
@@ -124,6 +132,9 @@
 import {ref} from 'vue'
 export default {
     setup() {
+
+        const my_nutraceuticals = ref(null);
+        const checked_nutraceutical = ref(null);
 
         const getCurrentTime = () => {
             var curr = new Date();
@@ -186,7 +197,6 @@ export default {
         const new_alarm = ref(null);
         
         const add_new_alarm = () => {
-            let current = getCurrentTime();
             new_alarm.value = {
                 id: settingAlarm.value.length,
                 name: null,
@@ -199,27 +209,57 @@ export default {
                         'friday' : false,
                         'saturday' : false,
                     },
-                time: current.time,
+                time: null,
             };
+            if(my_nutraceuticals.value == null) { get_my_nutraceuticals(); }
         };
+
+        const get_my_nutraceuticals = (userID) => {
+            my_nutraceuticals.value = [
+                {
+                id: 0,
+                name: '닥터린 덴마크 락토지지 유산균',
+                img: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc',
+                },
+                {
+                id: 1,
+                name: '얼라이브 원스데일리 멀티비타민',
+                img: '//thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/1743393023473072-96246b1b-737e-4b28-808a-eeb5f36b1add.jpg',
+                },
+                {
+                id: 2,
+                name: '활력UP 멀티비타민',
+                img: '//healthhelper.kr/web/product/big/202208/974f37ad198063c0bc83685c2c28d6c9.png',
+                },
+
+            ]
+        }
+
+        const check_nutraceutical = (checked_nutraceutical) => {
+            new_alarm.value.name = checked_nutraceutical.name;
+            new_alarm.value.img = checked_nutraceutical.img;
+            new_alarm.value.time = getCurrentTime().time;
+            console.log(checked_nutraceutical, new_alarm.value);
+        }
 
         const delete_new_alarm = () => {
             new_alarm.value = null;
         }
 
         const save_new_alarm = (params) => {
-            // 알람 저장하는 함수
+            // 알람 저장하는 함수 추가
             new_alarm.value = null;
         }
 
-
-
         return {
             settingAlarm,
+            my_nutraceuticals,
+            checked_nutraceutical,
             new_alarm,
             save_alarm,
             delete_alarm,
             add_new_alarm,
+            check_nutraceutical,
             save_new_alarm,
             delete_new_alarm,
         };
@@ -268,5 +308,58 @@ export default {
 
 .add_new_alarm {
     margin: 1vh auto;
+}
+
+.select_nutraceutical_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 1vw;
+}
+
+.select_nutraceutical_box input[type="radio"] {
+    display: none;
+}
+
+.select_nutraceutical_box input[type="radio"] ~ label.nutraceutical_img {
+    display: flex;
+    justify-self: center;
+    border: 1px solid #2dce89;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #6e6e6e;
+    font-size: 1.1em;
+    text-decoration: none;
+    font-weight: 750;
+    width: min(21vw, 21vh);
+    height: min(21vw, 21vh);
+}
+
+.select_nutraceutical_box input[type="radio"]:checked ~ label.nutraceutical_img {
+    background-color: #2dce89;
+    color: white;
+}
+
+.select_nutraceutical_box input[type="radio"] ~ label.nutraceutical_img img {
+    width: min(21vw, 21vh);
+    height: min(21vw, 21vh);
+}
+
+.select_nutraceutical_box input[type="radio"]:checked ~ label.nutraceutical_img img {
+    width: min(18vw, 18vh);
+    height: min(18vw, 18vh);
+}
+
+.select_nutraceutical_box input[type="radio"] ~ label.nutraceutical_name {
+    display: inline-block;
+    color: #333;
+}
+
+.select_nutraceutical_box input[type="radio"]:checked ~ label.nutraceutical_name {
+    display: inline-block;
+    color: #2dce89;
 }
 </style>
