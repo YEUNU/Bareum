@@ -7,8 +7,8 @@
             :class="{ 'result-card-active': activeItem === item }"
             @click="handleItemClick(item)"
           >
-            <p><strong>제품명:</strong> {{ item.nutraceuticals_name }}</p>
-            <p><strong>업소명:</strong> {{ item.업소명 }}</p>
+            <p><strong>제품 명:</strong> {{ item.nutraceuticals_name }}</p>
+            <p><strong>업소 명:</strong> {{ item.업소명 }}</p>
           </div>
         </li>
       </ul>
