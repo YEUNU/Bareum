@@ -83,16 +83,17 @@ def search_posts(request):
     print(f"Search query: {search_query}")
     
     filtered_posts = Post.objects.filter(post_title__icontains=search_query)
-    serialized_posts = dserializers.serialize('json', filtered_posts)
-    return JsonResponse(serialized_posts, safe=False)
+    serialized_posts = PostSerializer(filtered_posts, many=True).data
+    return JsonResponse({"data": serialized_posts}, safe=False)
+
 
 
 #인기글 보여주기(좋아요0개임)
 @api_view(['GET'])
 def popular_posts(request):
     popular_posts = Post.objects.filter(post_like__gte=0).annotate(num_likes=Count('post_like')).order_by('-num_likes', '-post_date')
-    serialized_posts = dserializers.serialize('json', popular_posts)
-    return JsonResponse({"data": serialized_posts}, safe=False)
+    post_serializer = PostSerializer(popular_posts, many=True)
+    return JsonResponse({"data": post_serializer.data}, safe=False)
         
 
     
