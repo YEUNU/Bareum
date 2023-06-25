@@ -12,7 +12,7 @@
         <input type="text" v-model="postcode" placeholder="우편번호" required>
         <input type="button" @click="execDaumPostcode" value="우편번호 찾기"><br>
         <input type="text" :value="address" placeholder="주소" readonly required><br>
-        <input type="text" :value="detailed_address" placeholder="상세주소" required>
+        <input type="text" v-model="detailed_address" placeholder="상세주소" required>
         <input type="text" :value="extraAddress" placeholder="참고항목" readonly required>
         <button> 주소 저장 </button>
     </form>
@@ -20,7 +20,7 @@
   </template>
   
   <script>
-  import { reactive, toRefs } from 'vue';
+  import { reactive, toRefs,onMounted } from 'vue';
   import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useUserInfo } from '../../stores';
@@ -112,6 +112,10 @@ import { useRouter } from 'vue-router';
             console.error(error);
           }
         };
+
+        onMounted(() => {
+          fetchAddress(userInfo.memberId);
+        })
       return {
         ...toRefs(state),
         execDaumPostcode,
