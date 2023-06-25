@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "product",
     "community",
     "ocr",
+    "taking",
     
 ]
 

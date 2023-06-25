@@ -33,7 +33,7 @@
                 <div id="menu_name">정기배송신청</div>
                 <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
             </router-link>
-            <router-link to="/mynutrients" class="item menus" style="grid-column: 1/3">
+            <router-link to="/taking" class="item menus" style="grid-column: 1/3">
                 <div id="menu_comment">현재 내가</div>
                 <div id="menu_name">복용 중인 영양제</div>
                 <div id="menu_icon"><img src="../../assets/taking.png" alt=""></div>

@@ -53,7 +53,8 @@ import camPage from './pages/shared-page/cam.vue'
 import camCheckPage from './pages/shared-page/check.vue'
 import PostList from './pages/Community-page/Community.vue';
 import EditPostPage from './pages/Community-page/PostUpdatePage.vue';
-
+import takeRegist from './pages/Taking-page/regist.vue';
+import prSearchPage from './pages/Taking-page/pr_search.vue';
 import addInfoPage from './pages/login-page/AddInfo.vue';
 
 const routes = [
@@ -244,6 +245,26 @@ const routes = [
             },
         ]
     },
+
+    {
+        path:'/taking',
+        name:'mynutrientsPage',
+        component:mainPage,
+        children:[
+            {
+                path:'',
+                component:mynutrientsPage,
+            },
+            {
+                path:'regist',
+                component:takeRegist,
+            },
+            {
+                path:'search',
+                component:prSearchPage,
+            },
+        ]
+    },
     {
         path:"/community-search",
         name:"commuSearchMainPage",
@@ -352,12 +373,12 @@ const routes = [
         name:'myreviewPage',
         component:myreviewPage
     },
-    {   
-        // 복용중인 영양제
-        path:'/mynutrients',
-        name:'mynutrientsPage',
-        component:mynutrientsPage
-    },
+    // {   
+    //     // 복용중인 영양제
+    //     path:'/mynutrients',
+    //     name:'mynutrientsPage',
+    //     component:mynutrientsPage
+    // },
 ]
 
 const router = createRouter({
