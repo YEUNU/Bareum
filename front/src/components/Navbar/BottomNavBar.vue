@@ -11,7 +11,7 @@
                             <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.50000000000000000000000000000000 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"/>
                         </svg>
                     </span>
-                    <span :class="{'nav-text-active' : homepage, 'nav-text-inactive': !homepage }">홈</span>
+                    <span :class="{'nav-text-active' : homepage, 'nav-text-inactive': !homepage }"></span>
                 </router-link>
             </li>
             <li :class="{active: shop}" style="align-self: flex-end;">
@@ -24,7 +24,7 @@
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                         </svg>
                     </span>
-                    <span :class="{'nav-text-active' : shop, 'nav-text-inactive': !shop }">shop</span>
+                    <span :class="{'nav-text-active' : shop, 'nav-text-inactive': !shop }"></span>
                 </router-link>
             </li>
             <li>
@@ -43,7 +43,7 @@
                             <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                         </svg>
                     </span>
-                    <span :class="{'nav-text-active' : community, 'nav-text-inactive': !community }">커뮤니티</span>
+                    <span :class="{'nav-text-active' : community, 'nav-text-inactive': !community }"></span>
                 </router-link>
             </li>
             <li :class="{ active: mypage}" style="align-self: flex-end;">
@@ -56,7 +56,7 @@
                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                         </svg>
                     </span>
-                    <span :class="{'nav-text-active' : mypage, 'nav-text-inactive': !mypage }">마이페이지</span>
+                    <span :class="{'nav-text-active' : mypage, 'nav-text-inactive': !mypage }"></span>
                 </router-link>
             </li>
         </ul>
@@ -72,6 +72,7 @@
         style="display: none"
         ref="fileInput"
         />
+        <div v-if="firstTime" @close="disableModal">
         <div class="modal-dialog" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90%; margin: 0;">
             <div class="modal-content" style="width:80%; margin-left: 10%; margin-right: 2%;">            
                 <div class="modal-header">
@@ -83,16 +84,18 @@
                     <router-link to="/cameraguide">
                         <button class="yesbutton" data-bs-dismiss="modal" aria-label="Close" style="width: 100%; margin-top: 10%;" @click="closeModal()">네</button>
                     </router-link>
-                    <button style="width: 100%;">그만 보겠습니다.</button>
+                    <button style="width: 100%;"  @click="disableModal">그만 보겠습니다.</button>
                 </div>
             </div>
         </div>   
+    </div>
    
 
     <div class="modal-dialog" style="position: fixed; left: 50%; bottom: 0; transform: translate(-50%, 0); width: 90%; margin: 0;">
 
         <div class="modal-content" style="width:105%; margin-left: -2%; margin-right: 2%;">
 
+            <div class="modal-body" style="text-align: right;"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
             <div class="modal-body">
                 <router-link to="/ocr/camera" class="router-link" >
                     <button class="addcamera" data-bs-dismiss="modal" aria-label="Close">
@@ -120,7 +123,27 @@
 </template>
 
 <script>
+
 export default {
+  data() {
+    return {
+    showMenu: true,
+    displayGuideModal: false,
+    firstTime: true,
+    guideModalSeen: false, // 새 변수 추가
+    // 다른 데이터 속성
+    };
+  },
+  mounted() {
+    const savedValue = localStorage.getItem('guideModalSeen');
+    if (savedValue !== null) {
+    this.guideModalSeen = JSON.parse(savedValue);
+    } else {
+    this.guideModalSeen = false;
+    }
+    this.firstTime = !this.guideModalSeen; // firstTime 초기화
+
+  },
   computed: {
   homepage() {
     return this.$route.path === '/';
@@ -137,6 +160,12 @@ export default {
   // 나머지 페이지에 대한 computed 속성들 추가
   },
   methods: {
+    disableModal() {
+        this.displayGuideModal = false;
+  this.guideModalSeen = true;
+  localStorage.setItem('guideModalSeen', JSON.stringify(this.guideModalSeen));
+  this.firstTime = false;
+},
     openCamera() {
     this.showMenu = false;
     this.getImage(true);

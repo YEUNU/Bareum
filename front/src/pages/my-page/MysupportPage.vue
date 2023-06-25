@@ -59,19 +59,11 @@ export default {
 }
 
 .content {
-    
     display:block;
 }
-
-
-
-
-
-
 
 .col-9 {
     margin-left: 10%;
     margin-bottom: 5%;
-
 }
 </style>

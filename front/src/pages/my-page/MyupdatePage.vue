@@ -59,11 +59,11 @@
 
     <div style="text-align: left; margin-top: 10%;">
         <p style="color: black; margin-left: 3%; font-weight: bold;">성별</p>
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" style="margin-left: 3%;">
             <label for="male">남자</label>
-            <input type="radio" id="male" name="gender" value="male" v-model="성별">
-            <label for="female">여자</label>
-            <input type="radio" id="female" name="gender" value="female" v-model="성별">
+            <input type="radio" id="male" name="gender" value="male" v-model="성별" style="margin-left: 3%;">
+            <label for="female" style="margin-left: 3%;">여자</label>
+            <input type="radio" id="female" name="gender" value="female" v-model="성별" style="margin-left: 3%;">
         </div>
         <hr>
     </div>
