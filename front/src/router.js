@@ -406,15 +406,15 @@ app.mount('#app');
 
 
 
-// router.beforeEach(async(to, from, next) => {
-//     const isLoggedIn = await checkLogin();
-//     if (to.path !== '/login' && !isLoggedIn) {
-//       next({ path: '/login' });
-//     } else {
-//       next();
-//     }
-//   });
-
+router.beforeEach(async (to, from, next) => {
+    const isLoggedIn = await checkLogin();
+  
+    if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
+      next('/login');
+    } else {
+      next();
+    }
+  });
 
   
 

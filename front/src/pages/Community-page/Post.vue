@@ -4,16 +4,15 @@
           <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.post_id }}">
           <div class="row">
             <div class="flex-shrink-0">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                  alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+                <img :src="post.user.user_profile_img"
+                  alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
                   style="width: 70px;">
               </div>
               <!-- <img :src="post.image" class="card-img" alt="post image" /> -->
             
-            
               <div class="card-body">
                 <p class="card-text" style=" color: black; font-weight: bold;">제목 : {{ post.post_title }}</p>
-                <p class="card-text" style=" color: black; font-size: 13px; margin-top: -2%;">작성자 : {{ post.user.user_name }}</p>
+                <p class="card-text" style=" color: black; font-size: 13px; margin-top: -2%;">작성자 : {{ post.user.nickname }}</p>
                 <p class="card-text" style=" color:black;">{{ formatDate(post.post_date) }}</p>
                 <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
               </div>
@@ -55,7 +54,7 @@ export default {
     async function fetchPosts() {
       if (page.value <= postTotalPages.value) {
         try {
-          const response = await axios.get(`api/community/list?page=${page.value}`);
+          const response = await axios.get(`api/community/list/?page=${page.value}`);
           posts.value.push(...response.data.results);
           postTotalPages.value = Math.ceil(response.data.count / per_page);
           page.value += 1;

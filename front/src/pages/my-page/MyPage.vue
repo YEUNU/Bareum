@@ -21,16 +21,16 @@
           <div class="card-body">
             <div class="d-flex align-items-center mb-4">
               <div class="flex-shrink-0">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                  alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+                <img :src="userInfo.profileImgUrl"
+                  alt="profile Image" class="img-fluid rounded-circle border border-dark border-3"
                   style="width: 70px;">
               </div>
               <div class="flex-grow-1 ms-3">
                 <div class="d-flex flex-row align-items-center mb-2">
-                  <h4 class="mb-0 me-2" style="font-weight: bold;">닉네임</h4>
+                  <h4 class="mb-0 me-2" style="font-weight: bold;">{{userInfo.nickName}}</h4>
                 </div>
                 <div>
-                  <p class="mb-0 me-2" style="text-align: left;">나이 / 성별</p>
+                  <p class="mb-0 me-2" style="text-align: left;">{{ userInfo.age}} 세 / {{ userInfo.gender }}</p>
                 </div>
               </div>
             </div>
@@ -95,23 +95,39 @@
         </div>
       </div>
 
-      <router-link to="/login"><button style="width:100%; margin-top: 5%; margin-bottom: 10%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">로그아웃</button></router-link>
+      <button @click="logout" style="width:100%; margin-top: 5%; margin-bottom: 10%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">로그아웃</button>
           </div>
 
   </template>
 
 <script>
+import axios from 'axios';
 import { useUserInfo } from '../../stores.js';
-import {ref} from 'vue'
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+
   export default {
     setup() {
-      const userInfo = useUserInfo()
-      const {userLogout} = userInfo
+      const userInfo = useUserInfo();
+      const {userLogout} = userInfo;
+      const router = useRouter();
+
     const isLoggedIns = userInfo.isLoggedIns;
+
+    const logout = async () => {
+    
+      try{
+        userLogout();
+        router.push('/login');
+      }catch(error){
+        console.error(error);
+      }
+    };
+
     return {
       isLoggedIns,
       userInfo,
-      userLogout
+      logout
     };
   },
 
