@@ -64,12 +64,16 @@ export default {
     userLogout
   };
 },
+mounted() {
+    window.scrollTo(0, 0);
+  },
 
 components: {}
 };
 </script>
 
 <style lang="css">
+
 
 .pushcontainer {
   width: 100%; /* 화면 너비에 꽉 차도록 설정 */

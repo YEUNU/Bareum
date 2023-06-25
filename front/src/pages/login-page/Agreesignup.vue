@@ -7,10 +7,10 @@
     <div style="margin-top: 5%;">
         <div class="container-fluid">
             <div class="row justify-content-center" style="border: 1px solid gray; background-color: #eeeeee;">
-                <div class="col-2" style="text-align: left; ">
+                <div class="col-4" style="text-align: left; font-size:11px;">
                     회원가입약관
                 </div>
-                <div class="col-8" style="text-align: right;">
+                <div class="col-8" style="text-align: right; font-size:11px;">
                     <div class="form-check form-check-reverse">
   <input v-model="isagree" class="form-check-input" type="checkbox" value="" id="reverseCheck1">
   <label class="form-check-label" for="reverseCheck1">

@@ -165,14 +165,14 @@
     height: 100%; /* 화면 높이에 꽉 차도록 설정 */
     display: block;
     border-radius: 10px;
-    padding-top:10%;
-    padding-bottom: 20%;
+    padding-top: 10%;
   }
 
   .writetitle{
     width:100%;
     height:100%;
     display: block;
+    margin-bottom: 5%;
   }
   </style>
   

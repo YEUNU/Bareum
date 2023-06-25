@@ -1,15 +1,15 @@
 <template>
 
 <div class="pushcontainer">
-    <nav class="navbar fixed-top bg-white" style="padding: 10px 0;">
-        <div class="container-fluid">
-            <span class="navbar-brand" @click="() => {$router.back(); searchbarClear();}" style="margin-right: 0px">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"></path>
-                </svg>
-            </span>
+    <nav class="navbar fixed-top bg-white">
+        <div>
+          <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+          </router-link>
         </div>
-    </nav>
+      </nav>
 
 <!--
     <div class="date_selector">
@@ -18,7 +18,7 @@
 -->
     <div class="background" style="margin-top: 60px; min-height: calc(100vh - 60px);">
         <div class="card" v-for="(alarm, i) in settingAlarm" :key="i" 
-        style="width: 80%; display:flex; padding: 0; margin: 1vh auto; box-shadow: 2px 2px 2px 2px #eeeeee">
+        style="width: 80%; display:flex; padding: 0; margin: 2vh auto; box-shadow: 2px 2px 2px 2px #eeeeee">
             <div class="card-body">
 
                 <svg style="position: absolute; width: 17px; right: 17px; margin: 0; z-index: 1;" @click="delete_alarm(alarm)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
                     <img :src="alarm.img" :alt="alarm.name" style="width: min(33vw, 33vh);">
                 </div>
 
-                <div class="product_name">
+                <div class="product_name" style="margin-top: 5%;">
                     <span>{{ alarm.name }}</span>
                 </div>
 

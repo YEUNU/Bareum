@@ -1,31 +1,42 @@
 <template>
   <div class="ocr-result-page">
-    <h1>OCR 결과</h1>
-    <img :src="imageData" alt="Captured image" style="width: 50%;" />
+    <nav class="navbar fixed-top bg-white">
+        <div>
+          <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+          </router-link>
+        </div>
+      </nav>
+
+    <div class="ocr-title">OCR 결과</div>
+    <img :src="imageData" alt="Captured image" style="width: 100%;" />
     <div v-if="isLoading" class="loading-container">
-      <div class="spinner"></div>
-      <p>제품을 찾는 중입니다...</p>
+      <div class="spinner" style="margin-top: 10%;"></div>
+      <p style="margin-top: 10%;">제품을 찾는 중입니다...</p>
     </div>
+
     <div v-else>
-      <div v-if="productResults">
-        <h2>인식된 제품 정보(유사도순)</h2>
-        <div class="grid-container">
-          <div v-for="(product, index) in productResults" :key="index" class="grid-item">
-            <div class="product-card">
+      <div v-if="productResults" style="width:100%;">
+        <h2 style="margin-top: 10%;">인식된 제품 정보(유사도순)</h2>
+        <div class="grid-container" style="width: 100%; margin-top: 10%;">
+          <div v-for="(product, index) in productResults" :key="index" >
+            <div class="product-card" style="width: 100%;">
               <div class="product-image">
                 <!-- 추후에 이미지를 여기에 추가하세요 -->
-                <img src="#" alt="Product image" class="fill-image" />
+                <img src="../../assets/lactofit.png" alt="Product image" class="fill-image" />
               </div>
-              <div class="product-details">
-                <h5>{{ index + 1 }}. 품목명: {{ product.nutraceuticals_name }}</h5>
-                <p>업소명: {{ product.업소명 }}</p>
+              <div class="product-details" style="text-align: left; margin-left: 5%; width: 100%;">
+                <p>{{ index + 1 }}. 품목명 : {{ product.nutraceuticals_name }}</p>
+                <p>업소명 : {{ product.업소명 }}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div v-else>
-        <p>관련된 제품을 찾지 못했습니다.</p>
+        <p style="margin-top: 10%;">관련된 제품을 찾지 못했습니다.</p>
         <router-link to="/ocr/registration" class="request-link">
           <button class="request-btn">등록 요청</button>
         </router-link>
@@ -95,18 +106,31 @@ export default {
 
 
 <style scoped>
+.ocr-result-page {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 30%;
+  margin-top: 5%;
+}
+.ocr-title {
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 10%;
+  border-bottom: 2px solid #eeeeee;
+}
+
 .request-btn {
-  background-color: #3498db;
+  background-color: #2dce89;
   color: white;
+  border-radius: 5px;
   font-size: 1.125em;
   padding: 0.5em 1em;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
 }
 
 .request-btn:hover {
-  background-color: #2c80b9;
+  background-color: #2dce89;
 }
 .loading-container {
   display: flex;
@@ -133,14 +157,17 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   column-gap: 1rem;
   row-gap: 1rem;
+  width: 100%;
 }
 
 .grid-item {
   box-sizing: border-box;
   padding: 1rem;
+  width: 100%;
 }
 
 .product-card {
+  width: 100%;
   display: flex;
   align-items: center;
   border: 1px solid #ddd;

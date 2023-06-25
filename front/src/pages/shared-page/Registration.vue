@@ -1,23 +1,34 @@
 <template>
     <div class="registration-page">
-      <h1>영양제 등록 요청</h1>
+      <nav class="navbar fixed-top bg-white">
+        <div>
+          <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+          </router-link>
+        </div>
+      </nav>
+
+      <div class="registration-title" style="border-bottom: 2px solid #eeeeee;">영양제 등록 요청</div>
       
       <form>
-        <label for="productImage">제품 사진 첨부</label>
-        <input type="file" id="productImage" @change="onFileChange" accept="image/*" />
+        <label for="productImage" style="text-align: left;">제품 사진 첨부</label>
+        <input type="file" id="productImage" @change="onFileChange" accept="image/*"/>
+        
+        
+        <img v-if="capturedImage" :src="capturedImage" style="width:100%;" />
+
         <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }">
           <button type="button" class="camera-button">제품 직접 촬영하기</button>
         </router-link>
-        
-        <img v-if="capturedImage" :src="capturedImage" width="100" />
-        <label for="productName">제품명</label>
+
+        <label for="productName" style="text-align: left; margin-top: 5%;">제품명</label>
         <input type="text" id="productName" v-model="productName" placeholder="제품명을 입력하세요" />
   
-        <label for="brandName">브랜드</label>
+        <label for="brandName" style="text-align: left; margin-top: 5%;">브랜드</label>
         <input type="text" id="brandName" v-model="brandName" placeholder="브랜드를 입력하세요" />
   
-        
-        
         <button type="button" @click="submitForm">등록 요청하기</button>
       </form>
     </div>
@@ -147,12 +158,12 @@ export default {
 };
 
 </script>
-  
-  
-  
-  
-  
+ 
 <style scoped>
+  .registration-page {
+    width: 100%;
+    height: 100%;
+  }
   .button-container {
     display: flex;
     justify-content: space-between;
@@ -191,12 +202,13 @@ margin: 0 auto;
 padding-bottom: 90px;
 }
 
-h1 {
-  color: #3498db;
-  font-size: 1.5rem;
+.registration-title {
+  color: black;
+  font-size: 36px;
   font-weight: bold;
-  margin: 0 0 1.5rem;
   text-align: center;
+  margin-bottom: 10%;
+  width:100%;
 }
 
 form {
@@ -212,7 +224,7 @@ label {
 }
 
 button {
-  background-color: #3498db;
+  background-color: #2dce89;
   color: white;
   font-size: 1.125em;
   padding: 0.5em 1em;
@@ -222,7 +234,4 @@ button {
   margin-top: 1rem;
 }
 
-button:hover {
-  background-color: #2c80b9;
-}
 </style>
