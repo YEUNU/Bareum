@@ -253,10 +253,6 @@ class UserAddressView(View):
                 serializer.save()
                 return JsonResponse({"success": True})
             else:
-                print(serializer.error_messages)
-                print(serializer.errors)
-                print(serializer)
-        
                 return JsonResponse(serializer.errors, status=400)
         else:
             return JsonResponse({"error": "Not authenticated"}, status=401)

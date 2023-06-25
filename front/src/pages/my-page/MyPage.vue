@@ -103,7 +103,7 @@
   </div>
 </div>
 
-<router-link to="/login"><button style="width:100%; margin-top: 5%; margin-bottom: 10%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">로그아웃</button></router-link>
+<router-link to="/login"><button style="width:100%; margin-top: 5%; margin-bottom: 10%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee" >로그아웃</button></router-link>
     </div>
   
     
