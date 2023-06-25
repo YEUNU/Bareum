@@ -15,6 +15,9 @@ urlpatterns = [
     path("api/shop/",include('shop.urls')),
     path("api/community-search/result", views.search_posts),
     path("api/ocr/",include('ocr.urls')),
+    path("api/taking/",include('taking.urls')),
+    
+    
     re_path(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT,
     }),
