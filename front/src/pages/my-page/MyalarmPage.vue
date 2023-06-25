@@ -71,6 +71,9 @@
         </div>
         <div v-else class="card" style="width: 80%; display:flex; padding: 0; margin: 1vh auto; box-shadow: 2px 2px 2px 2px #eeeeee">
             <div v-if="new_alarm.name == null" class="card-body">
+                <svg style="position: absolute; width: 17px; right: 17px; margin: 0; z-index: 1;" @click="delete_new_alarm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg>
                 <div class="select_nutraceutical_box" v-for="(nutraceutical, i) in my_nutraceuticals" :key="i">
                     <input type="radio" v-model="checked_nutraceutical" :value="nutraceutical" :name="nutraceutical.name" :id="i">
                     <label class="nutraceutical_img" :for="i"><img :src="nutraceutical.img" :alt="nutraceutical.name"></label>
@@ -120,6 +123,7 @@
 
                 <div class="save_buttons">
                     <button class="roundbox" @click="save_new_alarm(new_alarm)">추가</button>
+                    <span style="font-size: 0.8em;">※요일 미선택시 일괄추가됩니다.</span>
                 </div>
             </div>
         </div>
@@ -244,11 +248,19 @@ export default {
 
         const delete_new_alarm = () => {
             new_alarm.value = null;
+            checked_nutraceutical.value = null;
         }
 
         const save_new_alarm = (params) => {
             // 알람 저장하는 함수 추가
+            if(!Object.values(new_alarm.value.days).includes(true)) {    
+                for(var day in new_alarm.value.days)
+                new_alarm.value.days[day] = true;
+            }
+            settingAlarm.value.push(new_alarm.value);
             new_alarm.value = null;
+            checked_nutraceutical.value = null;
+            alert('추가되었습니다.');
         }
 
         return {
@@ -325,7 +337,6 @@ export default {
 .select_nutraceutical_box input[type="radio"] ~ label.nutraceutical_img {
     display: flex;
     justify-self: center;
-    border: 1px solid #2dce89;
     background-color: white;
     justify-content: center;
     align-items: center;
