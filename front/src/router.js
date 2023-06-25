@@ -55,6 +55,7 @@ import PostList from './pages/Community-page/Community.vue';
 import EditPostPage from './pages/Community-page/PostUpdatePage.vue';
 import takeRegist from './pages/Taking-page/regist.vue';
 import prSearchPage from './pages/Taking-page/pr_search.vue';
+import prResultPage from './pages/Taking-page/pr_result.vue';
 import addInfoPage from './pages/login-page/AddInfo.vue';
 
 const routes = [
