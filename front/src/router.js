@@ -62,6 +62,8 @@ import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
 import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
 
 
+import ReviewList from './pages/review-page/ReviewList.vue';
+
 const routes = [
     //로그인 페이지
     {
@@ -121,6 +123,12 @@ const routes = [
             component:homePage
         }
         ]
+    },
+    // 건강기능식품 리뷰 페이지
+    {
+        path: '/reviews', // 원하는 URL 주소를 할당합시다
+        name: 'ReviewList',
+        component: ReviewList
     },
     // 촬영 가이드 페이지
     {

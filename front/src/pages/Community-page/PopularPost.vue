@@ -48,7 +48,7 @@ export default {
 
     async function fetchPopularPosts(pageNumber = 1) {
       try {
-        const response = await axios.get(`/api/community/popularlist?page=${pageNumber}`);
+        const response = await axios.get(`/api/community/popularlist?page=${pageNumber}`); 
         const parsedData = response.data.data.map(post => {
           return {
             id: post.post_id,
