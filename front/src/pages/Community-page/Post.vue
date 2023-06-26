@@ -1,5 +1,5 @@
 <template>
-<div class="background" style="margin-top: 115px; padding-bottom: 66px; min-height: calc(105vh - 221px); display: flex; flex-direction: column; align-items: center;">
+<div class="background bg-whitesmoke" style="margin-top: 95px; padding-bottom: 66px; min-height: calc(105vh - 201px); display: flex; flex-direction: column; align-items: center;">
     <div class="card" v-for="post in posts" :key="post.post_id" style="box-shadow: 2px 2px 2px 2px #eeeeee; width: 80%; margin: 1vh; padding: 3vh;">
       <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.post_id }}">
           <div class="post_box">
@@ -24,15 +24,11 @@
           </div>
         </router-link>
       </div>
-      <div ref="loader" class="loader"></div>
-      <router-link
-        to="/community/write"
-        tag="button"
-        class="fixed-button"
-      >
-        <img src="/icons/pen.png" alt="글 작성하기" />
-      </router-link>
-</div>
+      <!--
+        <div ref="loader" class="loader"></div>
+      -->
+
+      </div>
 </template>
 
 <script>
@@ -100,27 +96,7 @@ export default {
 
 
   <style lang="css">
-  .fixed-button {
-    position: fixed;
-    bottom: 10vh;
-    right: 5vw;
-    background-color: #2dce89;
-    color: #fff;
-    font-size: 18px;
-    padding: 12px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1100;
-  }
-  .fixed-button img {
-    width: 40px;
-    height: 40px;
-  }
-  .fixed-button:hover {
-    background-color: #0056b3;
-  }
-
+ 
   .post_box {
     display: grid;
     grid-template-rows: 50% 20% 25%;

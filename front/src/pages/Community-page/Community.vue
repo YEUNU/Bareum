@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar fixed-top bg-light">
+        <nav class="navbar fixed-top bg-theme" style="padding: 10px 5vw 0 5vw;">
             <div class="container-fluid">
               <router-link to="/community-search" style="width: 100%;">
                 <div class="search">
@@ -25,6 +25,14 @@
         
         <router-view></router-view>        
         
+
+        <router-link
+        to="/community/write"
+          tag="button"
+          class="fixed-button"
+        >
+          <img src="/icons/pen.png" alt="글 작성하기" />
+        </router-link>
     </div>
 </template>
 
@@ -57,31 +65,55 @@ export default {
 .commu-menu {
   display: flex;
   list-style: none;
+  margin-bottom: 0;
   padding-left: 0;
   width: 100%;
+  height: 33px;
 }
 
 .commu-item {
   flex: 1;
 }
 .commu-link {
+  font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: whitesmoke;
 }
 .commu-menu .router-link-exact-active {
-  background: #2dce89; /* 배경색 변경 */
-  color: #fff; /* 글자색 변경 */
-  border-radius: 4px; /* 가장자리를 둥글게 */
-  padding: 6px 12px; /* 패딩 추가 */
+  background: whitesmoke; /* 배경색 변경 */
+  color: #333; /* 글자색 변경 */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 6px 12px 12px 12px; /* 패딩 추가 */
   text-decoration: none; /* 밑줄 제거 */
   transition: all 0.3s ease; /* 변환 효과 */
 }
 
 .commu-menu .router-link-exact-active:hover {
-  background: #2dce89; /* 마우스 오버 시 배경색 변경 */
-  color: #fff; /* 글자색 유지 */
+  background: whitesmoke; /* 마우스 오버 시 배경색 변경 */
+  color: #333; /* 글자색 유지 */
 }
 
+.fixed-button {
+    position: fixed;
+    bottom: 10vh;
+    right: 5vw;
+    background-color: #2dce89;
+    color: #fff;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1100;
+  }
+  .fixed-button img {
+    width: 40px;
+    height: 40px;
+  }
+  .fixed-button:hover {
+    background-color: #0056b3;
+  }
 
 
 .search-navbar {

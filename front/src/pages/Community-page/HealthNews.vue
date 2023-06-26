@@ -1,5 +1,5 @@
 <template >
-    <div>
+<div class="background bg-whitesmoke" style="margin-top: 95px; padding-bottom: 66px; min-height: calc(105vh - 201px); display: flex; flex-direction: column; align-items: center;">
         <div class="card" v-for="news in newsList" :key="news.id" style="box-shadow: 2px 2px 2px 2px #eeeeee">
           <router-link :to="{ name: 'postDetailContentPage', params: { postId: news.post_id }}">
           <div class="row">
