@@ -31,7 +31,7 @@
           tag="button"
           class="fixed-button"
         >
-          <img src="/icons/pen.png" alt="글 작성하기" />
+          <img src="/icons/pen_white.png" alt="글 작성하기" />
         </router-link>
     </div>
 </template>
