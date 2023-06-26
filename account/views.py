@@ -184,9 +184,24 @@ class KakaoLogin(View):
 
 @login_required
 def check_session(request):
-    print(request.user)
-    #로그인 안되있으면 302 리턴
-    return JsonResponse({"logged_in": True})
+    if request.user.is_authenticated:  # 사용자가 인증된 경우
+        user = request.user
+        user_data = {
+            "logged_in": True,
+            "member_id": user.member_id,
+            "nickname": user.nickname,
+            "user_name": user.user_name,
+            "birthday": user.birthday.isoformat() if user.birthday else None,
+            "height": user.height,
+            "weight": user.weight,
+            "gender": user.gender,
+            "login_id": user.login_id,
+        }
+        response_json = user_data
+    else:  # 인증되지 않은 사용자의 경우
+        response_json = {"logged_in": False}
+
+    return JsonResponse(response_json)
 
 class UserProfileImageView(APIView):
     def post(self, request, member_id):

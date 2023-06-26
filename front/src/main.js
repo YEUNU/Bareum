@@ -21,18 +21,18 @@ app.use(csrf);
 app.use(InfiniteScroll);
 
 const userInfo = useUserInfo();
-async function fetchUserSession() {
-    try {
-      const response = await axios.get('/api/account/session/');
-        userInfo.userLogin();
-        userInfo.userAddInfo();
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return null;
+const fetchUserInfo = async () =>{
+  try {
+    const response = await axios.get('/api/account/check_session/');
+    if (response.data.logged_in) {
+      userInfo.userLogin(response.data.member_id,response.data.login_id,response.data.username,response.data.profile_img_url);
+      userInfo.userAddInfo(response.data.birthday,response.data.gender,response.data.nickname,response.data.weight, response.data.height);
+
     }
+  } catch (error) {
+    console.error(error);
+    return null;
   }
-
-
-
+}
+fetchUserInfo();
 app.mount('#app');

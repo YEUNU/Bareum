@@ -1,11 +1,16 @@
 <template>
     <div>
-      <h1>추천 제품</h1>
-      <ul>
-        <li v-for="r in recommendedNutraceuticals" :key="r.checking_number">{{ r.nutraceuticals_name }}</li>
-      </ul>
+        <h1>추천 제품</h1>
+        <ul>
+            <li v-for="(r, index) in userNutraceuticals" :key="index">
+                <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
+                    <h3>{{ r.제품명 }}</h3>
+                    <p>업소명: {{ r.업소명 }}</p>
+                </div>
+            </li>
+        </ul>
     </div>
-  </template>
+</template>
   
   <script>
   import { ref, onMounted, computed } from "vue";
@@ -23,7 +28,7 @@
           const response = await axios.post("/api/recommend/", {
             loginId: loginId.value, 
           });
-          userNutraceuticals.value = response.data;
+          userNutraceuticals.value = response.data.nutraceuticals;
         } catch (error) {
           console.log("Error fetching user nutraceuticals:", error);
         }
@@ -44,6 +49,14 @@
 
 
 
-<style scoped>
-    
+<style>
+.item-box {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.ad-border {
+  border-color: blue;
+}
 </style>

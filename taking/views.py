@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from product.models import Nutraceuticals
 from .serializers import NutraceuticalsSerializer
-from product.models import eating_Nutraceuticals
+from .models import eating_Nutraceuticals
 
 class NutraceuticalsSearchAPIView(generics.ListAPIView):
     queryset = Nutraceuticals.objects.all()
