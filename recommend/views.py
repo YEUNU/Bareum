@@ -4,8 +4,8 @@ import pandas as pd
 from collections import defaultdict
 import difflib
 import os 
-from product.models import eating_Nutraceuticals, Ingredient
-
+from taking.models import eating_Nutraceuticals
+from product.models import Nutraceuticals
 from django.views.decorators.csrf import csrf_exempt
 import json 
 
@@ -19,7 +19,7 @@ def pr_recommend(req):
         
         response_data = []
         for name in nut_name:
-            ingredient = Ingredient.objects.get(nutraceuticals_name=name)
+            ingredient = Nutraceuticals.objects.get(nutraceuticals_name=name)
             response_data.append({
                 "name" : ingredient.nutraceuticals_name,
                 '비타민C': ingredient.비타민C,

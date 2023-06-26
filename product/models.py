@@ -15,8 +15,9 @@ class Company(models.Model):
 
 
 class Nutraceuticals(models.Model): 
-    
-    nutraceuticals_id = models.BigAutoField(primary_key=True)
+    업체별_제품코드= models.CharField(max_length=20,primary_key=True,default="미등록")
+    업체코드 = models.CharField(max_length=20,default="미등록")
+    제품코드 = models.CharField(max_length=20,default="미등록")    
     nutraceuticals_name = models.CharField(max_length=100)
     섭취시주의사항 = models.TextField()
     업소명 = models.TextField()
@@ -25,25 +26,10 @@ class Nutraceuticals(models.Model):
     유통기한 = models.TextField()
     보관방법 = models.TextField()
     원재료 = models.TextField()
-    업체코드 = models.IntegerField(default=0)
-
-
-
-    class Meta:
-        managed = True
-        db_table = 'nutraceuticals'
-        
-
-
-
-
-class Ingredient(models.Model):
-
-    nutraceuticals_name = models.CharField(unique=True,max_length=100, primary_key=True)
     비타민D = models.FloatField(max_length=10)
     비타민E = models.FloatField(max_length=10)
     비타민k = models.FloatField(max_length=10)
-    비타민B1 = models.FloatField(max_length=10)
+    비타민B1 = models.FloatField(max_length=10) 
     비타민B2 = models.FloatField(max_length=10)
     나이아신 = models.FloatField(max_length=10)
     비타민B6 = models.FloatField(max_length=10)
@@ -71,22 +57,23 @@ class Ingredient(models.Model):
 
 
 
-
     class Meta:
         managed = True
-        db_table = 'ingredient'
-
+        db_table = 'nutraceuticals'
         
 
-class Review(models.Model):
 
+
+
+class Review(models.Model):
+    제품코드 = models.ForeignKey(Nutraceuticals,on_delete=models.CASCADE)
     online_review_number = models.BigAutoField(primary_key=True)
     nutraceuticals_name = models.CharField(unique=True,max_length=100)
     company_name = models.CharField(max_length=100, null=True)
     lowest = models.IntegerField()
     reviews = models.TextField()
     total_reviews = models.IntegerField()
-
+    average_rating = models.FloatField()
     class Meta:
 
         managed = True
@@ -100,14 +87,4 @@ class new_Nutraceuticals(models.Model):
     class Meta:
         managed = True
         db_table = 'new_nutraceuticals'
-
-class eating_Nutraceuticals(models.Model): 
-    checking_number = models.BigAutoField(primary_key=True)
-    nutraceuticals_name = models.CharField(max_length=100)
-    login_id = models.CharField(max_length=150)
-
-    class Meta:
-        managed = True
-        db_table = 'eating_nutraceuticals'
-
     

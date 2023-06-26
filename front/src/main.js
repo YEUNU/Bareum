@@ -20,19 +20,9 @@ app.use(router);
 app.use(csrf);
 app.use(InfiniteScroll);
 
-const userInfo = useUserInfo();
-async function fetchUserSession() {
-    try {
-      const response = await axios.get('/api/account/session/');
-        userInfo.userLogin();
-        userInfo.userAddInfo();
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
+const userInfo = useUserInfo;
+const fetchUserInfo = async () =>{
 
-
+}
 
 app.mount('#app');
