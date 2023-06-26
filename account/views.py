@@ -183,7 +183,8 @@ class KakaoLogin(View):
         return response
 
 @login_required
-def check_session(req):
+def check_session(request):
+    print(request.user)
     #로그인 안되있으면 302 리턴
     return JsonResponse({"logged_in": True})
 
