@@ -54,6 +54,7 @@ class Nutraceuticals(models.Model):
     루테인 = models.FloatField(max_length=10)
     EPA_DHA_Sum= models.FloatField(max_length=10)
     비타민A= models.FloatField(max_length=10)
+    ad = models.BooleanField(default=False)
 
 
 
