@@ -9,7 +9,7 @@ urlpatterns = [
     path('logout',views.logout_user),
     path('login/signup', lambda request: redirect('login')),
     path('kakao/login',views.KakaoLogin.as_view()),
-    path('session/',views.check_session),
+    path('check_session/',views.check_session),
     path('profile/img/<int:member_id>',views.UserProfileImageView.as_view()),
     path('addInfo/<int:member_id>/',views.UserAddInfoView.as_view()),
     path("address/<int:member_id>/", views.UserAddressView.as_view(), name="user_address"),

@@ -20,13 +20,13 @@ app.use(router);
 app.use(csrf);
 app.use(InfiniteScroll);
 
-const userInfo = useUserInfo;
+const userInfo = useUserInfo();
 const fetchUserInfo = async () =>{
   try {
     const response = await axios.get('/api/account/check_session/');
     if (response.data.logged_in) {
-      // userInfo.serLogin(loginResult.member_id,loginResult.login_id,loginResult.username,loginResult.profile_img_url);
-      // userInfo.userAddInfo(data.birthday,data.gender,data.nickname,data.weight, data.height);
+      userInfo.userLogin(response.data.member_id,response.data.login_id,response.data.username,response.data.profile_img_url);
+      userInfo.userAddInfo(response.data.birthday,response.data.gender,response.data.nickname,response.data.weight, response.data.height);
 
     }
   } catch (error) {
