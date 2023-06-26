@@ -1,27 +1,48 @@
 <template>
-    <div class="registration-page">
+    <div class="registration-page" style="padding: 5%; margin-bottom: 10%; ">
       <nav class="navbar fixed-top bg-white">
-        <div>
+        <div class="container-fluid">
           <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
-          </router-link>
+        </router-link>
+        <div style="margin-right: 2vh;">영양제 등록 요청</div>
+        <div to="/mysetting" class="navbar-brand" style="opacity: 0;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+          </svg>
+        </div>
         </div>
       </nav>
 
-      <div class="registration-title" style="border-bottom: 2px solid #eeeeee;">영양제 등록 요청</div>
+    <div class="regcontainer" style="padding: 5%; border:2px solid #eeeeee; box-shadow: 2px 2px 2px 2px #eeeeee">
+
       
       <form>
         <label for="productImage" style="text-align: left;">제품 사진 첨부</label>
-        <input type="file" id="productImage" @change="onFileChange" accept="image/*"/>
+        
+        <div style="text-align: left; background-color: #2dce89; color: white; border-radius: 6px; padding-left: 1vh; padding-top: 1vh; padding-bottom: 1vh;">
+        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5%;" width="25" height="25" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+                        </svg>
+        <input type="file" id="productImage" @change="onFileChange" style="display: none;" accept="image/*" >
+        사진 앨범에서 선택</div>
         
         
-        <img v-if="capturedImage" :src="capturedImage" style="width:100%;" />
+        
+        
+        
 
-        <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }">
-          <button type="button" class="camera-button">제품 직접 촬영하기</button>
+        <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }" style="text-align: left;">
+          <button type="button" class="camera-button" style="text-align: left;"><svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5%; text-align: left;" width="25" height="25" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+  <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+</svg>
+                        제품 촬영하기</button>
         </router-link>
+        <img v-if="capturedImage" :src="capturedImage" style="width:100%; margin-top: 5%;" />
 
         <label for="productName" style="text-align: left; margin-top: 5%;">제품명</label>
         <input type="text" id="productName" v-model="productName" placeholder="제품명을 입력하세요" />
@@ -32,6 +53,7 @@
         <button type="button" @click="submitForm">등록 요청하기</button>
       </form>
     </div>
+  </div>
   </template>
   
   
@@ -160,9 +182,12 @@ export default {
 </script>
  
 <style scoped>
+
   .registration-page {
     width: 100%;
     height: 100%;
+    margin: 0%;
+    padding: 0%;
   }
   .button-container {
     display: flex;

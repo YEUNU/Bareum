@@ -1,25 +1,31 @@
 <template>
   <div class="ocr-result-page">
     <nav class="navbar fixed-top bg-white">
-        <div>
+        <div class="container-fluid">
           <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
-          </router-link>
+        </router-link>
+        <div style="margin-right: 2vh;">영양소 분석</div>
+        <div to="/mysetting" class="navbar-brand" style="opacity: 0;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+          </svg>
+        </div>
         </div>
       </nav>
 
-    <div class="ocr-title">OCR 결과</div>
-    <img :src="imageData" alt="Captured image" style="width: 100%;" />
-    <div v-if="isLoading" class="loading-container">
+   
+    <img :src="imageData" alt="Captured image" style="width: 100%; " />
+    <div v-if="isLoading" class="loading-container" style="margin-top: 10%; box-shadow: 2px 2px 2px 2px #eeeeee">
       <div class="spinner" style="margin-top: 10%;"></div>
       <p style="margin-top: 10%;">제품을 찾는 중입니다...</p>
     </div>
 
     <div v-else>
       <div v-if="productResults" style="width:100%;">
-        <h2 style="margin-top: 10%;">인식된 제품 정보(유사도순)</h2>
+        <h2 style="margin-top: 10%;">제품을 선택해주세요.</h2>
         <div class="grid-container" style="width: 100%; margin-top: 10%;">
           <div v-for="(product, index) in productResults" :key="index" >
             <div class="product-card" style="width: 100%;">
@@ -28,17 +34,21 @@
                 <img src="../../assets/lactofit.png" alt="Product image" class="fill-image" />
               </div>
               <div class="product-details" style="text-align: left; margin-left: 5%; width: 100%;">
-                <p>{{ index + 1 }}. 품목명 : {{ product.nutraceuticals_name }}</p>
-                <p>업소명 : {{ product.업소명 }}</p>
+                <p style="font-weight: bold; font-size: 20px;">{{ product.nutraceuticals_name }}</p>
+                <p>{{ product.업소명 }}</p>
               </div>
             </div>
+            
           </div>
         </div>
+        <router-link to="/ocr/registration" class="request-link">
+          <button class="request-btn" style="width: 100%; margin-top: 5%; margin-bottom: 10%;">등록 요청</button>
+        </router-link>
       </div>
-      <div v-else>
+      <div v-else style="margin-top: 10%; border:2px solid #eeeeee; box-shadow: 2px 2px 2px 2px #eeeeee">
         <p style="margin-top: 10%;">관련된 제품을 찾지 못했습니다.</p>
         <router-link to="/ocr/registration" class="request-link">
-          <button class="request-btn">등록 요청</button>
+          <button class="request-btn" style="margin-bottom: 10%;">등록 요청</button>
         </router-link>
       </div>
     </div>
