@@ -1,11 +1,13 @@
 <template>
     <div>
-      <h1>추천 제품</h1>
-      <ul>
-        <li v-for="r in recommendedNutraceuticals" :key="r.checking_number">{{ r.nutraceuticals_name }}</li>
-      </ul>
+        <h1>추천 제품</h1>
+        <ul>
+            <li v-for="(r, index) in userNutraceuticals" :key="index">
+                {{ r.제품명 }} ({{ r.업소명 }})
+            </li>
+        </ul>
     </div>
-  </template>
+</template>
   
   <script>
   import { ref, onMounted, computed } from "vue";
@@ -23,7 +25,7 @@
           const response = await axios.post("/api/recommend/", {
             loginId: loginId.value, 
           });
-          userNutraceuticals.value = response.data;
+          userNutraceuticals.value = response.data.nutraceuticals;
         } catch (error) {
           console.log("Error fetching user nutraceuticals:", error);
         }
