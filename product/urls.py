@@ -4,7 +4,8 @@ from . import views
 from .views import ReviewList
 
 urlpatterns = [
-    path('detail/<int:nutra_id>/',views.ProductDetailView.as_view()),
+    path('detail/<str:product_code>/', views.ProductDetailView.as_view()),
+
     
     
     path('reviews/', ReviewList.as_view(), name='review-list'),
