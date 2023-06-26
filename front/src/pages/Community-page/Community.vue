@@ -1,18 +1,12 @@
 <template>
     <div>
-        <nav class="navbar fixed-top bg-light">
-            <div class="container-fluid">
+        <nav class="navbar fixed-top bg-theme" style="padding: 10px 5vw 0 5vw;">
               <router-link to="/community-search" style="width: 100%;">
                 <div class="search">
-                    <input class="search-input" type="text" :placeholder="placeholder" v-model="searchQuery" @keydown.enter="search">
-                    <svg v-show="searchQuery" class="search-clear-icon" @click="searchbar_clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                    </svg>
+                    <input class="search-input" type="text" :placeholder="placeholder" @keydown.enter="search">
                     <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search()">
                 </div>
               </router-link>
-
-            </div>
             <ul class="commu-menu mt-3">
                 <li class="commu-item">
                   <router-link class="commu-link" to="/community" >전체 글 보기</router-link>
@@ -26,10 +20,16 @@
             </ul>
         </nav>
         
-        <div class="container">
-            <router-view></router-view>        
-        </div>
+        <router-view></router-view>        
         
+
+        <router-link
+        to="/community/write"
+          tag="button"
+          class="fixed-button"
+        >
+          <img src="/icons/pen_white.png" alt="글 작성하기" />
+        </router-link>
     </div>
 </template>
 
@@ -60,35 +60,59 @@ export default {
 }
 
 .commu-menu {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-    width: 100%;
+  display: flex;
+  list-style: none;
+  margin-bottom: 0;
+  padding: 0;
+  width: calc(100% - 12px);
+  height: 33px;
+  flex-grow: 1;
 }
 
 .commu-item {
-  margin-right: 1rem;
-  flex:1;
-  
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .commu-link {
+  font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: whitesmoke;
 }
 .commu-menu .router-link-exact-active {
-  background: #2dce89; /* 배경색 변경 */
-  color: #fff; /* 글자색 변경 */
-  border-radius: 4px; /* 가장자리를 둥글게 */
-  padding: 6px 12px; /* 패딩 추가 */
+  flex-grow: 1;
+  background: whitesmoke; /* 배경색 변경 */
+  color: #333; /* 글자색 변경 */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 4.5px; /* 패딩 추가 */
   text-decoration: none; /* 밑줄 제거 */
   transition: all 0.3s ease; /* 변환 효과 */
+  height: 33px;
+  align-items: center;
 }
 
-.commu-menu .router-link-exact-active:hover {
-  background: #2dce89; /* 마우스 오버 시 배경색 변경 */
-  color: #fff; /* 글자색 유지 */
-}
-
+.fixed-button {
+    position: fixed;
+    bottom: 10vh;
+    right: 5vw;
+    background-color: #2dce89;
+    color: #fff;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1100;
+  }
+  .fixed-button img {
+    width: 40px;
+    height: 40px;
+  }
+  .fixed-button:hover {
+    background-color: #0056b3;
+  }
 
 
 .search-navbar {

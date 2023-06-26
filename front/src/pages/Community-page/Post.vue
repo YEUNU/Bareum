@@ -1,34 +1,31 @@
 <template>
-    <div>
-      <div class="card" v-for="post in posts" :key="post.post_id" style="box-shadow: 2px 2px 2px 2px #eeeeee">
-          <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.post_id }}">
-          <div class="row">
-            <div class="flex-shrink-0">
-                <img :src="post.post_images.image"
-                  alt="post img" class="img-fluid rounded-circle border border-dark border-3"
-                  style="width: 70px;">
-              </div>
+<div class="background bg-whitesmoke" style="margin-top: 101px; padding-top: 2vh; padding-bottom: calc(2vh + 66px); min-height: calc(105vh - 207px); display: flex; flex-direction: column; align-items: center;">
+  <div class="card" v-for="post in posts" :key="post.post_id" style="box-shadow: 2px 2px 2px 2px #eeeeee; width: 90vw; margin: 1vh; padding: 2vh;">
+    <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.post_id }}">
+      <div class="post_box">
+        <img v-if="post.post_images.image !== null" :src="post.post_images.image"
+        alt="post img" class="img-fluid rounded-circle border border-dark border-3">
+        <svg v-else xmlns="http://www.w3.org/2000/svg" width="auto" height="auto" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+          <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+        </svg>
 
-              <!-- <img :src="post.image" class="card-img" alt="post image" /> -->
-            
-              <div class="card-body">
-                <p class="card-text" style=" color: black; font-weight: bold;">제목 : {{ post.post_title }}</p>
-                <p class="card-text" style=" color: black; font-size: 13px; margin-top: -2%;">작성자 : {{ post.user.nickname }}</p>
-                <p class="card-text" style=" color:black;">{{ formatDate(post.post_date) }}</p>
-                <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
-              </div>
-          </div>
-        </router-link>
+        <!-- <img :src="post.image" class="card-img" alt="post image" /> -->
+
+        <div class="card-body" style="padding: 1vh 5vw 1vh 3vw; flex-grow: 1;">
+          <div class="card-text" style="color: black; font-weight: bold; text-align: start;">{{ post.post_title }}</div>
+          <div class="card-text" style="color: black; font-size: 13px; text-align: start;">작성자 : {{ post.user.nickname }}</div>
+          <div class="card-text" style="color: black; font-size: 13px; text-align: start;">{{ formatDate(post.post_date) }}</div>
+        <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
+        </div>
       </div>
-      <div ref="loader" class="loader"></div>
-      <router-link
-        to="/community/write"
-        tag="button"
-        class="fixed-button"
-      >
-        <img src="/icons/pen.png" alt="글 작성하기" />
-      </router-link>
-    </div>
+    </router-link>
+  </div>
+      <!--
+        <div ref="loader" class="loader"></div>
+      -->
+
+      </div>
 </template>
 
 <script>
@@ -96,25 +93,10 @@ export default {
 
 
   <style lang="css">
-  .fixed-button {
-    position: fixed;
-    bottom: 10vh;
-    right: 5vw;
-    background-color: #2dce89;
-    color: #fff;
-    font-size: 18px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
+ 
+  .post_box {
+    display: flex;
   }
-  .fixed-button img {
-    width: 40px;
-    height: 40px;
-  }
-  .fixed-button:hover {
-    background-color: #0056b3;
-  }
+
   </style>
   

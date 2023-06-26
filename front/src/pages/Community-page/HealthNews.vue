@@ -1,5 +1,5 @@
 <template >
-    <div>
+<div class="background bg-whitesmoke" style="margin-top: 95px; padding-bottom: 66px; min-height: calc(105vh - 201px); display: flex; flex-direction: column; align-items: center;">
         <div class="card" v-for="news in newsList" :key="news.id" style="box-shadow: 2px 2px 2px 2px #eeeeee">
           <router-link :to="{ name: 'postDetailContentPage', params: { postId: news.post_id }}">
           <div class="row">
@@ -14,7 +14,7 @@
               <div class="card-body">
                 <p class="card-text" style=" color: black; font-weight: bold;">제목 : {{ news.post_title }}</p>
                 <p class="card-text" style=" color: black; font-size: 13px; margin-top: -2%;">작성자 : {{ }}</p>
-                <p class="card-text" style=" color:black;">{{ formatDate(news.post_date) }}</p>
+                <p class="card-text" style=" color: black;">{{ formatDate(news.post_date) }}</p>
                 <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
               </div>
             

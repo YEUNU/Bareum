@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div class="background bg-whitesmoke" style="margin-top: 95px; padding-bottom: 66px; min-height: calc(105vh - 201px); display: flex; flex-direction: column; align-items: center;">
     <div class="card" v-for="post in popularPosts" :key="post.id" style="box-shadow: 2px 2px 2px 2px #eeeeee">
       <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.id }}">
         <div class="row">
@@ -21,13 +21,6 @@
         </div>
       </router-link>
     </div>
-    <router-link
-      to="/community/write"
-      tag="button"
-      class="fixed-button"
-    >
-      <img src="/icons/pen.png" alt="글 작성하기" />
-    </router-link>
   </div>
 </template>
 

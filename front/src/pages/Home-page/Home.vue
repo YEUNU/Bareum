@@ -1,5 +1,4 @@
 <template lang="">
-
     <div class="navbar fixed-top bg-theme" style="padding: 10px 5vw;">
         <div class="box_search">
             <router-link to="/search"><SearchBar background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>

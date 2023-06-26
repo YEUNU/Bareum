@@ -29,7 +29,8 @@
                 </router-link>
             </li>
             <li>
-                <span class="nav-icon"    data-bs-toggle="modal" data-bs-target="#cameraModal">
+                <span style="position: absolute; bottom: 26px; left: calc(50vw - 35px); background-color: #FFFFFF; padding: 35px; border-radius: 50%; z-index: -1;"></span>
+                <span class="nav-icon" data-bs-toggle="modal" data-bs-target="#cameraModal">
                     <img height="70" src="../../assets/camera.png" alt="">
                 </span>
             </li>
