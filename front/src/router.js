@@ -59,6 +59,8 @@ import prResultPage from './pages/Taking-page/pr_result.vue';
 import addInfoPage from './pages/login-page/AddInfo.vue';
 import addressPage from './pages/my-page/Address.vue';
 import productDetailPage from './pages/Product-page/detail-page/ProductDetail.vue';
+import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
+import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
 
 
 const routes = [
@@ -148,10 +150,25 @@ const routes = [
 
     },
     {
-        path:"/product/:productId",
+        path:"/product/:Id",
         name:"productDetailPage",
         component:productDetailPage,
-        props:true
+        props:true,
+        children:[
+            {
+                path:'',
+                name:'productInfo',
+                component:productInfoPage,
+                props:true,
+            },
+            {
+                path:'review',
+                name:'productReviewPage',
+                component:productReviewPage,
+                props:true,
+
+            }
+        ]
     },
     //게시물 수정 페이지
     {
@@ -383,12 +400,12 @@ const routes = [
         name:'myreviewPage',
         component:myreviewPage
     },
-    {   
-        // 복용중인 영양제
-        path:'/mynutrients',
-        name:'mynutrientsPage',
-        component:mynutrientsPage
-    },
+    // {   
+    //     // 복용중인 영양제
+    //     path:'/mynutrients',
+    //     name:'mynutrientsPage',
+    //     component:mynutrientsPage
+    // },
     {
         path:'/address',
         name:'userAddressMain',

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from rest_framework import generics
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostImageSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -33,9 +33,18 @@ class CustomPageNumberPagination(PageNumberPagination):
     page_query_param = 'page'
     max_page_size = 1000
 
+class NewsListView(APIView):
+    def get(self,request,*args, **kwargs):
+        queryset = Post.objects.filter(post_category='news').order_by('-post_date') 
+        paginator = CustomPageNumberPagination()
+        paginated_posts = paginator.paginate_queryset(queryset, request)
+        serializer = PostSerializer(paginated_posts, many=True)
+        return paginator.get_paginated_response(serializer.data)
+    
+    
 class PostListView(APIView):
     def get(self, request, *args, **kwargs):
-        queryset = Post.objects.select_related('user').order_by('-post_date')  # 레코드를 명시적으로 정렬
+        queryset = Post.objects.filter(post_category='normal').select_related('user').order_by('-post_date')  # 레코드를 명시적으로 정렬
         paginator = CustomPageNumberPagination()
         paginated_posts = paginator.paginate_queryset(queryset, request)
         serializer = PostSerializer(paginated_posts, many=True)

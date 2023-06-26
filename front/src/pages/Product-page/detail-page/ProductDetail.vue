@@ -1,38 +1,32 @@
 <template>
-    <div>
-        {{ product }}
-    </div>
+    <ul class="commu-menu mt-3">
+        <li class="commu-item">
+          <router-link class="commu-link" :to="{name:'productInfoPage',params:{productId}}" >제품 정보</router-link>
+
+        </li>
+        <li class="commu-item" >
+          <router-link class="commu-link" :to="{name:'productReviewPage',params:{productId}}">제품 리뷰</router-link>
+        </li>
+    </ul>
+        
+    <div class="container">
+            <router-view></router-view>        
+        </div>
 </template>
 <script>
-import axios from 'axios';
-import {ref} from 'vue';
 export default {
     props:{
-        product:{
+        productId:{
             type:String,
             required:true
         }
     },
+
     setup(props){
-        const product = ref({})
-        const fetchProductDetail = async () =>{
-            try{
-                const response = await axios.get(`/api/product/detail/${props.productId}`);
-                product = response.data;
-
-
-            }catch(error){
-                console.error(error);
-            }
-        }
-
         return{
-            fetchProductDetail,
-            product
+
         }
     }
-
-
 }
 </script>
 <style>

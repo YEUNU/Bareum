@@ -4,8 +4,8 @@
           <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.post_id }}">
           <div class="row">
             <div class="flex-shrink-0">
-                <img :src="post.user.user_profile_img.image"
-                  alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
+                <img :src="post.post_images.image"
+                  alt="post img" class="img-fluid rounded-circle border border-dark border-3"
                   style="width: 70px;">
               </div>
 
@@ -17,7 +17,6 @@
                 <p class="card-text" style=" color:black;">{{ formatDate(post.post_date) }}</p>
                 <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
               </div>
-            
           </div>
         </router-link>
       </div>
