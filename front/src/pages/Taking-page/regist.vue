@@ -3,41 +3,52 @@
         <div class="d-flex justify-content-between align-items-center">
             <h1>내가 먹는 영양제 관리</h1>
             <router-link to="/taking/search" >
-                <button class="btn btn-primary" @click="openRegistration">영양제 등록</button>
+                <button class="btn btn-primary" >영양제 등록</button>
             </router-link>
         </div>
-        <div class="nutraceutical-list">
-            <ul>
-                <li v-for="nutraceutical in nutraceuticals" :key="nutraceutical.checking_number">
-                    {{ nutraceutical.nutraceuticals_name }}
-                </li>
-            </ul>
-        </div>
+        <li v-for="(r, index) in nutraceuticals" :key="index">
+          <div class="item-box" >
+                <!-- 여기에 경로/제품코드.png하면 나올거임 -->
+            <img :src="`assets/${r.제품코드}.png`" alt="제품 이미지" class="item-img"/>
+            <div>
+              <h3>{{ r.제품명 }}</h3>
+              <p>업소명: {{ r.업소명 }}</p>
+            </div>
+          </div>
+        </li>
     </div>
 </template>
 
 <script>
+import { ref, onMounted, computed } from 'vue';
+import axios from "axios";
+import { useUserInfo } from "../../stores.js";
+
 export default {
-    data() {
-        return {
-            nutraceuticals: [],
-            login_id: '' // 로그인한 사용자의 ID를 저장할 변수입니다. 로그인 시스템에 맞게 수정해주세요.
+  setup() {
+    const userInfo = useUserInfo();
+    const loginId = computed(() => userInfo.loginId);
+    const nutraceuticals = ref([]);
+
+    async function take_nutrace() {
+        try {
+          const response = await axios.post("/api/taking/regist", {
+            loginId: loginId.value, 
+          });
+          nutraceuticals.value = response.data.take;
+        } catch (error) {
+          console.log("Error fetching user nutraceuticals:", error);
         }
-    },
-    methods: {
-        // 등록 버튼 클릭 시 실행되는 함수입니다. 실제 등록 기능을 구현해주세요.
-        openRegistration() {
-            console.log("영양제 등록 버튼이 클릭되었습니다.");
-        }
-    },
-    created() {
-        // 페이지가 생성되면 사용자의 영양제 목록을 가져옵니다. 실제 데이터를 가져오는 API를 호출하는 코드로 수정해주세요.
-        this.nutraceuticals = [
-            { checking_number: 1, nutraceuticals_name: '임시 생성1', login_id: this.login_id },
-            { checking_number: 2, nutraceuticals_name: '임시 생성2', login_id: this.login_id }
-        ]
-    }
-}
+      }
+    onMounted(() => {
+        take_nutrace();
+    });
+
+    return {
+      nutraceuticals,
+    };
+  },
+};
 </script>
 
 <style scoped>

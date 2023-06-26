@@ -6,5 +6,6 @@ app_name = 'api'
 
 urlpatterns = [
     path('search', NutraceuticalsSearchAPIView.as_view()),
-    path('save', NutraceuticalsSaveAPIView.as_view()),  # 메서드 지정
+    path('save', NutraceuticalsSaveAPIView.as_view()),
+    path('regist', views.view_take),
 ]
