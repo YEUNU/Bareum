@@ -84,3 +84,30 @@ class RemoveNutraceuticalView(generics.DestroyAPIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except eating_Nutraceuticals.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+        
+
+
+def get_user_nutrients_data(request):
+    user_id = request.GET.get('user_id')
+    print(user_id)
+    user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id).values_list('nutraceuticals_name', flat=True)
+    queryset = Nutraceuticals.objects.filter(nutraceuticals_name__in=user_nutraceuticals)
+    
+    nutrients_data = []
+    for nutraceutical in queryset:
+        nutrients_data.append({
+            '비타민C': nutraceutical.비타민C,
+            '비타민D': nutraceutical.비타민D,
+            '비타민A': nutraceutical.비타민A,
+            '칼슘': nutraceutical.칼슘,
+            '마그네슘': nutraceutical.마그네슘,
+            '아연': nutraceutical.아연,
+        })
+    print(nutrients_data)
+    user_detail = {"비타민C" : 0,"비타민D" : 0,"비타민A" : 0,"칼슘" : 0,
+                   "마그네슘" : 0,"아연" : 0,}
+    for i in nutrients_data:
+            for j in i:
+                user_detail[j] += i[j]
+    print(user_detail)
+    return JsonResponse(user_detail, safe=False)
