@@ -425,22 +425,16 @@ const router = createRouter({
     routes,
 })
 
-const app = createApp(App);
-app.use(router);
-app.mount('#app');
-
-
-
-// router.beforeEach(async (to, from, next) => {
-//     const isLoggedIn = await checkLogin();
+router.beforeEach(async (to, from, next) => {
+    const isLoggedIn = await checkLogin();
   
-//     if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
-//       next('/login');
-//     } else {
-//       next();
-//     }
-//   });
-
-  
+    if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
+      next('/login');
+    } else if(isLoggedIn && (to.path === '/login' || to.path === '/signup')) {
+      next('/');
+    } else {
+      next();
+    }
+});
 
 export default router

@@ -186,6 +186,7 @@ class KakaoLogin(View):
 def check_session(request):
     if request.user.is_authenticated:  # 사용자가 인증된 경우
         user = request.user
+        img_url = ProfileSerializer.get_profile_image_url(user=user)
         user_data = {
             "logged_in": True,
             "member_id": user.member_id,
@@ -196,6 +197,7 @@ def check_session(request):
             "weight": user.weight,
             "gender": user.gender,
             "login_id": user.login_id,
+            "profile_img_url":img_url
         }
         response_json = user_data
     else:  # 인증되지 않은 사용자의 경우

@@ -16,16 +16,13 @@ const pinia = createPinia();
 const app = createApp(App);
 
 app.use(pinia);
-app.use(router);
-app.use(csrf);
-app.use(InfiniteScroll);
 
 const userInfo = useUserInfo();
 const fetchUserInfo = async () =>{
   try {
     const response = await axios.get('/api/account/check_session/');
     if (response.data.logged_in) {
-      userInfo.userLogin(response.data.member_id,response.data.login_id,response.data.username,response.data.profile_img_url);
+      userInfo.userLogin(response.data.member_id,response.data.login_id,response.data.user_name,response.data.profile_img_url);
       userInfo.userAddInfo(response.data.birthday,response.data.gender,response.data.nickname,response.data.weight, response.data.height);
 
     }
@@ -34,5 +31,11 @@ const fetchUserInfo = async () =>{
     return null;
   }
 }
-fetchUserInfo();
+
+await fetchUserInfo();
+
+app.use(router);
+app.use(csrf);
+app.use(InfiniteScroll);
+
 app.mount('#app');
