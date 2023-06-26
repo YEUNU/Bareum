@@ -181,6 +181,10 @@ class KakaoLogin(View):
                      })
             
         return response
+@login_required
+def session(req):
+    return JsonResponse({"logged_in": True})
+
 
 @login_required
 def check_session(request):
