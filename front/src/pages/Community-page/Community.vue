@@ -1,15 +1,12 @@
 <template>
     <div>
         <nav class="navbar fixed-top bg-theme" style="padding: 10px 5vw 0 5vw;">
-            <div class="container-fluid">
               <router-link to="/community-search" style="width: 100%;">
                 <div class="search">
                     <input class="search-input" type="text" :placeholder="placeholder" @keydown.enter="search">
                     <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search()">
                 </div>
               </router-link>
-
-            </div>
             <ul class="commu-menu mt-3">
                 <li class="commu-item">
                   <router-link class="commu-link" to="/community" >전체 글 보기</router-link>
@@ -66,7 +63,7 @@ export default {
   display: flex;
   list-style: none;
   margin-bottom: 0;
-  padding: 0 12px;
+  padding: 0;
   width: calc(100% - 12px);
   height: 33px;
   flex-grow: 1;
