@@ -1,16 +1,20 @@
 <template>
     <div>
-        <h1>추천 제품</h1>
-        <ul>
-            <li v-for="(r, index) in userNutraceuticals" :key="index">
-                <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
-                    <h3>{{ r.제품명 }}</h3>
-                    <p>업소명: {{ r.업소명 }}</p>
-                </div>
-            </li>
-        </ul>
+      <h1>추천 제품</h1>
+      <ul>
+        <li v-for="(r, index) in userNutraceuticals" :key="index">
+          <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
+                <!-- 여기에 경로/제품코드.png하면 나올거임 -->
+            <img :src="`assets/${r.제품코드}.png`" alt="제품 이미지" class="item-img"/>
+            <div>
+              <h3>{{ r.제품명 }}</h3>
+              <p>업소명: {{ r.업소명 }}</p>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
-</template>
+  </template>
   
   <script>
   import { ref, onMounted, computed } from "vue";

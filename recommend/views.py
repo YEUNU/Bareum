@@ -109,6 +109,7 @@ def pr_recommend(req):
             pr = Nutraceuticals.objects.get(nutraceuticals_name=name)
             print(pr.ad)
             response_data.append({
+                '제품코드' : pr.업체별_제품코드,
                 '제품명': pr.nutraceuticals_name,
                 '업소명': pr.업소명,
                 '광고상품' : pr.ad,
