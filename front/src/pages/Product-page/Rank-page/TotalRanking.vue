@@ -25,16 +25,14 @@
     </div>
     <div class="background bg-whitesmoke" style="padding-top: 230px; padding-bottom: 60px;">
         <div style="min-height: 100%; padding-bottom: 60px;">
-            <div class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i">
-                <router-link :to="{ name: '', params: { productId: productId }}">
-                    <div class="rank_order">{{i+1}}위</div>
-                    <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
-                    <div class="rank_manufacturer">{{product['manufacturer']}}</div>
-                    <div class="rank_name">{{product['name']}}</div>
-                    <div class="rank_mount">판매량: {{product[age_group]}}</div>
-                    <div class="rank_price">가격: {{product['price']}}원</div>
-                </router-link>
-            </div>
+            <router-link class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i" :to="{ name: '', params: { productId: productId }}">
+                <div class="rank_order">{{i+1}}위</div>
+                <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
+                <div class="rank_manufacturer">{{product['manufacturer']}}</div>
+                <div class="rank_name">{{product['name']}}</div>
+                <div class="rank_mount">판매량: {{product[age_group]}}</div>
+                <div class="rank_price">가격: {{product['price']}}원</div>
+            </router-link>
         </div>
     </div>
     <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
