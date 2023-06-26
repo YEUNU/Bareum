@@ -49,6 +49,7 @@ export default {
     },
   },
   setup(props) {
+    const router = useRouter();
     const activeItem = ref(null);
     const checkedItems = ref([]);
     const userInfo = useUserInfo();
@@ -60,17 +61,24 @@ export default {
 
     async function handleSave() {
       console.log("저장된 항목들: ", checkedItems.value);
-      
+
       try {
-        await axios.post("/api/taking/save", {
-          checkedItems: checkedItems.value.map(item => ({
+        const response = await axios.post("/api/taking/save", {
+          checkedItems: checkedItems.value.map((item) => ({
             nutraceuticals_name: item.nutraceuticals_name,
             loginId: loginId.value,
           })),
         });
-        console.log("저장 성공");
+
+        if (response.data.message === "success") {
+          alert("저장에 성공하였습니다.");
+          router.back();
+        } else if (response.data.message === "fail") {
+          alert("이미 등록되어있는 제품을 제외하고 저장되었습니다.");
+          router.back();
+        }
       } catch (error) {
-        console.log("저장에 실패하였습니다:", error);
+        console.error("저장에 실패하였습니다:", error);
       }
     }
 
