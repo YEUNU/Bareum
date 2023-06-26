@@ -3,7 +3,10 @@
         <h1>추천 제품</h1>
         <ul>
             <li v-for="(r, index) in userNutraceuticals" :key="index">
-                {{ r.제품명 }} ({{ r.업소명 }})
+                <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
+                    <h3>{{ r.제품명 }}</h3>
+                    <p>업소명: {{ r.업소명 }}</p>
+                </div>
             </li>
         </ul>
     </div>
@@ -46,6 +49,14 @@
 
 
 
-<style scoped>
-    
+<style>
+.item-box {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.ad-border {
+  border-color: blue;
+}
 </style>

@@ -99,7 +99,7 @@ def pr_recommend(req):
 
 
         # 결과 출력
-        result = ['츄어블비타민C']
+        result = ['츄어블비타민C', '고려홍삼차']
         for idx in already_selected:
             result.append(all_df.loc[idx, 'name'])
         print(result)
@@ -107,9 +107,12 @@ def pr_recommend(req):
         response_data = []
         for name in result:
             pr = Nutraceuticals.objects.get(nutraceuticals_name=name)
+            print(pr.ad)
             response_data.append({
                 '제품명': pr.nutraceuticals_name,
                 '업소명': pr.업소명,
+                '광고상품' : pr.ad,
             })
+        response_data = sorted(response_data, key=lambda x: x['광고상품'], reverse=True)
         print(response_data)
         return JsonResponse({"nutraceuticals": response_data}, safe=False)
