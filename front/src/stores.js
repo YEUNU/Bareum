@@ -75,7 +75,9 @@ export const useUserInfo = defineStore('userInfo',{
       this.nickName = nickName;
       this.weight = weight;
       this.height = height;
-      this.age = new Date().getFullYear() - parseInt(birthDay.substring(0,4));
+      if(this.birthDay!=undefined){
+        this.age = new Date().getFullYear() - parseInt(birthDay.substring(0,4));
+      }
     },
 
     userLogout() {
