@@ -450,9 +450,9 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const isLoggedIn = await checkLogin();
   
-    if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
+    if (!isLoggedIn && to.path !== '/login' && to.path !== '/agreesignup' && to.path !== '/signup') {
       next('/login');
-    } else if(isLoggedIn && (to.path === '/login' || to.path === '/signup')) {
+    } else if(isLoggedIn && (to.path === '/login' || to.path === '/agreesignup' || to.path === '/signup')) {
       next('/');
     } else {
       next();
