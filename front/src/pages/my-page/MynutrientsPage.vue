@@ -45,7 +45,7 @@ export default {
       try {
         const response = await axios.get("/api/taking/", {
           params: {
-            user_id: loginId.value, // 로그인한 사용자의 ID를 전달합니다.
+            user_id: loginId.value, 
           },
         });
         const user_nutrients_data = response.data;
@@ -57,12 +57,13 @@ export default {
 
     onMounted(async () => {
       const nutrientsData = await getUserNutrientsData();
-      const nutrientsArray = ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'].map((label) => {
-        return nutrientsData[label];
+      const maxValues = [100, 20, 700, 700, 315, 8.5];
+      const nutrientsArray = ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'].map((label, index) => {
+        const value = nutrientsData[label] / maxValues[index] * 100;
+        return value;
       });
       // 차트를 렌더링할 캔버스를 선택합니다.
       const ctx = document.getElementById('myChart').getContext('2d');
-
       // 새 차트 인스턴스를 생성합니다.
       const myChart = new Chart(ctx, {
         type: 'polarArea',
