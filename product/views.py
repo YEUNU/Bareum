@@ -24,23 +24,21 @@ class ProductDetailView(APIView):
 class ReviewList(APIView):
     def get(self, request,product_code):
         try:
-            reviews = Review.objects.get(제품코드=product_code)
+            reviews = Review.objects.filter(제품코드_id=product_code)
         except Review.DoesNotExist:
             return JsonResponse({"message": "review not found"}, status=404)
 
         serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
-
-
 class BareumReviewList(APIView):
     
     def get(self,request,product_code):
         try:
-            reviews = BareumReview.objects.filter(제품코드=product_code)
+            reviews = BareumReview.objects.filter(제품코드_id=product_code)
         except BareumReview.DoesNotExist:
             return JsonResponse({"message": "review not found"}, status=404)
         
         serializer = BareumReviewSerializer(reviews, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
