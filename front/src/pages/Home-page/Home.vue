@@ -74,12 +74,12 @@ export default {
       // 선택한 파일에 대한 로직
       const reader = new FileReader();
 
-      reader.onload = (e) => {
-        const img = new Image();
-        img.src = e.target.result;
-      };
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+        };
 
-      reader.readAsDataURL(selectedFile);
+        reader.readAsDataURL(selectedFile);
     };
 
     return {
