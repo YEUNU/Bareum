@@ -10,16 +10,16 @@
         </div>
       </nav>
 
-    <div class="ocr-title">OCR 결과</div>
-    <img :src="imageData" alt="Captured image" style="width: 100%;" />
-    <div v-if="isLoading" class="loading-container">
+   
+    <img :src="imageData" alt="Captured image" style="width: 100%; " />
+    <div v-if="isLoading" class="loading-container" style="margin-top: 10%; box-shadow: 2px 2px 2px 2px #eeeeee">
       <div class="spinner" style="margin-top: 10%;"></div>
       <p style="margin-top: 10%;">제품을 찾는 중입니다...</p>
     </div>
 
     <div v-else>
       <div v-if="productResults" style="width:100%;">
-        <h2 style="margin-top: 10%;">인식된 제품 정보(유사도순)</h2>
+        <h2 style="margin-top: 10%;">제품을 선택해주세요.</h2>
         <div class="grid-container" style="width: 100%; margin-top: 10%;">
           <div v-for="(product, index) in productResults" :key="index" >
             <div class="product-card" style="width: 100%;">
@@ -28,17 +28,21 @@
                 <img src="../../assets/lactofit.png" alt="Product image" class="fill-image" />
               </div>
               <div class="product-details" style="text-align: left; margin-left: 5%; width: 100%;">
-                <p>{{ index + 1 }}. 품목명 : {{ product.nutraceuticals_name }}</p>
-                <p>업소명 : {{ product.업소명 }}</p>
+                <p style="font-weight: bold; font-size: 20px;">{{ product.nutraceuticals_name }}</p>
+                <p>{{ product.업소명 }}</p>
               </div>
             </div>
+            
           </div>
         </div>
+        <router-link to="/ocr/registration" class="request-link">
+          <button class="request-btn" style="width: 100%; margin-top: 5%; margin-bottom: 10%;">등록 요청</button>
+        </router-link>
       </div>
-      <div v-else>
+      <div v-else style="margin-top: 10%; border:2px solid #eeeeee; box-shadow: 2px 2px 2px 2px #eeeeee">
         <p style="margin-top: 10%;">관련된 제품을 찾지 못했습니다.</p>
         <router-link to="/ocr/registration" class="request-link">
-          <button class="request-btn">등록 요청</button>
+          <button class="request-btn" style="margin-bottom: 10%;">등록 요청</button>
         </router-link>
       </div>
     </div>

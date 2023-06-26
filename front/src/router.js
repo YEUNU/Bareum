@@ -60,6 +60,7 @@ import addressPage from './pages/my-page/Address.vue';
 import productDetailPage from './pages/Product-page/detail-page/ProductDetail.vue';
 import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
 import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
+import receivealarmPage from './pages/Home-page/Receivealarm.vue';
 
 
 const routes = [
@@ -134,6 +135,12 @@ const routes = [
         component:regulardeliveryPage,
         name:'regulardeliveryPage'
     },
+  // 메인페이지 - 알람
+  {
+    path: "/receivealarm",
+    component:receivealarmPage,
+    name:'receivealarmPage'
+},
     {
         //예시
         path:"/Ranking",

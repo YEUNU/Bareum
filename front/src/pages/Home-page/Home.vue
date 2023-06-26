@@ -5,7 +5,7 @@
             <router-link to="/search"><SearchBar background-color="#FFFFFF" :placeholder="searchPlaceholder"></SearchBar></router-link>
         </div>
         
-        <button class="box_alarm" @click="router.push({path: '/received_alarms'});">
+        <button class="box_alarm" @click="router.push({path: '/receivealarm'});">
             <img class="alarm_icon" src="../../assets/received_alarm.png" alt="">
         </button>
     </div>
