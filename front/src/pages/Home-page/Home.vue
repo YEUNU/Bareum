@@ -9,9 +9,9 @@
             <img class="alarm_icon" src="../../assets/received_alarm.png" alt="">
         </button>
     </div>
-    <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 90px;">
+    <div class="background bg-theme" style="padding-top: 63px; padding-bottom: calc(90px - 5vh);">
         <div class="bg-whitesmoke"
-             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: calc(100vh - 153px);">
+             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: calc(105vh - 153px);">
             <div class="menu_container">
                 <router-link to="/ranking" class="item menus">
                 <div id="menu_comment">많은 사람들이 구매한</div>

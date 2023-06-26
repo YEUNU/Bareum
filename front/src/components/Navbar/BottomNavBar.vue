@@ -1,5 +1,6 @@
 <template lang="">
     <nav class="bottom-nav-bar">
+
         <ul>
             <li :class="{active: homepage}" style="align-self: flex-end;">
                 <router-link to="/">
@@ -212,7 +213,7 @@ export default {
   display: flex;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: -5vh;
   width: 100%;
 }
 .bottom-nav-bar li {

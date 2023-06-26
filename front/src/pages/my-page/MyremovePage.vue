@@ -15,14 +15,33 @@
                     <h4>정말 탈퇴하시겠습니까?</h4>
             </div>
             </div>
-            <router-link to="/login"><button style="background-color: #2dce89; border-radius: 5px; color:white; margin-top: 20%; margin-right: 30%;">탈퇴</button></router-link>
+            <button @click="userRemove" style="background-color: #2dce89; border-radius: 5px; color:white; margin-top: 20%; margin-right: 30%;">탈퇴</button>
             <router-link to="/mypage"><button style="background-color: #2dce89; border-radius: 5px; color:white;">취소</button></router-link>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+import {useRouter} from 'vue-router';
+import { useUserInfo } from '../../stores';
 export default {
-    components: {}
+    components: {},
+    setup(){
+      const userInfo = useUserInfo();
+      const router = useRouter();
+      const userRemove = async () =>{
+        try {
+          await axios.delete(`/api/account/remove/${userInfo.memberId}`);
+          userInfo.userLogout();
+          router.push('/login');
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      return {
+        userRemove,
+      }
+    }
 }
 </script>
   

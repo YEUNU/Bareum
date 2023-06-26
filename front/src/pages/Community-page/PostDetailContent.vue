@@ -21,13 +21,13 @@
 
                 <div class="d-flex align-items-center" style="margin-top: 2%; border-bottom: 2px solid #eeeeee;">
                     <div class="flex-shrink-0">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                        alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+                        <img :src="post.profile_image_url"
+                        alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
                         style="width: 50px; margin-bottom: 10%;">
                     </div>
                             <div class="flex-grow-1 ms-3">
                                 <div style="text-align: left; font-weight: bold;">
-                                {{ post.user_name }}
+                                {{ post.user_nickname }}
                             </div>
                             
                             <div style="text-align: left; font-size: 12px; color: gray;">

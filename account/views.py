@@ -253,10 +253,32 @@ class UserAddressView(View):
                 serializer.save()
                 return JsonResponse({"success": True})
             else:
-                print(serializer.error_messages)
-                print(serializer.errors)
-                print(serializer)
-        
                 return JsonResponse(serializer.errors, status=400)
         else:
             return JsonResponse({"error": "Not authenticated"}, status=401)
+        
+        
+def user_remove(request, member_id):
+    # 삭제하고자 하는 유저 정보를 가져온다.
+    user = get_object_or_404(User, pk=member_id)
+
+    # 유저 프로필 이미지를 삭제한다.
+    try:
+        profile = get_object_or_404(ProfileImage, user=user)
+        default_storage.delete(profile.image.path)
+        profile.delete()
+    except ProfileImage.DoesNotExist:
+        pass
+
+    # 유저 주소 정보를 삭제한다.
+    try:
+        address = get_object_or_404(Address, user=user)
+        address.delete()
+    except Address.DoesNotExist:
+        pass
+
+    # 유저를 삭제한다.
+    user.delete()
+
+    # 삭제 후 결과를 리턴한다.
+    return HttpResponse("User has been removed")

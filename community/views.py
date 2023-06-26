@@ -22,6 +22,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms.models import model_to_dict
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_protect
+from account.models import ProfileImage
 # Create your views here.
 
 
@@ -83,16 +84,17 @@ def search_posts(request):
     print(f"Search query: {search_query}")
     
     filtered_posts = Post.objects.filter(post_title__icontains=search_query)
-    serialized_posts = dserializers.serialize('json', filtered_posts)
-    return JsonResponse(serialized_posts, safe=False)
+    serialized_posts = PostSerializer(filtered_posts, many=True).data
+    return JsonResponse({"data": serialized_posts}, safe=False)
+
 
 
 #인기글 보여주기(좋아요0개임)
 @api_view(['GET'])
 def popular_posts(request):
     popular_posts = Post.objects.filter(post_like__gte=0).annotate(num_likes=Count('post_like')).order_by('-num_likes', '-post_date')
-    serialized_posts = dserializers.serialize('json', popular_posts)
-    return JsonResponse({"data": serialized_posts}, safe=False)
+    post_serializer = PostSerializer(popular_posts, many=True)
+    return JsonResponse({"data": post_serializer.data}, safe=False)
         
 
     
@@ -109,7 +111,13 @@ def post_detail(request, post_id):
     # Get post images
     post_images = PostImage.objects.filter(post=post)
     post_image_urls = [default_storage.url(post_image.image.name) for post_image in post_images]
-
+    user = User.objects.get(pk=post.user.member_id)
+    try:
+        profile_image = ProfileImage.objects.get(user=user)  # Use the related name 'profile_image'
+        profile_image_url = default_storage.url(profile_image.image)
+    except ProfileImage.DoesNotExist:
+        profile_image_url = '/media/profile_images/default_profile_image.png'
+        
     post_data = {
         "post_id": post.post_id,
         "post_date": post.post_date,
@@ -118,9 +126,10 @@ def post_detail(request, post_id):
         "post_like": post.post_like,
         "post_category": post.post_category,
         "member_id": post.user.member_id,
-        #나중에 닉네임으로 수정해야할듯
         "user_name": post.user.user_name,
-        "post_image_urls": post_image_urls  # Add this line
+        "user_nickname": post.user.nickname,
+        "profile_image_url": profile_image_url,
+        "post_image_urls": post_image_urls,
     }
 
     return JsonResponse(post_data, encoder=DjangoJSONEncoder)

@@ -75,19 +75,15 @@ export const useUserInfo = defineStore('userInfo',{
       this.nickName = nickName;
       this.weight = weight;
       this.height = height;
+      this.age = new Date().getFullYear() - parseInt(birthDay.substring(0,4));
     },
 
     userLogout() {
-      this.isLoggedIn = false;
-      this.isLoggedIn=false;
-      this.userId="";
-      this.name="";
-      this.age=null;
-      this.sex=null;
+      this.$reset();
       axios.get("/api/account/logout")
       .then(()=>{
         window.alert("로그아웃 되었습니다.")
-      })
+      });
     },
   }
 })

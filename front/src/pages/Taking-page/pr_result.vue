@@ -12,12 +12,27 @@
   </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   props: {
     searchResults: {
       type: Array,
       default: () => [],
     },
+  },
+  setup(props) {
+    const activeItem = ref(null);
+
+    function handleItemClick(item) {
+      activeItem.value = item;
+      console.log("클릭한 제품: ", item);
+    }
+
+    return {
+      activeItem,
+      handleItemClick,
+    };
   },
 };
 </script>
@@ -39,5 +54,9 @@ export default {
   border-radius: 4px;
   background-color: white;
   box-shadow: 2px 2px 2px 2px #eeeeee
+}
+.result-card-active {
+  /* 원하는 클릭한 후의 스타일을 여기에 추가하세요 */
+  background-color: #e0e0e0;
 }
 </style>

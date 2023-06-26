@@ -55,6 +55,7 @@ import takeRegist from './pages/Taking-page/regist.vue';
 import prSearchPage from './pages/Taking-page/pr_search.vue';
 import prResultPage from './pages/Taking-page/pr_result.vue';
 import addInfoPage from './pages/login-page/AddInfo.vue';
+import addressPage from './pages/my-page/Address.vue';
 
 const routes = [
     //로그인 페이지
@@ -369,6 +370,18 @@ const routes = [
     //     name:'mynutrientsPage',
     //     component:mynutrientsPage
     // },
+    {
+        path:'/address',
+        name:'userAddressMain',
+        component:mainPage,
+        children:[
+        {
+            path:'',
+            name:'userAddressPage',
+            component:addressPage,
+        }
+        ]
+    }
 ]
 
 const router = createRouter({
@@ -380,13 +393,18 @@ const app = createApp(App);
 app.use(router);
 app.mount('#app');
 
-// router.beforeEach(async(to, from, next) => {
+
+
+// router.beforeEach(async (to, from, next) => {
 //     const isLoggedIn = await checkLogin();
-//     if (to.path !== '/login' && !isLoggedIn) {
-//       next({ path: '/login' });
+  
+//     if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
+//       next('/login');
 //     } else {
 //       next();
 //     }
 //   });
+
+  
 
 export default router
