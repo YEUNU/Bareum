@@ -7,6 +7,7 @@ from .models import Review, BareumReview
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
+        fields = '__all__'
         
 class NutraSerializer(serializers.ModelSerializer):
     Review = ReviewSerializer

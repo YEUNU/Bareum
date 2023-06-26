@@ -61,6 +61,7 @@ import productDetailPage from './pages/Product-page/detail-page/ProductDetail.vu
 import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
 import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
 import receivealarmPage from './pages/Home-page/Receivealarm.vue';
+import productReviewWritePage from './pages/Product-page/detail-page/Write.vue';
 
 
 import ReviewList from './pages/review-page/ReviewList.vue';
@@ -182,6 +183,12 @@ const routes = [
 
             }
         ]
+    },
+    {
+        path:'/prouct/review/write/:productCode',
+        name:'productReviewWritePage',
+        component:productReviewWritePage,
+        props:true,
     },
     //게시물 수정 페이지
     {

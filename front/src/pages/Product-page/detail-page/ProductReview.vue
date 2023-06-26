@@ -1,5 +1,8 @@
 <template>
     <div>
+        <router-link :to="{name:'productReviewWritePage', param:{productCode}}"><button>리뷰 작성 하러 가기</button></router-link>
+    </div>
+    <div>
         평점 리뷰 보여주기
          {{onlineReviews  }}
     </div>
@@ -23,11 +26,11 @@ export default {
         const BareumReviews = ref([]);
 
         const fetchOnlineReview = async(productCode) =>{
-            const respnse = await axios.get(`/api/product/online-review/${productCode}/`);
+            const respnse = await axios.get(`/api/product/online-reviews/${productCode}/`);
             onlineReviews.value = respnse.data
         }
         const fetchBareumReview = async (productCode) => {
-            const respnse = await axios.get(`/api/product/bareum-review/${productCode}/`);
+            const respnse = await axios.get(`/api/product/bareum-reviews/${productCode}/`);
             BareumReviews.value = respnse.data
         }
 
