@@ -1,43 +1,40 @@
 <template>
     <div style="width:100%; height: 100%; margin-bottom: 20%;">
         <nav class="navbar fixed-top bg-white" style="position: fixed; width: 100%; top: 0; z-index: 10;">
-                    <div class="container-fluid">
-                    <router-link to="/community" class="navbar-brand" style="margin-left: 2vh;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                        </svg>
-                    </router-link>
-                    </div>
-                    
+            <div class="container-fluid">
+                <router-link to="/community" class="navbar-brand" style="margin-left: 2vh;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                </router-link>
+            </div>
         </nav>
 
-        <div style="width: 100%; height: 100%; position: relative; top: 10vh;" >
-        
-            
+        <div style="width: 100%; height: 100%; position: relative; top: 10vh;">
 
             <div style="text-align: left; font-weight: bold; font-size: 35px;">
                 {{ post.post_title }}
             </div>
 
-                <div class="d-flex align-items-center" style="margin-top: 2%; border-bottom: 2px solid #eeeeee;">
-                    <div class="flex-shrink-0">
-                        <img :src="post.profile_image_url"
-                        alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
-                        style="width: 50px; margin-bottom: 10%;">
-                    </div>
-                            <div class="flex-grow-1 ms-3">
-                                <div style="text-align: left; font-weight: bold;">
-                                {{ post.user_nickname }}
-                            </div>
-                            
-                            <div style="text-align: left; font-size: 12px; color: gray;">
-                                {{ formatDate(post.post_date) }}
-                            </div>
-                            <div class="col-2 col-sm-3"><div style="text-align: left; font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg>{{ post.post_like }}</div></div>
-                        </div>
+            <div class="d-flex align-items-center" style="margin-top: 2%; border-bottom: 2px solid #eeeeee;">
+                <div class="flex-shrink-0">
+                    <img :src="post.profile_image_url"
+                    alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
+                    style="width: 50px; margin-bottom: 10%;">
                 </div>
+                <div class="flex-grow-1 ms-3">
+                    <div style="text-align: left; font-weight: bold;">
+                        {{ post.user_nickname }}
+                    </div>
+                    
+                    <div style="text-align: left; font-size: 12px; color: gray;">
+                        {{ formatDate(post.post_date) }}
+                    </div>
+                        <div class="col-2 col-sm-3"><div style="text-align: left; font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+</svg>{{ post.post_like }}</div></div>
+                    </div>
+            </div>
 
             <div>
                 <div style="width: 100%; height: 100%; text-align: left; margin-top: 2%; padding-top: 2%; padding-bottom: 2%; border-bottom: 2px solid #eeeeee;">

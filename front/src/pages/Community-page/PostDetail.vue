@@ -1,19 +1,18 @@
 <template>
-    
-    <router-view :postId="postId" :commentsId="commentsId" />
+  <router-view :postId="postId" :commentsId="commentsId" />
 </template>
 <script>
 
 export default {
-    props: {
-    postId: {
-      type: String,
-      required: true,
-    },
-    commentsId: {
-      type: String,
-      required: true,
-    },
+  props: {
+  postId: {
+    type: String,
+    required: true,
+  },
+  commentsId: {
+    type: String,
+    required: true,
+  },
   },
   components:{}
 }
