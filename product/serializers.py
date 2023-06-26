@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Nutraceuticals,Review
 # serializers.py
 from rest_framework import serializers
-from .models import Review
+from .models import Review, BareumReview
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,4 +16,8 @@ class NutraSerializer(serializers.ModelSerializer):
 
     
 
+
+class BareumReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BareumReview
         fields = '__all__'
