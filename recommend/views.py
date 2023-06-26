@@ -1,13 +1,31 @@
 from django.http import JsonResponse
-import numpy as np
 import pandas as pd
-from collections import defaultdict
-import difflib
 import os 
-from product.models import eating_Nutraceuticals, Ingredient
-
+from product.models import eating_Nutraceuticals, Ingredient, Nutraceuticals
 from django.views.decorators.csrf import csrf_exempt
 import json 
+
+def find_best_supplement(all_df, need_nut, already_selected, max_intake_limits_df):
+    min_difference = float('inf')
+    best_supplement = None
+    best_index = None
+
+    for idx, row in all_df.iterrows():
+        if idx in already_selected:
+            continue
+
+        row_difference = 0
+        for nutrient in need_nut.columns:
+
+            allowed_intake = min(max_intake_limits_df.loc[0, nutrient], need_nut.loc[0, nutrient])
+            row_difference += max(need_nut.loc[0, nutrient] - min(row[nutrient], allowed_intake), 0)
+
+        if row_difference < min_difference:
+            min_difference = row_difference
+            best_supplement = row
+            best_index = idx
+
+    return best_index, best_supplement
 
 @csrf_exempt
 def pr_recommend(req):
@@ -16,12 +34,11 @@ def pr_recommend(req):
         user_id = data['loginId']
         user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id)
         nut_name = [n.nutraceuticals_name for n in user_nutraceuticals]
-        
+        print('login_id : ' + user_id)
         response_data = []
         for name in nut_name:
             ingredient = Ingredient.objects.get(nutraceuticals_name=name)
             response_data.append({
-                "name" : ingredient.nutraceuticals_name,
                 '비타민C': ingredient.비타민C,
                 '비타민D': ingredient.비타민D,
                 '비타민A': ingredient.비타민A,
@@ -31,4 +48,67 @@ def pr_recommend(req):
             })
         print(response_data)
         
+        cur_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_dir = os.path.join(cur_dir, 'total_nutrition.csv')
+        all_df = pd.read_csv(csv_dir)
+        
+        user_input = {
+            "비타민C" : [25],
+            "비타민D" : [5],
+            "비타민A" : [250],
+            "칼슘" : [250],
+            "마그네슘" : [50],
+            "아연" : [00],
+        }
+        for i in response_data:
+            for j in i:
+                user_input[j][0] += i[j]
+        print(user_input)
+        user_input_df = pd.DataFrame(user_input)
+
+        recommend_official = {
+            "비타민C" : [100],
+            "비타민D" : [10],
+            "비타민A" : [700],
+            "칼슘" : [700],
+            "마그네슘" : [315],
+            "아연" : [8.5],
+        }
+        recommend_official_df = pd.DataFrame(recommend_official)
+
+        max_intake_limits = {
+            "비타민C": [2000],
+            "비타민D": [4000],
+            "비타민A": [3000],
+            "칼슘": [2500],
+            "마그네슘": [350],
+            "아연": [35],
+        }
+        max_intake_limits_df = pd.DataFrame(max_intake_limits)
+        
+        already_selected = []
+        current_demand = (recommend_official_df - user_input_df) / recommend_official_df
+
+        while current_demand.mean(axis=1)[0] > 0:
+            best_index, best_supplement = find_best_supplement(all_df, current_demand, already_selected, max_intake_limits_df)
+            user_input_df.loc[0] += best_supplement
+            already_selected.append(best_index)
+
+            current_demand = (recommend_official_df - user_input_df) / recommend_official_df
+
+
+        # 결과 출력
+        result = []
+        for idx in already_selected:
+            result.append(all_df.loc[idx, 'name'])
+        print(result)
+        
+        response_data = []
+        for name in result:
+            pr = Nutraceuticals.objects.get(nutraceuticals_name=name)
+            response_data.append({
+                '제품명': pr.nutraceuticals_name,
+                '업소명': pr.업소명,
+            })
+        print(response_data)
         return JsonResponse(response_data, safe=False)
