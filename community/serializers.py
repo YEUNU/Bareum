@@ -1,9 +1,15 @@
 from rest_framework import serializers
-from .models import Post, Comments, User
+from .models import Post, Comments, User, PostImage
 from rest_framework_recursive.fields import RecursiveField
 from account.models import ProfileImage
 from account.serializer import ProfileSerializer
 
+
+class PostImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostImage
+        fields = "__all__"
+    
 class UserProfileImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileImage
@@ -33,9 +39,20 @@ class CommentsSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class PostSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only = True)
+    user = UserSerializer(read_only=True)
+    post_image = PostImageSerializer(read_only=True)
+    post_images = serializers.SerializerMethodField()  # 새로운 필드를 추가하세요.
+
     class Meta:
         model = Post
         fields = '__all__'
+
+    def get_post_images(self, obj):
+        images = PostImage.objects.filter(post=obj).first()
+        if images:  # 이미지가 있는 경우만 반환합니다.
+            img_serializer = PostImageSerializer(images)
+            return img_serializer.data
+        else:
+            return 'default_img'
         
         
