@@ -148,14 +148,14 @@ const routes = [
         ]
     },
     {
-        path:"/product/:Id",
+        path:"/product/:productCode",
         name:"productDetailPage",
         component:productDetailPage,
         props:true,
         children:[
             {
                 path:'',
-                name:'productInfo',
+                name:'productInfoPage',
                 component:productInfoPage,
                 props:true,
             },

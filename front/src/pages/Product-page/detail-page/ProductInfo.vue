@@ -1,6 +1,6 @@
 <template>
     <div>
-        제품정보 보여주기
+        제품정보 보여주기 {{ productCode }}
     </div>
 </template>
 <script>
@@ -8,7 +8,7 @@ import axios from 'axios';
 import {ref} from 'vue';
 export default {
     props:{
-        productId:{
+        productCode:{
             type:String,
             required:true
         }
@@ -17,7 +17,7 @@ export default {
         const product = ref({})
         const fetchProductDetail = async () =>{
             try{
-                const response = await axios.get(`/api/product/detail/${props.productId}`);
+                const response = await axios.get(`/api/product/detail/${props.productCode}`);
                 product = response.data;
 
 

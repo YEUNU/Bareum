@@ -1,6 +1,6 @@
 <template>
     <div>
-        평점 리뷰 보여주기
+        평점 리뷰 보여주기 {{ productId }}
     </div>
 </template>
 <script>
