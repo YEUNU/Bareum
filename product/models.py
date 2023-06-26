@@ -89,3 +89,16 @@ class new_Nutraceuticals(models.Model):
         managed = True
         db_table = 'new_nutraceuticals'
     
+class BareumReview(models.Model):
+    제품코드 = models.ForeignKey(Nutraceuticals,on_delete=models.CASCADE)
+    bareum_review_number = models.BigAutoField(primary_key=True)
+    nutraceuticals_name = models.CharField(unique=True,max_length=100)
+    company_name = models.CharField(max_length=100, null=True)
+    reviews = models.TextField()
+    rating = models.FloatField()
+    review_img_url = models.ImageField(upload_to='review_images/')
+    writer = models.ForeignKey(User,models.DO_NOTHING,db_column='member_id')
+    class Meta:
+
+        managed = True
+        db_table = 'bareum_review'
