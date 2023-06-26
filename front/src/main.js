@@ -22,7 +22,17 @@ app.use(InfiniteScroll);
 
 const userInfo = useUserInfo;
 const fetchUserInfo = async () =>{
+  try {
+    const response = await axios.get('/api/account/check_session/');
+    if (response.data.logged_in) {
+      // userInfo.serLogin(loginResult.member_id,loginResult.login_id,loginResult.username,loginResult.profile_img_url);
+      // userInfo.userAddInfo(data.birthday,data.gender,data.nickname,data.weight, data.height);
 
+    }
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
-
+fetchUserInfo();
 app.mount('#app');
