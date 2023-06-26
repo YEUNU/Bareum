@@ -157,7 +157,6 @@
   .preview-image {
   width: 100px;
   height: 100px;
-
   object-fit: cover;
 }
 .writecontainer {
@@ -166,6 +165,7 @@
     display: block;
     border-radius: 10px;
     padding-top: 10%;
+    padding-bottom: 20%;
   }
 
   .writetitle{

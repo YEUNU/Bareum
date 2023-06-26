@@ -70,7 +70,7 @@
 
         <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 6%; margin-bottom: 2%">
           <div style="width: 10vh; color:gray;"><span>전화번호</span></div>
-          <input type="text" placeholder=" " style="width: 80%; color: black; background-color: white; border: none; border-bottom: 1px solid gray;" readonly>
+          <input type="text" placeholder=" " style=" width: 80%; color: black; background-color: white; border: none; border-bottom: 1px solid gray;" readonly>
         </div>
       </div>
       </div>

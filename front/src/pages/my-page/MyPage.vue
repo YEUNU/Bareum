@@ -34,10 +34,10 @@
                 </div>
               </div>
             </div>
-            <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/myupdate"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 5%; color:black;">개인정보 수정</button></router-link></div>
-            <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/myreview"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 5%; color:black;">내 리뷰 관리</button></router-link></div>
-            <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/mywish"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;">찜 목록</button></router-link></div>
-            <div style="text-align: left; margin-left: -1%;"><router-link to="/address"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;">내 주소 관리</button></router-link></div>
+            <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/myupdate"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 5%; color:black;"><h6>개인정보 수정</h6></button></router-link></div>
+            <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/myreview"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="margin-right: 5%; color:black;"><h6>내 리뷰 관리</h6></button></router-link></div>
+            <div style="text-align: left; margin-left: -1%; margin-bottom: 2%;"><router-link to="/mywish"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;"><h6>찜 목록</h6></button></router-link></div>
+            <div style="text-align: left; margin-left: -1%;"><router-link to="/address"><button type="button" class="btn btn-outline-white btn-rounded btn-sm" style="color:black;"><h6>내 주소 관리</h6></button></router-link></div>
           </div>
         </div>
       </div>
@@ -47,11 +47,8 @@
           <div class="card-body">
             <h5 style="text-align: left; font-weight: bold;">건강데이터</h5>
             <div class="row">
-            <div class="d-flex justify-content-between" style="align-items:center; margin-top: 5%;">
-              <router-link to="/"><p class="card-text mb-2" style="color:black;">나의 건강검진 기록</p></router-link>
-            </div>
             <div class="d-flex justify-content-between" style="align-items:center; margin-top: 2%;">
-              <router-link to="/mynutrients"><p class="card-text mt-3" style="color:black;">건강 기능 식품</p></router-link>
+              <router-link to="/taking"><p class="card-text mt-3" style="color:black;">섭취 관리</p></router-link>
             </div>
             </div>
           </div>

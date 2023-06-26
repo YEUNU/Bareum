@@ -1,11 +1,12 @@
 <template>
-    <div>
-        <div class="d-flex justify-content-between align-items-center">
-            <h1>내가 먹는 영양제 관리</h1>
-            <router-link to="/taking/search" >
-                <button class="btn btn-primary" @click="openRegistration">영양제 등록</button>
+    <div class="takingregist">
+            <div style="font-weight: bold; font-size: 34px; border-bottom: 2px solid #eeeeee;">내가 먹는 영양제 관리</div>
+            <div style="margin-top: 5%;">
+            <router-link to="/taking/search">
+                <button class="btn btn-primary" style="border: none; background-color: #2dce89; color: white; border-radius: 5px;" @click="openRegistration">영양제 등록</button>
             </router-link>
-        </div>
+            </div>
+        
         <div class="nutraceutical-list">
             <ul>
                 <li v-for="nutraceutical in nutraceuticals" :key="nutraceutical.checking_number">
@@ -41,6 +42,10 @@ export default {
 </script>
 
 <style scoped>
+.takingregist {
+    width: 100%;
+    height: 100%;
+}
 .nutraceutical-list {
     padding: 0;
     list-style-type: none;

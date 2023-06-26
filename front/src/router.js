@@ -13,8 +13,6 @@ import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
 import myPage from './pages/my-page/MyPage.vue'
 import regulardeliveryPage from './pages/Home-page/Regulardelivery.vue'
-
-
 import mywishPage from './pages/my-page/MywishPage.vue'
 import myorderPage from './pages/my-page/MyorderPage.vue'
 import mypushPage from './pages/my-page/MypushPage.vue'
@@ -148,7 +146,6 @@ const routes = [
                 component:TotalRanking
             }
         ]
-
     },
     {
         path:"/product/:Id",
@@ -177,7 +174,6 @@ const routes = [
         name: "EditPostPage",
         component: EditPostPage,
     },
-    
     //쇼핑페이지
     {
         //예시
@@ -191,7 +187,6 @@ const routes = [
                 component:shopPage
             }
         ]
-
     },
     {
         path:"/community",
@@ -218,7 +213,6 @@ const routes = [
                         name:'newsPage',
                         component:newsPage
                     }
-
                 ]
             },
             {
@@ -227,7 +221,6 @@ const routes = [
                 component:writePage
             },
         ]
-
     },
     {
         path:'/community/detail/:postId',
@@ -247,7 +240,6 @@ const routes = [
                 component: replyPage,
                 props: true,
               },
-
         ]
     },
     {
@@ -260,7 +252,7 @@ const routes = [
     },
     {
         path:'/ocr',
-        name:'ocrResultPage',
+        name:'ocrReultPage',
         component:mainPage,
         children:[
             {
@@ -307,7 +299,7 @@ const routes = [
         name:"commuSearchMainPage",
         component:mainPage,
         children:[{
-            path:'', 
+            path:'',
             name:'commuSearchPage',
             component:commuSearchPage,
             children:[
@@ -324,7 +316,6 @@ const routes = [
         ]
         }]
     },
-
     {
         path:"/mypage",
         component:mainPage,
@@ -337,20 +328,19 @@ const routes = [
             }
         ]
     },
-
-    {   
+    {  
         // 개인정보수정
         path:'/myupdate',
         name:'myupdatePage',
         component:myupdatePage
     },
-    {   
+    {  
         // 찜 목록
         path:'/mywish',
         name:'myWishPage',
         component:mywishPage
     },
-    {   
+    {  
         // 주문 / 배송 내역
         path:'/myorder',
         name:'myOrderPage',
@@ -362,49 +352,49 @@ const routes = [
         name:'alarmPage',
         component:myalarmPage
     },
-    {   
+    {  
         // 푸시 알람 설정
         path:'/mypush',
         name:'mypushPage',
         component:mypushPage
     },
-    {   
-        // 문의하기 
+    {  
+        // 문의하기
         path:'/mysupport',
         name:'mysupportPage',
         component:mysupportPage
     },
-    {   
-        // 회원탈퇴 
+    {  
+        // 회원탈퇴
         path:'/myremove',
         name:'myremovePage',
         component:myremovePage
     },
-    {   
+    { 
         // 이용 약관
         path:'/myterms',
         name:'mytermsPage',
         component:mytermsPage
     },
-    {   
+    {  
         // 개인정보 처리방침
         path:'/myprivacy',
         name:'myprivacyPage',
         component:myprivacyPage
     },
-    {   
+    {  
         // 영양제 등록 요청
         path:'/mynewadd',
         name:'mynewaddPage',
         component:mynewaddPage
     },
-    {   
+    {  
         // 환경설정
         path:'/mysetting',
         name:'mysettingPage',
         component:mysettingPage
     },
-    {   
+    {  
         // 내 리뷰 관리
         path:'/myreview',
         name:'myreviewPage',
