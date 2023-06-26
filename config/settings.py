@@ -122,7 +122,8 @@ DATABASES = {
         'PASSWORD': 'aivle28!',
         'HOST': 'aivle-28.mysql.database.azure.com',
         'PORT': '3306',
-    }
+    },
+    
 }
 
 
