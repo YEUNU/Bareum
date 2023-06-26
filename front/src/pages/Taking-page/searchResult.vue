@@ -1,7 +1,7 @@
 <template>
     <div class="search-results">
       <ul>
-        <li v-for="result in filteredResults" :key="result.nutraceuticals_id">
+        <li v-for="result in filteredResults" :key="result.nutraceuticals_name">
           {{ result.nutraceuticals_name }}
         </li>
       </ul>
