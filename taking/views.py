@@ -6,6 +6,9 @@ from product.models import Nutraceuticals
 from .serializers import NutraceuticalsSerializer
 from .models import eating_Nutraceuticals
 from django.core.exceptions import ObjectDoesNotExist
+import json
+from django.http import JsonResponse
+
 
 class NutraceuticalsSearchAPIView(generics.ListAPIView):
     queryset = Nutraceuticals.objects.all()
@@ -48,7 +51,19 @@ class NutraceuticalsSaveAPIView(generics.GenericAPIView):
             return Response({"message": "fail"})
 
             
-
-
-        
-            
+def view_take(req):
+    if req.method == "POST":
+        data = json.loads(req.body)
+        user_id = data['loginId']
+        print('login_id : ' + user_id)
+        user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id)
+        nut_name = [n.nutraceuticals_name for n in user_nutraceuticals]
+        response_data = []
+        for name in nut_name:
+            take = Nutraceuticals.objects.get(nutraceuticals_name=name)
+            response_data.append({
+                '제품명': take.nutraceuticals_name,
+                '업소명': take.업소명,
+            })
+        print(response_data)
+        return JsonResponse({"take": response_data}, safe=False)
