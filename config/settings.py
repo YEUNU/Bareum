@@ -28,6 +28,11 @@ SECRET_KEY = "django-insecure-tfc=)4_tb1fvs51@6hm9qfv+88egntto0*^)ds02q=2gsw_xr&
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
+# DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SAMESITE = 'None'
 # ALLOWED_HOSTS = ['bareum.shop','www.bareum.shop']
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
@@ -117,7 +122,8 @@ DATABASES = {
         'PASSWORD': 'aivle28!',
         'HOST': 'aivle-28.mysql.database.azure.com',
         'PORT': '3306',
-    }
+    },
+    
 }
 
 
@@ -166,4 +172,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

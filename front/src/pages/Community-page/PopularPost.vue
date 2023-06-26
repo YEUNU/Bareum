@@ -4,7 +4,7 @@
       <router-link :to="{ name: 'postDetailContentPage', params: { postId: post.id }}">
         <div class="row">
           <div class="flex-shrink-0">
-            <img :src="post.user.user_profile_img"
+            <img :src="post.user.user_profile_img.image"
             alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
                 style="width: 70px;">
             </div>

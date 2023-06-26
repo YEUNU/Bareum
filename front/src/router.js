@@ -58,6 +58,8 @@ import prSearchPage from './pages/Taking-page/pr_search.vue';
 import prResultPage from './pages/Taking-page/pr_result.vue';
 import addInfoPage from './pages/login-page/AddInfo.vue';
 import addressPage from './pages/my-page/Address.vue';
+import productDetailPage from './pages/Product-page/detail-page/ProductDetail.vue';
+
 
 const routes = [
     //로그인 페이지
@@ -144,6 +146,12 @@ const routes = [
             }
         ]
 
+    },
+    {
+        path:"/product/:productId",
+        name:"productDetailPage",
+        component:productDetailPage,
+        props:true
     },
     //게시물 수정 페이지
     {
@@ -406,15 +414,15 @@ app.mount('#app');
 
 
 
-router.beforeEach(async (to, from, next) => {
-    const isLoggedIn = await checkLogin();
+// router.beforeEach(async (to, from, next) => {
+//     const isLoggedIn = await checkLogin();
   
-    if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
-      next('/login');
-    } else {
-      next();
-    }
-  });
+//     if (!isLoggedIn && to.path !== '/login' && to.path !== '/signup') {
+//       next('/login');
+//     } else {
+//       next();
+//     }
+//   });
 
   
 
