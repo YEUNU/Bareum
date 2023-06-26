@@ -4,10 +4,7 @@
             <div class="container-fluid">
               <router-link to="/community-search" style="width: 100%;">
                 <div class="search">
-                    <input class="search-input" type="text" :placeholder="placeholder" v-model="searchQuery" @keydown.enter="search">
-                    <svg v-show="searchQuery" class="search-clear-icon" @click="searchbar_clear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                    </svg>
+                    <input class="search-input" type="text" :placeholder="placeholder" @keydown.enter="search">
                     <img class="search-icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" @click="search()">
                 </div>
               </router-link>
@@ -26,9 +23,7 @@
             </ul>
         </nav>
         
-        <div class="container">
-            <router-view></router-view>        
-        </div>
+        <router-view></router-view>        
         
     </div>
 </template>
@@ -60,16 +55,14 @@ export default {
 }
 
 .commu-menu {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-    width: 100%;
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
 }
 
 .commu-item {
-  margin-right: 1rem;
-  flex:1;
-  
+  flex: 1;
 }
 .commu-link {
   text-decoration: none;
