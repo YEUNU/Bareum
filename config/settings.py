@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     "community",
     "ocr",
     "taking",
-    
+    "recommend",
 ]
 
 AUTH_USER_MODEL = 'account.User'
