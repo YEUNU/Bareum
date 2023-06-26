@@ -27,6 +27,8 @@ class NutraceuticalsSaveAPIView(generics.GenericAPIView):
                 login_id = item['loginId']
             )
             eating.save()
+        return Response({"message": "success"})
+            
 
 
         

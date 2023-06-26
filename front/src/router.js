@@ -56,6 +56,7 @@ import EditPostPage from './pages/Community-page/PostUpdatePage.vue';
 import takeRegist from './pages/Taking-page/regist.vue';
 import prSearchPage from './pages/Taking-page/pr_search.vue';
 import prResultPage from './pages/Taking-page/pr_result.vue';
+import rcMainPage from './pages/Recommend-page/rcMain.vue';
 import addInfoPage from './pages/login-page/AddInfo.vue';
 
 const routes = [
@@ -246,7 +247,16 @@ const routes = [
             },
         ]
     },
-
+    {
+        path:'/recommend',
+        component:mainPage,
+        children:[
+            {
+                path:'',
+                component:rcMainPage
+            },
+        ]
+    },
     {
         path:'/taking',
         name:'mynutrientsPage',
