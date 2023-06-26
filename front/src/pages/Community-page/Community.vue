@@ -66,13 +66,17 @@ export default {
   display: flex;
   list-style: none;
   margin-bottom: 0;
-  padding-left: 0;
-  width: 100%;
+  padding: 0 12px;
+  width: calc(100% - 12px);
   height: 33px;
+  flex-grow: 1;
 }
 
 .commu-item {
-  flex: 1;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .commu-link {
   font-weight: bold;
@@ -80,18 +84,16 @@ export default {
   color: whitesmoke;
 }
 .commu-menu .router-link-exact-active {
+  flex-grow: 1;
   background: whitesmoke; /* 배경색 변경 */
   color: #333; /* 글자색 변경 */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 6px 12px 12px 12px; /* 패딩 추가 */
+  padding: 4.5px; /* 패딩 추가 */
   text-decoration: none; /* 밑줄 제거 */
   transition: all 0.3s ease; /* 변환 효과 */
-}
-
-.commu-menu .router-link-exact-active:hover {
-  background: whitesmoke; /* 마우스 오버 시 배경색 변경 */
-  color: #333; /* 글자색 유지 */
+  height: 33px;
+  align-items: center;
 }
 
 .fixed-button {

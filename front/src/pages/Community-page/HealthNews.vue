@@ -14,7 +14,7 @@
               <div class="card-body">
                 <p class="card-text" style=" color: black; font-weight: bold;">제목 : {{ news.post_title }}</p>
                 <p class="card-text" style=" color: black; font-size: 13px; margin-top: -2%;">작성자 : {{ }}</p>
-                <p class="card-text" style=" color:black;">{{ formatDate(news.post_date) }}</p>
+                <p class="card-text" style=" color: black;">{{ formatDate(news.post_date) }}</p>
                 <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
               </div>
             
