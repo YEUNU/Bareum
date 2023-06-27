@@ -55,8 +55,8 @@ class Nutraceuticals(models.Model):
     EPA_DHA_Sum= models.FloatField(max_length=10)
     비타민A= models.FloatField(max_length=10)
     ad = models.BooleanField(default=False)
-
-
+    score = models.IntegerField(blank=True, null=True) 
+    bareum_certification = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = True
@@ -96,9 +96,13 @@ class BareumReview(models.Model):
     company_name = models.CharField(max_length=100, null=True)
     reviews = models.TextField()
     rating = models.FloatField()
-    review_img_url = models.ImageField(upload_to='review_images/')
     writer = models.ForeignKey(User,models.DO_NOTHING,db_column='member_id')
     class Meta:
 
         managed = True
         db_table = 'bareum_review'
+
+class BareumReviewImage(models.Model):
+    review_img_url = models.ImageField(upload_to='review_images/')
+    review = models.ForeignKey(BareumReview,on_delete=models.CASCADE)
+        
