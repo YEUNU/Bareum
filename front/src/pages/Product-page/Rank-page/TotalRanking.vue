@@ -31,17 +31,15 @@
         <div v-if="selected_items.length > 0" style="margin-top: 1vh; font-weight: bold; text-align: center; font-size: small;">선택항목: {{selected_items.join(', ')}}</div>
         <hr>
     </div>
-    <div class="background bg-whitesmoke" style="padding-top: 190px; padding-bottom: 60px;">
-        <div style="min-height: 100%; padding-bottom: 60px;">
-            <router-link class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i" :to="{ name: '', params: { productId: productId }}">
-                <div class="rank_order">{{i+1}}위</div>
-                <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
-                <div class="rank_manufacturer">{{product['manufacturer']}}</div>
-                <div class="rank_name">{{product['name']}}</div>
-                <div class="rank_mount">판매량: {{product[age_group]}}</div>
-                <div class="rank_price">가격: {{product['price']}}원</div>
-            </router-link>
-        </div>
+    <div class="background bg-whitesmoke" style="padding-top: 190px; min-height: 100%; padding-bottom: 60px;">
+        <router-link class="rank_box bg-white" v-for="(product, i) in filtered_dataset.sort(function(a, b) { return b[age_group] - a[age_group];})" :key="i" :to="{ name: '', params: { productId: productId }}">
+            <div class="rank_order">{{i+1}}위</div>
+            <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
+            <div class="rank_manufacturer">{{product['manufacturer']}}</div>
+            <div class="rank_name">{{product['name']}}</div>
+            <div class="rank_mount">판매량: {{product[age_group]}}</div>
+            <div class="rank_price">가격: {{product['price']}}원</div>
+        </router-link>
     </div>
     <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
         <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>

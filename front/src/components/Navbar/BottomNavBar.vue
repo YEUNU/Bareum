@@ -75,7 +75,7 @@
         />
         <div v-if="firstTime" @close="disableModal">
         <div class="modal-dialog" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90%; margin: 0;">
-            <div class="modal-content" style="width:80%; margin-left: 10%; margin-right: 2%;">            
+            <div class="modal-content" style="width: 80%; margin-left: 10%; margin-right: 2%;">            
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -213,7 +213,7 @@ export default {
   display: flex;
   list-style: none;
   padding: 0;
-  margin-top: -5vh;
+  margin: -35px 0 5px 0;
   width: 100%;
 }
 .bottom-nav-bar li {
