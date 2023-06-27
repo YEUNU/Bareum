@@ -124,77 +124,94 @@
 </template>
 
 <script>
+import { ref, computed, onMounted, reactive } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
-  data() {
-    return {
-    showMenu: true,
-    displayGuideModal: false,
-    firstTime: true,
-    guideModalSeen: false, // 새 변수 추가
-    // 다른 데이터 속성
-    };
-  },
-  mounted() {
-    const savedValue = localStorage.getItem('guideModalSeen');
-    if (savedValue !== null) {
-    this.guideModalSeen = JSON.parse(savedValue);
-    } else {
-    this.guideModalSeen = false;
-    }
-    this.firstTime = !this.guideModalSeen; // firstTime 초기화
+  setup() {
+    const showMenu = ref(true);
+    const displayGuideModal = ref(false);
+    const guideModalSeen = ref(false);
+    const firstTime = ref(true);
+    const route = useRouter();
+    const capturedImage = ref(null);
 
-  },
-  computed: {
-  homepage() {
-    return this.$route.path === '/';
-  },
-  shop() {
-    return this.$route.path === '/shop';
-  },
-  community() {
-    return this.$route.path === '/community';
-  },
-  mypage() {
-    return this.$route.path === '/mypage';
-  },
-  // 나머지 페이지에 대한 computed 속성들 추가
-  },
-  methods: {
-    disableModal() {
-        this.displayGuideModal = false;
-  this.guideModalSeen = true;
-  localStorage.setItem('guideModalSeen', JSON.stringify(this.guideModalSeen));
-  this.firstTime = false;
-},
-    openCamera() {
-    this.showMenu = false;
-    this.getImage(true);
-    },
-    openGallery() {
-    this.showMenu = false;
-    this.getImage(false);
-    },
-    getImage(camera) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    if (camera) {
-    input.capture = 'camera';
+    const homepage = computed(() => route.currentRoute.value.path === "/");
+    const shop = computed(() => route.currentRoute.value.path === "/shop");
+    const community = computed(() => route.currentRoute.value.path === "/community");
+    const mypage = computed(() => route.currentRoute.value.path === "/mypage");
+
+    onMounted(() => {
+      const savedValue = localStorage.getItem("guideModalSeen");
+      if (savedValue !== null) {
+        guideModalSeen.value = JSON.parse(savedValue);
+      } else {
+        guideModalSeen.value = false;
+      }
+      firstTime.value = !guideModalSeen.value;
+    });
+
+    const disableModal = () => {
+      displayGuideModal.value = false;
+      guideModalSeen.value = true;
+      localStorage.setItem("guideModalSeen", JSON.stringify(guideModalSeen.value));
+      firstTime.value = false;
     }
-    input.onchange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const img = new Image();
-      img.src = e.target.result;
+
+    const openCamera = () => {
+      showMenu.value = false;
+      getImage(true);
+    }
+
+    const openGallery = () => {
+      showMenu.value = false;
+      getImage(false);
+
     };
-    reader.readAsDataURL(file);
+
+    const getImage = (camera) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        if (camera) {
+            input.capture = "camera";
+        }
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onloadstart = () => {
+            const cameraModalElement = document.getElementById("cameraModal");
+            const cameraModal = bootstrap.Modal.getInstance(cameraModalElement);
+            cameraModal.hide();
+            };
+            reader.onload = (e) => {
+            capturedImage.value = e.target.result;
+
+            // 이미지가 로드된 후에 이미지 데이터를 경로의 파라미터로 전달
+            if (capturedImage.value) {
+                route.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
+            }
+            };
+            reader.readAsDataURL(file);
+        };
+        input.click();
     };
-    input.click();
-    },
-    },
-}
+
+    return {
+      showMenu,
+      displayGuideModal,
+      guideModalSeen,
+      firstTime,
+      homepage,
+      shop,
+      community,
+      mypage,
+      disableModal,
+      openCamera,
+      openGallery,
+    };
+  },
+};
 </script>
 
 <style scoped>

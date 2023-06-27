@@ -35,9 +35,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import axios from "axios";
 import PrResultPage from "/app/src/pages/Taking-page/pr_result.vue";
+import {useUserInfo} from "../../stores.js"
 
 export default {
   components: {
@@ -46,11 +47,14 @@ export default {
   setup() {
     const searchQuery = ref("");
     const searchResults = ref([]);
+    const userInfo = useUserInfo();
+    const loginId = computed(() => userInfo.loginId);
+
 
     async function handleSearch() {
       console.log("검색어: ", searchQuery.value);
       const response = await axios.get("/api/taking/search", {
-        params: { search_query: searchQuery.value },
+        params: { search_query: searchQuery.value, login_id: loginId.value },
       });
       searchResults.value = response.data;
     }

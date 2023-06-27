@@ -9,15 +9,21 @@ from django.core.exceptions import ObjectDoesNotExist
 import json
 from django.http import JsonResponse
 
-
 class NutraceuticalsSearchAPIView(generics.ListAPIView):
     queryset = Nutraceuticals.objects.all()
     serializer_class = NutraceuticalsSerializer
 
     def get_queryset(self):
         search_query = self.request.query_params.get("search_query")
+        login_id = self.request.query_params.get("login_id")
+
+        user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=login_id)
+
+        excluded_nutraceuticals = [n.nutraceuticals_name for n in user_nutraceuticals]
+
         print(search_query)
-        return self.queryset.filter(nutraceuticals_name__icontains=search_query)
+        return self.queryset.filter(nutraceuticals_name__icontains=search_query).exclude(nutraceuticals_name__in=excluded_nutraceuticals)
+
 
 # 새로운 view 추가
 from django.core.exceptions import ObjectDoesNotExist
