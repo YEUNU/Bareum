@@ -98,12 +98,14 @@
         <div class="card" style="width: 100%; padding:0; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
           <div class="card-body">
             
-    <div style="text-align: left; ">
-        <h5 style="color: black; font-weight: bold; margin-bottom: 5%;">배송지</h5>
-        <div class="input-group mb-3" style="border-bottom: 2px solid #eeeeee;">
-            <input type="text" name="gender" class="form-control" placeholder="주소" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
-        </div>
-    </div>
+          <div style="text-align: left;">
+            <h5 style="color: black; font-weight: bold; margin-bottom: 5%;">배송지</h5>
+            <div class="input-group mb-3" style="border-bottom: 2px solid #eeeeee;">
+              <router-link to="/address" style="color: black; text-decoration: none;">
+                <input type="text" name="gender" class="form-control" placeholder="주소" aria-label="Recipient's username" aria-describedby="button-addon2" style="border:none;">
+              </router-link>
+            </div>
+          </div>
 
    
 
