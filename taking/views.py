@@ -61,7 +61,7 @@ def view_take(req):
         response_data = []
         for name in nut_name:
             take = Nutraceuticals.objects.get(nutraceuticals_name=name)
-            code = eating_Nutraceuticals.objects.get(nutraceuticals_name=name)
+            code = eating_Nutraceuticals.objects.get(nutraceuticals_name=name, login_id=user_id)
             response_data.append({
                 '제품명': take.nutraceuticals_name,
                 '업소명': take.업소명,
