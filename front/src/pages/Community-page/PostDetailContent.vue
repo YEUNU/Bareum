@@ -1,124 +1,114 @@
 <template>
-    <div style="width:100%; height: 100%; margin-bottom: 20%;">
-        <nav class="navbar fixed-top bg-white" style="position: fixed; width: 100%; top: 0; z-index: 10;">
+    <div class="background" style="display: flex; flex-direction: column; align-items: center;">
+        <nav class="navbar fixed-top bg-white" style="box-shadow: 0 0 2px 2px #EAEAEA;">
             <div class="container-fluid">
                 <router-link to="/community" class="navbar-brand" style="margin-left: 2vh;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                     </svg>
                 </router-link>
+                <div style="margin-right: 2vh; font-size: larger; font-weight: bold;">{{ post.post_title }}</div>
+                <div to="/mysetting" class="navbar-brand" style="opacity: 0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                        <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                    </svg>
+                </div>
             </div>
         </nav>
 
-        <div style="width: 100%; height: 100%; position: relative; top: 10vh;">
+        <div style="width: 90vw; height: 100%; padding-top: calc(56px + 1vh); padding-bottom: 55px;">
 
-            <div style="text-align: left; font-weight: bold; font-size: 35px;">
-                {{ post.post_title }}
-            </div>
+            <div style="text-align: left; font-weight: bold; font-size: 35px;">{{ post.post_title }}</div>
 
             <div class="d-flex align-items-center" style="margin-top: 2%; border-bottom: 2px solid #eeeeee;">
                 <div class="flex-shrink-0">
                     <img :src="post.profile_image_url"
                     alt="user profile img" class="img-fluid rounded-circle border border-dark border-3"
-                    style="width: 50px; margin-bottom: 10%;">
+                    style="width: 50px; margin-bottom: 16px;">
                 </div>
                 <div class="flex-grow-1 ms-3">
-                    <div style="text-align: left; font-weight: bold;">
-                        {{ post.user_nickname }}
+                    <div style="text-align: left; font-weight: bold;">{{ post.user_nickname }}</div>
+                    <div style="text-align: left; font-size: 12px; color: gray;">{{ formatDate(post.post_date) }}</div>
+                    <div class="col-2 col-sm-3">
+                        <div style="display: flex; align-items: center; text-align: left; font-size: 15px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                            </svg>
+                            <span>{{ post.post_like }}</span>
+                        </div>
                     </div>
-                    
-                    <div style="text-align: left; font-size: 12px; color: gray;">
-                        {{ formatDate(post.post_date) }}
-                    </div>
-                        <div class="col-2 col-sm-3"><div style="text-align: left; font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg>{{ post.post_like }}</div></div>
-                    </div>
-            </div>
-
-            <div>
-                <div style="width: 100%; height: 100%; text-align: left; margin-top: 2%; padding-top: 2%; padding-bottom: 2%; border-bottom: 2px solid #eeeeee;">
-                    <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
-                    <div v-for="(url, index) in post.post_image_urls" :key="index">
-                        <img :src="url" :alt="'Image ' + (index + 1)" class="post-image"/>
-                    </div>
-                </div>
-                    {{ post.post_contents }}
-                    
-       
-                
                 </div>
             </div>
 
-            <div style="text-align:left; border-bottom: 2px solid #eeeeee;">
-                <button  @click="likePost" style=" background-color:white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+        <div style="width: 100%; height: 100%; text-align: left; margin-top: 2%; padding-top: 2%; padding-bottom: 2%; border-bottom: 2px solid #eeeeee;">
+            <div v-if="post.post_image_urls && post.post_image_urls.length > 0">
+                <div v-for="(url, index) in post.post_image_urls" :key="index">
+                    <img :src="url" :alt="'Image ' + (index + 1)" class="post-image"/>
+                </div>
+            </div>
+            {{ post.post_contents }}
+        </div>
+        
+        <div style="text-align:left; border-bottom: 2px solid #eeeeee;">
+            <button @click="likePost" style=" background-color:white; padding: 2% 0;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                     <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                    </svg>좋아요
-                    
-                </button>
-            </div>
-            <div v-if="post.member_id == userInfo.memberId" style=" display: flex; justify-content: flex-end; padding-top: 1%;">
-                <button class="postbutton" style="margin-right: 0.5%;" @click="editPost">수정</button>
-                <button class="postbutton" @click="confirmDelete">삭제</button>
-            </div>
+                </svg>
+                좋아요
+            </button>
+        </div>
+        <div v-if="post.member_id == userInfo.memberId" style=" display: flex; justify-content: flex-end; padding-top: 1%;">
+            <button class="postbutton" style="margin-right: 0.5%;" @click="editPost">수정</button>
+            <button class="postbutton" @click="confirmDelete">삭제</button>
+        </div>
 
-            <div v-for="comment in comments" :key="comment.comments_id">
-                <div class="card-body" style="width:100%; border-bottom: 2px solid #eeeeee;">
+        <div v-for="comment in comments" :key="comment.comments_id">
+            <div class="card-body" style="width:100%; border-bottom: 2px solid #eeeeee;">
                 <div class="d-flex align-items-center" style="margin-top: 2%;">
-                    
-                <div class="flex-shrink-0">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
-                    alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
-                    style="width: 50px; margin-bottom: 10%;">
-                </div>
-
+                    <div class="flex-shrink-0">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                        alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+                        style="width: 50px; margin-bottom: 10%;">
+                    </div>
                 <div class="flex-grow-1 ms-3">
                     <div class="d-flex flex-row align-items-center" style="width:100%;">
-                        
-                        <div class="col-8 col-sm-3" style="text-align: left; font-weight: bold;">
-                                        {{ comment.user.user_name }}
-                                </div>
-                                
-                            <div style="margin-right: 5%;"><router-link :to="{ name: 'postReplyPage', params: { postId: post.post_id, commentsId: comment.comments_id }}">
-                            <span><svg style="color:black;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
-                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-                            </svg></span>
-                    </router-link></div>
-
-                    <div style="margin-right: 5%;"><div style="text-align: left; font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                    </svg>{{ comment.comment_like }}</div>
+                        <div class="col-8 col-sm-3" style="text-align: left; font-weight: bold;">{{ comment.user.nickname }}</div>
+                        <div style="margin-right: 5%;">
+                            <router-link :to="{ name: 'postReplyPage', params: { postId: post.post_id, commentsId: comment.comments_id }}">
+                                <span>
+                                    <svg style="color:black;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                                        <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+                                    </svg>
+                                </span>
+                            </router-link>
+                        </div>
+                        <div style="margin-right: 5%;">
+                            <div style="text-align: left; font-size: 15px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                                {{ comment.comment_like }}
+                            </div>
+                        </div>
                     </div>
-
-                    </div>
-                    <div>
-                        <div style="text-align: left; font-size: 12px; color: gray; width:100%">
-                                    {{ formatDate(comment.comment_date) }}
-                                </div>
-                    </div>
+                    <div style="text-align: left; font-size: 12px; color: gray; width:100%">{{ formatDate(comment.comment_date) }}</div>
                 </div>
+            </div>
 
-                </div>
+            <div style="text-align: left; margin-left: 66px; font-size: 15px;"> {{ comment.comment_contents }}</div>
 
-                <div style="text-align: left; font-size: 15px;"> {{ comment.comment_contents }}</div>
-                
                 <div v-if="comment.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
-                        <button class="postbutton" @click="deleteComment(comment.comments_id)">삭제</button>
-                    </div>
-                
-            
-                
+                    <button class="postbutton" @click="deleteComment(comment.comments_id)">삭제</button>
+                </div>
                 <div v-if="comment.replies.length" class="replies" style="width:100%; margin-left:5%;">
-                    <div>
-                        
                     <div v-for="reply in comment.replies" :key="reply.comments_id" style="width:100%;">
                         <div class="d-flex align-items-center" style="margin-top: 2%; width: 100%;">
-                            
                             <div class="flex-shrink-0">
-                                <div style="width: 5%; margin-left: -20%;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
-</svg></div>
+                                <div style="width: 5%; margin-left: -20%;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+                                    </svg>
+                                </div>
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
                                 alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
                                 style="width: 50px; margin-bottom: 10%;">
@@ -126,54 +116,40 @@
 
                             <div class="flex-grow-1 ms-3">
                                 <div class="d-flex flex-row align-items-center">
-                                    
-                                    <div class="col-8 col-sm-3" style="text-align: left; font-weight: bold;">
-                                                {{ reply.user.user_name }}
-                                    </div>
-                                            
+                                    <div class="col-8 col-sm-3" style="text-align: left; font-weight: bold;">{{ reply.user.nickname }}</div>
                                     <div style="margin-right: 5%;">
-                                            <router-link :to="{ name: 'postReplyPage', params: { postId: post.post_id, commentsId: comment.comments_id }}">
-                                                <span><svg style="color:black;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
-  <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-</svg></span>
-                                            </router-link>
+                                        <router-link :to="{ name: 'postReplyPage', params: { postId: post.post_id, commentsId: comment.comments_id }}">
+                                            <span>
+                                                <svg style="color:black;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                                                    <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+                                                </svg>
+                                            </span>
+                                        </router-link>
                                     </div>
-
                                     <div style="margin-right: 5%; width:100%;">
-                                            <div style="text-align: left; font-size: 15px; margin-right: 5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg>{{ reply.comment_like }}</div>
-                                    </div>
-
-                                </div>
-
-                                <div>
-                                    <div style="text-align: left; font-size: 12px; color: gray; width:100%">
-                                                {{ formatDate(reply.comment_date) }}
+                                        <div style="text-align: left; font-size: 15px; margin-right: 5%">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                            </svg>
+                                            {{ reply.comment_like }}
+                                        </div>
                                     </div>
                                 </div>
+                                <div style="text-align: left; font-size: 12px; color: gray; width:100%">{{ formatDate(reply.comment_date) }}</div>
                             </div>
                         </div>
-
                         <div style="text-align: left; font-size: 15px;"> {{ reply.comment_contents }}</div>
 
-                                    <!-- <div v-if="reply.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
-                                        <button>삭제</button>
-                                    </div>  -->
+                        <!-- <div v-if="reply.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
+                            <button>삭제</button>
+                        </div>  -->
                     </div>
                 </div>
             </div>
         </div>
-
-                
-
-        </div>
-
-            
     </div>
-        
-    </div>
-    <CommuInput @submit="submitComment"></CommuInput>
+</div>
+<CommuInput style="position: fixed; bottom: 0; left: 0; z-index: 1080; background-color: white;" @submit="submitComment"></CommuInput>
 
 </template>
   

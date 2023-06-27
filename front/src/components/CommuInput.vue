@@ -1,8 +1,11 @@
 <template>
-    <form @submit.prevent="onSubmitInternal" style="text-align: center; width:100%;">
+    <form @submit.prevent="onSubmitInternal" style="display: flex; justify-content: space-between; text-align: center; width:100%; padding: 10px;">
+
       <input type="text" id="comment-input" v-model="commentInput" required placeholder="댓글 작성"
-        style=" width: 70%; margin-top: 10%; border-radius: 8px; border:1px solid #eeeeee;" />
-      <button type="submit" style="margin-left: 5%; background-color: #2dce89; border-radius: 5px; color:white;">작성</button>
+        style="padding: 0.2em 0.5em; width: 70%; border-radius: 8px; background-color: white; color: #333; border: 1px solid rgba(235, 242, 233, 1); flex-grow: 1;" />
+
+      <button type="submit" style="margin-left: 2vw; padding: 0.2em; background-color: #2dce89; border-radius: 5px; color:white;">작성</button>
+
     </form>
   </template>
   
