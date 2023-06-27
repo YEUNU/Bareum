@@ -66,7 +66,6 @@ export default {
   padding: 0;
   width: calc(100% - 12px);
   height: 33px;
-  flex-grow: 1;
 }
 
 .commu-item {
@@ -75,11 +74,13 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .commu-link {
   font-weight: bold;
   text-decoration: none;
   color: whitesmoke;
 }
+
 .commu-menu .router-link-exact-active {
   flex-grow: 1;
   background: whitesmoke; /* 배경색 변경 */

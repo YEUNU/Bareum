@@ -4,8 +4,9 @@
     </div>
     <div>
         평점 리뷰 보여주기
-         {{onlineReviews  }}
+         {{ onlineReviews  }}
     </div>
+    <hr>
     <div>
         <div v-for="review in BareumReviews" :key="review.bareum_review_number">
             <img :src="review.user_info.profile_image"/>
