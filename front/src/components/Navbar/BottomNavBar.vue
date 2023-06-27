@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, reactive } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
@@ -158,6 +158,7 @@ export default {
       firstTime.value = false;
     }
 
+    
     const openCamera = () => {
       showMenu.value = false;
       getImage(true);
@@ -179,18 +180,19 @@ export default {
         input.onchange = (e) => {
             const file = e.target.files[0];
             const reader = new FileReader();
+
             reader.onloadstart = () => {
-            const cameraModalElement = document.getElementById("cameraModal");
-            const cameraModal = bootstrap.Modal.getInstance(cameraModalElement);
-            cameraModal.hide();
+                const cameraModalElement = document.getElementById("cameraModal");
+                const cameraModal = bootstrap.Modal.getInstance(cameraModalElement);
+                cameraModal.hide();
             };
             reader.onload = (e) => {
-            capturedImage.value = e.target.result;
+                capturedImage.value = e.target.result;
 
-            // 이미지가 로드된 후에 이미지 데이터를 경로의 파라미터로 전달
-            if (capturedImage.value) {
-                route.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
-            }
+                // 이미지가 로드된 후에 이미지 데이터를 경로의 파라미터로 전달
+                if (capturedImage.value) {
+                    route.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
+                }
             };
             reader.readAsDataURL(file);
         };
