@@ -22,24 +22,27 @@
       <form>
         <label for="productImage" style="text-align: left;">제품 사진 첨부</label>
         
-        <div style="text-align: left; background-color: #2dce89; color: white; border-radius: 6px; padding-left: 1vh; padding-top: 1vh; padding-bottom: 1vh;">
-        <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5%;" width="25" height="25" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
-                        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
-                        </svg>
-        <input type="file" id="productImage" @change="onFileChange" style="display: none;" accept="image/*" >
-        사진 앨범에서 선택</div>
-        
-        
-        
-        
-        
+
+        <div class="image-upload" style="display: flex; align-items: left;">
+          <input type="file" id="productImage" @change="onFileChange" style="display: none;" accept="image/*" >
+          <label for="productImage" class="upload-button" style="display: flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16" style="margin-left:-10%">
+              <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+              <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
+            </svg>
+            <span class="upload-text">사진 앨범에서 선택</span>
+          </label>
+        </div>
+
+
+
+      
 
         <router-link :to="{ path: '/cam', query: { returnPath: '/ocr/registration' } }" style="text-align: left;">
           <button type="button" class="camera-button" style="text-align: left;"><svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 5%; text-align: left;" width="25" height="25" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
-  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-  <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
-</svg>
+            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+          </svg>
                         제품 촬영하기</button>
         </router-link>
         <img v-if="capturedImage" :src="capturedImage" style="width:100%; margin-top: 5%;" />
@@ -183,6 +186,33 @@ export default {
  
 <style scoped>
 
+.upload-button {
+  display: inline-flex;
+  align-items: left;
+  justify-content: center;
+  background-color: #2dce89;
+  color: white;
+  font-size: 1.125em;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.upload-text {
+  margin-left: 10px;
+  font-size: 15px; /* 원하는 스타일을 적용하세요 */
+  color: white; /* 원하는 스타일을 적용하세요 */
+  font-weight:normal;
+}
+
+  .regcontainer {
+    width: 100%;
+    height: 100%;
+    margin: 0%;
+    padding: 0%;
+  }
+
   .registration-page {
     width: 100%;
     height: 100%;
@@ -218,7 +248,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 padding: 2rem;
-max-width: 600px;
 height: auto;
 min-height: 100%;
 box-sizing: border-box;
