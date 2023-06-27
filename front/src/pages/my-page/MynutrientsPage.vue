@@ -28,73 +28,100 @@
 
 
 <script>
-// Chart.js를 가져옵니다.
-import Chart from "chart.js/auto";
+import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
+import Chart from 'chart.js/auto';
+import { useUserInfo } from "../../stores.js";
 
 export default {
-  methods: {
-        goBack() {
-            this.$router.go(-1); // 이전 페이지로 이동
-        },
-    },
-  mounted() {
-    // 차트를 렌더링할 캔버스를 선택합니다.
-    const ctx = document.getElementById("myChart").getContext("2d");
+  setup(_, { root }) {
+    const userInfo = useUserInfo();
+    const loginId = computed(() => userInfo.loginId);
+    const goBack = () => {
+      root.$router.go(-1); // 이전 페이지로 이동
+    };
 
-    // 새 차트 인스턴스를 생성합니다.
-      const myChart = new Chart(ctx, {
-      type: "polarArea",
-      data: {
-        labels: ["비타민C", "비타민D", "비타민A", "칼슘", "마그네슘", "아연"],
-        datasets: [
-          {
-            label: "Sample Dataset",
-            data: [11, 16, 7, 3, 14, 20],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.5)",
-              "rgba(75, 192, 192, 0.5)",
-              "rgba(255, 205, 86, 0.5)",
-              "rgba(201, 203, 207, 0.5)",
-              "rgba(54, 162, 235, 0.5)",
-              "rgba(139, 0, 255, 0.5)",
-            ],
-            borderColor: [
-              "rgb(255, 99, 132)",
-              "rgb(75, 192, 192)",
-              "rgb(255, 205, 86)",
-              "rgb(201, 203, 207)",
-              "rgb(54, 162, 235)",
-              "rgba(139, 0, 255)",
-            ],
-            borderWidth: 1,
+    async function getUserNutrientsData() {
+      try {
+        const response = await axios.get("/api/taking/", {
+          params: {
+            user_id: loginId.value, 
           },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins:{
-          legend: {
-            display: false,
-          }
-        },
-        scales: {
-      r: {
-        min: 0,
-        max: 100,
-        pointLabels: {
-          display: true,
-          centerPointLabels: true,
-          font: {
-            size: 18
-          }
-        }
+        });
+        const user_nutrients_data = response.data;
+        return user_nutrients_data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-      },
-    },
+    }
+
+    onMounted(async () => {
+      const nutrientsData = await getUserNutrientsData();
+      const maxValues = [100, 20, 700, 700, 315, 8.5];
+      const nutrientsArray = ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'].map((label, index) => {
+        const value = nutrientsData[label] / maxValues[index] * 100;
+        return value;
+      });
+      // 차트를 렌더링할 캔버스를 선택합니다.
+      const ctx = document.getElementById('myChart').getContext('2d');
+      // 새 차트 인스턴스를 생성합니다.
+      const myChart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+          labels: ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'],
+          datasets: [
+            {
+              label: 'Sample Dataset',
+              data: nutrientsArray,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(255, 205, 86, 0.5)',
+                'rgba(201, 203, 207, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(139, 0, 255, 0.5)',
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)',
+                'rgba(139, 0, 255)',
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              pointLabels: {
+                display: true,
+                centerPointLabels: true,
+                font: {
+                  size: 18,
+                },
+              },
+            },
+          },
+        },
+      });
     });
+
+    return { goBack };
   },
 };
 </script>
+
 
 <style>
 .mynutrientscontainer {

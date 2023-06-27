@@ -54,19 +54,19 @@ def pr_recommend(req):
         all_df = pd.read_csv(csv_dir)
         
         user_input = {
-            "비타민C" : [25],
-            "비타민D" : [5],
-            "비타민A" : [250],
-            "칼슘" : [250],
-            "마그네슘" : [50],
-            "아연" : [00],
+            "비타민C" : [0],
+            "비타민D" : [0],
+            "비타민A" : [0],
+            "칼슘" : [0],
+            "마그네슘" : [0],
+            "아연" : [0],
         }
         for i in response_data:
             for j in i:
                 user_input[j][0] += i[j]
         print(user_input)
         user_input_df = pd.DataFrame(user_input)
-
+        print(user_input_df)
         recommend_official = {
             "비타민C" : [100],
             "비타민D" : [10],
