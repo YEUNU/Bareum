@@ -66,7 +66,6 @@ export default {
   padding: 0;
   width: calc(100% - 12px);
   height: 33px;
-  flex-grow: 1;
 }
 
 .commu-item {
