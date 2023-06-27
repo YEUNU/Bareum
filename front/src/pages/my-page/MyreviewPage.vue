@@ -16,57 +16,52 @@
         </div>
       </nav>
   
-        <div class="mycard-container">
+        <div class="mycard-container" v-for="review in MyReviews" :key="review.bareum_review_number">
         <div class="card" style="width: 100%; padding:0; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
           <div class="card-body">
             <div class="d-flex align-items-center mb-4">
               <div class="flex-shrink-0">
-                <img src="https://phinf.pstatic.net/checkout.phinf/20230609_102/1686302703140lFrWz_JPEG/1686302655160.jpg?type=w640"
-                  alt=""
-                  style="height: min(25vh, 25vw); width: min(25vh, 25vw);">
+                <img :src="review.images[0].review_img_url" alt="Image 1"
+                  style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/>
               </div>
               <div class="flex-grow-1 ms-3">
                 <div class="d-flex flex-row align-items-center mb-2">
-                  <h4 class="mb-0 me-2" style="text-align: left; font-weight: bold;">닥터린 비타민C</h4>
+                  <h4 class="mb-0 me-2" style="text-align: left; font-weight: bold;">{{ review.nutraceuticals_name }}</h4>
+                  <p class="mb-0 me-2" style="text-align: left;">{{ review.company_name }}</p>
                 </div>
                 <div>
-                  <p class="word" style="text-align: left; margin-top: 10%;">한입에 먹기 딱좋았고, 4달간은 영양제 걱정없이 먹을수있을거같아요~</p>
+                  <p class="word" style="text-align: left; margin-top: 10%;">{{review.reviews}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="mycard-container">
-        <div class="card" style="width: 100%; padding:0; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-4">
-              <div class="flex-shrink-0">
-                <img src="https://phinf.pstatic.net/checkout.phinf/20221220_264/1671497268579wX6Iq_JPEG/B612_20221016_180356_596.jpg?type=w640"
-                  alt=""
-                  style="height: min(25vh, 25vw); width: min(25vh, 25vw);">
-              </div>
-              <div class="flex-grow-1 ms-3">
-                <div class="d-flex flex-row align-items-center mb-2">
-                  <h4 class="mb-0 me-2" style="text-align: left; font-weight: bold;">닥터린 비타민C</h4>
-                </div>
-                <div>
-                  <p class="word" style="text-align: left; margin-top: 10%;">가격대비 정말 좋습니다.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        
+      </div>        
       </div>
   </template>
   
   <script>
+  import {ref, onMounted} from 'vue';
+  import { useUserInfo } from '../../stores';
+  import axios from 'axios';
   export default {
-      components: {}
+      components: {},
+      setup(){
+        const userInfo = useUserInfo();
+        const MyReviews = ref([]);
+        const fetchMyReview = async (userId) => {
+            const respnse = await axios.get(`/api/product/my-reviews/${userId}/`);
+            MyReviews.value = respnse.data
+        }
+        onMounted(() => {
+          fetchMyReview(userInfo.memberId);
+        })
+        return{
+          fetchMyReview,
+          MyReviews,
+
+        }
+      }
   }
   </script>
   

@@ -13,12 +13,10 @@
             <p>내용 : {{ review.reviews }}</p>
             <p>별점 : {{ review.rating }}</p>
             사진 :
-            <div v-for="(url, index) in review.images" :key="index">
-                <img :src="url" :alt="'Image ' + (index + 1)" class="review-image"/>
+            <div v-for="(image, index) in review.images" :key="index">
+                <img :src="image.review_img_url" :alt="'Image ' + (index + 1)" class="review-image"/>
             </div>
         </div>
-        바름리뷰
-        {{ BareumReviews }}
     </div>
 </template>
 <script>
