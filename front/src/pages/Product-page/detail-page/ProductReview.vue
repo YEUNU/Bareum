@@ -7,6 +7,17 @@
          {{onlineReviews  }}
     </div>
     <div>
+        <div v-for="review in BareumReviews" :key="review.bareum_review_number">
+            <img :src="review.user_info.profile_image"/>
+            <p>작성자: {{ review.user_info.nickname }}</p>
+            <p>내용 : {{ review.reviews }}</p>
+            <p>별점 : {{ review.rating }}</p>
+            사진 :
+            <div v-for="(url, index) in review.images" :key="index">
+                <img :src="url" :alt="'Image ' + (index + 1)" class="review-image"/>
+            </div>
+        </div>
+        바름리뷰
         {{ BareumReviews }}
     </div>
 </template>
