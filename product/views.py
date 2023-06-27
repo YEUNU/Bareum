@@ -42,3 +42,17 @@ class BareumReviewList(APIView):
         serializer = BareumReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
         
+    def post(self,request,product_code):
+        reviews = request.POST['reviews']
+        rating = request.POST['rating']
+        
+        nutra = Nutraceuticals.objects.get(제품코드=product_code)
+        review = BareumReview.objects.create(
+            제품코드_id = nutra,
+            nutraceuticals_name = nutra.nutraceuticals_name,
+            company_name = nutra.업소명,
+            reviews = reviews,
+            rating = rating,
+            writer = request.user,
+        )
+        ...

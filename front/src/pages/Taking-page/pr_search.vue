@@ -37,8 +37,8 @@
 <script>
 import { ref, computed } from "vue";
 import axios from "axios";
-import PrResultPage from "/app/src/pages/Taking-page/pr_result.vue";
 import {useUserInfo} from "../../stores.js"
+import PrResultPage from "./pr_result.vue";
 
 export default {
   components: {
