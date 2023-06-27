@@ -4,8 +4,9 @@
     </div>
     <div>
         평점 리뷰 보여주기
-         {{onlineReviews  }}
+         {{ onlineReviews  }}
     </div>
+    <hr>
     <div>
         {{ BareumReviews }}
     </div>

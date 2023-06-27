@@ -74,11 +74,13 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .commu-link {
   font-weight: bold;
   text-decoration: none;
   color: whitesmoke;
 }
+
 .commu-menu .router-link-exact-active {
   flex-grow: 1;
   background: whitesmoke; /* 배경색 변경 */
