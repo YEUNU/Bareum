@@ -18,24 +18,27 @@ const app = createApp(App);
 app.use(pinia);
 
 const userInfo = useUserInfo();
-const fetchUserInfo = async () =>{
-  try {
-    const response = await axios.get('/api/account/check_session/');
-    if (response.data.logged_in) {
-      userInfo.userLogin(response.data.member_id,response.data.login_id,response.data.user_name,response.data.profile_img_url);
-      userInfo.userAddInfo(response.data.birthday,response.data.gender,response.data.nickname,response.data.weight, response.data.height);
-
+const fetchUserInfo = async () => {
+  if (!userInfo.isLoggedIn){
+    try {
+      const response = await axios.get('/api/account/check_session/');
+      if (response.data.logged_in) {
+        userInfo.userLogin(response.data.member_id, response.data.login_id, response.data.user_name, response.data.profile_img_url);
+        userInfo.userAddInfo(response.data.birthday, response.data.gender, response.data.nickname, response.data.weight, response.data.height);
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
     }
-  } catch (error) {
-    console.error(error);
-    return null;
   }
+};
+
+async function initializeApp() {
+  await fetchUserInfo();
+  app.use(router);
+  app.use(csrf);
+  app.use(InfiniteScroll);
+  app.mount('#app');
 }
 
-await fetchUserInfo();
-
-app.use(router);
-app.use(csrf);
-app.use(InfiniteScroll);
-
-app.mount('#app');
+initializeApp();
