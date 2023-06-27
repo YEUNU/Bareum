@@ -77,3 +77,11 @@ class BareumReviewList(APIView):
     
 
         
+class MyReviewList(APIView):
+    def get(self,request,member_id):
+        try:
+            reviews = BareumReview.objects.filter(writer=member_id)
+        except BareumReview.DoesNotExist:
+            return JsonResponse({"message": "review not found"}, status=404)
+        serializer = BareumReviewSerializer(reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
