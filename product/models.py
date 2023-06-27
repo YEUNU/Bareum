@@ -1,6 +1,7 @@
 from django.db import models
 
 from account.models import User
+from django.utils import timezone
 
 class Company(models.Model):
 
@@ -91,6 +92,7 @@ class new_Nutraceuticals(models.Model):
     
 class BareumReview(models.Model):
     제품코드 = models.ForeignKey(Nutraceuticals,on_delete=models.CASCADE)
+    post_date = models.DateTimeField(default=timezone.now)
     bareum_review_number = models.BigAutoField(primary_key=True)
     nutraceuticals_name = models.CharField(unique=True,max_length=100)
     company_name = models.CharField(max_length=100, null=True)

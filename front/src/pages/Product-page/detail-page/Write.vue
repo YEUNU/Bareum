@@ -4,7 +4,7 @@
         {{ product.nutraceuticals_name }}
         {{ product.업소명 }}
     </div>
-    <form @submit.prevent="submitReview(productCode)">
+    <form @submit.prevent="submitReview(product.업체별_제품코드)">
         <div class="form-group">
         <label>평점을 입력해주세요</label>
         <StarRating @update-rating="updateRating"/>
@@ -29,6 +29,7 @@
   import StarRating from "./StarRating.vue";
   import axios from 'axios';
   import { useRouter } from "vue-router";
+  import Cookies from 'js-cookie';
   export default {
     components: { StarRating },
     props:{
@@ -39,6 +40,7 @@
     },
     
     setup(props) {
+      const csrf_token = Cookies.get('csrftoken');
     const router = useRouter();
       const reviewText = ref("");
       const rating = ref(0);
@@ -113,14 +115,14 @@
             selectedImageFiles.value.forEach((file, index) => {
               formData.append(`image${index}`, file);
             });
-            await axios.post(`/api/product/bareum-review/${productCode}`, formData, {
+            await axios.post(`/api/product/bareum-reviews/${productCode}/`, formData, {
               headers: {
                 "Content-Type": "multipart/form-data", // 폼 데이터 전송을 위해 수정
                 "X-CSRFToken": csrf_token,
               },
             });
         
-            router.push("/product/review"); 
+            router.push(`/product/${productCode}/review`); 
           } catch (error) {
             console.error("글 작성 중 에러가 발생했습니다:", error);
           }
