@@ -20,6 +20,7 @@
         <h1 style="text-align: left;">바름 MD's PICK</h1>
         
             <div v-for="(r, index) in userNutraceuticals" :key="index">
+              <router-link :to="`/product/${r.제품코드}`">
                 <div class="item-box"  :class="{ 'ad-border': r.광고상품 }">
                   <div class="d-flex align-items-center">
                     <div class="flex-shrink-0" style="margin: 5%;">
@@ -38,6 +39,7 @@
                   
                   </div>
               </div>
+              </router-link>
             </div>
         
     </div>

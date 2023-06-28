@@ -29,8 +29,10 @@
         </svg>
       </router-link>
     </div>
+    
     <div v-for="(r, index) in nutraceuticals" :key="index">
-      <div class="item-box" style="position: relative; height:15vh">
+      <router-link :to="`/product/${r.제품코드}`">
+      <div class="item-box" style="position: relative; height:15vh " >
         <img :src="`../media/product_images/${r.제품코드}.png`" alt="제품 이미지" class="item-img"
           style="position: absolute; top: 0; left: 0; margin-left:1.5vh; margin-top: 13vh;" />
         <div style="position: absolute; top: 0; right: 0; margin-right:15vh; margin-top: 13vh; margin-bottom:1.5vh;">
@@ -44,7 +46,9 @@
             </svg>
         </button>
         </div>
+      </router-link>
       </div>
+    
   </div>
 </template>
 

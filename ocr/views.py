@@ -48,7 +48,7 @@ def process_image(request):
         
         result = []
         for i in related_pr[:20]:
-            pr_info = Nutraceuticals.objects.filter(nutraceuticals_name=i).values('nutraceuticals_name','업소명')
+            pr_info = Nutraceuticals.objects.filter(nutraceuticals_name=i).values('nutraceuticals_name','업소명', '업체별_제품코드')
             result.append(list(pr_info))
 
         flattened_result = [item for sublist in result for item in sublist]

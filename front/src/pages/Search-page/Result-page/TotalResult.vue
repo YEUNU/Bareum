@@ -69,7 +69,7 @@
       onMounted(fetchData);
   
       const goToProductDetail = (productId) => {
-        router.push(`/search/result/${productId}`);
+        router.push(`/product/${productId}`);
       };
   
       const filteredProducts = computed(() => {

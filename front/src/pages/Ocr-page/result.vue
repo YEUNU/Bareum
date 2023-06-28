@@ -33,10 +33,12 @@
                 <!-- 추후에 이미지를 여기에 추가하세요 -->
                 <img src="../../assets/lactofit.png" alt="Product image" class="fill-image" />
               </div>
+              <router-link :to="`/product/${product.업체별_제품코드}`">
               <div class="product-details" style="text-align: left; margin-left: 5%; width: 100%;">
                 <p style="font-weight: bold; font-size: 20px;">{{ product.nutraceuticals_name }}</p>
                 <p>{{ product.업소명 }}</p>
               </div>
+              </router-link>
             </div>
             
           </div>
