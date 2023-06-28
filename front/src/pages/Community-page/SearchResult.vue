@@ -26,30 +26,29 @@
 <script>
 import axios from "axios";
 import { ref, watch, onMounted, onUnmounted } from "vue";
+import { useRoute } from 'vue-router';
 
 export default {
-  data() {
-    return {
-      posts: [],
-      page: 1,
-      postTotalPages: 1,
-      loader: ref(null),
-      observer: null,
+  setup() {
+    const posts = ref([]);
+    const page = ref(1);
+    const postTotalPages = ref(1);
+    const loader = ref(null);
+    const route = useRoute();
+
+    const formatDate = (date) => {
+      const dateObj = new Date(date);
+      const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}. ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+      return formattedDate;
     };
-  },
-  methods: {
-    formatDate(date) {
-    const dateObj = new Date(date);
-    const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}. ${dateObj.getHours()}:${dateObj.getMinutes()}`;
-    return formattedDate;
-  },
-    async fetchPosts(query) {
+
+    const fetchPosts = async (query) => {
       try {
         const response = await axios.get(
-          `http://localhost:5173/api/community-search/result?searchQuery=${query}&page=${this.page}`
+          `http://localhost:5173/api/community-search/result?searchQuery=${query}&page=${page.value}`
         );
-        this.posts = [
-          ...this.posts,
+        posts.value = [
+          ...posts.value,
           ...response.data.data.map((postData) => {
             const { pk, fields } = postData;
             return {
@@ -59,44 +58,53 @@ export default {
             };
           }),
         ];
-        this.postTotalPages = Math.ceil(response.data.count / 10);
-        this.page++;
+        postTotalPages.value = Math.ceil(response.data.count / 10);
+        page.value++;
       } catch (error) {
         console.error("Error fetching filtered posts:", error);
       }
-    },
-  },
-  mounted() {
-    this.observer = new IntersectionObserver(async (entries, observer) => {
-      if (entries[0].isIntersecting) {
-        await this.fetchPosts(this.$route.query.searchQuery);
-      }
-    },
-    {
-        root: null,
-        rootMargin: "0px",
-        threshold: 1.0,
-      }
-    );
+    };
 
-    if (this.loader) {
-      this.observer.observe(this.loader);
-    }
-  },
-  beforeUnmount() {
-    if (this.loader) {
-      observer.unobserve(this.loader);
-    }
-  },
-  watch: {
-    "$route.query.searchQuery": {
-      immediate: true,
-      handler(newQuery) {
-        this.page = 1;
-        this.posts = [];
-        this.fetchPosts(newQuery);
+    let observer;
+
+    onMounted(() => {
+      observer = new IntersectionObserver(async (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          await fetchPosts(route.query.searchQuery);
+        }
       },
-    },
+      {
+          root: null,
+          rootMargin: "0px",
+          threshold: 1.0,
+        }
+      );
+
+      if (loader.value) {
+        observer.observe(loader.value);
+      }
+    });
+
+    onUnmounted(() => {
+      if (loader.value) {
+        observer.unobserve(loader.value);
+      }
+    });
+
+    watch(() => route.query.searchQuery, (newQuery) => {
+      page.value = 1;
+      posts.value = [];
+      fetchPosts(newQuery);
+    }, { immediate: true });
+
+    return {
+      posts,
+      page,
+      postTotalPages,
+      loader,
+      formatDate,
+      fetchPosts,
+    };
   },
 };
 </script>

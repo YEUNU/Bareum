@@ -95,13 +95,13 @@ class RemoveNutraceuticalView(generics.DestroyAPIView):
 
 def get_user_nutrients_data(request):
     user_id = request.GET.get('user_id')
-    print(user_id)
     user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id).values_list('nutraceuticals_name', flat=True)
     queryset = Nutraceuticals.objects.filter(nutraceuticals_name__in=user_nutraceuticals)
-    
+
     nutrients_data = []
     for nutraceutical in queryset:
         nutrients_data.append({
+            '제품명' : nutraceutical.nutraceuticals_name,
             '비타민C': nutraceutical.비타민C,
             '비타민D': nutraceutical.비타민D,
             '비타민A': nutraceutical.비타민A,
@@ -110,10 +110,13 @@ def get_user_nutrients_data(request):
             '아연': nutraceutical.아연,
         })
     print(nutrients_data)
-    user_detail = {"비타민C" : 0,"비타민D" : 0,"비타민A" : 0,"칼슘" : 0,
-                   "마그네슘" : 0,"아연" : 0,}
-    for i in nutrients_data:
-            for j in i:
-                user_detail[j] += i[j]
-    print(user_detail)
-    return JsonResponse(user_detail, safe=False)
+    maxValues = [100, 20, 700, 700, 315, 8.5]
+    nutrients_pct_data = []
+
+    for product in nutrients_data:
+        product_pct = {'제품명': product['제품명']}
+        for idx, nutrient in enumerate(['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'], start=1):
+            product_pct[nutrient] = product[nutrient] / maxValues[idx - 1] * 100
+        nutrients_pct_data.append(product_pct)
+    print(nutrients_pct_data)
+    return JsonResponse(nutrients_pct_data, safe=False)
