@@ -299,6 +299,7 @@ const routes = [
             {
                 path:'',
                 component:mynutrientsPage,
+                name:'mynutrientsMain'
             },
             {
                 path:'regist',
