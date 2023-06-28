@@ -1,5 +1,4 @@
 <template>
-
 <div class="background" style="display: flex; flex-direction: column; align-items: center;">
     <nav class="navbar fixed-top bg-white" style="box-shadow: 0 2px 1px -1px #EAEAEA;">
         <div class="container-fluid">
