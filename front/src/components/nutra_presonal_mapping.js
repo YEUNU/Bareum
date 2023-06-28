@@ -27,6 +27,6 @@ const nutra_presonal_mapping = {
     "갑상선 건강": ["요오드", "셀레늄", "아연"],
     "치아 & 잇몸": ["비타민C", "비타민D", "칼슘"],
     "여성 건강": ["철", "비타민B6", "비타민E", "아연"],
-    };
+};
 
 export default nutra_presonal_mapping;
