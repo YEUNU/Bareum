@@ -52,3 +52,40 @@ class BareumUserSerializer(serializers.ModelSerializer):
         
     def get_profile_image(self, obj):
         return ProfileSerializer.get_profile_image_url(obj)
+    
+
+class TotalRankingReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('제품코드_id','lowest','average_rating','total_reviews')
+class TotalRankingBareumReviewSeiralizer(serializers.ModelSerializer):
+    class Meta:
+        model = BareumReview
+        fields = ('제품코드_id','rating')
+class TotalRankingSerializer(serializers.ModelSerializer):
+    review = serializers.SerializerMethodField()
+    bareum_review = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Nutraceuticals
+        fields = '__all__'
+
+    def get_review(self, obj):
+        review = Review.objects.get(제품코드_id=obj.업체별_제품코드)
+        return TotalRankingReviewSerializer(review).data
+
+    def get_bareum_review(self, obj):
+        total_rating = 0
+        number_of_ratings = BareumReview.objects.filter(제품코드_id=obj.업체별_제품코드).count()
+
+        for review in BareumReview.objects.filter(제품코드_id=obj.업체별_제품코드):
+            total_rating += review.rating
+
+        average_rating = 0
+        if number_of_ratings != 0:
+            average_rating = total_rating / number_of_ratings
+
+        return {
+            'average_rating': average_rating,
+            'total_reviews': number_of_ratings
+        }
