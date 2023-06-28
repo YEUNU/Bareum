@@ -22,7 +22,7 @@
                     <span class="manufacturer_name"> {{ product.업소명 }} </span>
                 </div>
                 <div class="product_name"> {{ product.nutraceuticals_name }} </div>
-                <div class="product_score"> (별) 4.5 (리뷰 수)</div>
+                <div class="product_score"> <span style="color: #FFCC21; font-size: 1.3em;">★</span> {{ online_score.avg_rating }} ({{ online_score.cnt_review }})</div>
             </div>
         </div>
         
@@ -46,8 +46,8 @@
             <h4>비슷한 제품</h4>
         </div>
         <div class="product_card product_tail">
-            <div @click="operator_info = !operator_info">{{ operator_info? '사업자 정보 △' : '사업자 정보 ▽' }}</div>
-            <div v-show="operator_info" class="card" style="display: grid; grid-template-rows: repeat(1fr); grid-template-columns: 3fr 5fr; margin: 1em; padding: 1em; text-align: start;">
+            <div @click="operator_info = !operator_info" style="padding: 0.5em;">{{ operator_info? '사업자 정보 △' : '사업자 정보 ▽' }}</div>
+            <div v-show="operator_info" class="card" style="display: grid; grid-template-rows: repeat(1fr); grid-template-columns: 3fr 4fr; margin: 0.5em; padding: 0.5em; text-align: start; align-self: center; width: 80vw; max-width: 480px;">
                 <span>대표자</span>
                 <span>뤼튼</span>
                 <span>주소</span>
@@ -65,7 +65,7 @@
                 <span>통신판매업신고</span>
                 <span>안했서용</span>
             </div>
-            <div>대충 엄청 길어서 잘 안읽게되는 머 중개서비스 제공자로 판매당사자가 아니어서 제공 정보 오류 때문에 생기는 모든 의무와 책임은 각 판매자에게 있다는 내용</div>
+            <div style="padding: 0.5em;">대충 엄청 길어서 잘 안읽게되는 머 중개서비스 제공자로 판매당사자가 아니어서 제공 정보 오류 때문에 생기는 모든 의무와 책임은 각 판매자에게 있다는 내용</div>
         </div>
     </div>
 </div>
@@ -85,6 +85,11 @@ export default {
     setup(props){
         const operator_info = ref(false);
         const product = ref({});
+        const onlineReviews = ref([]);
+        const BareumReviews = ref([]);
+        const online_score = ref({ 'avg_rating': 0, 'cnt_review': 0 });
+        const averageRating = ref(0.0);
+
         const fetchProductDetail = async () =>{
             try{
                 const response = await axios.get(`/api/product/detail/${props.productCode}/`);
@@ -96,14 +101,42 @@ export default {
             }
         }
 
+        const fetchOnlineReview = async(productCode) =>{
+            const respnse = await axios.get(`/api/product/online-reviews/${productCode}/`);
+            onlineReviews.value = respnse.data
+            online_score.value.avg_rating = onlineReviews.value[0].average_rating
+            online_score.value.cnt_review = onlineReviews.value[0].total_reviews
+        }
+        
+        const fetchBareumReview = async (productCode) => {
+            const respnse = await axios.get(`/api/product/bareum-reviews/${productCode}/`);
+            BareumReviews.value = respnse.data
+            let totalRating = 0;
+            let reviewCount = BareumReviews.value.length;
+
+            for (let review of BareumReviews.value) {
+                totalRating += review.rating;
+            }
+        
+            averageRating.value = totalRating / reviewCount;
+
+        }
         onMounted(() => {
-          fetchProductDetail();  
+            fetchProductDetail();
+            fetchOnlineReview(props.productCode);
+            fetchBareumReview(props.productCode);
         })
 
         return{
             operator_info,
-            fetchProductDetail,
             product,
+            online_score,
+            fetchProductDetail,
+            fetchOnlineReview,
+            fetchBareumReview,
+            onlineReviews,
+            BareumReviews,
+            averageRating
         }
     }
 }
