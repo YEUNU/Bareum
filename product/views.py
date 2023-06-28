@@ -86,12 +86,19 @@ class MyReviewList(APIView):
         serializer = BareumReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-
+from rest_framework.pagination import PageNumberPagination
+    
+class RankingPagination(PageNumberPagination):
+    page_size = 10
+    page_query_param = 'page'
+    max_page_size = 100
 class TotalRankingList(APIView):
     def get(self, request):
         try:
-            top_nutra = Nutraceuticals.objects.order_by('-score')[:10]
-            serializer = NutraSerializer(top_nutra, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            top_nutra = Nutraceuticals.objects.order_by('-score')
+            paginator = RankingPagination()
+            paginated_ranking = paginator.paginate_queryset(top_nutra,request)
+            serializer = NutraSerializer(paginated_ranking, many=True)
+            return paginator.get_paginated_response(serializer.data)
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
