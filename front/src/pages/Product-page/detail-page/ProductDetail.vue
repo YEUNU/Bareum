@@ -101,12 +101,18 @@ export default {
             }
         }
 
-        const fetchOnlineReview = async(productCode) =>{
-            const respnse = await axios.get(`/api/product/online-reviews/${productCode}/`);
-            onlineReviews.value = respnse.data
-            online_score.value.avg_rating = onlineReviews.value[0].average_rating
-            online_score.value.cnt_review = onlineReviews.value[0].total_reviews
-        }
+        const fetchOnlineReview = async (productCode) => {
+            try {
+                const response = await axios.get(`/api/product/online-reviews/${productCode}/`);
+                onlineReviews.value = response.data;
+                online_score.value.avg_rating = onlineReviews.value[0]?.average_rating || 0;
+                online_score.value.cnt_review = onlineReviews.value[0]?.total_reviews || 0;
+            } catch (error) {
+                console.error('Error while fetching online review data:', error);
+                online_score.value.avg_rating = 0;
+                online_score.value.cnt_review = 0;
+            }
+        };
         
         const fetchBareumReview = async (productCode) => {
             const respnse = await axios.get(`/api/product/bareum-reviews/${productCode}/`);

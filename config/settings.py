@@ -101,7 +101,8 @@ CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
-    "http://vue:5173"
+    "http://vue:5173",
+    "https://bareum.shop"
     ]
 
 CORS_ALLOW_CREDENTIALS = True

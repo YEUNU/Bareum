@@ -45,6 +45,7 @@ export default {
             if (selectedIngredient.value != ingredient){
                 selectedIngredient.value = ingredient;
                 page.value = 1; 
+                ingredientRanking.value = [];                
             }
             if(page.value <= postTotalPages.value){
                 try{

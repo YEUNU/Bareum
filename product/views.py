@@ -140,23 +140,74 @@ class TotalRankingList(APIView):
         
         
 class AgeRankingList(APIView):
-    def get(self,request): 
+    def get(self, request):
         try:
-            ...
+            ingredients = request.GET.get('ingredients', '')
+            ingredients_list = ingredients.split(',')
+            queryset = Nutraceuticals.objects.none() 
+            
+            for ingredient in ingredients_list:
+                column_condition = Q(**{ingredient + '__gt': 0})
+                queryset |= Nutraceuticals.objects.filter(column_condition)  
+                
+            top_nutra = queryset.order_by('-score')
+            paginator = RankingPagination()
+            paginated_ranking = paginator.paginate_queryset(top_nutra, request)
+            serializer = TotalRankingSerializer(paginated_ranking, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+
 class BrandRankingList(APIView):
-    def get(self,request): 
+    def get(self, request):
         try:
-            ...
+            all_brands = Nutraceuticals.objects.values_list('업소명', flat=True).distinct()
+            brand_rankings = []
+
+            for brand in all_brands:
+                top_nutra = Nutraceuticals.objects.filter(업소명=brand).order_by('-score')[:10]
+                serializer = TotalRankingSerializer(top_nutra, many=True)
+                total_score = sum(item['score'] for item in serializer.data)
+                brand_ranking = {
+                    "brand": brand,
+                    "ranking": serializer.data,
+                    "total_score": total_score,
+                }
+                brand_rankings.append(brand_ranking)
+
+            brand_rankings.sort(key=lambda x: x['total_score'], reverse=True)
+
+            paginator = RankingPagination()
+            paginated_rankings = paginator.paginate_queryset(brand_rankings, request)
+
+            return paginator.get_paginated_response(paginated_rankings)
+
         except Exception as e:
-            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+            print(str(e))
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class CateogryRankingList(APIView):
-    def get(self,request): 
+    def get(self, request):
         try:
-            ...
+            ingredients = request.GET.get('ingredients', '')
+            ingredients_list = ingredients.split(',')
+            queryset = Nutraceuticals.objects.none() 
+            
+            for ingredient in ingredients_list:
+                column_condition = Q(**{ingredient + '__gt': 0})
+                queryset |= Nutraceuticals.objects.filter(column_condition)  
+                
+            top_nutra = queryset.order_by('-score')
+            paginator = RankingPagination()
+            paginated_ranking = paginator.paginate_queryset(top_nutra, request)
+            serializer = TotalRankingSerializer(paginated_ranking, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+        
 class IngredientRankingList(APIView):
     def get(self, request, ingredient):
         try:

@@ -69,7 +69,7 @@ class TotalRankingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Nutraceuticals
-        fields = ('업체별_제품코드','review','bareum_review','업소명','nutraceuticals_name','bareum_certification')
+        fields = ('업체별_제품코드','review','bareum_review','업소명','nutraceuticals_name','bareum_certification','score')
 
     def get_review(self, obj):
         try:
