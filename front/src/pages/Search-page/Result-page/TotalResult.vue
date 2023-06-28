@@ -1,121 +1,93 @@
 <template>
     <div class="background bg-whitesmoke" style="margin-top: 59px; min-height: calc(100vh - 59px);">
-        <div class="search_detail_option_box bg-theme">
-
-            <div id="option_button_container">
-                <button v-if="route.query.option != null"
-                @click="router.push({name: 'resultPage', query: { 'q': route.query.q }})">전체 검색</button>
-                <button v-if="route.query.option != 'name'"
-                @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'name' }})">이름으로 검색</button>
-                <button v-if="route.query.option != 'personalize'"
-                @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'personalize' }})">관심분야로 검색</button>
-                <button v-if="route.query.option != 'ingredient'"
-                @click="router.push({name: 'resultPage', query: { 'q': route.query.q, 'option': 'ingredient' }})">영양성분으로 검색</button>
-            </div>
-            
-            <div v-if="route.query.option" class="bg-white" style="text-align: left; padding: 1vh 4vw; color: #333;">
-                <div>{{ route.query.q }}에 대한 {{ {'name':'이름', 'personalize':'관심분야', 'ingredient':'영양성분'}[route.query.option] }} 검색 결과</div>
-            </div>
+      <div style="position: relative;">
+        <div
+          class="result_box bg-white"
+          v-for="(product, i) in products"
+          :key="i"
+          @click="goToProductDetail(product.id)"
+        >
+          <div class="result_image">
+            <img
+              class="result_image"
+              :src="product.img"
+              alt="상품이미지"
+              style="height: min(25vh, 25vw); width: min(25vh, 25vw);"
+            />
+          </div>
+          <div class="result_manufacturer">{{ product["company_name"] }}</div>
+          <div class="result_name"> {{ product["name"] }}</div>
+          <div class="result_mount">별점: {{ product["star"] }}</div>
+          <div class="result_price">최저가: {{ product["lowest_value"] }}</div>
         </div>
-        <div style="position: relative;">
-            <div class="result_box bg-white" v-for="(product, i) in products" :key="i">
-                <div class="result_image"><img class="result_image" :src=product.img alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);"/></div>
-                <div class="result_manufacturer">{{product['manufacturer']}}</div>
-                <div class="result_name"> {{product['name']}}</div>
-                <div class="result_mount">별점: {{product['star']}}</div>
-            </div>
-            <div style="bottom: 0; display: flex; flex-direction: column; text-align: start; background-color: white; margin-bottom: 1vh; padding: 5vw; color: gray;">
-                <span>찾으시는 제품이 없나요?</span>
-                <span style="font-size: 0.9em;">제품 등록을 요청하시면, 금방 추가해드리겠습니다.</span>
-                <router-link :to="{name: 'mynewaddPage'}">제품등록 요청하러 가기</router-link>
-            </div>
+        <div
+          style="
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            text-align: start;
+            background-color: white;
+            margin-bottom: 1vh;
+            padding: 5vw;
+            color: gray;
+          "
+        >
+          <span>찾으시는 제품이 없나요?</span>
+          <span style="font-size: 0.9em;">제품 등록을 요청하시면, 금방 추가해드리겠습니다.</span>
+          <router-link :to="{ name: 'mynewaddPage' }"
+            >제품등록 요청하러 가기</router-link
+          >
         </div>
+      </div>
     </div>
-</template>
-
-<script>
-import { ref } from 'vue';
-import { useRoute, useRouter } from "vue-router";
-
-export default {
-    name:"select_item_popup",
-    props: {
-        q: String,
-        option: String,
-    },
-
+  </template>
+  
+  <script>
+  import { ref, computed, onMounted } from "vue";
+  import { useRouter } from "vue-router";
+  import axios from "axios";
+  
+  export default {
+    name: "TotalResult",
+    props: ["query"],
     setup(props) {
-        const route = useRoute();
-        const router = useRouter();
-        const products = ref([]);
-
-        const example_data = ref([
-            { id: 1, name: '제품1', manufacturer: '제조업체1', personalize: '눈 건강',    ingredient: '오메가3',     price: 3413,     total: 43291,    age1: 5427,     age2: 64,       star: 3.5,
-            img: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT_CJ0XcjPMVECLcSyUE0r2ruUzKisTcxY8aQaAbekjGHUyJlQnOzsJSeeFdG-QlaW032Pk4oqJl0g02tx4pBlzk7fZV9O0Z8rFrQ7CQQRFo6B0CxagDGBCuYi5vDDXH-ZM1kw&usqp=CAc" },
-            { id: 2, name: '제품2', manufacturer: '제조업체2', personalize: '혈당',       ingredient: '비타민c',     price: 888454,   total: 64354,    age1: 7574,     age2: 6458,     star: 4.2,
-            img: "https://src.hidoc.co.kr/image/lib/2017/11/27/20171127123357561_0.jpg" },
-            { id: 3, name: '제품3', manufacturer: '제조업체3', personalize: '체지방',     ingredient: '칼슘',        price: 68521,    total: 354,      age1: 225,      age2: 8654,     star: 3.1,
-            img: "https://mikookvitamin.com/wp-content/uploads/2022/08/1-44.jpg" },
-            { id: 4, name: '제품4', manufacturer: '제조업체4', personalize: '혈압',       ingredient: '레시틴',      price: 35488,    total: 6783456,  age1: 58574,    age2: 5648,     star: 2.4,
-            img: "https://www.mindpharm.co.kr/shopimages/hsbchong7/010000000558.jpg?1665123386" },
-            { id: 5, name: '제품5', manufacturer: '제조업체5', personalize: '간 건강',    ingredient: '쏘팔메토',    price: 676417,   total: 543453,   age1: 547,      age2: 468,      star: 3.9,
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuz3Nvk3gHgGE8ty_xDNv1N8IyG1tlI_MgQg&usqp=CAU" },
-            { id: 6, name: '제품6', manufacturer: '제조업체6', personalize: '빈혈',       ingredient: '글루코사민',  price: 111,       total: 7545852,  age1: 274,      age2: 84563,   star: 4.0,
-            img: "https://blog.kakaocdn.net/dn/ccSTa7/btq2iVJYeeO/MnhO8BM97mX9AKcKVujXrk/img.png" },
-            { id: 7, name: '제품7', manufacturer: '제조업체7', personalize: '피로감',     ingredient: '엽산',        price: 564354,   total: 42524,    age1: 23,       age2: 4,        star: 4.6,
-            img: "https://wiselycompany.com/web/product/medium/202304/e64cb84719683d853ef26b0a2807274f.png" },
-            { id: 8, name: '제품8', manufacturer: '제조업체8', personalize: '피로감',     ingredient: '아연',        price: 54386841, total: 7423,     age1: 78,       age2: 5574,     star: 5.0,
-            img: "https://gdimg.gmarket.co.kr/2506504936/still/280?ver=1666777374" },
-            { id: 9, name: '제품9', manufacturer: '제조업체9', personalize: '체지방',     ingredient: '마그네슘',    price: 121111,   total: 4755,     age1: 527527,   age2: 15,       star: 3.2,
-            img: "https://m.fromvet.com/web/product/big/202012/51436f8621129cdd29f47c2b94fa1b76.png" },
-        ]);
-
-        const fetchProductsByName = (word) => {
-            // DB에서 단어를 포함하는 이름 검색
-            return null;
-        };
-
-        const fetchProductsByPersonalize = (word) => {
-            // DB에서 단어를 포함하는 분야 검색
-            return null;
-        };
-
-        const fetchProductsByIngredient = (word) => {
-            // DB에서 단어를 포함하는 영양성분 검색
-            return null;
-        };
-
-        const fetchProducts = (option, word) => {
-            if(option == null) {    // 전부 검색
-                fetchProductsByName(word);
-                fetchProductsByPersonalize(word);
-                fetchProductsByName(word);
-            }
-            
-            if(option == 'name') {  // 제품명 검색
-                fetchProductsByName(word);
-            }
-
-            if(option == 'personalize') {  // 관심 분야 검색
-                fetchProductsByPersonalize(word);
-            }
-
-            if(option == 'ingredient') {  // 영양 성분 검색
-                fetchProductsByName(word);
-            }
-
-        };
-
-        products.value = example_data.value;
-
-        return {
-            route,
-            router,
-            products,
-            };
+      const searchQuery = ref(props.query);
+      const products = ref([]);
+      const router = useRouter();
+  
+      const fetchData = async () => {
+        try {
+          const response = await axios.post("/api/product/search/", {
+            searchQuery: searchQuery.value,
+          });
+          products.value = response.data.search_res;
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      onMounted(fetchData);
+  
+      const goToProductDetail = (productId) => {
+        router.push(`/search/result/${productId}`);
+      };
+  
+      const filteredProducts = computed(() => {
+        return products.value.filter((product) =>
+          product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+      });
+  
+      return {
+        filteredProducts,
+        products,
+        goToProductDetail,
+      };
     },
-}
-</script>
+  };
+  </script>
+  
+
 
 <style>
 

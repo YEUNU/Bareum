@@ -38,28 +38,27 @@
         <hr>
     </div>
     <div class="background bg-whitesmoke" style="padding-top: 190px; min-height: 100%; padding-bottom: 60px;">
-        <router-link class="rank_box bg-white" v-for="(product, index) in totalRanking" :key="index" :to="`/product/`">
+        <router-link class="rank_box bg-white"
+            v-for="(product,index) in totalRanking" :key="index"
+            :to="`/product/${product.업체별_제품코드}`">
             <div class="rank_order">{{ index + 1 }}위</div>
-            <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지"
+            <div class="rank_image"><img class="rank_image" :src='`/media/product_images/${product.업체별_제품코드}`' alt="상품이미지"
                     style="height: min(25vh, 25vw); width: min(25vh, 25vw);" /></div>
-            <div class="rank_manufacturer">{{ product['manufacturer'] }}</div>
-            <div class="rank_name">{{ product['name'] }}</div>
-            <div class="rank_mount">판매량: {{ product[age_group] }}</div>
-            <div class="rank_price">가격: {{ product['price'] }}원</div>
+            <div class="rank_manufacturer">{{ product.업소명 }}</div>
+            <div class="rank_name">{{ product.nutraceuticals_name }}</div>
+            <div class="rank_mount">온라인 평점:{{ product.review.average_rating }}({{ product.review.total_reviews }}) </div>
+            <div class="rank_price">온라인 최저가 :{{ product.review.lowest }} 원</div>
+            <div class="">바름 평점:{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }}) </div>
+
         </router-link>
     </div>
-    <div>
-        {{ totalRanking }}
-    </div>
-    <div v-show="popup" class="background bg-white"
-        style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
-        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup"
-            @selected_items="(option, item) => getOptions(option, item)"></customSearch>
+    <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
+        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed,onMounted, onUnmounted } from 'vue';
 import { useRouter } from "vue-router";
 import searchBar from '../../../components/Navbar/SearchBar.vue';
 import customSearch from '../../../components/CustomSearch.vue';
@@ -114,33 +113,15 @@ export default {
                 selected_option.value = params;
                 popup.value = true;
             }
-        }
-
-        const getRankings = () => {
-            return example_data.value
-            /*
-            axios.get('/data', {
-            params: {
-                option: selected_option,
-                detail: selected_items.join(","), // 체크한 항목들 걍 ','로 붙임
-            }
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-            */
         };
-        const fetchRanking = async () => {
-            if (page.value <= postTotalPages.value) {
-                try {
-                    const response = await axios.get(`/api/product/total-ranking/?page=&${page.value}`);
-                    totalRanking.value.push(...response.data.results);
-                    postTotalPages.value = Math.ceil(response.data.count / per_page);
-                    page.value += 1;
-                } catch (err) {
+        const fetchRanking = async() => {
+            if(page.value <= postTotalPages.value){
+                try{
+                const response = await axios.get(`/api/product/total-ranking/?page=${page.value}`);
+                totalRanking.value.push(...response.data.results);
+                postTotalPages.value = Math.ceil(response.data.count/ per_page);
+                page.value+=1;
+                }catch(err){
                     console.error(err);
                 }
             }
@@ -155,8 +136,8 @@ export default {
             selected_option.value = option;
             selected_items.value = items;
         };
-        dataset.value = getRankings();
 
+        
         let observer;
 
         onMounted(async () => {
@@ -165,7 +146,10 @@ export default {
             if (loader.value) {
                 observer.observe(loader.value);
             }
-        });
+          });
+
+
+    
 
         onUnmounted(() => {
             if (loader.value) {
