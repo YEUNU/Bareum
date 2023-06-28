@@ -7,7 +7,7 @@ import signupPage from './pages/login-page/Signup.vue'
 import agreesignupPage from './pages/login-page/Agreesignup.vue'
 import searchPage from './pages/Search-page/SearchPage.vue'
 import search from './pages/Search-page/Search.vue'
-import detailSearchPage from './pages/Search-page/DetailSearch.vue'
+import DetailSearch from "./pages/Search-page/DetailSearch.vue";
 import homePage from './pages/Home-page/Home.vue'
 import cameraguidePage from './pages/Home-page/Cameraguide.vue'
 import mainPage from './pages/MainPage.vue'
@@ -92,27 +92,21 @@ const routes = [
     },
     //건강기능식품 검색 페이지
     {
-        path:"/search",
-        component:searchPage,
-        name:'searchPage',
-        children:[
-            {
-                path:'',
-                component:search,
-                name:"searchPageMain",
-            },
-            //성분, 개인관심사 로 검색하기 위한 디테일 페이지
-            {
-                path:'detail',
-                component:detailSearchPage,
-                name:'detailSerachPage',
-            },
-            {
-                path:'result',
-                component:TotalResult,
-                name:'resultPage',
-                props: (route) => ({ query: route.query.q }),
-            },
+        path: "/search",
+    component: searchPage,
+    name: "searchPage",
+    children: [
+      {
+        path: "result",
+        component: TotalResult,
+        name: "resultPage",
+        props: (route) => ({ query: route.query.q }),
+      },
+      {
+        path: "result/:productId",
+        component: DetailSearch, // 수정
+        name: "DetailSearch",
+      },
         ]
     },
     {

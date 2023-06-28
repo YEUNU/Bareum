@@ -10,7 +10,39 @@ from .models import Review, BareumReview,BareumReviewImage
 from .serializers import ReviewSerializer, BareumReviewSerializer, TotalRankingSerializer
 from django.core.files.storage import default_storage
 
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
+
+from django.db.models import F, Q
+
+@csrf_exempt
+def search_nutraceuticals(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        search_query = data['searchQuery']
+
+        filtered_nutraceuticals = Nutraceuticals.objects.filter(nutraceuticals_name__contains=search_query).annotate(
+                lowest_value=F('review__lowest'),
+                star=F('review__average_rating')
+            )
+        response_data = []
+        for nutraceutical in filtered_nutraceuticals:
+            response_data.append({
+                'id': nutraceutical.업체별_제품코드,
+                'name': nutraceutical.nutraceuticals_name,
+                'score': nutraceutical.score,
+                'company_name': nutraceutical.업소명,
+                'lowest_value': nutraceutical.lowest_value,
+                'star': nutraceutical.star,
+            })
+
+        print(response_data)
+        return JsonResponse({'search_res': response_data}, safe=False)
+    else:
+        return JsonResponse({'error': 'Invalid request method'})
+
+
 
 class ProductDetailView(APIView):
     serializer = NutraSerializer 
