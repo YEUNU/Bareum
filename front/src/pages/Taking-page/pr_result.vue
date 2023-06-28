@@ -1,27 +1,23 @@
 <template>
   <div>
-    <button class="save-button" @click="handleSave">저장</button>
-    <ul>
-      <li v-for="(item, index) in searchResults" :key="index">
+    <button class="save-button" @click="handleSave" style="background-color: #2dce89; width: 100%; border-radius: 5px;">
+      저장
+    </button>
+    <div>
+      <div v-for="(item, index) in searchResults" :key="index">
         <div class="result-card">
-          <div
-            class="label-content"
-            :class="{ 'result-card-active': activeItem === item }"
-            @click="handleItemClick(item)"
-          >
-            <p><strong>제품명:</strong> {{ item.nutraceuticals_name }}</p>
-            <p><strong>업소명:</strong> {{ item.업소명 }}</p>
+          <div class="label-content" :class="{ 'result-card-active': activeItem === item }" @click="handleItemClick(item)"
+            style="text-align: center;">
+            <h5>{{ item.nutraceuticals_name }}</h5>
+            <h6>{{ item.업소명 }}</h6>
           </div>
-          <input
-            type="checkbox"
-            class="checkbox"
-            :id="`checkbox-${index}`"
-            :value="item"
-            v-model="checkedItems"
-          />
+          <input type="checkbox" class="checkbox" :id="`checkbox-${index}`" :value="item" v-model="checkedItems"
+            style="background-color: #2dce89;">
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -29,7 +25,7 @@
 import axios from "axios";
 import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
-import {useUserInfo} from "../../stores.js"
+import { useUserInfo } from "../../stores.js"
 import Cookies from 'js-cookie';
 // CSRF 토큰이 저장된 DOM 요소를 찾은 후
 const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
@@ -106,18 +102,22 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+
 .result-card-active {
   background-color: #e0e0e0;
 }
+
 .label-content {
   display: block;
   flex-grow: 1;
 }
+
 .checkbox {
   margin-left: 1rem;
   height: 20px;
   width: 20px;
 }
+
 .save-button {
   border: none;
   background-color: #0062cc;

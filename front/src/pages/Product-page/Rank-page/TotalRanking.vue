@@ -38,9 +38,7 @@
         <hr>
     </div>
     <div class="background bg-whitesmoke" style="padding-top: 190px; min-height: 100%; padding-bottom: 60px;">
-        <router-link class="rank_box bg-white"
-            v-for="(product,index) in totalRanking" :key="index"
-            :to="`/product/`">
+        <router-link class="rank_box bg-white" v-for="(product, index) in totalRanking" :key="index" :to="`/product/`">
             <div class="rank_order">{{ index + 1 }}위</div>
             <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지"
                     style="height: min(25vh, 25vw); width: min(25vh, 25vw);" /></div>
@@ -53,13 +51,15 @@
     <div>
         {{ totalRanking }}
     </div>
-    <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
-        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
+    <div v-show="popup" class="background bg-white"
+        style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
+        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup"
+            @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
 </template>
 
 <script>
-import { ref, computed,onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from "vue-router";
 import searchBar from '../../../components/Navbar/SearchBar.vue';
 import customSearch from '../../../components/CustomSearch.vue';
@@ -133,22 +133,22 @@ export default {
             });
             */
         };
-        const fetchRanking = async() => {
-            if(page.value <= postTotalPages.value){
-                try{
-                const response = await axios.get(`/api/product/total-ranking/?page=&${page.value}`);
-                totalRanking.value.push(...response.data.results);
-                postTotalPages.value = Math.ceil(response.data.count/ per_page);
-                page.value+=1;
-                }catch(err){
+        const fetchRanking = async () => {
+            if (page.value <= postTotalPages.value) {
+                try {
+                    const response = await axios.get(`/api/product/total-ranking/?page=&${page.value}`);
+                    totalRanking.value.push(...response.data.results);
+                    postTotalPages.value = Math.ceil(response.data.count / per_page);
+                    page.value += 1;
+                } catch (err) {
                     console.error(err);
                 }
             }
         }
-        const fetchDetailRanking = (detail) =>{
+        const fetchDetailRanking = (detail) => {
 
         }
-        
+
         const getOptions = (option, items) => {
             console.log(option, items, items.length);
 
@@ -156,27 +156,21 @@ export default {
             selected_items.value = items;
         };
         dataset.value = getRankings();
-        
+
         let observer;
-        
+
         onMounted(async () => {
-          await fetchRanking();
+            await fetchRanking();
 
-          observer = new IntersectionObserver(async (entries, observer) => {
-            if (entries[0].isIntersecting) {
-              await fetchRanking();
+            if (loader.value) {
+                observer.observe(loader.value);
             }
-          });
-
-          if (loader.value) {
-            observer.observe(loader.value);
-          }
         });
 
         onUnmounted(() => {
-          if (loader.value) {
-            observer.unobserve(loader.value);
-          }
+            if (loader.value) {
+                observer.unobserve(loader.value);
+            }
         });
 
 
@@ -190,7 +184,6 @@ export default {
             rank_title,
             age_group,
             open_popup,
-            getOptions,
 
             totalRanking,
             fetchDetailRanking,
