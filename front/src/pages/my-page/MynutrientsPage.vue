@@ -2,13 +2,15 @@
   <div class="mynutrientscontainer">
     <nav class="navbar fixed-top bg-white">
       <div class="container-fluid">
-        <div @click="goBack" class="navbar-brand">
+        <router-link to="/" >
+        <div class="navbar-brand">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left"
             viewBox="0 0 16 16" style="margin-left: 2vh;">
             <path fill-rule="evenodd"
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
           </svg>
         </div>
+      </router-link>
         <div style="margin-right: 2vh;">섭취 관리</div>
         <div to="/mysetting" class="navbar-brand" style="opacity: 0;">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill"
@@ -24,27 +26,7 @@
       <canvas id="myChart"></canvas>
     </div>
     <h5 style="text-align: left; font-weight: bold; margin-top:10% ">내 영양제</h5>
-    <div class="horizontal-scroll-container">
-      <div class="d-flex align-items-center mt-4 mb-2">
-        <div class="flex-shrink-0" style="text-align: left; width: 100%;">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw);">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-        </div>
-      </div>
-    </div>
+
     <div class="add-nutrient-btn" style="text-align:center; margin-top:1rem;">
       <router-link to="/taking/regist">
         <button class="btn btn-primary" style="border: none; background-color: #2dce89; color: white; border-radius: 5px;"
