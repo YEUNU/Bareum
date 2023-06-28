@@ -40,18 +40,15 @@
     <div class="background bg-whitesmoke" style="padding-top: 190px; min-height: 100%; padding-bottom: 60px;">
         <router-link class="rank_box bg-white"
             v-for="(product,index) in totalRanking" :key="index"
-            :to="`/product/`">
+            :to="`/product/${product.업체별_제품코드}`">
             <div class="rank_order">{{ index + 1 }}위</div>
-            <div class="rank_image"><img class="rank_image" :src=product.img alt="상품이미지"
+            <div class="rank_image"><img class="rank_image" :src='`/media/product_images/${product.업체별_제품코드}`' alt="상품이미지"
                     style="height: min(25vh, 25vw); width: min(25vh, 25vw);" /></div>
-            <div class="rank_manufacturer">{{ product['manufacturer'] }}</div>
-            <div class="rank_name">{{ product['name'] }}</div>
-            <div class="rank_mount">판매량: {{ product[age_group] }}</div>
-            <div class="rank_price">가격: {{ product['price'] }}원</div>
+            <div class="rank_manufacturer">{{ product.업소명 }}</div>
+            <div class="rank_name">{{ product.nutraceuticals_name }}</div>
+            <div class="rank_mount">평점 : {{5  }}</div>
+            <div class="rank_price"> 최저가 : {{ product.lowest }}원</div> 
         </router-link>
-    </div>
-    <div>
-        {{ totalRanking }}
     </div>
     <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
         <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
