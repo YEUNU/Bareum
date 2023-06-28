@@ -1,7 +1,7 @@
 <template>
     <div class="background bg-whitesmoke" style="padding-top: 100px; min-height: 100%; padding-bottom: 60px;">
         <router-link class="rank_box bg-white"
-            v-for="(product,index) in totalRanking" :key="index"
+            v-for="(product,index) in brandRanking" :key="index"
             :to="`/product/${product.업체별_제품코드}`">
             <div class="rank_order">{{ index + 1 }}위</div>
             <div class="rank_image"><img class="rank_image" :src='`/media/product_images/${product.업체별_제품코드}.png`' alt="상품이미지"
@@ -13,6 +13,7 @@
             <div class="">바름 평점:{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }}) </div>
         </router-link>
         <div ref="loader" class="loader"></div>
+
     </div>
     
 </template>
@@ -26,15 +27,15 @@ export default {
         const per_page = 10;
         const postTotalPages = ref(1);
         const loader = ref(null);
-        const totalRanking = ref([]);
+        const brandRanking = ref([]);
         const menuVisible = ref(false);
         const pageTitle = ref("바름 종합 제품 랭킹");
 
         const fetchRanking = async() => {
             if(page.value <= postTotalPages.value){
                 try{
-                const response = await axios.get(`/api/product/total-ranking/?page=${page.value}`);
-                totalRanking.value.push(...response.data.results);
+                const response = await axios.get(`/api/product/brand-ranking/`);
+                brandRanking.value.push(...response.data.results);
                 postTotalPages.value = Math.ceil(response.data.count/ per_page);
                 page.value+=1;
                 }catch(err){
@@ -67,7 +68,7 @@ export default {
     });
 
         return {
-            totalRanking,
+            brandRanking,
             fetchRanking,
             loader,
             menuVisible,
