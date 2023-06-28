@@ -35,15 +35,13 @@
     </div>
     
     <div v-for="(r, index) in nutraceuticals" :key="index">
-      <router-link :to="`/product/${r.제품코드}`">
-      <div class="item-box" style="display: flex; align-items: center; position: relative; height: 15vh;">
-        <img :src="`../media/product_images/${r.제품코드}.png`" alt="제품 이미지" class="item-img" style="margin-right: 1rem;" />
-        <div style="flex-grow: 1;">
-          <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
-          <h6 style="text-align: center;">{{ r.업소명 }}</h6>
-        </div>
-        <button class="btn btn-danger" style="position: absolute; top: 0; right: 0;"
-          @click="() => removeItem(r.제품명, r.checking_number)">
+  <div class="item-box" style="display: flex; align-items: center; position: relative; height: 15vh;" @click="goToProduct(r.제품코드)">
+    <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
+      <div style="flex-grow: 1;">
+        <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
+        <h6 style="text-align: center;">{{ r.업소명 }}</h6>
+      </div>
+        <button class="btn btn-danger" style="position: absolute; top: 0; right: 0;" @click.stop="() => removeItem(r.제품명, r.checking_number)">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
             viewBox="0 0 16 16">
             <path
@@ -53,7 +51,6 @@
           </svg>
         </button>
         </div>
-      </router-link>
     </div>
     
   </div>
@@ -145,6 +142,8 @@ import { ref, onMounted, computed } from 'vue';
 import axios from "axios";
 import { useUserInfo } from "../../stores.js";
 import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';
+
 export default {
   setup() {
     const userInfo = useUserInfo();
@@ -153,6 +152,11 @@ export default {
     const nickname = computed(() => userInfo.nickname);
     const csrf_token = Cookies.get("csrftoken");
     
+    const router = useRouter(); 
+    const goToProduct = (productCode) => {
+      router.push(`/product/${productCode}`);
+    };
+
     async function take_nutrace() {
       try {
         const response = await axios.post("/api/taking/regist", {
@@ -191,7 +195,8 @@ export default {
     return {
       nickname,
       nutraceuticals,
-      removeItem
+      removeItem,
+      goToProduct,
     };
   },
 };

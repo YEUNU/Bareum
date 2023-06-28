@@ -31,7 +31,7 @@
             <div class="product-card" style="width: 100%;">
               <div class="product-image">
                 <!-- 추후에 이미지를 여기에 추가하세요 -->
-                <img src="../../assets/lactofit.png" alt="Product image" class="fill-image" />
+                <img :src="`../../../media/product_images/${product.업체별_제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
               </div>
               <router-link :to="`/product/${product.업체별_제품코드}`">
               <div class="product-details" style="text-align: left; margin-left: 5%; width: 100%;">
