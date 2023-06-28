@@ -19,8 +19,8 @@
         </router-link>
       </div>
     </nav>
-    <div class="d-flex align-items-center justify-content-between w-100" style="white-space: nowrap;">
-      <h1>섭취중인 영양제</h1>
+    <div class="d-flex align-items-center justify-content-between w-100 header-content" style="white-space: nowrap;">
+      <h1>{{nickname}}의 섭취중인 영양제</h1>
       <router-link to="/taking/search">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#2dce89" class="bi bi-plus-square-fill"
           viewBox="0 0 16 16">
@@ -32,26 +32,10 @@
     <div v-for="(r, index) in nutraceuticals" :key="index">
       <div class="item-box" style="position: relative; height:15vh">
         <img :src="`../media/product_images/${r.제품코드}.png`" alt="제품 이미지" class="item-img"
-          style="position: absolute; top: 0; left: 0; margin-left:1.5vh; margin-top: 1.5vh;" />
-        <div style="position: absolute; top: 0; right: 0; margin-right:1.5vh; margin-top: 1.5vh; margin-bottom:1.5vh;">
+          style="position: absolute; top: 0; left: 0; margin-left:1.5vh; margin-top: 13vh;" />
+        <div style="position: absolute; top: 0; right: 0; margin-right:15vh; margin-top: 13vh; margin-bottom:1.5vh;">
           <h3>{{ r.제품명 }}</h3>
           <p>{{ r.업소명 }}</p>
-        </div>
-        </div>
-      </nav>
-        <div class="d-flex justify-content-between align-items-center header-content">
-          <h1 style="margin-top: 1rem;">{{ nickname }}의 영양제 관리</h1>
-            <router-link to="/taking/search" >
-                <button class="btn btn-primary" >영양제 등록</button>
-            </router-link>
-        </div>
-        <li v-for="(r, index) in nutraceuticals" :key="index">
-    <div class="item-box" style="position: relative;">
-        <!-- 여기에 경로/제품코드.png하면 나올거임 -->
-        <img :src="`assets/${r.제품코드}.png`" alt="제품 이미지" class="item-img" />
-        <div>
-            <h3>{{ r.제품명 }}</h3>
-            <p>업소명: {{ r.업소명 }}</p>
         </div>
         <button class="btn btn-danger" style="position: absolute; top: 0; right: 0;" @click="() => removeItem(r.제품명, r.checking_number)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -59,8 +43,8 @@
                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v1zm-1 10V4h1v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4h1v9h10zm-1-11H3v1h10V2z" />
             </svg>
         </button>
+        </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -127,6 +111,9 @@ export default {
 }
 
 .header-content {
-  padding-top: 1rem;
+  padding-top: 2rem;
+}
+.item-box{
+  min-height: 200px;
 }
 </style>
