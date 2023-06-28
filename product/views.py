@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from account.models import User
 from .models import Review, BareumReview,BareumReviewImage
-from .serializers import ReviewSerializer, BareumReviewSerializer
+from .serializers import ReviewSerializer, BareumReviewSerializer, TotalRankingSerializer
 from django.core.files.storage import default_storage
 
 # Create your views here.
@@ -92,13 +92,15 @@ class RankingPagination(PageNumberPagination):
     page_size = 10
     page_query_param = 'page'
     max_page_size = 100
+    
 class TotalRankingList(APIView):
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         try:
             top_nutra = Nutraceuticals.objects.order_by('-score')
             paginator = RankingPagination()
             paginated_ranking = paginator.paginate_queryset(top_nutra,request)
-            serializer = NutraSerializer(paginated_ranking, many=True)
+            serializer = TotalRankingSerializer(paginated_ranking, many=True)
             return paginator.get_paginated_response(serializer.data)
         except Exception as e:
+            print(e)
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)

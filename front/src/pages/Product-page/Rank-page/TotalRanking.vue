@@ -46,8 +46,10 @@
                     style="height: min(25vh, 25vw); width: min(25vh, 25vw);" /></div>
             <div class="rank_manufacturer">{{ product.업소명 }}</div>
             <div class="rank_name">{{ product.nutraceuticals_name }}</div>
-            <div class="rank_mount">평점 : {{5  }}</div>
-            <div class="rank_price"> 최저가 : {{ product.lowest }}원</div> 
+            <div class="rank_mount">온라인 평점:{{ product.review.average_rating }}({{ product.review.total_reviews }}) </div>
+            <div class="rank_price">온라인 최저가 :{{ product.review.lowest }} 원</div>
+            <div class="">바름 평점:{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }}) </div>
+
         </router-link>
     </div>
     <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
@@ -56,7 +58,7 @@
 </template>
 
 <script>
-import { ref, computed,onMounted } from 'vue';
+import { ref, computed,onMounted, onUnmounted } from 'vue';
 import { useRouter } from "vue-router";
 import searchBar from '../../../components/Navbar/SearchBar.vue';
 import customSearch from '../../../components/CustomSearch.vue';
@@ -111,29 +113,11 @@ export default {
                 selected_option.value = params;
                 popup.value = true;
             }
-        }
-
-        const getRankings = () => {
-            return example_data.value
-            /*
-            axios.get('/data', {
-            params: {
-                option: selected_option,
-                detail: selected_items.join(","), // 체크한 항목들 걍 ','로 붙임
-            }
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-            */
         };
         const fetchRanking = async() => {
             if(page.value <= postTotalPages.value){
                 try{
-                const response = await axios.get(`/api/product/total-ranking/?page=&${page.value}`);
+                const response = await axios.get(`/api/product/total-ranking/?page=${page.value}`);
                 totalRanking.value.push(...response.data.results);
                 postTotalPages.value = Math.ceil(response.data.count/ per_page);
                 page.value+=1;
@@ -152,7 +136,7 @@ export default {
             selected_option.value = option;
             selected_items.value = items;
         };
-        dataset.value = getRankings();
+
         
         let observer;
         
@@ -165,7 +149,7 @@ export default {
             }
           });
 
-          if (loader.value) {
+          if (loader.value) {   
             observer.observe(loader.value);
           }
         });
