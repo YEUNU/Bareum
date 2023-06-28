@@ -126,10 +126,10 @@ export default {
                 }
             }
         }
-        const fetchDetailRanking = (detail) =>{
+        const fetchDetailRanking = (detail) => {
 
         }
-        
+
         const getOptions = (option, items) => {
             console.log(option, items, items.length);
 
@@ -139,25 +139,22 @@ export default {
 
         
         let observer;
-        
-        onMounted(async () => {
-          await fetchRanking();
 
-          observer = new IntersectionObserver(async (entries, observer) => {
-            if (entries[0].isIntersecting) {
-              await fetchRanking();
+        onMounted(async () => {
+            await fetchRanking();
+
+            if (loader.value) {
+                observer.observe(loader.value);
             }
           });
 
-          if (loader.value) {   
-            observer.observe(loader.value);
-          }
-        });
+
+    
 
         onUnmounted(() => {
-          if (loader.value) {
-            observer.unobserve(loader.value);
-          }
+            if (loader.value) {
+                observer.unobserve(loader.value);
+            }
         });
 
 
@@ -171,7 +168,6 @@ export default {
             rank_title,
             age_group,
             open_popup,
-            getOptions,
 
             totalRanking,
             fetchDetailRanking,
