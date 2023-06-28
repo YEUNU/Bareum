@@ -16,20 +16,27 @@
     <router-view></router-view>
 </template>
 <script>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 export default {
-  data() {
-    return {
-      searchQuery: '',
-      placeholder: '검색어를 입력하세요',
-    };
-  },
-  methods: {
-    search() {
-      this.$router.push({
-        name: 'commuSearchResult', 
-        query: { searchQuery: this.searchQuery }, 
+  setup() {
+    const searchQuery = ref('');
+    const placeholder = '검색어를 입력하세요';
+    const router = useRouter();
+
+    const search = () => {
+      router.push({
+        name: 'commuSearchResult',
+        query: { searchQuery: searchQuery.value },
       });
-    },
+    };
+
+    return {
+      searchQuery,
+      placeholder,
+      search,
+   };
   },
 };
 </script>

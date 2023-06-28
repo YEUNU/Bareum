@@ -41,27 +41,43 @@ export default {
       root.$router.go(-1); // 이전 페이지로 이동
     };
 
-    async function getUserNutrientsData() {
+    async function getUserProductsData() {
       try {
         const response = await axios.get("/api/taking/", {
           params: {
-            user_id: loginId.value, 
+            user_id: loginId.value,
           },
         });
-        const user_nutrients_data = response.data;
-        return user_nutrients_data;
+        const user_products_data = response.data;
+        return user_products_data;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
     onMounted(async () => {
-      const nutrientsData = await getUserNutrientsData();
-      const maxValues = [100, 20, 700, 700, 315, 8.5];
-      const nutrientsArray = ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'].map((label, index) => {
-        const value = nutrientsData[label] / maxValues[index] * 100;
-        return value;
-      });
+      const productsData = await getUserProductsData();
+      const maxValues = [100, 100, 100, 100, 100, 100];
+
+      const nutrientsArray = productsData.reduce(
+        (result, product) => {
+          const nutrients = Object.keys(product)
+            .slice(1)
+            .map((nutrient, index) => {
+              return [
+                ...result[index],
+                {
+                  product: product.제품명,
+                  value: product[nutrient] / maxValues[index] * 100,
+                },
+              ];
+            });
+
+          return nutrients;
+        },
+        Array.from({ length: 6 }, () => [])
+      );
+
       // 차트를 렌더링할 캔버스를 선택합니다.
       const ctx = document.getElementById('myChart').getContext('2d');
       // 새 차트 인스턴스를 생성합니다.
@@ -71,8 +87,8 @@ export default {
           labels: ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'],
           datasets: [
             {
-              label: 'Sample Dataset',
-              data: nutrientsArray,
+              label: ['Sample Dataset'],
+              data: nutrientsArray.map((arr) => arr.reduce((sum, item) => sum + item.value, 0)),
               backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(75, 192, 192, 0.5)',
@@ -96,6 +112,16 @@ export default {
         options: {
           responsive: true,
           plugins: {
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const productData = nutrientsArray[context.dataIndex];
+                  return productData
+                    .map((product) => product.product + ": " + product.value)
+                    .join(", ");
+                },
+              },
+            },
             legend: {
               display: false,
             },
