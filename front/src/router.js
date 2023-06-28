@@ -34,7 +34,7 @@ import writePage from './pages/Community-page/Write.vue';
 import postDetailContent from './pages/Community-page/PostDetailContent.vue';
 import postDetailPage from './pages/Community-page/postDetail.vue';
 import CustomSearch from './components/CustomSearch.vue';
-import TotalRanking from './pages/Product-page/Rank-page/TotalRanking.vue';
+import rankingPage from './pages/Product-page/Rank-page/RankingPage.vue';
 import postPage from './pages/Community-page/Post.vue'
 import popularPostPage from './pages/Community-page/PopularPost.vue'
 import newsPage from './pages/Community-page/HealthNews.vue'
@@ -62,6 +62,12 @@ import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
 import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
 import receivealarmPage from './pages/Home-page/Receivealarm.vue';
 import productReviewWritePage from './pages/Product-page/detail-page/Write.vue';
+
+import totalRankingPage from './pages/Product-page/Rank-page/TotalRanking.vue';
+import ageRankingPage from './pages/Product-page/Rank-page/AgeRanking.vue';
+import ingredientRankingPage from './pages/Product-page/Rank-page/IngredientRanking.vue';
+import barandRankingpage from './pages/Product-page/Rank-page/BrandRanking.vue';
+import categoryRankingPage from './pages/Product-page/Rank-page/CategoryRanking.vue';
 
 
 import ReviewList from './pages/review-page/ReviewList.vue';
@@ -152,8 +158,35 @@ const routes = [
         children:[
             {
                 path:'',
-                name:'TotalRanking',
-                component:TotalRanking
+                name:'rankingPage',
+                component:rankingPage,
+                children:[
+                    {
+                        path:'',
+                        name:'totalRankingPage',
+                        component:totalRankingPage
+                    },
+                    {
+                        path:'age',
+                        name:'AgeRankingPage',
+                        component:ageRankingPage
+                    },
+                    {
+                        path:'brand',
+                        name:'BrandRankingPage',
+                        component:barandRankingpage
+                    },
+                    {
+                        path:'category',
+                        name:'CategoryRankingPage',
+                        component:categoryRankingPage
+                    },
+                    {
+                        path:'ingredient',
+                        name:'IngredientRankingPage',
+                        component:ingredientRankingPage
+                    },
+                ]
             }
         ]
     },

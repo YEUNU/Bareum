@@ -62,28 +62,39 @@ class TotalRankingBareumReviewSeiralizer(serializers.ModelSerializer):
     class Meta:
         model = BareumReview
         fields = ('제품코드_id','rating')
+        
 class TotalRankingSerializer(serializers.ModelSerializer):
     review = serializers.SerializerMethodField()
     bareum_review = serializers.SerializerMethodField()
 
     class Meta:
         model = Nutraceuticals
-        fields = '__all__'
+        fields = ('업체별_제품코드','review','bareum_review','업소명','nutraceuticals_name','bareum_certification')
 
     def get_review(self, obj):
-        review = Review.objects.get(제품코드_id=obj.업체별_제품코드)
-        return TotalRankingReviewSerializer(review).data
+        try:
+            review = Review.objects.get(제품코드_id=obj.업체별_제품코드)
+            return TotalRankingReviewSerializer(review).data
+        except Review.DoesNotExist:
+            return {'제품코드_id' : obj.업체별_제품코드,
+                    'lowest':'---',
+                    'average_rating':0,
+                    'total_reviews':0}
 
     def get_bareum_review(self, obj):
         total_rating = 0
         number_of_ratings = BareumReview.objects.filter(제품코드_id=obj.업체별_제품코드).count()
 
+        if number_of_ratings == 0:
+            return {
+            'average_rating': 0,
+            'total_reviews': 0
+        }
+
         for review in BareumReview.objects.filter(제품코드_id=obj.업체별_제품코드):
             total_rating += review.rating
 
-        average_rating = 0
-        if number_of_ratings != 0:
-            average_rating = total_rating / number_of_ratings
+        average_rating = total_rating / number_of_ratings
 
         return {
             'average_rating': average_rating,

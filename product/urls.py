@@ -9,5 +9,10 @@ urlpatterns = [
     path('my-reviews/<int:member_id>/',views.MyReviewList.as_view(),name='my-review-list'),
     path('total-ranking/',views.TotalRankingList.as_view()),
     path('search/', views.search_nutraceuticals, name='search_nutraceuticals'),
+    path('age-ranking/',views.AgeRankingList.as_view()),
+    path('barnd-ranking/',views.BrandRankingList.as_view()),
+    path('category-ranking/',views.CateogryRankingList.as_view()),
+    path('ingredient-ranking/<str:ingredient>/',views.IngredientRankingList.as_view()),
+    
     
 ]

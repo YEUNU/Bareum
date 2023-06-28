@@ -136,3 +136,34 @@ class TotalRankingList(APIView):
         except Exception as e:
             print(e)
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        
+class AgeRankingList(APIView):
+    def get(self,request): 
+        try:
+            ...
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+class BrandRankingList(APIView):
+    def get(self,request): 
+        try:
+            ...
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+class CateogryRankingList(APIView):
+    def get(self,request): 
+        try:
+            ...
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+class IngredientRankingList(APIView):
+    def get(self, request, ingredient):
+        try:
+            top_nutra = Nutraceuticals.objects.filter(**{ingredient + '__gt': 0.0}).order_by('-score')
+            paginator = RankingPagination()
+            paginated_ranking = paginator.paginate_queryset(top_nutra,request)
+            serializer = TotalRankingSerializer(paginated_ranking, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
