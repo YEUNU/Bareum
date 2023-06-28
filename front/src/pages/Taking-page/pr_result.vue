@@ -50,6 +50,8 @@ export default {
     const checkedItems = ref([]);
     const userInfo = useUserInfo();
     const loginId = computed(() => userInfo.loginId);
+    const csrf_token = Cookies.get("csrftoken");
+
     function handleItemClick(item) {
       activeItem.value = item;
       console.log("클릭한 제품: ", item);
@@ -60,6 +62,10 @@ export default {
 
       try {
         const response = await axios.post("/api/taking/save", {
+          headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrf_token,
+          },
           checkedItems: checkedItems.value.map((item) => ({
             nutraceuticals_name: item.nutraceuticals_name,
             loginId: loginId.value,

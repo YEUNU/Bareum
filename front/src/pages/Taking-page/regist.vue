@@ -63,17 +63,20 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from "axios";
 import { useUserInfo } from "../../stores.js";
-
+import Cookies from 'js-cookie';
 export default {
   setup() {
     const userInfo = useUserInfo();
     const loginId = computed(() => userInfo.loginId);
     const nutraceuticals = ref([]);
     const nickname = computed(() => userInfo.nickname);
-
+    const csrf_token = Cookies.get("csrftoken");
+    
     async function take_nutrace() {
       try {
         const response = await axios.post("/api/taking/regist", {
+          headers: { "Content-Type": "application/json",
+                      "X-CSRFToken": csrf_token,},
           loginId: loginId.value,
         });
         nutraceuticals.value = response.data.take;
@@ -85,6 +88,10 @@ export default {
     async function removeItem(nutraceuticals_name, checking_number) {
       try {
         await axios.delete("/api/taking/remove", {
+          headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": csrf_token,
+                  },
           data: {
             loginId: loginId.value,
             nutraceuticals_name: nutraceuticals_name,
