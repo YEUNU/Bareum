@@ -33,7 +33,7 @@
                         <div class="col-6 col-sm-3" style="width: 100%;"><h3 style="margin-top: 5%;">{{ r.제품명 }}</h3></div>
                       </div>
                       <div>
-                        <div class="col-6 col-sm-3"><p> {{ r.업소명 }}</p></div>
+                        <div class="col-6 col-sm-3"><p> {{r.업소명}}</p></div>
                       </div>
                     </div>
                   
