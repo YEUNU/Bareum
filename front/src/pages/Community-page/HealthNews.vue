@@ -40,6 +40,8 @@ export default {
         const per_page = 10;
         const postTotalPages = ref(1);
         const newsList  = ref([]);
+      const loader = ref(null);
+
         async function fetchNews() {
             if (page.value <= postTotalPages.value) {
               try {
@@ -52,12 +54,31 @@ export default {
               }
             }
     }
-        
+    let observer;
+    
+    onMounted(async () => {
+      await fetchNews();
 
-        onMounted(() => {
-            fetchNews();
-        })
+      observer = new IntersectionObserver(async (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          await fetchNews();
+        }
+      });
+
+      if (loader.value) {
+        observer.observe(loader.value);
+      }
+    });
+
+    onUnmounted(() => {
+      if (loader.value) {
+        observer.unobserve(loader.value);
+      }
+    });
+
+
         return{
+          loader,
             newsList,
             fetchNews
         }

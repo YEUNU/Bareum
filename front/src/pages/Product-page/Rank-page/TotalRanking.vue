@@ -73,6 +73,11 @@ export default {
         const selected_option = ref(null);
         const selected_items = ref([]);
         const dataset = ref(null);
+        const page = ref(1);
+        const per_page = 10;
+        const postTotalPages = ref(1);
+        const loader = ref(null);
+
         const totalRanking = ref([]);
         const rank_title = computed(() => {
             if (selected_items.value.length == 0) {
@@ -111,16 +116,35 @@ export default {
             }
         }
 
+        const getRankings = () => {
+            return example_data.value
+            /*
+            axios.get('/data', {
+            params: {
+                option: selected_option,
+                detail: selected_items.join(","), // 체크한 항목들 걍 ','로 붙임
+            }
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            */
+        };
         const fetchRanking = async() => {
-            try{
-                const response = await axios.get('/api/product/total-ranking/');
-                totalRanking.value = response.data;
-           }catch(err){
-            console.error(err);
-           }
-    }
-        
-
+            if(page.value <= postTotalPages.value){
+                try{
+                const response = await axios.get(`/api/product/total-ranking/?page=&${page.value}`);
+                totalRanking.value.push(...response.data.results);
+                postTotalPages.value = Math.ceil(response.data.count/ per_page);
+                page.value+=1;
+                }catch(err){
+                    console.error(err);
+                }
+            }
+        }
         const fetchDetailRanking = (detail) =>{
 
         }
@@ -133,9 +157,28 @@ export default {
         };
         dataset.value = getRankings();
         
-        onMounted(() => {
-            fetchRanking()
-        })
+        let observer;
+        
+        onMounted(async () => {
+          await fetchRanking();
+
+          observer = new IntersectionObserver(async (entries, observer) => {
+            if (entries[0].isIntersecting) {
+              await fetchRanking();
+            }
+          });
+
+          if (loader.value) {
+            observer.observe(loader.value);
+          }
+        });
+
+        onUnmounted(() => {
+          if (loader.value) {
+            observer.unobserve(loader.value);
+          }
+        });
+
 
         return {
             router,
@@ -152,6 +195,7 @@ export default {
             totalRanking,
             fetchDetailRanking,
             fetchRanking,
+            loader,
         };
     }
 }
