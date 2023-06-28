@@ -56,7 +56,7 @@ class NutraceuticalsSaveAPIView(generics.GenericAPIView):
         else:
             return Response({"message": "fail"})
 
-            
+        
 def view_take(req):
     if req.method == "POST":
         data = json.loads(req.body)

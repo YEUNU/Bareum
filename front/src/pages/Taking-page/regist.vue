@@ -2,13 +2,15 @@
   <div class="mycontainer">
     <nav class="navbar fixed-top bg-white">
       <div class="container-fluid">
-        <a href="javascript:history.back()" class="navbar-brand" style="margin-left: 2vh;">
+        <router-link to="/taking" >
+        <a class="navbar-brand" style="margin-left: 2vh;">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left"
             viewBox="0 0 16 16">
             <path fill-rule="evenodd"
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
           </svg>
         </a>
+      </router-link>
         <div class="navbar-title" style="margin-right: 2vh;">섭취 관리</div>
         <router-link to="/mysetting" class="navbar-right" style="opacity: 0;">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill"
@@ -142,17 +144,20 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from "axios";
 import { useUserInfo } from "../../stores.js";
-
+import Cookies from 'js-cookie';
 export default {
   setup() {
     const userInfo = useUserInfo();
     const loginId = computed(() => userInfo.loginId);
     const nutraceuticals = ref([]);
     const nickname = computed(() => userInfo.nickname);
-
+    const csrf_token = Cookies.get("csrftoken");
+    
     async function take_nutrace() {
       try {
         const response = await axios.post("/api/taking/regist", {
+          headers: { "Content-Type": "application/json",
+                      "X-CSRFToken": csrf_token,},
           loginId: loginId.value,
         });
         nutraceuticals.value = response.data.take;
@@ -164,6 +169,10 @@ export default {
     async function removeItem(nutraceuticals_name, checking_number) {
       try {
         await axios.delete("/api/taking/remove", {
+          headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": csrf_token,
+                  },
           data: {
             loginId: loginId.value,
             nutraceuticals_name: nutraceuticals_name,

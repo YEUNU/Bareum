@@ -9,6 +9,7 @@ import os
 from product.models import Nutraceuticals, new_Nutraceuticals
 from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def process_image(request):
     if request.method == "POST" and request.FILES["image"]:
         image = request.FILES["image"]
