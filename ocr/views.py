@@ -16,7 +16,7 @@ def process_image(request):
         img = np.array(Image.open(image))
         model = ocr()
         result_ocr = model(img)
-        string=""
+        string="비타민"
         for i in result_ocr:
             if i[2] > 0.6:
                 string += " " + i[1]

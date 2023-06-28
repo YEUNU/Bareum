@@ -8,8 +8,9 @@
         <div class="result-card">
           <div class="label-content" :class="{ 'result-card-active': activeItem === item }" @click="handleItemClick(item)"
             style="text-align: center;">
+            <img :src="`../../../media/product_images/${item.업체별_제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
             <h5>{{ item.nutraceuticals_name }}</h5>
-            <h6>{{ item.업소명 }}</h6>
+            <h6>{{ item.업소명 }} </h6>
           </div>
           <input type="checkbox" class="checkbox" :id="`checkbox-${index}`" :value="item" v-model="checkedItems"
             style="background-color: #2dce89;">

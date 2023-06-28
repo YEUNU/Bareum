@@ -36,7 +36,7 @@
     
     <div v-for="(r, index) in nutraceuticals" :key="index">
   <div class="item-box" style="display: flex; align-items: center; position: relative; height: 15vh;" @click="goToProduct(r.제품코드)">
-    <img :src="`../media/product_images/${r.제품코드}.png`" alt="제품 이미지" class="item-img" style="margin-right: 1rem;" />
+    <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
       <div style="flex-grow: 1;">
         <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
         <h6 style="text-align: center;">{{ r.업소명 }}</h6>

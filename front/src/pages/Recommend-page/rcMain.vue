@@ -24,7 +24,7 @@
     <router-link :to="`/product/${r.제품코드}`">
       <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
         <div class="d-flex align-items-center">
-          <img :src="`../../../media/product_images/${r.제품코드}.png`" width="50" alt="제품 이미지" class="item-img" />
+          <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
           <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
             <div class="text-container">
               <p v-if="r.광고상품" style="margin-left: 2%;">광고상품입니다.</p>
