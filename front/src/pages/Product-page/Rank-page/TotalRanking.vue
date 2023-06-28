@@ -50,15 +50,16 @@
             <div class="rank_price">가격: {{ product['price'] }}원</div>
         </router-link>
     </div>
-    <div v-show="popup" class="background bg-white"
-        style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
-        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup"
-            @selected_items="(option, item) => getOptions(option, item)"></customSearch>
+    <div>
+        {{ totalRanking }}
+    </div>
+    <div v-show="popup" class="background bg-white" style="position: fixed; margin-top: 220px; min-height: calc(100vh - 220px); z-index: 1200;">
+        <customSearch :selected_option="selected_option" :popup="popup" @close_popup="(close_popup) => popup = close_popup" @selected_items="(option, item) => getOptions(option, item)"></customSearch>
     </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed,onMounted } from 'vue';
 import { useRouter } from "vue-router";
 import searchBar from '../../../components/Navbar/SearchBar.vue';
 import customSearch from '../../../components/CustomSearch.vue';
@@ -72,6 +73,7 @@ export default {
         const selected_option = ref(null);
         const selected_items = ref([]);
         const dataset = ref(null);
+        const totalRanking = ref([]);
         const rank_title = computed(() => {
             if (selected_items.value.length == 0) {
                 return '종합'
@@ -165,16 +167,27 @@ export default {
             });
             */
         };
+        const fetchRanking = async() => {
+            try{
+                const response = await axios.get('/api/product/total-ranking/');
+                totalRanking.value = response.data;
+        }
+    }
+        const fetchDetailRanking = (detail) =>{
 
+        }
+        
         const getOptions = (option, items) => {
             console.log(option, items, items.length);
 
             selected_option.value = option;
             selected_items.value = items;
         };
-
         dataset.value = getRankings();
-
+        
+        onMounted(() => {
+            fetchRanking()
+        })
 
         return {
             router,
@@ -187,6 +200,10 @@ export default {
             age_group,
             open_popup,
             getOptions,
+
+            totalRanking,
+            fetchDetailRanking,
+            fetchRanking,
         };
     }
 }

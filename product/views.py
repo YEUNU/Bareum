@@ -85,3 +85,13 @@ class MyReviewList(APIView):
             return JsonResponse({"message": "review not found"}, status=404)
         serializer = BareumReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+class TotalRankingList(APIView):
+    def get(self, request):
+        try:
+            top_nutra = Nutraceuticals.objects.order_by('-score')[:10]
+            serializer = NutraSerializer(top_nutra, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
