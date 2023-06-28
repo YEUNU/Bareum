@@ -1,42 +1,53 @@
 <template>
 <div class="background" style="display: flex; flex-direction: column; align-items: center;">
     <nav class="navbar fixed-top bg-white" style="box-shadow: 0 2px 1px -1px #EAEAEA;">
-        <div class="container-fluid">
+        <div class="container-fluid" style="font-weight: bold;">
             <span class="navbar-brand" @click="$router.back()" style="margin-left: 2vh;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-arrow-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                 </svg>
             </span>
             <div>리뷰쓰기</div>
-            <button style="height: 40px;">a</button>
+            <label for="review_submit" style="padding: 0 16px; font-weight: bold;">등록</label>
+            <button id="review_submit" form="review" type="submit" style="display: none;"></button>
         </div>
     </nav>
+
+    
     <div class="background bg-whitesmoke" style="display: flex; flex-direction: column; align-items: center; margin-top:56px; min-height: calc(100vh - 56px);">
-
-        <div>
-            <img :src="`/media/produt_images/${productCode}.png`"/>
-            {{ product.nutraceuticals_name }}
-            {{ product.업소명 }}
+        <div class="product_card product_head">
+            <div style="display: flex;">
+                <img :src="`/media/produt_images/${productCode}.png`" style="width: 80px; height: 80px;"/>
+                <div style="display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; padding-left: 1rem;">
+                    <span style="font-size: 0.8em;">{{ product.업소명 }}</span>
+                    <span style="font-weight: bold;">{{ product.nutraceuticals_name }}</span>
+                    <button @click="$router.push('/search')" style="width: 90px; font-size: 0.8em; padding: 0.3em 1em; background-color: white; border: 2px solid whitesmoke; border-radius: 5px;">제품 변경</button>
+                </div>
+            </div>
         </div>
-        <form @submit.prevent="submitReview(product.업체별_제품코드)">
-            <div class="form-group">
-                <label>평점을 입력해주세요</label>
-                <StarRating @update-rating="updateRating"/>
-            </div>
-            <div class="form-group">
-                <label for="review-text">Review:</label>
-                <textarea id="review-text" v-model="reviewText" required></textarea>
-            </div>
-            <div class="form-group"><input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" /></div>
 
-            <div style="margin-top: 5%; text-align: left;" v-for="(url, index) in imagePreviewUrls" :key="index">
-                <img :src="url" class="preview-image" style="width:100%; height:30%;" />
-                <button @click="removeImage(index)">x</button>
+        <form id="review" @submit.prevent="submitReview(product.업체별_제품코드)">
+            
+            <div class="form-group product_card" style="text-align: center;">
+                <label style="font-size: 1em;">평점을 선택해주세요</label>
+                <StarRating @update-rating="updateRating" style="margin-top: -0.5em;"/>
             </div>
 
-            <button type="submit">Submit</button>
-        </form>
+            <div class="form-group product_card">
+                <label for="review-text">좋았던 점</label>
+                <textarea id="review-text" v-model="reviewText" rows="3" required style="border: none; resize: none;"></textarea>
+            </div>
 
+            <div class="form-group product_card">
+                <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" />
+
+                <div style="margin-top: 5%; text-align: left;" v-for="(url, index) in imagePreviewUrls" :key="index">
+                    <img :src="url" class="preview-image" style="width:100%; height:30%;" />
+                    <button @click="removeImage(index)">x</button>
+                </div>
+                
+            </div>
+            </form>
     </div>
 </div>
 </template>
@@ -126,6 +137,7 @@ export default {
         };
   
         const submitReview = async(productCode) => {
+/*
             try{
                 const formData = new FormData();
                 formData.append("reviews", reviewText.value);
@@ -145,6 +157,8 @@ export default {
             } catch (error) {
                 console.error("글 작성 중 에러가 발생했습니다:", error);
             }
+            */
+           console.log('성공!')
         };
 
         const removeImage = (index) => {
