@@ -48,7 +48,7 @@ export const useUserInfo = defineStore('userInfo',{
     birthDay:'',
     age:null,
     gender:null,
-    nickName:"",
+    nickname:"",
     weight:null,
     height:null,
   }),
@@ -68,10 +68,10 @@ export const useUserInfo = defineStore('userInfo',{
       this.profileImgUrl = profileImgUrl
     },
 
-    userAddInfo(birthDay,gender,nickName,weight,height){
+    userAddInfo(birthDay,gender,nickname,weight,height){
       this.birthDay = birthDay;
       this.gender = gender;
-      this.nickName = nickName;
+      this.nickname = nickname;
       this.weight = weight;
       this.height = height;
       if(this.birthDay!=undefined){

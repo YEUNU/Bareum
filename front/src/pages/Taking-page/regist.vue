@@ -17,7 +17,7 @@
         </div>
       </nav>
         <div class="d-flex justify-content-between align-items-center header-content">
-          <h1 style="margin-top: 1rem;">내가 먹는 영양제 관리</h1>
+          <h1 style="margin-top: 1rem;">{{ nickname }}의 영양제 관리</h1>
             <router-link to="/taking/search" >
                 <button class="btn btn-primary" >영양제 등록</button>
             </router-link>
@@ -51,7 +51,8 @@ export default {
     const userInfo = useUserInfo();
     const loginId = computed(() => userInfo.loginId);
     const nutraceuticals = ref([]);
-
+    const nickname = computed(() => userInfo.nickname);
+   
     async function take_nutrace() {
         try {
           const response = await axios.post("/api/taking/regist", {
@@ -82,6 +83,7 @@ export default {
     });
 
     return {
+      nickname,
       nutraceuticals,
       removeItem,
     };
