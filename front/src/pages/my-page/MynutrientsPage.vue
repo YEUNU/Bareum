@@ -19,8 +19,31 @@
         </div>
       </div>
     </nav>
+    <h5 style="text-align: left; font-weight: bold; margin-top:10%">섭취중인 영양소</h5>
     <div class="chart-container" style="text-align:center;">
       <canvas id="myChart"></canvas>
+    </div>
+    <h5 style="text-align: left; font-weight: bold; margin-top:10% ">내 영양제</h5>
+    <div class="horizontal-scroll-container">
+      <div class="d-flex align-items-center mt-4 mb-2">
+        <div class="flex-shrink-0" style="text-align: left; width: 100%;">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw);">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+            alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
+        </div>
+      </div>
     </div>
     <div class="add-nutrient-btn" style="text-align:center; margin-top:1rem;">
       <router-link to="/taking/regist">
@@ -168,7 +191,7 @@ export default {
 .chart-container {
   width: 100%;
   height: 100%;
-  margin-top: 10%;
+  margin-bottom: -5%;
   border: 1px solid #d3d3d3;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px #eeeeee;
