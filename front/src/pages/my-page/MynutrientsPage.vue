@@ -122,7 +122,7 @@ export default {
                 label: function (context) {
                   const productData = nutrientsArray[context.dataIndex];
                   return productData
-                    .map((product) => product.product + ": " + product.value)
+                    .map((product) => product.product + ": " + product.value.toFixed(1) + "%")
                     .join(", ");
                 },
               },
