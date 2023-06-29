@@ -10,7 +10,7 @@
             </ul>
             에 도움을 줄 수 있는
         </div>
-        {{ nutra_presonal_mapping[selectedCategory].join(', ') }} 가 함유된 제품들 입니다.
+        {{ nutra_presonal_mapping[selectedCategory].join(', ') }}(이)가 함유된 제품들 입니다.
     </div>
     <router-link class="rank_box bg-white"
     v-for="(product,index) in categoryRanking" :key="index"
