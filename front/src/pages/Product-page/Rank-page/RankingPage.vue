@@ -86,7 +86,6 @@ export default {
     display: grid;
     width: 100vw;
     grid-template-columns: 5vw min(21vh, 21vw) 65vw;
-    grid-template-rows: 2vh 3vh 3vh 3vh 3vh;
     align-content: center;
     margin-bottom: 2vh;
     padding: 5vw;
@@ -129,6 +128,7 @@ export default {
     align-self: center;
     justify-self: start;
     font-size: 1em;
+    text-align: start;
 }
 
 .rank_mount {
