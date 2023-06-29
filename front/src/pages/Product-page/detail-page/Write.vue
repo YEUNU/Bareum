@@ -137,7 +137,6 @@ export default {
         };
   
         const submitReview = async(productCode) => {
-/*
             try{
                 const formData = new FormData();
                 formData.append("reviews", reviewText.value);
@@ -157,8 +156,6 @@ export default {
             } catch (error) {
                 console.error("글 작성 중 에러가 발생했습니다:", error);
             }
-            */
-           console.log('성공!')
         };
 
         const removeImage = (index) => {
