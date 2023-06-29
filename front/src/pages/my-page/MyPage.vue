@@ -85,7 +85,8 @@
                 <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
                   <img :src="`/media/product_images/${product.제품코드}.png`" alt=""
                     style="height: min(20vh, 20vw); width: min(20vh, 20vw); display:block;">
-                  <p style="text-align:center; word-wrap: break-word; width: min(20vh, 20vh);">{{ product.제품명 }}</p>
+                  <p style="text-align:center; word-wrap: break-word; width: min(20vh, 20vh); margin-top:10%">{{
+                    product.제품명 }}</p>
 
                 </div>
               </div>
