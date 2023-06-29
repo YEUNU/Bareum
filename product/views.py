@@ -16,12 +16,12 @@ import json
 
 from django.db.models import F, Q
 
+
 @csrf_exempt
 def search_nutraceuticals(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         search_query = data['searchQuery']
-
         filtered_nutraceuticals = Nutraceuticals.objects.filter(nutraceuticals_name__contains=search_query).annotate(
                 lowest_value=F('review__lowest'),
                 star=F('review__average_rating')
@@ -36,9 +36,9 @@ def search_nutraceuticals(request):
                 'lowest_value': nutraceutical.lowest_value,
                 'star': nutraceutical.star,
             })
-
-        print(response_data)
-        return JsonResponse({'search_res': response_data}, safe=False)
+        sorted_response_data = sorted(response_data, key=lambda x: x["score"], reverse=True)
+        print(sorted_response_data)
+        return JsonResponse({'search_res': sorted_response_data}, safe=False)
     else:
         return JsonResponse({'error': 'Invalid request method'})
 
