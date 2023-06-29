@@ -11,11 +11,14 @@
             </span>
             </router-link>
             <div @click="toggleMenu" style="margin-right: 2vh; cursor: pointer; font-weight: bold;">{{ pageTitle }}</div>
-            <div to="/mysetting" class="navbar-brand" style="opacity: 0;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+            
+            <div to="/mysetting" class="navbar-brand" @click="toggleMenu">
+                <svg v-if="menuVisible" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm.5 5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1 0-1zM4 8.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm2 3a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M6 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
                 </svg>
             </div>
         </div>
@@ -74,7 +77,7 @@ export default {
     flex-direction: column;
     background-color: white;
     box-shadow: 2px 2px 2px 2px #eeeeee;
-    margin-bottom: 2vh;
+    margin-bottom: 0.5vh;
     padding: 5vw;
     font-size: 0.9em;
     text-align: start;
@@ -87,7 +90,7 @@ export default {
     width: 100vw;
     grid-template-columns: 5vw min(21vh, 21vw) 65vw;
     align-content: center;
-    margin-bottom: 2vh;
+    margin-bottom: 1vh;
     padding: 5vw;
     font-weight: bold;
     box-shadow: 2px 2px 2px 2px #eeeeee;
@@ -97,13 +100,13 @@ export default {
 
 .rank_order {
     grid-column: 1 / 2;
-    grid-row: 1 / 6;
+    grid-row: 1 / 5;
     align-self: center;
 }
 
 .rank_image {
     grid-column: 2 / 3;
-    grid-row: 1 / 6;
+    grid-row: 1 / 5;
     align-self: center;
     justify-self: center;
     padding: 2vw;
@@ -131,23 +134,18 @@ export default {
     text-align: start;
 }
 
-.rank_mount {
+.rank_score {
     grid-column: 3 / 4;
     grid-row: 3 / 4;
     align-self: center;
     justify-self: start;
+    font-size: 0.8em;
+    font-weight: normal;
 }
 
 .rank_price {
     grid-column: 3 / 4;
     grid-row: 4 / 5;
-    align-self: center;
-    justify-self: start;
-}
-
-.rank_score {
-    grid-column: 3 / 4;
-    grid-row: 5 / 6;
     align-self: center;
     justify-self: start;
 }

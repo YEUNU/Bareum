@@ -20,9 +20,12 @@
         </div>
         <div class="rank_manufacturer">{{ product.업소명 }}</div>
         <div class="rank_name">{{ product.nutraceuticals_name }}</div>
-        <div class="rank_mount">온라인 평점:{{ product.review.average_rating }}({{ product.review.total_reviews }}) </div>
-        <div class="rank_price">온라인 최저가 :{{ product.review.lowest }} 원</div>
-        <div class="rank_score">바름 평점:{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }}) </div>
+        <div class="rank_score">
+            온라인 <span style="color: #FFCC21;">★</span>{{ product.review.average_rating }}({{ product.review.total_reviews }}) 
+            <span style="color: gainsboro;"> | </span>
+            바름 <span style="color: #FFCC21;">★</span>{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }})
+        </div>
+        <div class="rank_price">최저가 : {{ product.review.lowest }}원</div>
     </router-link>
     <div ref="loader" class="loader"></div>
 </div>
