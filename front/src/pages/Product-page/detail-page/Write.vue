@@ -17,7 +17,7 @@
     <div class="background bg-whitesmoke" style="display: flex; flex-direction: column; align-items: center; margin-top:56px; min-height: calc(100vh - 56px);">
         <div class="product_card product_head">
             <div style="display: flex;">
-                <img :src="`/media/produt_images/${productCode}.png`" style="width: 80px; height: 80px;"/>
+                <img :src="`/media/product_images/${productCode}.png`" style="width: 80px; height: 80px;"/>
                 <div style="display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; padding-left: 1rem;">
                     <span style="font-size: 0.8em;">{{ product.업소명 }}</span>
                     <span style="font-weight: bold;">{{ product.nutraceuticals_name }}</span>

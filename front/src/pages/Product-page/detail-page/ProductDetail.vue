@@ -14,7 +14,7 @@
 
         <div class="product_card product_head">
             <div class="product_iamge bg-white">
-                <img :src="`/media/produt_images/${productCode}.png`" alt="(상품 이미지)"/>
+                <img :src="`/media/product_images/${productCode}.png`" alt="(상품 이미지)"/>
             </div>
             <div class="set" style="box-shadow: 0 2px 1px -1px #EAEAEA;">
                 <div class="manufacturer">
