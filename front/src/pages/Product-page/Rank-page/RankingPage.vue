@@ -69,6 +69,17 @@ export default {
 
 <style scope>
 
+.detail-ranking-head {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px #eeeeee;
+    margin-bottom: 2vh;
+    padding: 5vw;
+    font-size: 0.9em;
+    text-align: start;
+}
+
 .rank_box {
     align-self: center;
     justify-self: center;

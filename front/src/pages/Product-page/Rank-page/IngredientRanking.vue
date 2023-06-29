@@ -1,30 +1,31 @@
 <template>
-    <div class="background bg-whitesmoke" style="padding-top: 56px; min-height: 100%; padding-bottom: 60px;">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{selectedIngredient}}
-        </button>
-        <ul class="dropdown-menu">
-          <li v-for="(ingredient, index) in nutrientCategories" :key="index" @click="fetchIngredientRanking(ingredient)">{{ ingredient }}</li>
-        </ul>
-          </div>
-          <p>{{ selectedIngredient }} (이)가 함유된 제품의 랭킹 입니다. </p>
-          <router-link class="rank_box bg-white"
-              v-for="(product,index) in ingredientRanking" :key="index"
-              :to="`/product/${product.업체별_제품코드}`">
-              <div class="rank_order">{{ index + 1 }}위</div>
-              <div class="rank_image"><img class="rank_image" :src='`/media/product_images/${product.업체별_제품코드}.png`' alt="상품이미지"
-                      style="height: min(25vh, 25vw); width: min(25vh, 25vw);" /></div>
-              <div class="rank_manufacturer">{{ product.업소명 }}</div>
-              <div class="rank_name">{{ product.nutraceuticals_name }}</div>
-              <div class="rank_mount">온라인 평점:{{ product.review.average_rating }}({{ product.review.total_reviews }}) </div>
-              <div class="rank_price">온라인 최저가 :{{ product.review.lowest }} 원</div>
-              <div class="rank_score">바름 평점:{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }}) </div>
-          </router-link>
-        <div ref="loader" class="loader"></div>
-
+<div class="background bg-whitesmoke" style="padding-top: 56px; min-height: 100%; padding-bottom: 60px;">
+    <div class="detail-ranking-head">
+        <div class="dropdown" style="display: flex; align-items: center;">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin: 0; font-size: 0.9em;">
+                {{selectedIngredient}}  
+            </button>
+            <ul class="dropdown-menu">
+                <li v-for="(ingredient, index) in nutrientCategories" :key="index" @click="fetchIngredientRanking(ingredient)">{{ ingredient }}</li>
+            </ul>
+            (이)가 함유된 제품의 랭킹 입니다.
+        </div>
     </div>
-    
+    <router-link class="rank_box bg-white"
+    v-for="(product,index) in ingredientRanking" :key="index"
+    :to="`/product/${product.업체별_제품코드}`">
+        <div class="rank_order">{{ index + 1 }}</div>
+        <div class="rank_image">
+            <img class="rank_image" :src='`/media/product_images/${product.업체별_제품코드}.png`' alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);" />
+        </div>
+        <div class="rank_manufacturer">{{ product.업소명 }}</div>
+        <div class="rank_name">{{ product.nutraceuticals_name }}</div>
+        <div class="rank_mount">온라인 평점:{{ product.review.average_rating }}({{ product.review.total_reviews }}) </div>
+        <div class="rank_price">온라인 최저가 :{{ product.review.lowest }} 원</div>
+        <div class="rank_score">바름 평점:{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }}) </div>
+    </router-link>
+    <div ref="loader" class="loader"></div>
+</div>
 </template>
 
 <script>
