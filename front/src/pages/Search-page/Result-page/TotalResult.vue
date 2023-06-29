@@ -10,7 +10,7 @@
           <div class="result_image">
             <img
               class="result_image"
-              :src="product.img"
+              :src="`/media/product_images/${product.id}`"
               alt="상품이미지"
               style="height: min(25vh, 25vw); width: min(25vh, 25vw);"
             />
