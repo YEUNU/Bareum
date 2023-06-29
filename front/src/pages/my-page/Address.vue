@@ -32,13 +32,13 @@
           <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 5%;">
             <div style="width: 10vh; color:gray;"><span>수령인</span></div>
             <input type="text" placeholder=" "
-              style="width: 80%; color: black; background-color: white; border: none; border-bottom: 1px solid gray;">
+              style="width: 80%; color: black; background-color: white; border: none; border-bottom: 1px solid gray;" v-model="receiver">
           </div>
 
           <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 6%;">
             <div style="width: 10vh; color:gray;"><span>전화번호</span></div>
             <input type="text" placeholder=" "
-              style="width: 80%; color: black; background-color: white; border: none; border-bottom: 1px solid gray;">
+              style="width: 80%; color: black; background-color: white; border: none; border-bottom: 1px solid gray;" v-model="phoneNumber">
           </div>
 
           <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 6%;">
@@ -117,7 +117,9 @@ export default {
       postcode: '',
       address: '',
       extraAddress: '',
-      detailed_address: ''
+      detailed_address: '',
+      phoneNumber:'',
+      receiver:''
     });
 
     const execDaumPostcode = async () => {
@@ -161,6 +163,8 @@ export default {
           address: state.address,
           extra_address: state.extraAddress,
           detailed_address: state.detailed_address,
+          phone_number : state.phoneNumber,
+          receiver : state.receiver
         },
           {
             headers: {
@@ -185,6 +189,8 @@ export default {
         state.address = response.data.address;
         state.extraAddress = response.data.extra_address;
         state.detailed_address = response.data.detailed_address;
+        state.phoneNumber = response.data.phone_numberm;
+        state.receiver = response.data.receiver;
       } catch (error) {
         console.error(error);
       }

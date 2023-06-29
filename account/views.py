@@ -252,7 +252,9 @@ class UserAddressView(View):
                     "postcode": "",
                     "address": "",
                     "extra_address": "",
-                    "detailed_address": ""
+                    "detailed_address": "",
+                    "phone_number":"",
+                    "receiver":""
                 }, safe=False)
         else:
             return JsonResponse({"error": "Not authenticated"}, status=401)

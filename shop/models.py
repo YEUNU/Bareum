@@ -8,10 +8,9 @@ class RegularDelivery(models.Model):
     id = models.BigAutoField(primary_key=True)
     request_date = models.DateTimeField(default=timezone.now)
     delivery_state = models.CharField(max_length=100)
-    products = models.ForeignKey(Nutraceuticals,max_length=100,many=True)
-    address = models.ForeignKey(Address,models.DO_NOTHING,)
-    user = models.ForeignKey(User, models.DO_NOTHING,db_column='member_id')
-
+    products = models.ForeignKey(Nutraceuticals, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='member_id')
 
     class Meta:
         managed = True
