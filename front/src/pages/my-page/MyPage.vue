@@ -80,16 +80,17 @@
           <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
           <div class="horizontal-scroll-container">
             <div class="d-flex align-items-center mt-4 mb-2">
-              <div class="flex-shrink-0" style="text-align: left; width: 100%;" v-for="(product,index) in userEating" :key="index">
+              <div class="flex-shrink-0" style="text-align: left; width: 10%; margin-right: 10%; margin-left: 10%;"
+                v-for="(product, index) in userEating" :key="index">
+                <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+                  <img :src="`/media/product_images/${product.제품코드}.png`" alt=""
+                    style="height: min(20vh, 20vw); width: min(20vh, 20vw); display:block;">
+                  <p style="text-align:center; word-wrap: break-word; width: min(20vh, 20vh);">{{ product.제품명 }}</p>
 
-                <img
-                  :src="`/media/product_images/${product.제품코드}`"
-                  alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw);">
-                <p>{{product.제품명 }}</p>
+                </div>
               </div>
             </div>
           </div>
-
           <div class="d-flex justify-content-between" style="align-items:center;">
             <router-link to="/">
               <p class="card-text mt-3" style="margin-top: 2%; margin-bottom: 2%; color: black;">건강 고민 & 섭취 목적</p>
@@ -126,7 +127,7 @@
 <script>
 import axios from 'axios';
 import { useUserInfo } from '../../stores.js';
-import { ref,onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
