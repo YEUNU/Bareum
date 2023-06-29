@@ -108,8 +108,11 @@
       <div class="card"
         style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
         <div class="card-body">
+          <router-link to="/cart">
+            <h5 style="text-align: left; font-weight: bold; color:black;">장바구니</h5>
+          </router-link>
           <router-link to="/myorder">
-            <h5 style="text-align: left; font-weight: bold; color:black;">주문 / 배송 내역</h5>
+            <h5 style="text-align: left; font-weight: bold; margin-top: 8%; color:black;">주문 / 배송 내역</h5>
           </router-link>
           <router-link to="/mypush">
             <h5 style="text-align: left;  margin-top: 8%; margin-bottom: 0;font-weight: bold; color:black;">알람 설정</h5>

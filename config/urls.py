@@ -17,7 +17,7 @@ urlpatterns = [
     path("api/ocr/",include('ocr.urls')),
     path("api/taking/",include('taking.urls')),
     path("api/recommend/",include('recommend.urls')),
-    
+    path("api/shop/",include('shop.urls')),
     
     re_path(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT,

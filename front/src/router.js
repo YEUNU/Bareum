@@ -69,6 +69,8 @@ import ingredientRankingPage from './pages/Product-page/Rank-page/IngredientRank
 import barandRankingpage from './pages/Product-page/Rank-page/BrandRanking.vue';
 import categoryRankingPage from './pages/Product-page/Rank-page/CategoryRanking.vue';
 
+import cartPage from './pages/my-page/Order-page/Cart.vue';
+import orderPage from './pages/my-page/Order-page/Order.vue';
 
 import ReviewList from './pages/review-page/ReviewList.vue';
 
@@ -425,6 +427,16 @@ const routes = [
         path:'/myterms',
         name:'mytermsPage',
         component:mytermsPage
+    },
+    {
+        path:'/cart',
+        name:'cartPage',
+        component:cartPage
+    },
+    {
+        path:'/order',
+        name:'orderPage',
+        component:orderPage
     },
     {  
         // 개인정보 처리방침
