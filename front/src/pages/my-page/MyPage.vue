@@ -80,7 +80,7 @@
           <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
           <div class="horizontal-scroll-container">
             <div class="d-flex align-items-center mt-4 mb-2">
-              <div class="flex-shrink-0" style="text-align: left; width: 10%; margin-right: 10%; margin-left: 10%;"
+              <div class="flex-shrink-0" style="text-align: left; width: 10%; margin-right: 5%; margin-left: 5%;"
                 v-for="(product, index) in userEating" :key="index">
                 <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
                   <img :src="`/media/product_images/${product.제품코드}.png`" alt=""
