@@ -1,7 +1,6 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from rest_framework.views import APIView
 from .models import Nutraceuticals
-from rest_framework.response import Response
 from .serializers import NutraSerializer
 from rest_framework.response import Response
 from rest_framework import status

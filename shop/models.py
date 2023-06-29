@@ -36,6 +36,7 @@ class Order(models.Model):
     class Meta:
         managed = True
         db_table = 'order'
+        
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Nutraceuticals, on_delete=models.CASCADE)

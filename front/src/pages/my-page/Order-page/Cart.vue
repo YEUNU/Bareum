@@ -19,18 +19,27 @@
         <div class="card" v-for="(product, index) in shoppingCart" :key="index">
             <div class="row">
                 <div class="col-6">
+                  <img :src="`/media/product_images/${product.product.업체별_제품코드}`">
                 </div>
                 <div class="col-6">
                     <div class="card-body">
-                        <p class="card-text">product</p>
+                        <p class="card-text">{{product.product.업소명}}</p>
+                        <p class="card-text">{{product.product.nutraceuticals_name}}</p>
                     </div>
+                    <button @click="incrementQuantity(product)">+</button>                    
+                    <div>{{ product.quantity }} 개 </div>
+                        <button @click="decrementQuantity(product)">-</button>
+                    <div>{{ product.lowest * product.quantity }}</div>
+                </div>
+                <div>
+                  <button @click="deleteCart(product.id)">x</button>
                 </div>
             </div>
         </div>
         <hr/>
-        <p>총 상품 금액 {{  }}</p>
-        <p>배송비 {{  }}</p>
-        <h1>결제 예정금액  {{  }}</h1>
+        <p>총 상품 금액 {{ totalAmount }}</p>
+        <p>배송비 {{ 0 }}</p>
+        <h1>결제 예정금액  {{ totalAmount }}</h1>
     </div>
       <div>
         <button> 구매하기 </button>
@@ -41,22 +50,105 @@
 import axios from 'axios';
 import {ref, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
-  
+import Cookies from 'js-cookie';
 export default {
       components: {},
 
       setup(){
+        const csrf_token = Cookies.get('csrftoken');
         const router = useRouter();
         const shoppingCart = ref([]);
+        const totalAmount = ref(0);
 
+        const getTotal = () => {
+          var result = 0;
+          for (let index = 0; index < shoppingCart.value.length; index++) {
+            result += shoppingCart.value[index].lowest * shoppingCart.value[index].quantity;
+            
+          }
+          return result;
+        }
         const fetchCart = async() =>{
-            const response = await axios.get('/api/shop/cart/',);
-            shoppingCart.value = response.data;
+            try{
+              const response = await axios.get('/api/shop/cart/');
+              shoppingCart.value = response.data;
+              totalAmount.value = getTotal();
+            }catch(err){
+              console.error(err);
+            }
+
         }
 
+        const deleteCart = async (cartId) => {
+          // 사용자에게 삭제 확인 메시지를 표시합니다.
+          if (window.confirm("정말 삭제하시겠습니까?")) {
+            try {
+              await axios.delete("/api/shop/cart/", {
+                params: {
+                  cartId: cartId,
+                },
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRFToken": csrf_token,
+                },
+              });
+              fetchCart();
+            } catch (err) {
+              console.error(err);
+            }
+          }
+        };
+
+        const updateQuantity = async (cartId,quantity) => {
+          try {
+            await axios.put("/api/shop/cart/", {
+              cartId: cartId,
+              quantity: quantity
+            }, {
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrf_token,
+              },
+            });
+            fetchCart();
+          } catch (err) {
+            console.error(err);
+          }
+        }
+        const incrementQuantity = async (product) => {
+          try {
+            product.quantity += 1;
+            updateQuantity(product.id,product.quantity);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+
+        const decrementQuantity = async (product) => {
+          try {
+            if (product.quantity > 1) {
+              product.quantity -= 1;
+              updateQuantity(product.id,product.quantity);
+            
+            } else {
+
+            }
+          } catch (err) {
+            console.error(err);
+          }
+        }
+        onMounted(() => {
+          fetchCart()
+        })
+
         return{
+          incrementQuantity,
+          decrementQuantity,
           shoppingCart,
-          fetchCart
+          fetchCart,
+          totalAmount,
+          deleteCart,
+          updateQuantity,
         }
       }
   }
