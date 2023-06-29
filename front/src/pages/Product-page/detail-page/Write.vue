@@ -17,11 +17,11 @@
     <div class="background bg-whitesmoke" style="display: flex; flex-direction: column; align-items: center; margin-top:56px; min-height: calc(100vh - 56px);">
         <div class="product_card product_head">
             <div style="display: flex;">
-                <img :src="`/media/product_images/${productCode}.png`" style="width: 80px; height: 80px;"/>
-                <div style="display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; padding-left: 1rem;">
+                <img :src="`/media/product_images/${productCode}.png`" style="width: 50px; height: 50px;"/>
+                <div style="display: flex; flex-direction: column; justify-content: space-evenly; flex-grow: 1; padding-left: 1rem;">
                     <span style="font-size: 0.8em;">{{ product.업소명 }}</span>
                     <span style="font-weight: bold;">{{ product.nutraceuticals_name }}</span>
-                    <button @click="$router.push('/search')" style="width: 90px; font-size: 0.8em; padding: 0.3em 1em; background-color: white; border: 2px solid whitesmoke; border-radius: 5px; color: #333;">제품 변경</button>
+                    <button @click="$router.push('/search')" style="display: none; width: 90px; font-size: 0.8em; padding: 0.3em 1em; background-color: white; border: 2px solid gainsboro; border-radius: 5px; color: #333;">제품 변경</button>
                 </div>
             </div>
         </div>
@@ -34,17 +34,16 @@
             </div>
 
             <div class="form-group product_card">
-                <label for="review-text">좋았던 점</label>
-                <textarea id="review-text" v-model="reviewText" rows="3" required placeholder="복용하신 제품의 자세한 리뷰를 남겨주세요." style="border: none; resize: none; background-color: white; color: #333;"></textarea>
+                <label for="review-text">리뷰 내용</label>
+                <textarea id="review-text" v-model="reviewText" rows="3" required placeholder="복용하신 제품의 자세한 리뷰를 남겨주세요." maxlength="5000" style="border: none; resize: none; background-color: white; color: #333;"></textarea>
+                <span style="text-align: end; font-weight: normal; color: gainsboro;">{{ reviewText.length }}/5000</span>
             </div>
 
             <div class="form-group product_card">
-                <label for="images">사진등록</label>
-                <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" style="display: none;"/>
-                <label for="images" style="border: 2px solid whitesmoke; border-radius: 2em; width: 75%; padding: 0.5em; align-self: center; text-align: center; color: #333; font-weight: bold;">
-                    사진 첨부
-                </label>
+                <label for="images">사진등록 <span style="font-weight: normal;">(선택)</span></label>
 
+
+                
                 <div style="position: relative; margin-top: 5%; text-align: left;" v-for="(url, index) in imagePreviewUrls" :key="index">
                     <img :src="url" class="preview-image" style="width:100%; height:30%;" />
                     <svg class="clear-icon" style="width: 17px; top: 15px; right: 15px;" @click="removeImage(index)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -52,8 +51,13 @@
                     </svg>
                 </div>
                 
+                <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" style="display: none;"/>
+                <label for="images" style="border: 2px solid gainsboro; border-radius: 2em; width: 75%; margin: 1vh; padding: 0.5em; align-self: center; text-align: center; color: #333; font-weight: bold;">
+                    사진 첨부
+                </label>
+                <div style="font-size: 0.8em; font-weight: normal; color: gray;">제품과 무관한 사진일 경우 리뷰 수정 요청을 드리게 될 수 있습니다.</div>
             </div>
-            </form>
+        </form>
     </div>
 </div>
 </template>
