@@ -68,3 +68,7 @@ class Address(models.Model):
     address = models.CharField(max_length=255)
     extra_address = models.CharField(max_length=255, blank=True)
     detailed_address = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=50, blank=True)
+    receiver = models.CharField(max_length=50,blank=True)        
+    
+    
