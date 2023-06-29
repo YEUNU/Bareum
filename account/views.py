@@ -246,6 +246,7 @@ class UserAddressView(View):
             try:
                 address = Address.objects.get(user=user)
                 serializer = AddressSerializer(address)
+                print(serializer.data)
                 return JsonResponse(serializer.data, safe=False)
             except Address.DoesNotExist:
                 return JsonResponse({

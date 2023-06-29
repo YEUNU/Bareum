@@ -189,7 +189,7 @@ export default {
         state.address = response.data.address;
         state.extraAddress = response.data.extra_address;
         state.detailed_address = response.data.detailed_address;
-        state.phoneNumber = response.data.phone_numberm;
+        state.phoneNumber = response.data.phone_number;
         state.receiver = response.data.receiver;
       } catch (error) {
         console.error(error);
