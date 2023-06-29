@@ -1,48 +1,56 @@
 <template>
-    <div class="star-rating">
-      <span v-for="(star, index) in stars" :key="index" @click="setRating(index)">
+<div class="star-rating">
+    <span v-for="(star, index) in stars" :key="index" @click="setRating(index)">
         {{ star }}
-      </span>
-    </div>
-  </template>
-  
-  <script>
-  import { ref, computed } from "vue";
-  
-  export default {
+    </span>
+</div>
+</template>
+
+<script>
+import { ref, computed } from "vue";
+
+export default {
     setup(_, { emit }) {
-      const rating = ref(0);
-      const stars = computed(() => { 
-        return Array.from({ length: 5 }, (_, index) => {
-          return index < rating.value ? "★" : "☆";
+        const rating = ref(0);
+        const stars = computed(() => { 
+            return Array.from({ length: 5 }, (_, index) => {
+                return index < rating.value ? "★" : "☆";
+            });
         });
-      });
   
-      function setRating(index) {
-          rating.value = index + 1;
-          emit("update-rating", rating.value);
+        function setRating(index) {
+            rating.value = index + 1;
+            emit("update-rating", rating.value);
         }
 
   
-      return { stars, setRating };
+        return { stars, setRating };
     },
-  };
-  </script>
+};
+</script>
   
-  <style scoped>
-  .star-rating {
+<style scoped>
+
+.star-rating {
     display: flex;
     cursor: pointer;
     justify-content: center;
-  }
-  
-  .star-rating span {
-    margin-right: 0.5rem;
-    font-size: 1.5rem;
-  }
-  
-  .star-rating span:last-child {
-    margin-right: 0;
-  }
-  </style>
+}
+
+.star-rating span {
+    position: relative;
+    font-size: 2.5rem;
+    color: #FFCC21;
+}
+
+.star-rating span::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "★";
+    color: gainsboro;
+    z-index: -1;
+}
+
+</style>
   
