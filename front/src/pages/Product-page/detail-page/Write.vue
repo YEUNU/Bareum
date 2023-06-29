@@ -21,7 +21,7 @@
                 <div style="display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; padding-left: 1rem;">
                     <span style="font-size: 0.8em;">{{ product.업소명 }}</span>
                     <span style="font-weight: bold;">{{ product.nutraceuticals_name }}</span>
-                    <button @click="$router.push('/search')" style="width: 90px; font-size: 0.8em; padding: 0.3em 1em; background-color: white; border: 2px solid whitesmoke; border-radius: 5px;">제품 변경</button>
+                    <button @click="$router.push('/search')" style="width: 90px; font-size: 0.8em; padding: 0.3em 1em; background-color: white; border: 2px solid whitesmoke; border-radius: 5px; color: #333;">제품 변경</button>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
 
             <div class="form-group product_card">
                 <label for="review-text">좋았던 점</label>
-                <textarea id="review-text" v-model="reviewText" rows="3" required style="border: none; resize: none;"></textarea>
+                <textarea id="review-text" v-model="reviewText" rows="3" required placeholder="복용하신 제품의 자세한 리뷰를 남겨주세요." style="border: none; resize: none; background-color: white; color: #333;"></textarea>
             </div>
 
             <div class="form-group product_card">
@@ -205,5 +205,9 @@ export default {
 </script>
 
 <style>
+
+.form-group {
+    font-weight: bold;
+}
 
 </style>

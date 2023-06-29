@@ -40,7 +40,9 @@ export default {
 .star-rating span {
     position: relative;
     font-size: 2.5rem;
+    font-weight: normal;
     color: #FFCC21;
+    z-index: 1;
 }
 
 .star-rating span::before {
@@ -48,7 +50,7 @@ export default {
     top: 0;
     left: 0;
     content: "★";
-    color: gainsboro;
+    color: whitesmoke;
     z-index: -1;
 }
 
