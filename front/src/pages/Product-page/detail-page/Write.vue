@@ -39,11 +39,17 @@
             </div>
 
             <div class="form-group product_card">
-                <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" />
+                <label for="images">사진등록</label>
+                <input id="images" ref="imageInput" type="file" accept="image/*" multiple @change="previewImages" style="display: none;"/>
+                <label for="images" style="border: 2px solid whitesmoke; border-radius: 2em; width: 75%; padding: 0.5em; align-self: center; text-align: center; color: #333; font-weight: bold;">
+                    사진 첨부
+                </label>
 
-                <div style="margin-top: 5%; text-align: left;" v-for="(url, index) in imagePreviewUrls" :key="index">
+                <div style="position: relative; margin-top: 5%; text-align: left;" v-for="(url, index) in imagePreviewUrls" :key="index">
                     <img :src="url" class="preview-image" style="width:100%; height:30%;" />
-                    <button @click="removeImage(index)">x</button>
+                    <svg class="clear-icon" style="width: 17px; top: 15px; right: 15px;" @click="removeImage(index)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                    </svg>
                 </div>
                 
             </div>
