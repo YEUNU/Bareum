@@ -108,6 +108,7 @@ def get_user_nutrients_data(request):
             '칼슘': nutraceutical.칼슘,
             '마그네슘': nutraceutical.마그네슘,
             '아연': nutraceutical.아연,
+            '제품코드' : nutraceutical.업체별_제품코드
         })
     print(nutrients_data)
     maxValues = [100, 20, 700, 700, 315, 8.5]
@@ -120,3 +121,6 @@ def get_user_nutrients_data(request):
         nutrients_pct_data.append(product_pct)
     print(nutrients_pct_data)
     return JsonResponse(nutrients_pct_data, safe=False)
+
+
+

@@ -10,6 +10,8 @@ media/
 .Python
 node_modules
 node_modules/
+dist/
+dist
 build/
 develop-eggs/
 downloads/

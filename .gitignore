@@ -9,7 +9,6 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
-media/
 develop-eggs/
 downloads/
 eggs/
@@ -26,11 +25,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 media/
-!media/.gitkeep
 /media
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
 

@@ -80,22 +80,12 @@
           <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
           <div class="horizontal-scroll-container">
             <div class="d-flex align-items-center mt-4 mb-2">
-              <div class="flex-shrink-0" style="text-align: left; width: 100%;">
+              <div class="flex-shrink-0" style="text-align: left; width: 100%;" v-for="(product,index) in userEating" :key="index">
+
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
+                  :src="`/media/product_images/${product.제품코드}`"
                   alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw);">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-                  alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-                  alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-                  alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc"
-                  alt="" style="height: min(20vh, 20vw); width: min(20vh, 20vw); margin-left: 10%;">
+                <p>{{product.제품명 }}</p>
               </div>
             </div>
           </div>
@@ -136,7 +126,7 @@
 <script>
 import axios from 'axios';
 import { useUserInfo } from '../../stores.js';
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -144,7 +134,7 @@ export default {
     const userInfo = useUserInfo();
     const { userLogout } = userInfo;
     const router = useRouter();
-
+    const userEating = ref([]);
     const isLoggedIns = userInfo.isLoggedIns;
 
     const logout = async () => {
@@ -156,13 +146,31 @@ export default {
         console.error(error);
       }
     };
+    async function getUserProductsData() {
+      try {
+        const response = await axios.get("/api/taking/", {
+          params: {
+            user_id: userInfo.loginId
+          },
+        });
+        userEating.value = response.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    onMounted(() => {
+      getUserProductsData();
+    })
+
 
     return {
       isLoggedIns,
       userInfo,
-      logout
+      logout,
+      userEating
     };
   },
+
 
 
 
