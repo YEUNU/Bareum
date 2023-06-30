@@ -154,11 +154,6 @@ export default {
         const payment = async () => {
           if (window.confirm("결제하시겠습니까?")){
             try{
-              //order 랑 order item 만들기위해 post 보내기
-              await axios.post('/api/');
-              //장바구니에서 delete 하기
-
-
               window.alert("결제가 완료되었습니다");
               router.push('/mypage');
             }catch(err){

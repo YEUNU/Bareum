@@ -73,6 +73,8 @@ import cartPage from './pages/my-page/Order-page/Cart.vue';
 import orderPage from './pages/my-page/Order-page/Order.vue';
 
 import ReviewList from './pages/review-page/ReviewList.vue';
+import guidePage from './pages/login-page/Guide.vue';
+import categoryPage from './pages/login-page/Category.vue';
 
 const routes = [
     //로그인 페이지
@@ -98,6 +100,17 @@ const routes = [
         component:agreesignupPage,
         name:'agreesignupPage'
     },
+    {
+        paht:'/category',
+        component:categoryPage,
+        name:'categoryPage'
+    },
+    {
+        path:"/guide",
+        component:guidePage,
+        name:'guidePage'
+    }
+    ,
     //건강기능식품 검색 페이지
     {
         path: "/search",

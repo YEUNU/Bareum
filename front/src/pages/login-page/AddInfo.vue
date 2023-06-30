@@ -31,7 +31,7 @@
         <label for="female">여자</label>
       </div>
 
-      <button style="width:50%; margin-top: 15%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">저장</button>
+      <button style="width:50%; margin-top: 15%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">다음</button>
     </form>
   </template>
   
@@ -77,7 +77,7 @@ import { useRouter } from "vue-router";
           });
   
           userInfo.userAddInfo(birthDay.value, gender.value,nickName.value, weight.value, height.value);
-          router.push("/");
+          router.push("/category");
         } catch (err) {
           console.error(err);
         }
