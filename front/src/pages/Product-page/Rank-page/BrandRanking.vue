@@ -1,12 +1,25 @@
 <template>
-<div v-for="(brand,index) in brandRanking" :key="index" style="padding-top: 60px;">
-    <p>업체명 : {{ brand.brand }}</p>
-    <div v-for="(product,index) in brand.ranking" :key="index">
-        <p>{{ index +1 }} 등</p>
-        <p>제품명 : {{ product.nutraceuticals_name }}</p>
+    <div class="background bg-whitesmoke" style="padding-top: 56px; min-height: 100%; padding-bottom: 60px;">
+
+<div v-for="(brand,index) in brandRanking" :key="index" style="margin-bottom: 5%;">
+    <div style="background-color: white; border:none;">업체명 : {{ brand.brand }}</div>
+    <div class="rank_box bg-white" style="margin: 0" v-for="(product,index) in brand.ranking" :key="index" :to="`/product/${product.업체별_제품코드}`">
+        <div class="rank_order">{{ index + 1 }}</div>
+        <div class="rank_image">
+            <img class="rank_image" :src='`/media/product_images/${product.업체별_제품코드}.png`' alt="상품이미지" style="height: min(25vh, 25vw); width: min(25vh, 25vw);" />
+        </div>
+        <div class="rank_manufacturer">{{ product.업소명 }}</div>
+        <div class="rank_name">{{ product.nutraceuticals_name }}</div>
+        <div class="rank_score">
+            온라인 <span style="color: #FFCC21;">★</span>{{ product.review.average_rating }}({{ product.review.total_reviews }}) 
+            <span style="color: gainsboro;"> | </span>
+            바름 <span style="color: #FFCC21;">★</span>{{ product.bareum_review.average_rating }}({{ product.bareum_review.total_reviews }})
+        </div>
+        <div class="rank_price">최저가 : {{ product.review.lowest }}원</div>
     </div>
 </div>
 <div ref="loader" class="loader"></div>
+</div>
 </template>
 
 <script>

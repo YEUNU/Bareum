@@ -1,6 +1,5 @@
 <template>
 <div class="background bg-whitesmoke" style="padding-top: 56px; min-height: 100%; padding-bottom: 60px;">
-    <div v-show="menuVisible" style="height: calc(0.8em + 20px);">더미</div>
     <router-link class="rank_box bg-white"
     v-for="(product,index) in totalRanking" :key="index"
     :to="`/product/${product.업체별_제품코드}`">

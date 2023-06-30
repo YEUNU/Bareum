@@ -100,13 +100,9 @@ const routes = [
         component:agreesignupPage,
         name:'agreesignupPage'
     },
+    
     {
-        paht:'/category',
-        component:categoryPage,
-        name:'categoryPage'
-    },
-    {
-        path:"/guide",
+        path:'/guide',
         component:guidePage,
         name:'guidePage'
     }
