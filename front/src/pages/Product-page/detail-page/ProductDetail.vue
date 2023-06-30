@@ -75,6 +75,7 @@
             </div>
             <div style="padding: 0.5em;">대충 엄청 길어서 잘 안읽게되는 머 중개서비스 제공자로 판매당사자가 아니어서 제공 정보 오류 때문에 생기는 모든 의무와 책임은 각 판매자에게 있다는 내용</div>
         </div>
+
         <div class="fixed-bottom">
             <div>
                 <div v-if="purchaseOption">
@@ -272,6 +273,7 @@ export default {
     color: gray;
     font-size: 0.7em;
     text-align: center;
+    margin-bottom: calc(2.2em + 20px);
 }
 
 .product_iamge {
