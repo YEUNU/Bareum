@@ -145,9 +145,8 @@ video {
 
 .menu_container {
     display: grid;
-    grid-template-columns: 45vw 45vw;
-    grid-template-rows: min(33vw, 33vh) min(33vw, 33vh) min(33vw, 33vh);
-    padding: 4vh 5vw;
+    grid-template-columns: 48vw 48vw;
+    padding: 2vh 0;
     justify-content: center;
     align-items: center;
 
@@ -158,33 +157,31 @@ video {
     background-color: white;
 
     color: #6e6e6e;
-    font-size: 1.2em;
     text-decoration: none;
     font-weight: 750;
     transition: 0.25s;
 
-    border: 2px solid #2dce89;
     border-radius: 8px;
-    box-shadow: 0 0 2px 2px #EAEAEA;
+    box-shadow: 0 0 3px 3px #eeeeee;
 
     flex-direction: column;
     display: flex;
     justify-content: space-evenly;
-    margin: 1vw;
+    margin: min(2vw, 2vh);
 }
 
 #menu_comment {
     align-self: start;
     padding: 0.5vh 0 0 0.5vh;
     color: gray;
-    font-size: min(1.7vw, 1.7vh);
+    font-size: 0.6em;
 }
 
 #menu_name {
     align-self: start;
     padding: 0.2vh 0 0 0.5vh;
     color: black;
-    font-size: min(5vw, 5vh);
+    font-size: 1.2em;
 }
 
 #menu_icon {

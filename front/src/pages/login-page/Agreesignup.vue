@@ -1,5 +1,5 @@
 <template>
-  <div class="agree">
+<div class="agreecontainer">
     <h1>회원가입약관</h1>
 
     <div style="margin-top: 5%; color: red;">※ 회원가입약관 및 개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.</div>
@@ -12,15 +12,15 @@
                 </div>
                 <div class="col-8" style="text-align: right; font-size:11px;">
                     <div class="form-check form-check-reverse">
-  <input v-model="isagree" class="form-check-input" type="checkbox" value="" id="reverseCheck1">
-  <label class="form-check-label" for="reverseCheck1">
-    회원가입약관의 내용에 동의합니다.
-  </label>
-</div>
+                        <input v-model="isagree" class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                        <label class="form-check-label" for="reverseCheck1">
+                            회원가입약관의 내용에 동의합니다.
+                        </label>
+                    </div>
                     
                 </div>
                 
-                    <textarea readonly style="height: 50vh; border:none;">제1조(목적) 이 약관은 업체 회사(전자상거래 사업자)가 운영하는 업체 바름(이하 “바름”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 바름과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
+<textarea readonly style="height: 50vh; border:none;">제1조(목적) 이 약관은 업체 회사(전자상거래 사업자)가 운영하는 업체 바름(이하 “바름”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 바름과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
  
  ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
 
@@ -293,14 +293,16 @@ export default {
 }
 </script>
 
-<style>
-.agree {
-    width: 100%;
-    height: 100%;
-}
+<style scoped>
 
 .agreecontainer {
     width: 100%;
     height: 100%;
 }
+
+.agreecontainer textarea {
+    background-color: white;
+    color: #333;
+}
+
 </style>
