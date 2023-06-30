@@ -101,8 +101,9 @@ const routes = [
         component:agreesignupPage,
         name:'agreesignupPage'
     },
+    
     {
-        path:"/guide",
+        path:'/guide',
         component:guidePage,
         name:'guidePage'
     },

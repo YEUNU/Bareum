@@ -82,18 +82,26 @@
         <div class="card-body">
           <div class="flex-grow-1 ms-3">
             <div class="d-flex flex-row align-items-center mb-2">
-              <h2 class="mb-0 me-3" style="font-weight: bold;">결재금액</h2>
+              <h2 class="mb-0 me-3" style="font-weight: bold;">결제금액</h2>
             </div>
           </div>
-          <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 5%;">  
-            <div>
-              <p>총 상품 금액 {{ totalAmount }} 원</p>
-              <p>배송비 0 원</p>
-              <hr/>
-              <p>최종결제금액 {{ totalAmount }} 워</p>
-            </div>
+          
+          <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+          <p style="text-align: left; color: gray;">총 상품 금액</p>
+          <p style="text-align: right;">{{ totalAmount }} 원</p>
+        </div>
+        <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+          <p style="text-align: left; color: gray;">배송비</p>
+          <p style="text-align: right;">무료</p>
+        </div>
 
-          </div>
+        <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+          <p style="text-align: left; color: gray;">최종 결제 금액</p>
+          <p style="text-align: right;">{{ totalAmount }} 원</p>
+        </div>
+            
+
+          
         </div>
         </div>
       </div>
@@ -102,7 +110,7 @@
 
 
     <div>
-        <button @click="payment"> {{ totalAmount }} 원 결제하기</button>
+        <button @click="payment" style="background-color: #2dce89; border-radius: 5px; color:white;">결제하기</button>
     </div>
 
 </template>
