@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import ProfileImage, Address
+from .models import ProfileImage, Address, UserInterest
 # class UserSerializer (serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = User
@@ -53,3 +53,13 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = '__all__'
+        
+        
+class InterestSerializer(serializers.Serializer):
+    interest = serializers.ListField()
+
+    def create(self, validated_data):
+        return UserInterest.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        pass

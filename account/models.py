@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+import json
 
 class CustomUserManager(BaseUserManager):
     def _create_user(self, login_id, password=None, **extra_fields):
@@ -79,3 +80,16 @@ class SearchLog(models.Model):
     class Meta:
         managed = True
         db_table = 'search_log'
+        
+class UserInterest(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    interest = models.TextField()  
+    
+    def set_interest(self, interest_list):
+        self.interest = json.dumps(interest_list)
+
+    def get_interest(self):
+        return json.loads(self.interest)
+
+    def __str__(self):
+        return self.user.username

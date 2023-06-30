@@ -1,25 +1,31 @@
 <template>
     <div class="bg-white" style="display: flex; flex-direction: column;">
+        <h2>건강 관심항목 입력</h2>
+        <p>최대 3개</p>
         <div class="search_option_items"
-            style="overflow-y: auto; max-height: 500px; margin-top: 5%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content:center; align-items:center;">
+            style="overflow-y: auto; max-height: 50%; margin-top: 5%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content:center; align-items:center;">
             <div class="search_option_item_container" style="margin-bottom: 10px; margin-right: 10px;" v-for="part in parts"
                 :key="part.id">
                 <div class="search_option_item">
-                    <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked">
+                    <input type="checkbox" :id="part.id" :value="part.text" v-model="part.checked"  :disabled="part.disabled">
                     <label :for="part.id">{{ part.text }}</label>
                 </div>
             </div>
         </div>
 
-        <button class="roundbox" style="margin-top: 3vh;" @click="sendCheckedItems()">{{ searchList.length > 0 ? '확인' :
-            '닫기' }}</button>
+        <button class="roundbox" style="margin-top: 3vh;" @click="sendCheckedItems()"
+    :class="{disabled: selectList.length==0}" :disabled="selectList.length==0">확인</button>
+
     </div>
 </template>
 <script>
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { ref, computed,watchEffect  } from 'vue';
+import Cookies from 'js-cookie';
 export default {
     setup(){
+        const csrf_token = Cookies.get('csrftoken');
         const router = useRouter();
 
         const personalize_parts = ref([
@@ -57,17 +63,32 @@ export default {
         });
 
 
-        const searchList = computed(() => {
+        const selectList = computed(() => {
             return parts.value.filter((f) => f.checked).map(x => x.text);
         });
 
-        const sendCheckedItems = () => {
-            router.push('/guide');
-        }
+        const sendCheckedItems = async() => {
+            try{
+                await axios.post('/api/account/interest/',{
+                    interest:selectList.value
+                },{
+                    headers:{
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrf_token,
+                    }
+                })
+                router.push('/guide');
+
+            }catch(err){
+                console.error(err);
+            }
+
+        };
+        
         watchEffect(() => {
             const maxSelections = 3;
 
-            if (searchList.value.length >= maxSelections) {
+            if (selectList.value.length >= maxSelections) {
                 parts.value.forEach((part) => {
                     if (!part.checked) {
                         part.disabled = true;
@@ -81,7 +102,7 @@ export default {
         });
 
         return{
-            searchList,
+            selectList,
             parts,
             personalize_parts,
             sendCheckedItems,
@@ -164,6 +185,12 @@ export default {
     text-decoration: none;
     font-weight: 750;
 }
+
+.roundbox.disabled {
+        background-color: #A9A9A9;
+        color: #fff;
+    }
+
 
 .search_option_item input[type="checkbox"]:checked+label {
     background-color: #2dce89;

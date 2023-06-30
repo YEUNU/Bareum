@@ -22,8 +22,8 @@ from django.shortcuts import get_object_or_404
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User, ProfileImage, Address
-from .serializer import ProfileSerializer, UserAddInfoSerializer, AddressSerializer
+from .models import User, ProfileImage, Address,UserInterest
+from .serializer import ProfileSerializer, UserAddInfoSerializer, AddressSerializer,InterestSerializer
 from django.core.exceptions import ObjectDoesNotExist
 import logging
 import traceback
@@ -307,3 +307,21 @@ def user_remove(request, member_id):
 
     # 삭제 후 결과를 리턴한다.
     return HttpResponse("User has been removed")
+
+
+
+class InterestView(APIView):
+    def get(self,request):
+        ...
+    def post(self, request):
+        user = request.user
+        data = request.data
+        serializer = InterestSerializer(data=data)
+        
+        if serializer.is_valid():
+            user_interest, _ = UserInterest.objects.get_or_create(user=user)
+            user_interest.set_interest(serializer.validated_data["interest"])
+            user_interest.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

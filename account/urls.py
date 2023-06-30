@@ -15,5 +15,5 @@ urlpatterns = [
     path('addInfo/<int:member_id>/',views.UserAddInfoView.as_view()),
     path("address/<int:member_id>/", views.UserAddressView.as_view(), name="user_address"),
     path('address/remove/<int:member_id>',views.user_remove),
-    
+    path('interest/',views.InterestView.as_view()),
 ]

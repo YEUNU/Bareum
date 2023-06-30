@@ -63,8 +63,8 @@ export default {
                     console.error(err);
                 }
             }
-        }
-
+        };
+        
         let observer;
 
         onMounted(async () => {
@@ -101,5 +101,20 @@ export default {
 </script>
 
 <style>
-  
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  min-width: 120px;
+  max-height: 170px; /* 변경: 최대 높이 설정 */
+  overflow-y: auto; /* 변경: 오버플로가 발생하면 스크롤 표시 */
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+} 
 </style>
