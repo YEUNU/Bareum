@@ -169,6 +169,7 @@ export default {
                   },
                 });
             closeOption();
+            
             window.alert('장바구니에 담겼습니다!');
           }
         }
@@ -177,6 +178,7 @@ export default {
           if (!purchaseOption.value) {
             purchaseOption.value = true
           }else{
+            router.push('/order');
           }
         }
         const fetchOnlineReview = async (productCode) => {

@@ -436,7 +436,7 @@ const routes = [
     {
         path:'/order',
         name:'orderPage',
-        component:orderPage
+        component:orderPage,
     },
     {  
         // 개인정보 처리방침

@@ -11,6 +11,7 @@ class RegularDelivery(models.Model):
     products = models.ForeignKey(Nutraceuticals, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='member_id')
+    delivery_cycle = models.IntegerField(default=0)
 
     class Meta:
         managed = True

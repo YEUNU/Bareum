@@ -88,23 +88,15 @@
               </div>
               <hr>
             </div>
-
-            <div style="text-align: left; margin-top: 10%;">
-              <p style="color: black; margin-left: 3%; font-weight: bold;">배송지</p>
-              <div class="input-group mb-3">
-                <input type="text" name="gender" class="form-control" placeholder="남녀" aria-label="Recipient's username"
-                  aria-describedby="button-addon2" style="border:none;">
-              </div>
-            </div>
+            <button type="submit"
+              style="width:100%; margin-bottom: 50%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">
+              저장
+            </button>
 
           </form>
         </div>
       </div>
     </div>
-    <button type="submit"
-      style="width:100%; margin-bottom: 50%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">
-      <span>저장</span>
-    </button>
 
   </div>
 </template>
@@ -116,7 +108,6 @@ import { onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
-
 export default {
   setup() {
     const imageInput = ref(null);
@@ -189,11 +180,11 @@ export default {
 
     onMounted(() => {
       profileImg.value = userInfo.profileImgUrl;
-      닉네임.value = userInfo.nickName
-      생년월일.value = userInfo.birthDay
-      키.value = userInfo.height
-      몸무게.value = userInfo.weight
-      성별.value = userInfo.gender
+      닉네임.value = userInfo.nickname;
+      생년월일.value = userInfo.birthDay;
+      키.value = userInfo.height;
+      몸무게.value = userInfo.weight;
+      성별.value = userInfo.gender;
     })
 
     return {
