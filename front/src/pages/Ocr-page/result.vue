@@ -1,5 +1,5 @@
 <template>
-  <div class="ocr-result-page">
+  <div class="ocr-result-page" style="overflow-y: scroll;">
     <nav class="navbar fixed-top bg-white">
         <div class="container-fluid">
           <router-link to="/" class="navbar-brand" style="margin-left: 2vh;">
@@ -23,8 +23,8 @@
       <p style="margin-top: 10%;">제품을 찾는 중입니다...</p>
     </div>
 
-    <div v-else>
-      <div v-if="productResults" style="width:100%;">
+    <div v-else >
+      <div v-if="productResults" style="width:100%; overflow-y: scroll;">
         <h2 style="margin-top: 10%;">제품을 선택해주세요.</h2>
         <div class="grid-container" style="width: 100%; margin-top: 10%;">
           <div v-for="(product, index) in productResults" :key="index" >

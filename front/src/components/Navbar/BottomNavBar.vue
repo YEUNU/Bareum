@@ -167,7 +167,22 @@ export default {
     const openGallery = () => {
       showMenu.value = false;
       getImage(false);
-
+    };
+    
+    const closeCameraModal = () => {
+    const cameraModalElement = document.getElementById("cameraModal");
+    cameraModalElement.classList.remove("show"); // 모달에 "show" 클래스 제거하여 숨김
+    cameraModalElement.setAttribute("aria-hidden", "true");
+    cameraModalElement.style.display = "none"; // 모달 스타일을 변경하여 화면에서 숨김
+    const modalBackdrop = document.querySelector(".modal-backdrop");
+    if (modalBackdrop) {
+        modalBackdrop.parentElement.removeChild(modalBackdrop); // 모달 뒷 배경 제거
+    }
+    setTimeout(() => {
+    document.body.style.overflowY = "auto";
+    document.body.style.height = "";
+    document.body.style.position = "";
+    }, 500);
     };
 
     const getImage = (camera) => {
@@ -192,13 +207,14 @@ export default {
                 // 이미지가 로드된 후에 이미지 데이터를 경로의 파라미터로 전달
                 if (capturedImage.value) {
                     route.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
+                    closeCameraModal();
                 }
             };
             reader.readAsDataURL(file);
         };
         input.click();
     };
-
+    
     return {
       showMenu,
       displayGuideModal,

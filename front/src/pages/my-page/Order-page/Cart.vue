@@ -1,5 +1,5 @@
 <template>
-    <div class="background bg-whitesmokes">
+    <div class="cartbackground bg-whitesmokes">
         <nav class="navbar fixed-top bg-white">
         <div class="container-fluid">
           <router-link to="/mypage" class="navbar-brand" style="margin-left: 2vh;">
@@ -16,9 +16,9 @@
         </div>
       </nav>
   
-        <div class="product_card" v-for="(product, index) in shoppingCart" :key="index" style="border: 2px solid #eeeeee; margin-top: 15%; margin-bottom: 10%; ">
+        <div v-for="(product, index) in shoppingCart" :key="index" style="padding: 5%; padding-left: 0; padding-right: 0; border: 2px solid #eeeeee; margin-top: 15%; margin-bottom: 10%; ">
             <div>
-              <p style="text-align: left;">{{product.product.업소명}}</p>
+              <p style="text-align: left; margin-left: 5%;">{{product.product.업소명}}</p>
               <hr/>  
 
               

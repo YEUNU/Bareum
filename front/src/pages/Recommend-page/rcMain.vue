@@ -92,6 +92,8 @@ export default {
   /* 화면 높이에 꽉 차도록 설정 */
   display: block;
   margin-bottom: 5%;
+  padding-top: 10%;
+  padding-bottom: 10%;
 }
 
 .item-box {
