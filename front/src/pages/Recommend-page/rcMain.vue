@@ -19,29 +19,30 @@
         </div>
       </div>
     </nav>
-  </div>
-  <div v-for="(r, index) in userNutraceuticals" :key="index">
-    <router-link :to="`/product/${r.제품코드}`">
-      <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
-        <div class="d-flex align-items-center">
-          <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
-          <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
-            <div class="text-container">
-              <p v-if="r.광고상품" style="margin-left: 2%;">광고상품입니다.</p>
-            </div>
-            <div class="d-flex flex-row align-items-center">
-              <div class="col-6 col-sm-3">
-                <h3 style="margin-top: 5%; margin-left: 5%;">
 
-                  {{ r.제품명 }}
-                </h3>
-                <p style="margin-left: 5%;">{{ r.업소명 }}</p>
+    <div v-for="(r, index) in userNutraceuticals" :key="index">
+      <router-link :to="`/product/${r.제품코드}`">
+        <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
+          <div class="d-flex align-items-center">
+            <img :src="`../../../media/product_images/${r.제품코드}.png`" width="200" alt="제품 이미지" class="item-img" />
+            <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
+              <div class="text-container">
+                <p v-if="r.광고상품" style="margin-left: 2%; color:#2dce89">바름's 추천.</p>
+              </div>
+              <div class="d-flex flex-row align-items-center">
+                <div class="col-6 col-sm-3">
+                  <h2 style="margin-top: 5%; margin-left: 5%; color:black; width:200%;">
+
+                    {{ r.제품명 }}
+                  </h2>
+                  <p style="margin-left: 5%; color:#808080; width:200%;">{{ r.업소명 }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </router-link>
+      </router-link>
+    </div>
   </div>
 </template>
 
