@@ -91,7 +91,7 @@ export default {
   height: 100%;
   /* 화면 높이에 꽉 차도록 설정 */
   display: block;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .item-box {

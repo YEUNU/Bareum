@@ -19,7 +19,7 @@
         <div class="card" v-for="(product, index) in shoppingCart" :key="index">
             <div class="row">
                 <div class="col-6">
-                  <img :src="`/media/product_images/${product.product.업체별_제품코드}`">
+                  <img :src="`../../../media/product_images/${product.product.업체별_제품코드}.png`" :width="130">
                 </div>
                 <div class="col-6">
                     <div class="card-body">
