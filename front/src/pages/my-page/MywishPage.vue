@@ -75,11 +75,15 @@ export default {
         var tmp2 = ref(true);
 
         const foo = (tmp) => {
-            if(tmp == 1){
-                tmp1.value = !tmp1.value;
-            }
-            else if(tmp == 2) {
-                tmp2.value = !tmp2.value
+
+            if(confirm('찜 목록에서 삭제하시겠습니까?')) {
+                
+                if(tmp == 1){
+                    tmp1.value = !tmp1.value;
+                }
+                else if(tmp == 2) {
+                    tmp2.value = !tmp2.value
+                }
             }
         }
 
