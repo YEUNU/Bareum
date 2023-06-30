@@ -58,6 +58,7 @@ class Nutraceuticals(models.Model):
     ad = models.BooleanField(default=False)
     score = models.IntegerField(blank=True, null=True) 
     bareum_certification = models.BooleanField(blank=True, null=True)
+    click_count = models.BigIntegerField(default=0)
 
     class Meta:
         managed = True
