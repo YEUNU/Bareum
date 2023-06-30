@@ -22,7 +22,7 @@
         <input type="date" name="date" id="date" :min="currentDate" :value="currentDate">
     </div>
 -->
-    <div class="background" style="margin-top: 60px; min-height: calc(100vh - 60px);">
+    <div class="background" style="margin-top: 56px; min-height: calc(100vh - 56px); padding-bottom: calc(2.3em + 2vh);">
         <div class="card" v-for="(alarm, i) in settingAlarm" :key="i" 
         style="width: 80%; display:flex; padding: 0; margin: 2vh auto; box-shadow: 2px 2px 2px 2px #eeeeee">
             <div class="card-body">
@@ -322,6 +322,12 @@ export default {
 
 .time_selector {
     margin: 2vh;
+}
+
+.time_selector input {
+    border-radius: 1em;
+    background-color: white;
+    color: #333;
 }
 
 .add_new_alarm {

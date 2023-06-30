@@ -162,7 +162,8 @@ export default {
   margin-bottom: 1vh;
   border-radius: 8px;
   border:white;
-  background-color:#E1E1E1;
+  background-color:whitesmoke;
+  color: #333;
 }
 
 
