@@ -11,7 +11,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" v-if="shop" width="30" height="30" fill="#2dce89" class="bi bi-cart-fill" viewBox="0 0 16 16">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" v-else width="30" height="30" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16" >
+                <svg xmlns="http://www.w3.org/2000/svg" v-else width="30" height="30" fill="#2dce89" class="bi bi-cart" viewBox="0 0 16 16" >
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                 </svg>
             </router-link>
@@ -76,26 +76,34 @@
             <div style="padding: 0.5em;">대충 엄청 길어서 잘 안읽게되는 머 중개서비스 제공자로 판매당사자가 아니어서 제공 정보 오류 때문에 생기는 모든 의무와 책임은 각 판매자에게 있다는 내용</div>
         </div>
         <div class="fixed-bottom">
-            <div>
+            <div style="width: 100%;">
                 <div v-if="purchaseOption">
-                <button @click="closeOption">x</button>
-                <div>
-                    <label for="quantity">수량:</label>
-                    <div style=";">
-                        <button @click="incrementQuantity()">+</button>
-                        <p id="quantity" name="quantity">{{selectedQuantity}}</p>
-                        <button @click="decrementQuantity()">-</button>
-
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="product_name" style="width: 100%; margin-left: 10%; text-align: left;"> {{ product.nutraceuticals_name }} </div>
+                        </div>
+                        <div class="col-7" style="text-align: right; margin-top: 1%;">
+                            <button @click="closeOption" style="margin-right: 10%; padding: 0%; background-color: white;"><svg style="position: absolute; width: 20px; top: 20px; right: 20px; margin: 0;" @click="delete_new_alarm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                </svg></button>
+                        </div>
                     </div>
+                
+                    
+                <div class="row">
+                    <div class="col-5" style="text-align: left; margin-top: 5%; margin-bottom: 8%;">
+                        <button @click="decrementQuantity()" style="border: none; display: inline-block; background-color: white;">-</button>
+                        <p id="quantity" name="quantity" style="margin: 0; display: inline-block; font-weight: bold;">{{selectedQuantity}}</p>
+                        <button @click="incrementQuantity()" style="border: none; display: inline-block; background-color: white;">+</button>
+                    </div>
+                <div class="col-7" style="text-align: right; margin-top: 5%; margin-bottom: 5%; ">
+                    <h2>{{ amount.toLocaleString() }} 원</h2>
+                </div>
+            </div>
                 </div>
                 <div>
-                    <h2>주문금액</h2>
-                    <h2>{{ amount }}</h2>
-                </div>
-                </div>
-                <div>
-                    <button @click="getInCart()">장바구니 담기</button>
-                    <button @click="goPurchase()">바로 구매 </button>                
+                    <button @click="getInCart()" style="border: none; background-color: #2dce89; border-radius: 5px; color:white;">장바구니 담기</button>
+                    <button @click="goPurchase()" style="border: none; margin-left:30%; background-color: #2dce89; border-radius: 5px; color:white;">바로 구매 </button>                
                 </div>
             </div>
 
@@ -355,7 +363,5 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
-
 </style>

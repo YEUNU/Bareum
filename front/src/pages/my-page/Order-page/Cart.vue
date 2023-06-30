@@ -18,22 +18,23 @@
   
         <div class="card" v-for="(product, index) in shoppingCart" :key="index">
             <div class="row">
-                <div class="col-6">
-                  <img :src="`/media/product_images/${product.product.업체별_제품코드}`">
+              <p class="card-text" style="text-align: left; padding-bottom: 3%; border-bottom: 2px solid #eeeeee;">{{product.product.업소명}}</p>
+                <div class="row" style="padding: 0;">
+              <div class="col-4">
+                  <img :src="`/media/product_images/${product.product.업체별_제품코드}.png`">
                 </div>
-                <div class="col-6">
-                    <div class="card-body">
-                        <p class="card-text">{{product.product.업소명}}</p>
-                        <p class="card-text">{{product.product.nutraceuticals_name}}</p>
-                    </div>
-                    <button @click="incrementQuantity(product)">+</button>                    
-                    <div>{{ product.quantity }} 개 </div>
+
+                <div class="col-8">
+                        <p class="card-text" style="display: inline-block;">{{product.product.nutraceuticals_name}}</p>
+                    
+                    <button @click="deleteCart(product.id)" style="display: inline-block;" >x</button>                    
+                    
                         <button @click="decrementQuantity(product)">-</button>
+                        <div>{{ product.quantity }} 개 </div>
+                        <button @click="incrementQuantity(product)" style="display: inline-block;">+</button>
                     <div>{{ product.lowest * product.quantity }}</div>
                 </div>
-                <div>
-                  <button @click="deleteCart(product.id)">x</button>
-                </div>
+              </div>
             </div>
         </div>
         <hr/>
