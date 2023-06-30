@@ -8,7 +8,7 @@
     
     <div class="product_card product_head">
         <router-link to="/" class="review_header" style="color: #333;">
-            <div style="font-size: 1.2em; font-weight: bold;"> <span>리뷰</span> <span style="color: #2dce89;">{{ online_score.cnt_review }}</span> </div>
+            <div style="font-size: 1.2em; font-weight: bold;"> <span>바름 리뷰</span> <span style="color: #2dce89;">{{ BareumReviews.length }}</span> </div>
             <div>></div>
         </router-link>
 
@@ -16,56 +16,71 @@
         
         <div class="score_box">
             
+            
+            <div class="star_score">
+                <div style="font-size: 2em; font-weight: bold;">{{ averageRating ? averageRating : '-' }}</div>
+                <div style="height: 2em; margin: -1em 0 0 0;">
+                    <p class="product_star star_baruem" data-split="★★★★★">★★★★★</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div v-if="BareumReviews.length == 0" style="text-align: center; margin-top: 1.5em;">아직 리뷰가 없습니다! 첫 리뷰를 작성해주세용</div>
+        <div v-for="review in BareumReviews.slice(0, 2)" :key="review.bareum_review_number" class="review_box ms-3">
+            <div class="d-flex flex-row align-items-center" style="width: 100%;">
+                <img :src="review.user_info.profile_image"
+                alt="profile" class="img-fluid rounded-circle border border-dark border-3"
+                style="width: 50px; margin-bottom: 1rem;">
+                <div style="text-align: left; font-weight: bold; flex-grow: 1; margin-left: 1rem;">
+                    <div>{{ review.user_info.nickname }}</div>
+                    <div style="display: flex;">
+                        <p style="color: #FFCC21;">{{ "★".repeat(review.rating) }}</p> <p style="color: gainsboro;"> {{ "★".repeat(5 - review.rating) }}</p>
+                    </div>
+                </div>
+            <!-- 리뷰 삭제
+                <div v-if="review.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
+                    <button class="postbutton" @click="deleteComment(comment.comments_id)">삭제</button>
+                </div>
+            --> 
+            </div>
+            <div style="display: flex; margin-bottom: 1em;">
+                <div style="width: 50px;">내용 :</div>
+                <div style="margin-left: 1em;">{{ review.reviews }}</div>
+            </div>
+            
+            <div v-for="(image, index) in review.images" :key="index" style="margin-left: calc(50px + 1em);">
+                <img :src="image.review_img_url" :alt="'Image ' + (index + 1)" class="review-image"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="product_card product_tail">
+        <div style="font-size: 1.2em; font-weight: bold;"> <span>온라인 리뷰</span> <span style="color: #2dce89;">{{ online_score.cnt_review }}</span> </div>
+
+        <div class="score_box">
+            
             <div class="star_score">
                 <div style="font-size: 2em; font-weight: bold;">{{ online_score.avg_rating }}</div>
                 <div style="height: 2em; margin: -1em 0 0 0;">
                     <p class="product_star star_online" data-split="★★★★★">★★★★★</p>
                 </div>
-                <div>(온라인 평균 평점)</div>
             </div>
             
-            <div class="star_score">
-                <div style="font-size: 2em; font-weight: bold;">{{ averageRating }}</div>
-                <div style="height: 2em; margin: -1em 0 0 0;">
-                    <p class="product_star star_baruem" data-split="★★★★★">★★★★★</p>
-                </div>
-                <div>(바름 평균 평점)</div>
-            </div>
+        </div>
+    
+        <div class="set sentiment_online_reviews">
+            <div>긍정 ㅎㅎ</div>
+            <img :src="`/media/pos_wordcloud/${productCode}_pos.png`" alt="" style="width: 80vw; height: 80vw;">
+        </div>
 
+        <div class="set sentiment_online_reviews">
+            <div>부정 ㅠㅠ</div>
+            <img :src="`/media/neg_wordcloud/${productCode}_pos.png`" alt="" style="width: 80vw;  height: 80vw;">
         </div>
-       
-       
-        <div v-for="review in BareumReviews" :key="review.bareum_review_number" class="review_box">
-            <div>
-                <div class="flex-grow-1 ms-3">
-                    <div class="d-flex flex-row align-items-center" style="width:100%;">
-                        <img :src="review.user_info.profile_image"
-                        alt="profile" class="img-fluid rounded-circle border border-dark border-3"
-                        style="width: 50px; margin-bottom: 1rem;">
-                        <div style="text-align: left; font-weight: bold; flex-grow: 1; margin-left: 1rem;">
-                            <div>{{ review.user_info.nickname }}</div>
-                            <div style="display: flex;">
-                                <p style="color: #FFCC21;">{{ "★".repeat(review.rating) }}</p> <p style="color: gainsboro;"> {{ "★".repeat(5 - review.rating) }}</p>
-                            </div>
-                        </div>
-<!-- 리뷰 삭제
-    <div v-if="review.user.member_id == userInfo.memberId" style="margin-top: 2%; margin-bottom: 5%;">
-        <button class="postbutton" @click="deleteComment(comment.comments_id)">삭제</button>
+
     </div>
--->
-                    </div>
-                    <div style="display: flex; margin-bottom: 1em;">
-                        <div style="width: 50px;">내용 :</div>
-                        <div style="margin-left: 1em;">{{ review.reviews }}</div>
-                    </div>
-                    
-                    <div v-for="(image, index) in review.images" :key="index" style="margin-left: calc(50px + 1em);">
-                        <img :src="image.review_img_url" :alt="'Image ' + (index + 1)" class="review-image"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </template>
 <script>
 import axios from 'axios';
@@ -193,6 +208,11 @@ export default {
 .review_box {
     padding: 2vh 0 1vh 0;
     box-shadow: 0 2px 1px -1px #EAEAEA;
+}
+
+.sentiment_online_reviews {
+    justify-self: center;
+    align-self: center;
 }
 
 </style>

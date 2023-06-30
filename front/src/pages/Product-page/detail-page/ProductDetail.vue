@@ -44,37 +44,6 @@
             </li>
         </ul>
         <router-view></router-view>
-        <div class="product_card">
-            <h4>베스트 10</h4>
-        </div>
-        <div class="product_card">
-            <h4>카테고리 내 인기제품</h4>
-        </div>
-        <div class="product_card">
-            <h4>비슷한 제품</h4>
-        </div>
-        <div class="product_card product_tail">
-            <div @click="operator_info = !operator_info" style="padding: 0.5em;">{{ operator_info? '사업자 정보 △' : '사업자 정보 ▽' }}</div>
-            <div v-show="operator_info" class="card" style="display: grid; grid-template-rows: repeat(1fr); grid-template-columns: 3fr 4fr; margin: 0.5em; padding: 0.5em; text-align: start; align-self: center; width: 80vw; max-width: 480px;">
-                <span>대표자</span>
-                <span>뤼튼</span>
-                <span>주소</span>
-                <span>대전광역시 서구 탄방로 56</span>
-                <span>고객센터</span>
-                <span>042-534-7283</span>
-                <span>고객센터운영시간</span>
-                <span>연중전휴</span>
-                <span>사업자등록번호</span>
-                <span>123-45-67890</span>
-                <span>전자우편</span>
-                <span>abc@de.fgh</span>
-                <span>입점문의</span>
-                <span>stu@vw.xyz</span>
-                <span>통신판매업신고</span>
-                <span>안했서용</span>
-            </div>
-            <div style="padding: 0.5em;">대충 엄청 길어서 잘 안읽게되는 머 중개서비스 제공자로 판매당사자가 아니어서 제공 정보 오류 때문에 생기는 모든 의무와 책임은 각 판매자에게 있다는 내용</div>
-        </div>
 
         <div class="fixed-bottom">
             <div>
@@ -269,10 +238,6 @@ export default {
 }
 
 .product_tail {
-    margin-bottom: 0;
-    color: gray;
-    font-size: 0.7em;
-    text-align: center;
     margin-bottom: calc(2.2em + 20px);
 }
 

@@ -25,7 +25,7 @@
             <div>{{ product.원재료 }}</div>
         </div>
     </div>
-    <div class="product_card set">
+    <div class="product_card product_tail set">
         <h4>성분정보</h4>
         <div v-if="product.비타민D">비타민D: {{ product.비타민D }}</div>
         <div v-if="product.비타민E">비타민E: {{ product.비타민E }}</div>
