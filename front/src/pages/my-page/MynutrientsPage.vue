@@ -25,7 +25,25 @@
     <div class="chart-container" style="text-align:center;">
       <canvas id="myChart"></canvas>
     </div>
-    <h5 style="text-align: left; font-weight: bold; margin-top:10% ">내 영양제</h5>
+    <div class="mycard-container">
+      <div class="card"
+        style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
+
+        <div class="card-body">
+
+          <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+          <div v-for="(r, index) in nutraceuticals" :key="index">
+          <div class="item-box" style="display: flex; align-items: center; position: relative; height: 15vh;" @click="goToProduct(r.제품코드)">
+            <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
+              <div style="flex-grow: 1;">
+                <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
+                <h6 style="text-align: center;">{{ r.업소명 }}</h6>
+              </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
 
     <div class="add-nutrient-btn" style="text-align:center; margin-top:1rem;">
       <router-link to="/taking/regist">
@@ -41,16 +59,29 @@
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
+import Cookies from 'js-cookie';
 import { useUserInfo } from "../../stores.js";
 
 export default {
   setup(_, { root }) {
     const userInfo = useUserInfo();
     const loginId = computed(() => userInfo.loginId);
+    const nutraceuticals = ref([]);
+    const csrf_token = Cookies.get("csrftoken");
     const goBack = () => {
       window.history.back(); // 이전 페이지로 이동
     };
-
+    const take_nutrace = async () => {
+      try {
+        const response = await axios.post("/api/taking/regist", {
+          headers: { "Content-Type": "application/json", "X-CSRFToken": csrf_token },
+          loginId: loginId.value,
+        });
+        nutraceuticals.value = response.data.take;
+      } catch (error) {
+        console.log("Error fetching user nutraceuticals:", error);
+      }
+    };
     async function getUserProductsData() {
       try {
         const response = await axios.get("/api/taking/", {
@@ -66,6 +97,7 @@ export default {
     }
 
     onMounted(async () => {
+      take_nutrace();
       const productsData = await getUserProductsData();
       const maxValues = [100, 100, 100, 100, 100, 100];
 
@@ -153,7 +185,8 @@ export default {
       });
     });
 
-    return { goBack };
+    return { goBack,
+      nutraceuticals, };
   },
 };
 </script>
