@@ -61,25 +61,41 @@ def pr_recommend(req):
         current_path = os.path.dirname(os.path.abspath(__file__))
         pkl_file = os.path.join(current_path, "best_model_xgb.pkl")
         xgb_reg = pickle.load(open(pkl_file, "rb"))
-        # [359.87457    99.44459    99.82977    10.2146845   1.0016185 799.12524  ]]
-        # [[359.73837  799.88837   97.71227   10.220889  10.02052  798.7741  ]]
         user_nut = xgb_reg.predict(user_input_df)
         print('user_nut : ')
         print(user_nut)
-        lowest = float("inf")
+        lowest = 0.0
         recommend_item = deque()
+        user_nut2 = [[0,0,0,0,0,0]]
+        user_nut2[0][0] = user_nut[0][2]
+        user_nut2[0][1] = user_nut[0][3]
+        user_nut2[0][2] = user_nut[0][1]
+        user_nut2[0][3] = user_nut[0][5]
+        user_nut2[0][4] = user_nut[0][0]
+        user_nut2[0][5] = user_nut[0][4]
+        print(user_nut2)
+        for i in range(len(user_nut2[0])):
+            print(user_nut2[0][i])
+            if user_nut2[0][i] <= 0.0:
+                user_nut2[0][i] = 0
+        print(user_nut2)
         # after_nut = list()
         # before_nut = user_input_df.copy()
+        maxValues = [100, 20, 700, 700, 315, 8.5]
+        for i in range(len(user_nut2[0])):
+            user_nut2[0][i] = (user_nut2[0][i] / maxValues[i]) * 100
         
+        print(user_nut2)
         for i in all_df.iterrows():
             temp = i[1][["비타민C","비타민D","비타민A","칼슘","마그네슘","아연"]]
             x = [temp.values]
-
-            if abs(cosine_similarity(user_nut, x))[0][0] < lowest:
+            for j in range(6):
+                x[0][j] = (x[0][j] / maxValues[j]) * 100
+            if abs(cosine_similarity(user_nut2, x))[0][0] > lowest:
                 recommend_item.append(all_df["name"][i[0]])
                 if len(recommend_item) > 5: # 5개 추천
                     recommend_item.popleft()
-                    
+
         print(recommend_item)
         recommend_item.append('황작 홍삼정')
         response_data = []

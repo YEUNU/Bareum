@@ -103,7 +103,7 @@ export default {
 
 .ad-border {
   padding: 20px;
-  border: 2px solid #eeeeee;
+  border: 2px solid #2dce89;
   border-radius: 10px;
   margin-bottom: 10px;
 }

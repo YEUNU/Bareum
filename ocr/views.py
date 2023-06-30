@@ -17,7 +17,7 @@ def process_image(request):
         model = ocr()
         result_ocr = model(img)
         # print(result_ocr)
-        pr_list=[]
+        pr_list=['비타민']
         for i in result_ocr:
             if i[2] > 0.4:
                 pr_list.append(i[1])
