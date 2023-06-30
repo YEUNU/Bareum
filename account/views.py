@@ -311,17 +311,39 @@ def user_remove(request, member_id):
 
 
 class InterestView(APIView):
-    def get(self,request):
-        ...
+    def get(self, request):
+        try:   
+            user = request.user
+            user_interest = UserInterest.objects.get(user=user)
+            interest_list = user_interest.get_interest()
+            return Response({"interest": interest_list}, status=status.HTTP_200_OK)
+        except UserInterest.DoesNotExist:
+            return Response({"interest":''})
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+        
     def post(self, request):
         user = request.user
         data = request.data
         serializer = InterestSerializer(data=data)
-        
+
         if serializer.is_valid():
             user_interest, _ = UserInterest.objects.get_or_create(user=user)
             user_interest.set_interest(serializer.validated_data["interest"])
             user_interest.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        user = request.user
+        data = request.data
+        serializer = InterestSerializer(data=data)
+
+        if serializer.is_valid():
+            user_interest, _ = UserInterest.objects.get_or_create(user=user)
+            user_interest.set_interest(serializer.validated_data["interest"])
+            user_interest.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

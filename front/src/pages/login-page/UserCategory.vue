@@ -84,7 +84,7 @@ export default {
             }
 
         };
-        
+
         watchEffect(() => {
             const maxSelections = 3;
 
