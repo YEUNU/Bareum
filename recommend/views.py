@@ -86,20 +86,20 @@ def pr_recommend(req):
             user_nut2[0][i] = (user_nut2[0][i] / maxValues[i]) * 100
         
         print(user_nut2)
+        cos_list = []
         for i in all_df.iterrows():
             temp = i[1][["비타민C","비타민D","비타민A","칼슘","마그네슘","아연"]]
             x = [temp.values]
             for j in range(6):
                 x[0][j] = (x[0][j] / maxValues[j]) * 100
-            if abs(cosine_similarity(user_nut2, x))[0][0] > lowest:
-                recommend_item.append(all_df["name"][i[0]])
-                if len(recommend_item) > 5: # 5개 추천
-                    recommend_item.popleft()
+            cos_list.append((abs(cosine_similarity(user_nut2, x))[0][0], all_df["name"][i[0]]))
 
-        print(recommend_item)
-        recommend_item.append('황작 홍삼정')
+        new_recommend_item = []
+        for i in range(5):
+            new_recommend_item.append(sorted(cos_list, reverse=True)[i][1])
+        print(new_recommend_item)
         response_data = []
-        for name in recommend_item:
+        for name in new_recommend_item:
             pr = Nutraceuticals.objects.get(nutraceuticals_name=name)
             print(pr.ad)
             response_data.append({
