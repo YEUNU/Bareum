@@ -77,7 +77,7 @@ import { useRouter } from "vue-router";
           });
   
           userInfo.userAddInfo(birthDay.value, gender.value,nickName.value, weight.value, height.value);
-          router.push("/category");
+          router.push("/user-category");
         } catch (err) {
           console.error(err);
         }

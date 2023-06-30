@@ -75,10 +75,10 @@ export default {
 
         if (response.data.message === "success") {
           alert("저장에 성공하였습니다.");
-          router.back();
+          router.push('/taking/regist');
         } else if (response.data.message === "fail") {
           alert("이미 등록되어있는 제품을 제외하고 저장되었습니다.");
-          router.back();
+          router.push('/taking/regist');
         }
       } catch (error) {
         console.error("저장에 실패하였습니다:", error);
