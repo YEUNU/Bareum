@@ -177,6 +177,7 @@ export default {
           if (!purchaseOption.value) {
             purchaseOption.value = true
           }else{
+            router.push('/order');
           }
         }
         const fetchOnlineReview = async (productCode) => {

@@ -36,6 +36,19 @@ export const useStore = defineStore('app', {
   },
 });
 
+export const useOrderStore = defineStore('order',{
+  state: ()=>({
+    totalAmount:0,
+    orderList:null,
+
+  }),
+  actions:{
+    order(orderList,totalAmount){
+      this.totalAmount = totalAmount;
+      this.orderList = orderList;
+    }
+  },
+})
 
 //현재 로그인한 유저의 정보
 export const useUserInfo = defineStore('userInfo',{

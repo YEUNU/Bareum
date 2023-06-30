@@ -42,7 +42,7 @@
         <h1>결제 예정금액  {{ totalAmount }}</h1>
     </div>
       <div>
-        <button> 구매하기 </button>
+        <button @click="goToPurchase"> 구매하기 </button>
       </div>
   </template>
   
@@ -51,6 +51,7 @@ import axios from 'axios';
 import {ref, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
+import { useOrderStore } from '../../../stores';
 export default {
       components: {},
 
@@ -59,7 +60,7 @@ export default {
         const router = useRouter();
         const shoppingCart = ref([]);
         const totalAmount = ref(0);
-
+        const orderStore = useOrderStore();
         const getTotal = () => {
           var result = 0;
           for (let index = 0; index < shoppingCart.value.length; index++) {
@@ -98,6 +99,11 @@ export default {
             }
           }
         };
+
+        const goToPurchase = () =>{
+          orderStore.order(shoppingCart.value,totalAmount.value);
+          router.push('/order');
+        }
 
         const updateQuantity = async (cartId,quantity) => {
           try {
@@ -149,6 +155,7 @@ export default {
           totalAmount,
           deleteCart,
           updateQuantity,
+          goToPurchase,
         }
       }
   }
