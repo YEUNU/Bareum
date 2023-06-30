@@ -69,6 +69,13 @@
               </router-link>
             </div>
           </div>
+          <div class="row">
+            <div class="d-flex justify-content-between" style="align-items:center; margin-top: 2%;">
+              <router-link to="/manage-category">
+                <p class="card-text mt-3" style="color:black;">건강 관심항목 관리</p>
+              </router-link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

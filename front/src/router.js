@@ -74,7 +74,8 @@ import orderPage from './pages/my-page/Order-page/Order.vue';
 
 import ReviewList from './pages/review-page/ReviewList.vue';
 import guidePage from './pages/login-page/Guide.vue';
-import categoryPage from './pages/login-page/Category.vue';
+import userCategoryPage from './pages/login-page/UserCategory.vue';
+import manageCategoryPage from './pages/my-page/MyCategory.vue';
 
 const routes = [
     //로그인 페이지
@@ -101,14 +102,14 @@ const routes = [
         name:'agreesignupPage'
     },
     {
-        paht:'/category',
-        component:categoryPage,
-        name:'categoryPage'
-    },
-    {
         path:"/guide",
         component:guidePage,
         name:'guidePage'
+    },
+    {
+        path:"/user-category",
+        component:userCategoryPage,
+        name:'userCategoryPage'
     }
     ,
     //건강기능식품 검색 페이지
@@ -474,6 +475,11 @@ const routes = [
         path:'/myreview',
         name:'myreviewPage',
         component:myreviewPage
+    },
+    {
+        path:'/manage-category',
+        name:'manageCategoryPage',
+        component:manageCategoryPage
     },
     // {   
     //     // 복용중인 영양제

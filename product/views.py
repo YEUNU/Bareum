@@ -165,7 +165,7 @@ class BrandRankingList(APIView):
             brand_rankings = []
 
             for brand in all_brands:
-                top_nutra = Nutraceuticals.objects.filter(업소명=brand).order_by('-score')[:10]
+                top_nutra = Nutraceuticals.objects.filter(업소명=brand).order_by('-score')[:3]
                 serializer = TotalRankingSerializer(top_nutra, many=True)
                 total_score = sum(item['score'] for item in serializer.data)
                 brand_ranking = {
