@@ -72,3 +72,10 @@ class Address(models.Model):
     receiver = models.CharField(max_length=50,blank=True)        
     
     
+class SearchLog(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    word = models.CharField(max_length=255)
+    
+    class Meta:
+        managed = True
+        db_table = 'search_log'

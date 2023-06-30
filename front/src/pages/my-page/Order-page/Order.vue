@@ -67,31 +67,56 @@
             </div>
           </div>
           <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 5%;">
-            {{ orderProductList }}
-           
+            <div v-for="(product,index) in orderProductList" :key="index">
+              <p>{{ product.product.업소명 }}</p>
+              <p>{{ product.product.nutraceuticals_name }}</p> 
+              <p>{{ product.quantity }} 개 </p>
+              <p>{{ product.lowest * product.quantity }} 원</p>
+            </div>
           </div>
-    
+        </div>
         </div>
       </div>
-    </div>
-    <div>
-        {{ totalAmount }} 원
-    </div>
-    <div>
-        <button>결제하기</button>
+      <div class="mycard-container">
+      <div class="card" style="width: 100%; padding:0;  display:block; box-shadow: 2px 2px 2px 2px #eeeeee">
+        <div class="card-body">
+          <div class="flex-grow-1 ms-3">
+            <div class="d-flex flex-row align-items-center mb-2">
+              <h2 class="mb-0 me-3" style="font-weight: bold;">결재금액</h2>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-end; flex-wrap: nowrap; margin-top: 5%;">  
+            <div>
+              <p>총 상품 금액 {{ totalAmount }} 원</p>
+              <p>배송비 0 원</p>
+              <hr/>
+              <p>최종결제금액 {{ totalAmount }} 워</p>
+            </div>
+
+          </div>
+        </div>
+        </div>
+      </div>
+
     </div>
 
 
+    <div>
+        <button @click="payment"> {{ totalAmount }} 원 결제하기</button>
     </div>
+
 </template>
 <script>
 import axios from 'axios';
 import {ref,toRefs, onMounted,reactive} from 'vue';
 import { useOrderStore, useUserInfo } from '../../../stores';
 import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';
+
 export default {
 
     setup(){
+        const router = useRouter();
         const csrf_token = Cookies.get("csrftoken");
         const userInfo = useUserInfo();
         const state = reactive({
@@ -126,7 +151,26 @@ export default {
             totalAmount.value = orderStore.totalAmount;
         })
 
+        const payment = async () => {
+          if (window.confirm("결제하시겠습니까?")){
+            try{
+              //order 랑 order item 만들기위해 post 보내기
+              await axios.post('/api/');
+              //장바구니에서 delete 하기
+
+
+              window.alert("결제가 완료되었습니다");
+              router.push('/mypage');
+            }catch(err){
+              window.alert("결제실패");
+
+              console.error(err);
+            }
+          }
+        }
+
         return{
+          payment, 
             fetchAddress,
             ...toRefs(state),
             orderProductList,

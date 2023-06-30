@@ -62,3 +62,7 @@ class CartView(APIView):
         except Exception as e:
             return Response({"error": f"장바구니 상품 수량 업데이트 중 오류가 발생했습니다. {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
 
+class paymentView(APIView):
+    
+    def post():
+        ...
