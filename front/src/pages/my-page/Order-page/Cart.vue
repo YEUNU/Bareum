@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="background bg-whitesmokes">
         <nav class="navbar fixed-top bg-white">
         <div class="container-fluid">
           <router-link to="/mypage" class="navbar-brand" style="margin-left: 2vh;">
@@ -16,35 +16,66 @@
         </div>
       </nav>
   
-        <div class="card" v-for="(product, index) in shoppingCart" :key="index">
-            <div class="row">
-              <p class="card-text" style="text-align: left; padding-bottom: 3%; border-bottom: 2px solid #eeeeee;">{{product.product.업소명}}</p>
-                <div class="row" style="padding: 0;">
-              <div class="col-4">
-                  <img :src="`/media/product_images/${product.product.업체별_제품코드}.png`">
-                </div>
+        <div class="product_card" v-for="(product, index) in shoppingCart" :key="index" style="border: 2px solid #eeeeee; margin-top: 15%; margin-bottom: 10%; ">
+            <div>
+              <p style="text-align: left;">{{product.product.업소명}}</p>
+              <hr/>  
 
-                <div class="col-8">
-                        <p class="card-text" style="display: inline-block;">{{product.product.nutraceuticals_name}}</p>
+              
+                <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+                      <img :src="`/media/product_images/${product.product.업체별_제품코드}.png`">
+                      <p class="card-text" style="text-align: right; display: inline-block; margin: 0;">{{product.product.nutraceuticals_name}}</p>
+                    <button @click="deleteCart(product.id)" style="text-align: right;  margin-left: 10%; display: inline-block; background-color: white;" ><svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 20 20">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                        </svg></button> 
+                    </div>
+
+                    <div class="col-8" style="text-align: right;">  
+                                           
                     
-                    <button @click="deleteCart(product.id)" style="display: inline-block;" >x</button>                    
+                        
                     
-                        <button @click="decrementQuantity(product)">-</button>
-                        <div>{{ product.quantity }} 개 </div>
-                        <button @click="incrementQuantity(product)" style="display: inline-block;">+</button>
-                    <div>{{ product.lowest * product.quantity }}</div>
+
                 </div>
+              
+
+              <div class="row">
+                <div class="col-5" style="text-align: left; ">
+                  <button @click="decrementQuantity(product)" style="border: none; display: inline-block; background-color: white;">-</button>
+                        <div id="quantity" name="quantity" style="margin: 0; display: inline-block; font-weight: bold;">{{product.quantity}}</div>
+                        <button @click="incrementQuantity(product)" style="border: none; display: inline-block; background-color: white;">+</button>
+                </div>
+                <div class="col-7" style="text-align: right;  ">
+                  <h1 style="text-align: right; padding-right: 15%;">{{ product.lowest * product.quantity }} 원</h1>
+                   </div>
               </div>
+                  
+                
             </div>
+
         </div>
-        <hr/>
-        <p>총 상품 금액 {{ totalAmount }}</p>
-        <p>배송비 {{ 0 }}</p>
-        <h1>결제 예정금액  {{ totalAmount }}</h1>
-    </div>
+        <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+          <p style="text-align: left; color: gray;">총 상품 금액</p>
+          <p style="text-align: right;">{{ totalAmount }} 원</p>
+        </div>
+        <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+          <p style="text-align: left; color: gray;">배송비</p>
+          <p style="text-align: right;">무료</p>
+        </div>
+
+        <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
+          <p style="text-align: left; color: gray;">결제 예정금액</p>
+          <p style="text-align: right;">{{ totalAmount }} 원</p>
+        </div>
+
+        <!-- <p>배송비 무료</p>
+        <h1>결제 예정금액  {{ totalAmount }} 원</h1> -->
+      
       <div>
-        <button> 구매하기 </button>
+        <button style="margin-top: 5%; background-color: #2dce89; border-radius: 5px; color:white;"> 구매하기 </button>
       </div>
+    </div>
+      
   </template>
   
   <script>

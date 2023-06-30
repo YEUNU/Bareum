@@ -83,9 +83,11 @@
                             <div class="product_name" style="width: 100%; margin-left: 10%; text-align: left;"> {{ product.nutraceuticals_name }} </div>
                         </div>
                         <div class="col-7" style="text-align: right; margin-top: 1%;">
-                            <button @click="closeOption" style="margin-right: 10%; padding: 0%; background-color: white;"><svg style="position: absolute; width: 20px; top: 20px; right: 20px; margin: 0;" @click="delete_new_alarm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-                </svg></button>
+                            <button @click="closeOption" style="margin-right: 10%; padding: 0%; background-color: white;">
+                                <svg style="position: absolute; width: 20px; top: 20px; right: 20px; margin: 0;" @click="delete_new_alarm()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 
