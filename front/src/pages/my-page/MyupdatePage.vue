@@ -89,7 +89,7 @@
               <hr>
             </div>
             <button type="submit"
-              style="width:100%; margin-bottom: 50%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">
+              style="width:100%; background-color: #2dce89; border-radius: 5px; color:white; box-shadow: 2px 2px 2px 2px #eeeeee">
               저장
             </button>
 

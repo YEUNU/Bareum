@@ -198,8 +198,7 @@ export default {
   /* 화면 너비에 꽉 차도록 설정 */
   height: 100%;
   /* 화면 높이에 꽉 차도록 설정 */
-  margin-bottom: 10%;
-  padding-bottom: 100%;
+  padding-bottom: 60px;
 
 }
 
