@@ -12,3 +12,5 @@ torchvision
 torchaudio
 numpy
 pandas
+scikit-learn
+xgboost

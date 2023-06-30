@@ -70,21 +70,46 @@
       </div>
     </div>
     <div class="mycard-container">
-      <div class="card"
-        style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
-
+      <div
+        class="card"
+        style="
+          width: 100%;
+          padding: 0;
+          display: block;
+          margin-bottom: -5%;
+          box-shadow: 2px 2px 2px 2px #eeeeee;
+        "
+      >
         <div class="card-body">
-
-          <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
-          <div v-for="(r, index) in nutraceuticals" :key="index">
-          <div class="item-box" style="display: flex; align-items: center; position: relative; height: 15vh;" @click="goToProduct(r.제품코드)">
-            <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
-              <div style="flex-grow: 1;">
-                <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
-                <h6 style="text-align: center;">{{ r.업소명 }}</h6>
-              </div>
-                </div>
+          <h5 style="text-align: left; font-weight: bold;">내 영양제 정기 배송 신청</h5>
+          <div class="item-container">
+            <div
+              v-for="(r, index) in nutraceuticals"
+              :key="index"
+              class="item-box"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                width: calc(25% - 1rem);
+                margin-bottom: 1rem;
+                border: 1px solid #eeeeee;
+                padding: 1rem;
+                box-shadow: 2px 2px 2px 2px #eeeeee;
+                background-color: #fff;
+              "
+              @click="goToProduct(r.제품코드)"
+            >
+              <img
+                :src="`../../../media/product_images/${r.제품코드}.png`"
+                width="100"
+                alt="제품 이미지"
+                class="item-img"
+              />
+              <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -282,7 +307,7 @@ export default {
       }
       init();
     };
-
+    
     const isToday = (year, month, day) => {
       let date = new Date();
       return year == date.getFullYear() && month == date.getMonth() + 1 && day == date.getDate();
@@ -344,5 +369,21 @@ export default {
   background-color: #2dce89;
   padding: 10px;
   color: #ffffff;
+}
+.item-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.item-box::-webkit-scrollbar {
+  height: 8px;
+}
+
+.item-box::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 4px;
 }
 </style>

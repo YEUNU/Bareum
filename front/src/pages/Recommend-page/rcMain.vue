@@ -91,7 +91,7 @@ export default {
   height: 100%;
   /* 화면 높이에 꽉 차도록 설정 */
   display: block;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .item-box {
@@ -103,7 +103,7 @@ export default {
 
 .ad-border {
   padding: 20px;
-  border: 2px solid #eeeeee;
+  border: 2px solid #2dce89;
   border-radius: 10px;
   margin-bottom: 10px;
 }

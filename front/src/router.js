@@ -62,7 +62,7 @@ import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
 import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
 import receivealarmPage from './pages/Home-page/Receivealarm.vue';
 import productReviewWritePage from './pages/Product-page/detail-page/Write.vue';
-
+import regularRegistPage from './pages/Home-page/RegularRegist.vue';
 import totalRankingPage from './pages/Product-page/Rank-page/TotalRanking.vue';
 import ageRankingPage from './pages/Product-page/Rank-page/AgeRanking.vue';
 import ingredientRankingPage from './pages/Product-page/Rank-page/IngredientRanking.vue';
@@ -158,14 +158,19 @@ const routes = [
     {
         path: "/regulardelivery",
         component:regulardeliveryPage,
-        name:'regulardeliveryPage'
+        name:'regulardeliveryPage',
+        
+    },
+    {
+        path:'/regulardelivery/regist',
+        component:regularRegistPage,
     },
   // 메인페이지 - 알람
-  {
-    path: "/receivealarm",
-    component:receivealarmPage,
-    name:'receivealarmPage'
-},
+    {
+        path: "/receivealarm",
+        component:receivealarmPage,
+        name:'receivealarmPage'
+    },
     {
         //예시
         path:"/Ranking",

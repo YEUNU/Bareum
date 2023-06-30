@@ -1,32 +1,16 @@
 from django.http import JsonResponse
 import pandas as pd
+import numpy as np
 import os 
 from taking.models import eating_Nutraceuticals
 from product.models import Nutraceuticals
+from account.models import User
+from sklearn.metrics.pairwise import cosine_similarity
 from django.views.decorators.csrf import csrf_exempt
+from collections import deque
 import json 
-
-def find_best_supplement(all_df, need_nut, already_selected, max_intake_limits_df):
-    min_difference = float('inf')
-    best_supplement = None
-    best_index = None
-
-    for idx, row in all_df.iterrows():
-        if idx in already_selected:
-            continue
-
-        row_difference = 0
-        for nutrient in need_nut.columns:
-
-            allowed_intake = min(max_intake_limits_df.loc[0, nutrient], need_nut.loc[0, nutrient])
-            row_difference += max(need_nut.loc[0, nutrient] - min(row[nutrient], allowed_intake), 0)
-
-        if row_difference < min_difference:
-            min_difference = row_difference
-            best_supplement = row
-            best_index = idx
-
-    return best_index, best_supplement
+import datetime
+import pickle
 
 @csrf_exempt
 def pr_recommend(req):
@@ -36,6 +20,15 @@ def pr_recommend(req):
         user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id)
         nut_name = [n.nutraceuticals_name for n in user_nutraceuticals]
         print('login_id : ' + user_id)
+        user = User.objects.get(login_id=user_id)
+        gender = user.gender
+        age = datetime.date.today().year - user.birthday.year
+        if gender == 'male':
+            gender = 1
+        else:
+            gender = 0
+        print(gender, age)
+        
         response_data = []
         for name in nut_name:
             ingredient = Nutraceuticals.objects.get(nutraceuticals_name=name)
@@ -49,63 +42,64 @@ def pr_recommend(req):
             })
         print(response_data)
         
+        data = {"age" : age,"비타민C": 0, "비타민D": 0, 
+                "비타민A": 0, "칼슘": 0, "마그네슘" : 0, "아연" : 0,
+                "sex_male" : gender}
+        
+        for i in response_data:
+            for j in i:
+                data[j] += i[j]
+        print(data)
+        user_input_df = pd.DataFrame(data, index=[0])
+        user_input_df = pd.get_dummies(user_input_df)
+        print(user_input_df)
+        
         cur_dir = os.path.dirname(os.path.abspath(__file__))
         csv_dir = os.path.join(cur_dir, 'total_nutrition.csv')
         all_df = pd.read_csv(csv_dir)
+   
+        current_path = os.path.dirname(os.path.abspath(__file__))
+        pkl_file = os.path.join(current_path, "best_model_xgb.pkl")
+        xgb_reg = pickle.load(open(pkl_file, "rb"))
+        user_nut = xgb_reg.predict(user_input_df)
+        print('user_nut : ')
+        print(user_nut)
+        lowest = 0.0
+        recommend_item = deque()
+        user_nut2 = [[0,0,0,0,0,0]]
+        user_nut2[0][0] = user_nut[0][2]
+        user_nut2[0][1] = user_nut[0][3]
+        user_nut2[0][2] = user_nut[0][1]
+        user_nut2[0][3] = user_nut[0][5]
+        user_nut2[0][4] = user_nut[0][0]
+        user_nut2[0][5] = user_nut[0][4]
+        print(user_nut2)
+        for i in range(len(user_nut2[0])):
+            print(user_nut2[0][i])
+            if user_nut2[0][i] <= 0.0:
+                user_nut2[0][i] = 0
+        print(user_nut2)
+        # after_nut = list()
+        # before_nut = user_input_df.copy()
+        maxValues = [100, 20, 700, 700, 315, 8.5]
+        for i in range(len(user_nut2[0])):
+            user_nut2[0][i] = (user_nut2[0][i] / maxValues[i]) * 100
         
-        user_input = {
-            "비타민C" : [0],
-            "비타민D" : [0],
-            "비타민A" : [0],
-            "칼슘" : [0],
-            "마그네슘" : [0],
-            "아연" : [0],
-        }
-        for i in response_data:
-            for j in i:
-                user_input[j][0] += i[j]
-        print(user_input)
-        user_input_df = pd.DataFrame(user_input)
-        print(user_input_df)
-        recommend_official = {
-            "비타민C" : [100],
-            "비타민D" : [10],
-            "비타민A" : [700],
-            "칼슘" : [700],
-            "마그네슘" : [315],
-            "아연" : [8.5],
-        }
-        recommend_official_df = pd.DataFrame(recommend_official)
+        print(user_nut2)
+        cos_list = []
+        for i in all_df.iterrows():
+            temp = i[1][["비타민C","비타민D","비타민A","칼슘","마그네슘","아연"]]
+            x = [temp.values]
+            for j in range(6):
+                x[0][j] = (x[0][j] / maxValues[j]) * 100
+            cos_list.append((abs(cosine_similarity(user_nut2, x))[0][0], all_df["name"][i[0]]))
 
-        max_intake_limits = {
-            "비타민C": [2000],
-            "비타민D": [4000],
-            "비타민A": [3000],
-            "칼슘": [2500],
-            "마그네슘": [350],
-            "아연": [35],
-        }
-        max_intake_limits_df = pd.DataFrame(max_intake_limits)
-        
-        already_selected = []
-        current_demand = (recommend_official_df - user_input_df) / recommend_official_df
-
-        while current_demand.mean(axis=1)[0] > 0:
-            best_index, best_supplement = find_best_supplement(all_df, current_demand, already_selected, max_intake_limits_df)
-            user_input_df.loc[0] += best_supplement
-            already_selected.append(best_index)
-
-            current_demand = (recommend_official_df - user_input_df) / recommend_official_df
-
-
-        # 결과 출력
-        result = ['츄어블비타민C', '고려홍삼차']
-        for idx in already_selected:
-            result.append(all_df.loc[idx, 'name'])
-        print(result)
-        
+        new_recommend_item = []
+        for i in range(5):
+            new_recommend_item.append(sorted(cos_list, reverse=True)[i][1])
+        print(new_recommend_item)
         response_data = []
-        for name in result:
+        for name in new_recommend_item:
             pr = Nutraceuticals.objects.get(nutraceuticals_name=name)
             print(pr.ad)
             response_data.append({
