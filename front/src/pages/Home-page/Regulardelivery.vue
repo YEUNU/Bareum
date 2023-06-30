@@ -58,7 +58,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="mycard-container">
       <div class="card"
         style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
@@ -66,23 +65,26 @@
         <div class="card-body">
 
           <h5 style="text-align: left; font-weight: bold;">정기 배송 품목</h5>
+          
+        </div>
+      </div>
+    </div>
+    <div class="mycard-container">
+      <div class="card"
+        style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
 
-          <div class="d-flex align-items-center mt-4 mb-2">
-            <div class="flex-shrink-0" style="text-align: left; width:100%;">
-              <img style="margin-right: 5%;" :src="images[0].src" :alt="images[0].alt"
-                :style="{ height: imageSize, width: imageSize, border: images[0].isChecked ? '10px solid #2dce89' : 'none' }"
-                @click="toggleCheck(0)" />
-              <img :src="images[1].src" :alt="images[1].alt"
-                :style="{ height: imageSize, width: imageSize, margin: '0 10px', border: images[1].isChecked ? '10px solid #2dce89' : 'none' }"
-                @click="toggleCheck(1)" />
-              <img style="margin-left: 5%;" src="../../assets/plus.png" :alt="images[2].alt"
-                :style="{ height: imageSize, width: imageSize, border: images[2].isChecked ? '10px solid #2dce89' : 'none' }"
-                @click="toggleCheck(2)" />
+        <div class="card-body">
+
+          <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+          <div v-for="(r, index) in nutraceuticals" :key="index">
+          <div class="item-box" style="display: flex; align-items: center; position: relative; height: 15vh;" @click="goToProduct(r.제품코드)">
+            <img :src="`../../../media/product_images/${r.제품코드}.png`" width="100" alt="제품 이미지" class="item-img" />
+              <div style="flex-grow: 1;">
+                <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
+                <h6 style="text-align: center;">{{ r.업소명 }}</h6>
+              </div>
+                </div>
             </div>
-          </div>
-
-
-
         </div>
       </div>
     </div>
@@ -116,8 +118,8 @@
 <script>
 import { ref, computed } from 'vue';
 import axios from 'axios';
-import { useUserInfo } from '../../stores';
-
+import { useUserInfo } from "../../stores.js";
+import Cookies from 'js-cookie';
 export default {
   name: 'Calendar',
   setup() {
@@ -133,6 +135,10 @@ export default {
     const memoDatas = ref([]);
     const selectedDate = ref(null);
     const address = ref("");
+    const nutraceuticals = ref([]);
+    const userInfo = useUserInfo();
+    const loginId = computed(() => userInfo.loginId);
+    const csrf_token = Cookies.get("csrftoken");
     const images = ref([
       {
         src: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR3h8B7MrzEI3wg-A8_FArF5oQlBGzRrtr8F-PN-MI41_LsiInYYB7_JkFxbrY1XTGGcbbI-W8Or2ymn4cXLM2wS3xW_Y3Ii0EJ4lPnniZSeHyZ2OahUqGrBCix8Ki3IoQw_A&usqp=CAc',
@@ -165,11 +171,23 @@ export default {
         console.error(error);
       }
     };
+    const take_nutrace = async () => {
+      try {
+        const response = await axios.post("/api/taking/regist", {
+          headers: { "Content-Type": "application/json", "X-CSRFToken": csrf_token },
+          loginId: loginId.value,
+        });
+        nutraceuticals.value = response.data.take;
+      } catch (error) {
+        console.log("Error fetching user nutraceuticals:", error);
+      }
+    };
     const init = () => {
       currentMonthStartWeekIndex.value = getStartWeek(currentYear.value, currentMonth.value);
       endOfDay.value = getEndOfDay(currentYear.value, currentMonth.value);
       initCalendar();
-      fetchData()
+      fetchData();
+      take_nutrace();
     };
 
     const toggleCheck = (index) => {
@@ -293,6 +311,7 @@ export default {
       images,
       imageSize,
       address,
+      nutraceuticals,
 
       toggleCheck,
       onClickPrev,
@@ -300,6 +319,7 @@ export default {
       isToday,
       isSelected,
       selectDate,
+      take_nutrace,
     }
   }
 };
