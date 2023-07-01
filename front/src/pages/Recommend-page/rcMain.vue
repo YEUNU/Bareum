@@ -1,5 +1,5 @@
 <template>
-  <div class="myrecommendcontainer">
+  <div class="background" style="width: 100%; display: block; background-color: #eeeeee; margin-top: 10%; padding-bottom: 10%;">
     <nav class="navbar fixed-top bg-white">
       <div class="container-fluid">
         <a href="javascript:history.back()" class="navbar-brand" style="margin-left: 2vh;">
@@ -19,10 +19,11 @@
         </div>
       </div>
     </nav>
-    <div>AI기반 건강기능식품 추천</div>
-    <div v-for="(r, index) in userNutraceuticals" :key="index">
+    <div style="width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; color: white; background-color: #2dce89; border:none; margin-top: 5%; margin-bottom: 0;">AI기반 건강기능식품 추천</div>
+   
+    <div style="width: 100%; background-color: white;" v-for="(r, index) in userNutraceuticals" :key="index">
       <router-link :to="`/product/${r.제품코드}`">
-        <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
+        <div class="item-box" style="margin-bottom: 0;" :class="{ 'ad-border': r.광고상품 }">
           <div class="d-flex align-items-center">
             <img :src="`../../../media/product_images/${r.제품코드}.png`" width="200" alt="제품 이미지" class="item-img" />
             <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
@@ -45,10 +46,10 @@
     </div>
 
 
-    <div>연령 맞춤 건강기능식품 추천</div>
-    <div v-for="(r, index) in recommendByAgeList" :key="index">
+    <div style="width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; color: white; background-color: #2dce89; border:none; margin-top: 0%; margin-bottom: 0;">연령 맞춤 건강기능식품 추천</div>
+    <div style="width: 100%; background-color: white;" v-for="(r, index) in recommendByAgeList" :key="index">
       <router-link :to="`/product/${r.업체별_제품코드}`">
-        <div class="item-box">
+        <div class="item-box" style="margin-bottom: 0;">
           <div class="d-flex align-items-center">
             <img :src="`../../../media/product_images/${r.업체별_제품코드}.png`" width="200" alt="제품 이미지" class="item-img" />
             <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
@@ -68,12 +69,14 @@
     </div>
 
 
-    <div>건강관심항목 별 건강기능식품 추천</div>
-    <div v-for="(r, index) in recommendByInterestList" :key="index">
-      {{ index }}
-      <div v-for="(product,index) in r" :key="index">
+    <div style="width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; color: white; background-color: #2dce89; border:none; margin-top: 0%; margin-bottom: 0;">건강관심항목 별 건강기능식품 추천
+    </div>
+    <div style="width: 100%; background-color: #eeeeee;" v-for="(r, index) in recommendByInterestList" :key="index">
+      <div class="indexgroup" style="width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; color: white; background-color: #2dce89; border:none;">{{ index }}</div>
+      
+      <div style="background-color: white;" v-for="(product,index) in r" :key="index">
         <router-link :to="`/product/${product.업체별_제품코드}`">
-        <div class="item-box">
+        <div class="item-box" style="margin-bottom: 0;">
           <div class="d-flex align-items-center">
             <img :src="`../../../media/product_images/${product.업체별_제품코드}.png`" width="200" alt="제품 이미지" class="item-img" />
             <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">

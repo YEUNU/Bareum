@@ -87,9 +87,9 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
                 <div class="add-nutrient-btn" style="margin-top:1rem;">
-                    <router-link to="/taking">
+                    <router-link to="/taking" >
                         <button class="btn btn-primary"
-                                style="border: none; background-color: #2dce89; color: white; border-radius: 5px;"
+                                style="margin-top: -25%; border: none; background-color: #2dce89; color: white; border-radius: 5px;"
                                 @click="openRegistration">관리하기
                         </button>
                     </router-link>
