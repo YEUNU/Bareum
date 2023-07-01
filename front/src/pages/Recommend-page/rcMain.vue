@@ -19,7 +19,7 @@
         </div>
       </div>
     </nav>
-
+    <div>AI기반 건강기능식품 추천</div>
     <div v-for="(r, index) in userNutraceuticals" :key="index">
       <router-link :to="`/product/${r.제품코드}`">
         <div class="item-box" :class="{ 'ad-border': r.광고상품 }">
@@ -43,6 +43,56 @@
         </div>
       </router-link>
     </div>
+
+
+    <div>연령 맞춤 건강기능식품 추천</div>
+    <div v-for="(r, index) in recommendByAgeList" :key="index">
+      <router-link :to="`/product/${r.업체별_제품코드}`">
+        <div class="item-box">
+          <div class="d-flex align-items-center">
+            <img :src="`../../../media/product_images/${r.업체별_제품코드}.png`" width="200" alt="제품 이미지" class="item-img" />
+            <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
+              <div class="d-flex flex-row align-items-center">
+                <div class="col-6 col-sm-3">
+                  <h2 style="margin-top: 5%; margin-left: 5%; color:black; width:200%;">
+
+                    {{ r.nutraceuticals_name }}
+                  </h2>
+                  <p style="margin-left: 5%; color:#808080; width:200%;">{{ r.업소명 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </router-link>
+    </div>
+
+
+    <div>건강관심항목 별 건강기능식품 추천</div>
+    <div v-for="(r, index) in recommendByInterestList" :key="index">
+      {{ index }}
+      <div v-for="(product,index) in r" :key="index">
+        <router-link :to="`/product/${product.업체별_제품코드}`">
+        <div class="item-box">
+          <div class="d-flex align-items-center">
+            <img :src="`../../../media/product_images/${product.업체별_제품코드}.png`" width="200" alt="제품 이미지" class="item-img" />
+            <div class="flex-grow-1 ms-3" style="text-align: left; width: 100%;">
+              <div class="d-flex flex-row align-items-center">
+                <div class="col-6 col-sm-3">
+                  <h2 style="margin-top: 5%; margin-left: 5%; color:black; width:200%;">
+
+                    {{ product.nutraceuticals_name }}
+                  </h2>
+                  <p style="margin-left: 5%; color:#808080; width:200%;">{{ product.업소명 }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </router-link>
+        </div>
+    </div>
+
   </div>
 </template>
 
@@ -51,13 +101,18 @@
 import { ref, onMounted, computed } from "vue";
 import { useUserInfo } from "../../stores.js";
 import axios from "axios";
+import ageGroup from '../Product-page/Rank-page/age_group.js';
+import nutra_presonal_mapping from '../Product-page/Rank-page/nutra_presonal_mapping.js';
 
 export default {
   setup() {
     const userInfo = useUserInfo();
     const loginId = computed(() => userInfo.loginId);
     const userNutraceuticals = ref([]);
-
+    const recommendByAgeList = ref([]);
+    const recommendByInterestList = ref({});
+    const userInterest = ref([]);
+    
     async function fetchNutraceuticals() {
       try {
         const response = await axios.post("/api/recommend/", {
@@ -67,15 +122,83 @@ export default {
       } catch (error) {
         console.log("Error fetching user nutraceuticals:", error);
       }
-    }
+    };
+    const getUserInterest = async() => {
+          try{
+            const response = await axios.get('/api/account/interest/');
+            userInterest.value = response.data.interest;
+            console.log(userInterest)
 
-    onMounted(() => {
-      console.log(loginId.value);
+          }catch(err){
+            console.error(err);
+          }
+        }
+
+
+        const recommendByAge = async () => {
+          let ingredients;
+          try {
+            let age = userInfo.age;
+            if (age <= 12) {
+              ingredients = ageGroup["유아 및 어린이 (1-12세)"];
+            } else if (age < 19) {
+              ingredients = ageGroup["청소년 (13-18세)"];
+            } else if (age < 39) {
+              ingredients = ageGroup["성인 (19-39세)"];
+            } else if (age < 65) {
+              ingredients = ageGroup["중년 성인 (40-64세)"];
+            } else if (age >= 65) {
+              ingredients = ageGroup["노인 (65세 이상)"];
+            }
+            console.log(ingredients)
+            const response = await axios.get('/api/recommend/age/', {
+              params: { ingredients: JSON.stringify(ingredients) },
+            });
+            recommendByAgeList.value = response.data;
+            console.log('age',recommendByAgeList.value);
+          } catch (err) {
+            console.error(err);
+          }
+        };
+
+      const recommendByInterest = async () => {
+        try {
+            const promises = userInterest.value.map(async (interest) => {
+              const ingredients = nutra_presonal_mapping[interest];
+              const response = await axios.get("/api/recommend/interest/", {
+                params: { ingredients: JSON.stringify(ingredients) },
+              });
+              return response.data;
+            });
+
+            const responses = await Promise.all(promises);
+            const interestObj = userInterest.value.reduce((obj, interest, index) => {
+              obj[interest] = responses[index];
+              return obj;
+            }, {});
+            recommendByInterestList.value = interestObj;
+            console.log("recommend", recommendByInterestList.value);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+
+    onMounted(async() => {
+      await getUserInterest();
+      recommendByInterest();
+      recommendByAge();
       fetchNutraceuticals();
     });
 
     return {
       userNutraceuticals,
+      recommendByInterest,
+      recommendByAge,
+      recommendByAgeList,
+      recommendByInterestList,
+      userInterest
+
     };
   },
 };

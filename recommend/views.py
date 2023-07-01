@@ -11,6 +11,11 @@ from collections import deque
 import json 
 import datetime
 import pickle
+from django.db.models import F, Q
+from product.serializers import TotalRankingSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
 
 @csrf_exempt
 def pr_recommend(req):
@@ -19,7 +24,6 @@ def pr_recommend(req):
         user_id = data['loginId']
         user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id)
         nut_name = [n.nutraceuticals_name for n in user_nutraceuticals]
-        print('login_id : ' + user_id)
         user = User.objects.get(login_id=user_id)
         gender = user.gender
         age = datetime.date.today().year - user.birthday.year
@@ -27,7 +31,6 @@ def pr_recommend(req):
             gender = 1
         else:
             gender = 0
-        print(gender, age)
         
         response_data = []
         for name in nut_name:
@@ -40,7 +43,6 @@ def pr_recommend(req):
                 '마그네슘': ingredient.마그네슘,
                 '아연': ingredient.아연,
             })
-        print(response_data)
         
         data = {"age" : age,"비타민C": 0, "비타민D": 0, 
                 "비타민A": 0, "칼슘": 0, "마그네슘" : 0, "아연" : 0,
@@ -49,10 +51,8 @@ def pr_recommend(req):
         for i in response_data:
             for j in i:
                 data[j] += i[j]
-        print(data)
         user_input_df = pd.DataFrame(data, index=[0])
         user_input_df = pd.get_dummies(user_input_df)
-        print(user_input_df)
         
         cur_dir = os.path.dirname(os.path.abspath(__file__))
         csv_dir = os.path.join(cur_dir, 'total_nutrition.csv')
@@ -62,8 +62,6 @@ def pr_recommend(req):
         pkl_file = os.path.join(current_path, "best_model_xgb.pkl")
         xgb_reg = pickle.load(open(pkl_file, "rb"))
         user_nut = xgb_reg.predict(user_input_df)
-        print('user_nut : ')
-        print(user_nut)
         lowest = 0.0
         recommend_item = deque()
         user_nut2 = [[0,0,0,0,0,0]]
@@ -73,19 +71,15 @@ def pr_recommend(req):
         user_nut2[0][3] = user_nut[0][5]
         user_nut2[0][4] = user_nut[0][0]
         user_nut2[0][5] = user_nut[0][4]
-        print(user_nut2)
         for i in range(len(user_nut2[0])):
-            print(user_nut2[0][i])
             if user_nut2[0][i] <= 0.0:
                 user_nut2[0][i] = 0
-        print(user_nut2)
         # after_nut = list()
         # before_nut = user_input_df.copy()
         maxValues = [100, 20, 700, 700, 315, 8.5]
         for i in range(len(user_nut2[0])):
             user_nut2[0][i] = (user_nut2[0][i] / maxValues[i]) * 100
         
-        print(user_nut2)
         cos_list = []
         for i in all_df.iterrows():
             temp = i[1][["비타민C","비타민D","비타민A","칼슘","마그네슘","아연"]]
@@ -97,11 +91,9 @@ def pr_recommend(req):
         new_recommend_item = []
         for i in range(5):
             new_recommend_item.append(sorted(cos_list, reverse=True)[i][1])
-        print(new_recommend_item)
         response_data = []
         for name in new_recommend_item:
             pr = Nutraceuticals.objects.get(nutraceuticals_name=name)
-            print(pr.ad)
             response_data.append({
                 '제품코드' : pr.업체별_제품코드,
                 '제품명': pr.nutraceuticals_name,
@@ -109,5 +101,43 @@ def pr_recommend(req):
                 '광고상품' : pr.ad,
             })
         response_data = sorted(response_data, key=lambda x: x['광고상품'], reverse=True)
-        print(response_data)
         return JsonResponse({"nutraceuticals": response_data}, safe=False)
+    
+class AgeRecommendView(APIView):
+    def get(self, request):
+        try:
+            ingredients = request.GET.get('ingredients')
+            ingredients_list = json.loads(ingredients)
+            queryset = Nutraceuticals.objects.none()
+
+            for ingredient in ingredients_list:
+                column_condition = Q(**{ingredient + '__gt': 0})
+                queryset |= Nutraceuticals.objects.filter(column_condition)
+
+            top_nutra = queryset.order_by('-score')[:3]
+            serializer = TotalRankingSerializer(top_nutra, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+    
+
+class InterestRecommendView(APIView):
+    def get(self,request):
+        print('엥?')
+        try:
+            ingredients = request.GET.get('ingredients')
+            ingredients_list = json.loads(ingredients)
+            print("asd: ",ingredients_list)
+            queryset = Nutraceuticals.objects.none()
+
+            for ingredient in ingredients_list:
+                column_condition = Q(**{ingredient + '__gt': 0})
+                queryset |= Nutraceuticals.objects.filter(column_condition)
+
+            top_nutra = queryset.order_by('-score')[:3]
+            serializer = TotalRankingSerializer(top_nutra, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response(str(e),status= status.HTTP_400_BAD_REQUEST)
