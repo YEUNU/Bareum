@@ -25,9 +25,10 @@
 
     <div v-else >
       <div v-if="productResults" style="width:100%; overflow-y: scroll;">
-        <h2 style="margin-top: 10%;">제품을 선택해주세요.</h2>
+        <h2 style="margin-top: 10%;">제품을 선택 후 아래 저장 버튼을 눌러 내가먹는 영양제 등록하기.</h2>
         <div class="grid-container" style="width: 100%; margin-top: 10%;">
           <div v-for="(product, index) in productResults" :key="index" >
+            
             <div class="product-card" style="width: 100%;">
               <div class="product-image">
                 <!-- 추후에 이미지를 여기에 추가하세요 -->
@@ -38,17 +39,25 @@
                 <p style="font-weight: bold; font-size: 20px;">{{ product.nutraceuticals_name }}</p>
                 <p>{{ product.업소명 }}</p>
               </div>
+              
               </router-link>
+              <input type="checkbox" class="checkbox" :id="`checkbox-${index}`" :value="product" v-model="checkedItems"
+                style="background-color: #2dce89;">
             </div>
             
           </div>
         </div>
+        <button class="save-button" @click="handleSave" style="background-color: #2dce89; width: 100%; border-radius: 5px;">
+          저장
+        </button>
         <router-link to="/ocr/registration" class="request-link">
           <button class="request-btn" style="width: 100%; margin-top: 5%; margin-bottom: 10%;">등록 요청</button>
         </router-link>
       </div>
+      
       <div v-else style="margin-top: 10%; border:2px solid #eeeeee; box-shadow: 2px 2px 2px 2px #eeeeee">
         <p style="margin-top: 10%;">관련된 제품을 찾지 못했습니다.</p>
+        
         <router-link to="/ocr/registration" class="request-link">
           <button class="request-btn" style="margin-bottom: 10%;">등록 요청</button>
         </router-link>
@@ -59,18 +68,51 @@
 
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
+import { useUserInfo } from "../../stores.js"
 
 export default {
   setup(props, { emit }) {
     const imageData = ref(null);
     const productResults = ref(null);
+    const checkedItems = ref([]);
+    const router = useRouter();
     const route = useRoute();
+    const userInfo = useUserInfo();
+    const loginId = computed(() => userInfo.loginId);
     const csrf_token = Cookies.get('csrftoken');
     const isLoading = ref(true);
+
+    async function handleSave() {
+      console.log("저장된 항목들: ", checkedItems.value);
+
+      try {
+        const response = await axios.post("/api/taking/save", {
+          headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrf_token,
+          },
+          checkedItems: checkedItems.value.map((product) => ({
+            nutraceuticals_name: product.nutraceuticals_name,
+            loginId: loginId.value,
+          })),
+        });
+
+        if (response.data.message === "success") {
+          alert("저장에 성공하였습니다.");
+          router.push('/taking/regist');
+        } else if (response.data.message === "fail") {
+          alert("이미 등록되어있는 제품을 제외하고 저장되었습니다.");
+          router.push('/taking/regist');
+        }
+      } catch (error) {
+        console.error("저장에 실패하였습니다:", error);
+      }
+    }
 
     async function sendImageToBackend() {
       try {
@@ -111,6 +153,9 @@ export default {
       imageData,
       productResults,
       isLoading,
+      checkedItems,
+
+      handleSave,
     };
   },
 };

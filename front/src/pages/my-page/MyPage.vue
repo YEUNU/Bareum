@@ -81,10 +81,20 @@
     </div>
 
     <div class="mycard-container">
-      <div class="card"
-        style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
+    <div class="card"
+         style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
         <div class="card-body">
-          <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+                <div class="add-nutrient-btn" style="margin-top:1rem;">
+                    <router-link to="/taking">
+                        <button class="btn btn-primary"
+                                style="border: none; background-color: #2dce89; color: white; border-radius: 5px;"
+                                @click="openRegistration">관리하기
+                        </button>
+                    </router-link>
+                </div>
+            </div>
           <div class="horizontal-scroll-container">
             <div class="d-flex align-items-center mt-4 mb-2">
               <div class="flex-shrink-0" style="text-align: left; width: 10%; margin-right: 5%; margin-left: 5%;"
