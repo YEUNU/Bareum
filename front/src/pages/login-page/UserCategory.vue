@@ -20,7 +20,7 @@
       </div>
     </nav>
     <div class="bg-white" style="display: flex;  padding-top: 50px; flex-direction: column;">
-        <h2>건강 관심항목 수정</h2>
+        <h2>건강 관심항목 등록</h2>
         <p>최대 3개</p>
         <div class="search_option_items"
             style="overflow-y: auto; max-height: 50%; margin-top: 5%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content:center; align-items:center;">
@@ -34,7 +34,7 @@
         </div>
 
         <button class="roundbox" style="margin-top: 3vh;" @click="sendCheckedItems()"
-    :class="{disabled: selectList.length==0}" :disabled="selectList.length==0">저장</button>
+    :class="{disabled: selectList.length==0}" :disabled="selectList.length==0">다음</button>
 
     </div>
 
