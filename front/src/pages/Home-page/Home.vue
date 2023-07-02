@@ -15,16 +15,14 @@
             <router-link to="/taking" class="item menus" style="grid-row: 1 / 2; grid-column: 1 / 3">
                 <div id="menu_comment">현재 나의</div>
                 <div id="menu_name">영양소 균형점수</div>
-                <div style="display: flex; align-items: stretch;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
                     <div id="home_chart">
-                        <div style="width: min(25vw, 25vh); height: min(25vw, 25vh);"><canvas id="homeChart"></canvas></div>
+                        <div style="width: min(75vw, 75vh); height: min(75vw, 75vh);"><canvas id="homeChart"></canvas></div>
                     </div>
                     <div style="display: flex; flex-direction: column; justify-content: space-around; align-items: start; flex-grow: 1; margin: 0 5vw">
-                        <div style="font-size: 1.5rem;">
-                            <span style="font-size: 1rem; font-weight: normal;">나의 점수: </span> {{Math.round(nutrientsArray.map((arr) => Math.min(100, arr.reduce((sum, item) => sum + item.value, 0))).reduce((a, b) => a + b, 0) / 6)}}점
+                        <div style="font-size: 1.5rem; padding-bottom: 1rem;">
+                            <span style="font-size: 1rem; font-weight: normal;">나의 종합 점수: </span> {{100 - Math.round(nutrientsArray.map((arr) => Math.abs(100 - arr.reduce((sum, item) => sum + item.value, 0))).reduce((a, b) => a + b, 0) / 6)}}점
                         </div>
-                        <div></div>
-                        <div style="align-self: end;">세부 정보 > </div>
                     </div>
                 </div>
                 <!--<div id="menu_icon"><img src="../../assets/taking.png" alt=""></div>-->
@@ -157,6 +155,28 @@ export default {
             );
 
             const ctx = document.getElementById('homeChart').getContext('2d');
+            var ns = nutrientsArray.value.map((arr) => arr.reduce((sum, item) => sum + item.value, 0));
+            const overlow = [];
+            const upper_limit = [2000 / 1, 100 / 0.2, 3000 / 7, 2500 / 7, 350 / 3.15, 35 / 0.085];
+            const lower_limit = [75 / 1, 0, 500 / 7, 600 / 7, 250 / 3.15, 7 / 0.085];
+
+            for (let index = 0; index < ns.length; index++) {
+                if(upper_limit[index] < ns[index]) {
+                    overlow[index] = 'over'
+                }
+                else if(lower_limit[index] > ns[index]) {
+                    overlow[index] = 'low'
+                }
+                else {
+                    overlow[index] = 'good'
+                }
+            };
+            const OLcolorMapping = {
+                'good': ['rgba(45, 206, 137, 0.5)', 'rgba(45, 206, 137, 0.25)'],
+                'over': ['rgba(245, 5, 0, 0.5)', 'rgba(245, 5, 0, 0.25)'],
+                'low': ['rgba(255, 204, 33, 0.5)', 'rgba(255, 204, 33, 0.25)'],
+            }
+
             const homeChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
@@ -165,8 +185,8 @@ export default {
                     {
                             label: ['my nutrients'],
                             data: nutrientsArray.value.map((arr) => Math.min(150, arr.reduce((sum, item) => sum + item.value, 0))),
-                            backgroundColor: 'rgba(45, 206, 137, 0.1)',
-                            borderColor: 'rgba(45, 206, 137, 0.5)',
+                            backgroundColor: overlow.map((ol) => OLcolorMapping[ol][1]),
+                            borderColor: overlow.map((ol) => OLcolorMapping[ol][0]),
                             borderWidth: 1,
                         },
                         {
@@ -194,7 +214,7 @@ export default {
                                 circular: true,
                             },
                             pointLabels: {
-                                display: false,
+                                display: true,
                             },
                             ticks: {
                                 display: false,
@@ -312,7 +332,7 @@ video {
 }
 
 #home_chart {
-    margin: 2vh 5vw;
+    margin: 0 5vw;
 }
 
 #menu_icon {
