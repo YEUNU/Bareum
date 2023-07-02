@@ -71,10 +71,16 @@
 
     <div style="width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; color: white; background-color: #2dce89; border:none; margin-top: 0%; margin-bottom: 0;">건강관심항목 별 건강기능식품 추천
     </div>
-    <div style="width: 100%; background-color: #eeeeee;" v-for="(r, index) in recommendByInterestList" :key="index">
-      <div class="indexgroup" style="width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; color: white; background-color: #2dce89; border:none;">{{ index }}</div>
-      
-      <div style="background-color: white;" v-for="(product,index) in r" :key="index">
+          <div class="dropdown" style="display: flex; padding: 15px; align-items: center;">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin: 0; font-size: 0.9em;">
+                {{ selectedInterest }}
+              </button>
+              <ul class="dropdown-menu">
+                  <li v-for="(interest, index) in userInterest" :key="index" @click="fetchIntrest(interest)">{{ interest }}</li>
+              </ul>
+      </div>
+    <div style="width: 100%; background-color: #eeeeee;">
+      <div style="background-color: white;" v-for="(product,index) in recommendInterest" :key="index">
         <router-link :to="`/product/${product.업체별_제품코드}`">
         <div class="item-box" style="margin-bottom: 0;">
           <div class="d-flex align-items-center">
@@ -115,7 +121,8 @@ export default {
     const recommendByAgeList = ref([]);
     const recommendByInterestList = ref({});
     const userInterest = ref([]);
-    
+    const recommendInterest = ref([]);
+    const selectedInterest = ref("");
     async function fetchNutraceuticals() {
       try {
         const response = await axios.post("/api/recommend/", {
@@ -130,7 +137,6 @@ export default {
           try{
             const response = await axios.get('/api/account/interest/');
             userInterest.value = response.data.interest;
-            console.log(userInterest)
 
           }catch(err){
             console.error(err);
@@ -176,20 +182,29 @@ export default {
 
             const responses = await Promise.all(promises);
             const interestObj = userInterest.value.reduce((obj, interest, index) => {
+              if (index ==0){
+                selectedInterest.value = interest;
+                recommendInterest.value = responses[index];
+              }
               obj[interest] = responses[index];
               return obj;
             }, {});
             recommendByInterestList.value = interestObj;
-            console.log("recommend", recommendByInterestList.value);
-        } catch (err) {
+          } catch (err) {
           console.error(err);
         }
       };
 
+      const fetchIntrest = (interest) =>{
+        recommendInterest.value = recommendByInterestList.value[interest];
+        selectedInterest.value = interest;
+
+      }
+
 
     onMounted(async() => {
       await getUserInterest();
-      recommendByInterest();
+      await recommendByInterest();
       recommendByAge();
       fetchNutraceuticals();
     });
@@ -200,7 +215,10 @@ export default {
       recommendByAge,
       recommendByAgeList,
       recommendByInterestList,
-      userInterest
+      userInterest,
+      fetchIntrest,
+      recommendInterest,
+      selectedInterest
 
     };
   },
