@@ -12,7 +12,7 @@
       </div>
     </nav>
 
-    <div class="background">
+    <div class="background bg-whitesmoke">
     <div style=" margin-top: 50px;  background-color: white; border:1px solid rgba(235, 242, 233, 1); border-radius: 6px; box-shadow: 1px 1px 1px 1px #eeeeee; text-align: left; padding: 5%; padding-bottom: 0;">최근검색어
       <div style="padding-left:5%; margin-top: 2%;">
         <div style="display: flex; justify-content: space-between;">

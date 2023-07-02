@@ -17,10 +17,32 @@
                 <p class="card-text" style=" color: black;">{{ formatDate(news.post_date) }}</p>
                 <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
               </div>
-            
           </div>
         </router-link>
       </div>
+
+      <div class="card" style="width:90%; padding-bottom: 0; margin-bottom: -5%;" >
+        <div>
+          <img src="../../assets/nu.png" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+          <p class="card-text" style="font-weight: bold; font-size: 16px">같이 먹으면 득이 되는 영양제 조합</p>
+          <p style="text-align: left; color: gray;">작성자 : 관리자</p>
+          <p style="text-align: left; color: gray;">2023. 6. 30. 11:30</p>
+        </div>
+      </div>
+
+      <div class="card" style="width:90%; padding-bottom: 0 ;" >
+        <div>
+          <img src="../../assets/nu.png" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+          <p class="card-text" style="font-weight: bold; font-size: 16px">같이 먹으면 손해 보는 영양제 조합</p>
+          <p style="text-align: left; color: gray;">작성자 : 관리자</p>
+          <p style="text-align: left; color: gray;">2023. 6. 30. 12:00</p>
+        </div>
+      </div>
+
     </div>
 </template>
 <script>
