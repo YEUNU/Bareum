@@ -130,8 +130,10 @@ export default {
           datasets: [
             {
               label: ['Sample Dataset'],
-              data: nutrientsArray.map((arr) => arr.reduce((sum, item) => sum + item.value, 0)),
-              backgroundColor: [
+              data: nutrientsArray.map((arr) => Math.min(150, arr.reduce((sum, item) => sum + item.value, 0))),
+              backgroundColor: nutrientsArray.map((arr) => (arr.reduce((sum, item) => sum + item.value, 0) < 60) ? 'rgba(255, 0, 0, 0.5)' : 'rgba(0, 255, 0, 0.5)'),
+              /*              
+              [
                 'rgba(255, 99, 132, 0.5)',
                 'rgba(75, 192, 192, 0.5)',
                 'rgba(255, 205, 86, 0.5)',
@@ -139,14 +141,18 @@ export default {
                 'rgba(54, 162, 235, 0.5)',
                 'rgba(139, 0, 255, 0.5)',
               ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(75, 192, 192)',
-                'rgb(255, 205, 86)',
-                'rgb(201, 203, 207)',
-                'rgb(54, 162, 235)',
-                'rgba(139, 0, 255)',
+              */
+              borderColor: nutrientsArray.map((arr) => (arr.reduce((sum, item) => sum + item.value, 0) > 100) ? 'rgba(255, 198, 72, 0.5)' : 'rgba(0, 0, 0, 0)'),
+              /*
+              [
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
+                'rgba(0, 0, 0, 0)',
               ],
+              */
               borderWidth: 1,
             },
           ],
@@ -159,7 +165,8 @@ export default {
                 label: function (context) {
                   const productData = nutrientsArray[context.dataIndex];
                   return productData
-                    .map((product) => product.product + ": " + product.value.toFixed(1) + "%")
+                    .map((product) => product.value > 0? product.product + ": " + product.value.toFixed(1) + "%" : "")
+                    .filter((element) => element !== "")
                     .join(", ");
                 },
               },
@@ -168,10 +175,17 @@ export default {
               display: false,
             },
           },
+          scale: {
+            gridLines: {
+              color: 'rgba(255, 0, 0, 0.5)',
+              lineWidth: 3,
+              circular: true
+            }
+          },
           scales: {
             r: {
               min: 0,
-              max: 100,
+              max: 150,
               pointLabels: {
                 display: true,
                 centerPointLabels: true,
@@ -179,6 +193,9 @@ export default {
                   size: 18,
                 },
               },
+              ticks: {
+                stepSize: 50,
+              }
             },
           },
         },
