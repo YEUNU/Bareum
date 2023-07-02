@@ -108,12 +108,13 @@ def get_user_nutrients_data(request):
             '칼슘': nutraceutical.칼슘,
             '마그네슘': nutraceutical.마그네슘,
             '아연': nutraceutical.아연,
+            '제품코드':nutraceutical.업체별_제품코드
         })
     maxValues = [100, 20, 700, 700, 315, 8.5]
     nutrients_pct_data = []
 
     for product in nutrients_data:
-        product_pct = {'제품명': product['제품명']}
+        product_pct = {'제품명': product['제품명'], '제품코드':product['제품코드']}
         for idx, nutrient in enumerate(['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'], start=1):
             product_pct[nutrient] = product[nutrient] / maxValues[idx - 1] * 100
         nutrients_pct_data.append(product_pct)
