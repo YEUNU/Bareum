@@ -21,7 +21,7 @@
         </div>
       </div>
     </nav>
-    <h5 style="text-align: left; font-weight: bold; margin-top:10%">섭취중인 영양소</h5>
+    <h5 style="text-align: left; font-weight: bold; margin-top:10%">섭취중인 영양소 (%)</h5>
     <div class="chart-container" style="text-align:center;">
       <canvas id="myChart"></canvas>
     </div>
@@ -142,9 +142,9 @@ export default {
       };
 
       const OLcolorMapping = {
-        'good': ['rgba(45, 206, 137, 0.5)', 'rgba(45, 206, 137, 0.1)'],
-        'over': ['rgba(235, 206, 137, 0.5)', 'rgba(235, 206, 137, 0.1)'],
-        'low': ['rgba(245, 5, 0, 0.5)', 'rgba(245, 5, 0, 0.1)'],
+        'good': ['rgba(45, 206, 137, 0.5)', 'rgba(45, 206, 137, 0.25)'],
+        'over': ['rgba(245, 5, 0, 0.5)', 'rgba(245, 5, 0, 0.25)'],
+        'low': ['rgba(255, 204, 33, 0.5)', 'rgba(255, 204, 33, 0.25)'],
       }
       const myChart = new Chart(ctx, {
         type: 'polarArea',
