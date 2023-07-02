@@ -7,7 +7,7 @@
     -->
     
     <div class="product_card product_head">
-        <router-link to="/" class="review_header" style="color: #333;">
+        <router-link :to="{name:'productReviewDetailPage', param:{productCode}}" class="review_header" style="color: #333;">
             <div style="font-size: 1.2em; font-weight: bold;"> <span>바름 리뷰</span> <span style="color: #2dce89;">{{ BareumReviews.length }}</span> </div>
             <div>></div>
         </router-link>
@@ -26,7 +26,7 @@
 
         </div>
 
-        <div v-if="BareumReviews.length == 0" style="text-align: center; margin-top: 1.5em;">아직 리뷰가 없습니다! 첫 리뷰를 작성해주세용</div>
+        <div v-if="BareumReviews.length == 0" style="text-align: center;">아직 리뷰가 없습니다! 첫 리뷰를 작성해주세요</div>
         <div v-for="review in BareumReviews.slice(0, 2)" :key="review.bareum_review_number" class="review_box ms-3">
             <div class="d-flex flex-row align-items-center" style="width: 100%;">
                 <img :src="review.user_info.profile_image"
@@ -70,12 +70,12 @@
         </div>
     
         <div class="set sentiment_online_reviews">
-            <div>긍정 ㅎㅎ</div>
+            <div style="font-size: 1.1em; font-weight: bold;">긍정 키워드</div>
             <img :src="`/media/pos_wordcloud/${productCode}_pos.png`" alt="" style="width: 80vw; height: 80vw;">
         </div>
 
         <div class="set sentiment_online_reviews">
-            <div>부정 ㅠㅠ</div>
+            <div style="font-size: 1.1em; font-weight: bold;">부정 키워드</div>
             <img :src="`/media/neg_wordcloud/${productCode}_pos.png`" alt="" style="width: 80vw;  height: 80vw;">
         </div>
 
@@ -150,6 +150,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     padding: 1vh 0;
+    margin-bottom: 1em;
     box-shadow: 0 2px 1px -1px #EAEAEA;
 }
 

@@ -60,6 +60,7 @@ import addressPage from './pages/my-page/Address.vue';
 import productDetailPage from './pages/Product-page/detail-page/ProductDetail.vue';
 import productInfoPage from './pages/Product-page/detail-page/ProductInfo.vue';
 import productReviewPage from './pages/Product-page/detail-page/ProductReview.vue';
+import productReviewDetailPage from './pages/Product-page/detail-page/ProductReviewDetail.vue';
 import receivealarmPage from './pages/Home-page/Receivealarm.vue';
 import productReviewWritePage from './pages/Product-page/detail-page/Write.vue';
 
@@ -72,7 +73,7 @@ import categoryRankingPage from './pages/Product-page/Rank-page/CategoryRanking.
 import cartPage from './pages/my-page/Order-page/Cart.vue';
 import orderPage from './pages/my-page/Order-page/Order.vue';
 
-import ReviewList from './pages/review-page/ReviewList.vue';
+import oldReviewList from './pages/review-page/ReviewList.vue';
 
 const routes = [
     //로그인 페이지
@@ -131,8 +132,8 @@ const routes = [
     // 건강기능식품 리뷰 페이지
     {
         path: '/reviews', // 원하는 URL 주소를 할당합시다
-        name: 'ReviewList',
-        component: ReviewList
+        name: 'oldReviewList',
+        component: oldReviewList
     },
     // 촬영 가이드 페이지
     {
@@ -210,8 +211,15 @@ const routes = [
                 component:productReviewPage,
                 props:true,
 
-            }
+            },
         ]
+    },
+    {
+        path:'/prouct/review/reviewdetail/:productCode',
+        name:'productReviewDetailPage',
+        component:productReviewDetailPage,
+        props:true,
+
     },
     {
         path:'/prouct/review/write/:productCode',
