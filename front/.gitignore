@@ -10,6 +10,7 @@ media/
 .Python
 node_modules
 node_modules/
+dev-dist/
 dist/
 dist
 build/

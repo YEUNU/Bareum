@@ -10,11 +10,26 @@
     </div>
     <div class="background bg-theme" style="padding-top: 63px; padding-bottom: 60px;">
         <div class="bg-whitesmoke"
-             style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: calc(100vh - 123px);">
-            <div class="menu_container">
-                <router-link to="/ranking" class="item menus">
+        style="border-top-left-radius: 10px; border-top-right-radius: 10px; min-height: calc(100vh - 123px);">
+        <div class="menu_container">
+            <router-link to="/taking" class="item menus" style="grid-row: 1 / 2; grid-column: 1 / 3">
+                <div id="menu_comment">현재 나의</div>
+                <div id="menu_name">영양소 균형점수</div>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div id="home_chart">
+                        <div style="width: min(75vw, 75vh); height: min(75vw, 75vh);"><canvas id="homeChart"></canvas></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; justify-content: space-around; align-items: start; flex-grow: 1; margin: 0 5vw">
+                        <div style="font-size: 1.5rem; padding-bottom: 1rem;">
+                            <span style="font-size: 1rem; font-weight: normal;">나의 종합 점수: </span> {{100 - Math.round(nutrientsArray.map((arr) => Math.abs(100 - arr.reduce((sum, item) => sum + item.value, 0))).reduce((a, b) => a + b, 0) / 6)}}점
+                        </div>
+                    </div>
+                </div>
+                <!--<div id="menu_icon"><img src="../../assets/taking.png" alt=""></div>-->
+            </router-link>
+            <router-link to="/ranking" class="item menus">
                 <div id="menu_comment">많은 사람들이 구매한</div>
-                <div id="menu_name">제품</div>
+                <div id="menu_name">바름랭킹</div>
                 <div id="menu_icon"><img height="" src="../../assets/product.png" alt=""></div>
             </router-link>
             <router-link to="/recommend" class="item menus">
@@ -32,10 +47,10 @@
                 <div id="menu_name">정기배송신청</div>
                 <div id="menu_icon"><img src="../../assets/delivery.png" alt=""></div>
             </router-link>
-            <router-link to="/taking" class="item menus" style="grid-column: 1/3">
-                <div id="menu_comment">현재 내가</div>
-                <div id="menu_name">복용 중인 영양제</div>
-                <div id="menu_icon"><img src="../../assets/taking.png" alt=""></div>
+            <router-link to="/regulardelivery" class="item menus" style="grid-column: 1 / 3">
+                <div id="menu_comment">성능이 상당한</div>
+                <div id="menu_name">건강기능식품 글자 인식</div>
+                <div id="menu_icon"><img src="../../assets/camera.png" alt=""></div>
             </router-link>
         </div>
     </div>
@@ -44,52 +59,184 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from "vue-router";
-import { useStore } from "../../stores";
+import { useStore, useUserInfo } from "../../stores";
 import SearchBar from "../../components/Navbar/SearchBar.vue";
+import axios from 'axios';
+import Chart from 'chart.js/auto';
+import Cookies from 'js-cookie';
 
 export default {
-  name: "HomePage",
-  components: {
-    SearchBar,
-  },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const searchPlaceholder = ref("건강기능식품을 검색해보세요");
-    const fileInput = ref(null);
-    const showMenu = ref(false);
+    name: "HomePage",
+    components: {
+        SearchBar,
+    },
+    setup(_, { root }) {
+        const store = useStore();
+        const router = useRouter();
+        const searchPlaceholder = ref("건강기능식품을 검색해보세요");
+        const fileInput = ref(null);
+        const showMenu = ref(false);
+        const userInfo = useUserInfo();
+        const loginId = computed(() => userInfo.loginId);
+        const nutraceuticals = ref([]);
+        const csrf_token = Cookies.get("csrftoken");
+        const nutrientsArray = ref([]);
 
-    const openGallery = () => {
-      showMenu.value = false;
-      fileInput.value.removeAttribute("capture");
-      fileInput.value.click();
-    };
-
-    const onFileSelected = (event) => {
-      const selectedFile = event.target.files[0];
-
-      // 선택한 파일에 대한 로직
-      const reader = new FileReader();
-
-        reader.onload = (e) => {
-            const img = new Image();
-            img.src = e.target.result;
+        const openGallery = () => {
+        showMenu.value = false;
+        fileInput.value.removeAttribute("capture");
+        fileInput.value.click();
         };
 
-        reader.readAsDataURL(selectedFile);
-    };
+        const onFileSelected = (event) => {
+        const selectedFile = event.target.files[0];
 
-    return {
-      store,
-      router,
-      searchPlaceholder,
-      fileInput,
-      openGallery,
-      onFileSelected,
-    };
-  },
+        // 선택한 파일에 대한 로직
+        const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);
+        };
+
+        const take_nutrace = async () => {
+            try {
+                const response = await axios.post("/api/taking/regist", {
+                    headers: { "Content-Type": "application/json", "X-CSRFToken": csrf_token },
+                    loginId: loginId.value,
+                });
+                nutraceuticals.value = response.data.take;
+            } catch (error) {
+                console.log("Error fetching user nutraceuticals:", error);
+            }
+        };
+
+        async function getUserProductsData() {
+            try {
+                const response = await axios.get("/api/taking/", {
+                    params: {
+                        user_id: loginId.value,
+                    },
+                });
+                const user_products_data = response.data;
+                return user_products_data;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        onMounted(async () => {
+            take_nutrace();
+            const productsData = await getUserProductsData();
+            const maxValues = [100, 100, 100, 100, 100, 100];
+
+            nutrientsArray.value = productsData.reduce(
+                (result, product) => {
+                const nutrients = Object.keys(product)
+                    .slice(1)
+                    .map((nutrient, index) => {
+                        return [
+                            ...result[index],
+                            {
+                                product: product.제품명,
+                                value: product[nutrient] / maxValues[index] * 100,
+                            },
+                        ];
+                    });
+
+                return nutrients;
+                },
+                Array.from({ length: 6 }, () => [])
+            );
+
+            const ctx = document.getElementById('homeChart').getContext('2d');
+            var ns = nutrientsArray.value.map((arr) => arr.reduce((sum, item) => sum + item.value, 0));
+            const overlow = [];
+            const upper_limit = [2000 / 1, 100 / 0.2, 3000 / 7, 2500 / 7, 350 / 3.15, 35 / 0.085];
+            const lower_limit = [75 / 1, 0, 500 / 7, 600 / 7, 250 / 3.15, 7 / 0.085];
+
+            for (let index = 0; index < ns.length; index++) {
+                if(upper_limit[index] < ns[index]) {
+                    overlow[index] = 'over'
+                }
+                else if(lower_limit[index] > ns[index]) {
+                    overlow[index] = 'low'
+                }
+                else {
+                    overlow[index] = 'good'
+                }
+            };
+            const OLcolorMapping = {
+                'good': ['rgba(45, 206, 137, 0.5)', 'rgba(45, 206, 137, 0.25)'],
+                'over': ['rgba(245, 5, 0, 0.5)', 'rgba(245, 5, 0, 0.25)'],
+                'low': ['rgba(255, 204, 33, 0.5)', 'rgba(255, 204, 33, 0.25)'],
+            }
+
+            const homeChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['비타민C', '비타민D', '비타민A', '칼슘', '마그네슘', '아연'],
+                    datasets: [
+                    {
+                            label: ['my nutrients'],
+                            data: nutrientsArray.value.map((arr) => Math.min(150, arr.reduce((sum, item) => sum + item.value, 0))),
+                            backgroundColor: overlow.map((ol) => OLcolorMapping[ol][1]),
+                            borderColor: overlow.map((ol) => OLcolorMapping[ol][0]),
+                            borderWidth: 1,
+                        },
+                        {
+                            label: ['recommend nutrients'],
+                            data: maxValues,
+                            backgroundColor: 'rgba(150, 150, 150, 0.1)',
+                            borderColor: 'rgba(150, 150, 150, 0)',
+                            borderWidth: 1,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                    scales: {
+                        r: {
+                            startAngle: 30,
+                            min: 0,
+                            max: 150,
+                            grid: {
+                                circular: true,
+                            },
+                            pointLabels: {
+                                display: true,
+                            },
+                            ticks: {
+                                display: false,
+                                stepSize: 50,
+                            }
+                        },
+                    },
+                },
+            });
+        });
+        
+        return {
+        store,
+        router,
+        searchPlaceholder,
+        fileInput,
+        nutraceuticals,
+        nutrientsArray,
+        openGallery,
+        onFileSelected,
+        };
+    },
 };
 
 </script>
@@ -182,6 +329,10 @@ video {
     padding: 0.2vh 0 0 0.5vh;
     color: black;
     font-size: 1.2em;
+}
+
+#home_chart {
+    margin: 0 5vw;
 }
 
 #menu_icon {

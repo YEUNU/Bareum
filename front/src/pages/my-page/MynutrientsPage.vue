@@ -21,7 +21,7 @@
         </div>
       </div>
     </nav>
-    <h5 style="text-align: left; font-weight: bold; margin-top:10%">섭취중인 영양소</h5>
+    <h5 style="text-align: left; font-weight: bold; margin-top:10%">섭취중인 영양소 (%)</h5>
     <div class="chart-container" style="text-align:center;">
       <canvas id="myChart"></canvas>
     </div>
@@ -149,6 +149,29 @@ export default {
       // 차트를 렌더링할 캔버스를 선택합니다.
       const ctx = document.getElementById('myChart').getContext('2d');
       // 새 차트 인스턴스를 생성합니다.
+      var ns = nutrientsArray.map((arr) => arr.reduce((sum, item) => sum + item.value, 0));
+      const overlow = [];
+      const upper_limit = [2000 / 1, 100 / 0.2, 3000 / 7, 2500 / 7, 350 / 3.15, 35 / 0.085];
+      const lower_limit = [75 / 1, 0, 500 / 7, 600 / 7, 250 / 3.15, 7 / 0.085];
+
+      for (let index = 0; index < ns.length; index++) {
+        if(upper_limit[index] < ns[index]) {
+          overlow[index] = 'over'
+          console.log(upper_limit[index], ns[index])
+        }
+        else if(lower_limit[index] > ns[index]) {
+          overlow[index] = 'low'
+        }
+        else {
+          overlow[index] = 'good'
+        }
+      };
+
+      const OLcolorMapping = {
+        'good': ['rgba(45, 206, 137, 0.5)', 'rgba(45, 206, 137, 0.25)'],
+        'over': ['rgba(245, 5, 0, 0.5)', 'rgba(245, 5, 0, 0.25)'],
+        'low': ['rgba(255, 204, 33, 0.5)', 'rgba(255, 204, 33, 0.25)'],
+      }
       const myChart = new Chart(ctx, {
         type: 'polarArea',
         data: {
@@ -156,23 +179,9 @@ export default {
           datasets: [
             {
               label: ['Sample Dataset'],
-              data: nutrientsArray.map((arr) => arr.reduce((sum, item) => sum + item.value, 0)),
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(75, 192, 192, 0.5)',
-                'rgba(255, 205, 86, 0.5)',
-                'rgba(201, 203, 207, 0.5)',
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(139, 0, 255, 0.5)',
-              ],
-              borderColor: [
-                'rgb(255, 99, 132)',
-                'rgb(75, 192, 192)',
-                'rgb(255, 205, 86)',
-                'rgb(201, 203, 207)',
-                'rgb(54, 162, 235)',
-                'rgba(139, 0, 255)',
-              ],
+              data: nutrientsArray.map((arr) => Math.min(150, arr.reduce((sum, item) => sum + item.value, 0))),
+              backgroundColor: overlow.map((ol) => OLcolorMapping[ol][1]),
+              borderColor: overlow.map((ol) => OLcolorMapping[ol][0]),
               borderWidth: 1,
             },
           ],
@@ -185,7 +194,8 @@ export default {
                 label: function (context) {
                   const productData = nutrientsArray[context.dataIndex];
                   return productData
-                    .map((product) => product.product + ": " + product.value.toFixed(1) + "%")
+                    .map((product) => product.value > 0? product.product + ": " + product.value.toFixed(1) + "%" : "")
+                    .filter((element) => element !== "")
                     .join(", ");
                 },
               },
@@ -194,10 +204,17 @@ export default {
               display: false,
             },
           },
+          scale: {
+            gridLines: {
+              color: 'rgba(255, 0, 0, 0.5)',
+              lineWidth: 3,
+              circular: true
+            }
+          },
           scales: {
             r: {
               min: 0,
-              max: 100,
+              max: 150,
               pointLabels: {
                 display: true,
                 centerPointLabels: true,
@@ -205,6 +222,9 @@ export default {
                   size: 18,
                 },
               },
+              ticks: {
+                stepSize: 50,
+              }
             },
           },
         },
