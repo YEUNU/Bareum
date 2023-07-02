@@ -33,8 +33,7 @@
       </div>
     </div>
 
-    <div style="margin-top: 5%; background-color: white; border:1px solid rgba(235, 242, 233, 1); border-radius: 6px; box-shadow: 1px 1px 1px 1px #eeeeee; text-align: left; padding: 5%; padding-bottom: 0;">인기 키워드 (수정)
-      <div style=" margin-top: 2%;">
+    <div style="margin-top: 5%; background-color: white; border:1px solid rgba(235, 242, 233, 1); border-radius: 6px; box-shadow: 1px 1px 1px 1px #eeeeee; text-align: left; padding: 5%; padding-bottom: 0;">인기 키워드<div style=" margin-top: 2%;">
         <p @click="search('아르기닌')">1. 아르기닌</p>
         <p @click="search('단백질')">2. 단백질</p>
         <p @click="search('맛있는')">3. 맛있는</p>

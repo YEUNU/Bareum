@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "ocr",
     "taking",
     "recommend",
-    'shop'
+    'shop',
 ]
 
 AUTH_USER_MODEL = 'account.User'

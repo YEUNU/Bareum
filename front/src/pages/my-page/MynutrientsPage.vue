@@ -59,11 +59,13 @@
               @click="goToProduct(r.제품코드)"
             >
               <img
-                :src="`../../../media/product_images/${r.제품코드}.png`"
+                
+                :src="`../../../assets/nu.png`"
                 width="100"
                 alt="제품 이미지"
                 class="item-img"
               />
+              <!-- :src="`../../../media/product_images/${r.제품코드}.png`" -->
               <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
             </div>
           </div>
