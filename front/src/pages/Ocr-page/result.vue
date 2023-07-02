@@ -25,7 +25,7 @@
 
     <div v-else >
       <div v-if="productResults" style="width:100%; overflow-y: scroll;">
-        <h2 style="margin-top: 10%;">제품을 선택 후 아래 저장 버튼을 눌러 내가먹는 영양제 등록하기.</h2>
+        <div style="margin-top: 10%; font-size: 21px;">제품 선택 후 아래 저장 버튼을 눌러 내가먹는 영양제 등록하기.</div>
         <div class="grid-container" style="width: 100%; margin-top: 10%;">
           <div v-for="(product, index) in productResults" :key="index" >
             
@@ -42,16 +42,16 @@
               
               </router-link>
               <input type="checkbox" class="checkbox" :id="`checkbox-${index}`" :value="product" v-model="checkedItems"
-                style="background-color: #2dce89;">
+                style="background-color: #2dce89; margin-left: 15%;">
             </div>
             
           </div>
         </div>
-        <button class="save-button" @click="handleSave" style="background-color: #2dce89; width: 100%; border-radius: 5px;">
+        <button class="save-button" @click="handleSave" style="color: white; font-weight: bold; background-color: #2dce89; width: 100%; border-radius: 5px; margin-top: 10%; ">
           저장
         </button>
         <router-link to="/ocr/registration" class="request-link">
-          <button class="request-btn" style="width: 100%; margin-top: 5%; margin-bottom: 10%;">등록 요청</button>
+          <button class="request-btn" style="width: 100%; margin-top: 5%; margin-bottom: 10%; font-weight: bold;">등록 요청</button>
         </router-link>
       </div>
       
