@@ -123,6 +123,29 @@ export default {
       // 차트를 렌더링할 캔버스를 선택합니다.
       const ctx = document.getElementById('myChart').getContext('2d');
       // 새 차트 인스턴스를 생성합니다.
+      var ns = nutrientsArray.map((arr) => arr.reduce((sum, item) => sum + item.value, 0));
+      const overlow = [];
+      const upper_limit = [2000 / 1, 100 / 0.2, 3000 / 7, 2500 / 7, 350 / 3.15, 35 / 0.085];
+      const lower_limit = [75 / 1, 0, 500 / 7, 600 / 7, 250 / 3.15, 7 / 0.085];
+
+      for (let index = 0; index < ns.length; index++) {
+        if(upper_limit[index] < ns[index]) {
+          overlow[index] = 'over'
+          console.log(upper_limit[index], ns[index])
+        }
+        else if(lower_limit[index] > ns[index]) {
+          overlow[index] = 'low'
+        }
+        else {
+          overlow[index] = 'good'
+        }
+      };
+
+      const OLcolorMapping = {
+        'good': ['rgba(45, 206, 137, 0.5)', 'rgba(45, 206, 137, 0.1)'],
+        'over': ['rgba(235, 206, 137, 0.5)', 'rgba(235, 206, 137, 0.1)'],
+        'low': ['rgba(245, 5, 0, 0.5)', 'rgba(245, 5, 0, 0.1)'],
+      }
       const myChart = new Chart(ctx, {
         type: 'polarArea',
         data: {
@@ -131,28 +154,8 @@ export default {
             {
               label: ['Sample Dataset'],
               data: nutrientsArray.map((arr) => Math.min(150, arr.reduce((sum, item) => sum + item.value, 0))),
-              backgroundColor: nutrientsArray.map((arr) => (arr.reduce((sum, item) => sum + item.value, 0) < 60) ? 'rgba(255, 0, 0, 0.5)' : 'rgba(0, 255, 0, 0.5)'),
-              /*              
-              [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(75, 192, 192, 0.5)',
-                'rgba(255, 205, 86, 0.5)',
-                'rgba(201, 203, 207, 0.5)',
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(139, 0, 255, 0.5)',
-              ],
-              */
-              borderColor: nutrientsArray.map((arr) => (arr.reduce((sum, item) => sum + item.value, 0) > 100) ? 'rgba(255, 198, 72, 0.5)' : 'rgba(0, 0, 0, 0)'),
-              /*
-              [
-                'rgba(0, 0, 0, 0)',
-                'rgba(0, 0, 0, 0)',
-                'rgba(0, 0, 0, 0)',
-                'rgba(0, 0, 0, 0)',
-                'rgba(0, 0, 0, 0)',
-                'rgba(0, 0, 0, 0)',
-              ],
-              */
+              backgroundColor: overlow.map((ol) => OLcolorMapping[ol][1]),
+              borderColor: overlow.map((ol) => OLcolorMapping[ol][0]),
               borderWidth: 1,
             },
           ],
