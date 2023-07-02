@@ -22,10 +22,10 @@ export default {
         const userSelect = ref(0);
 
         const yes = () => {
-            userSelect.value = 1;
+            userSelect.value = 2;
         } 
         const no = () => {
-            userSelect.value = 2;
+            userSelect.value = 1;
         } 
 
         return{
