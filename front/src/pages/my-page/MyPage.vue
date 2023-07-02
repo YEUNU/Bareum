@@ -98,9 +98,9 @@
           <div class="horizontal-scroll-container">
             <div class="d-flex align-items-center mt-4 mb-2">
               <div class="flex-shrink-0" style="text-align: left; width: 10%; margin-right: 5%; margin-left: 5%;"
-                v-for="(product, index) in userEating" :key="index">
+                v-for="(product, index) in userEating2" :key="index">
                 <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
-                  <img :src="`/media/product_images/${product.제품코드}.png`" alt=""
+                  <img :src="`../media/product_images/${product.제품코드}.png`" alt=""
                     style="height: min(20vh, 20vw); width: min(20vh, 20vw); display:block;">
                   <p style="text-align:center; word-wrap: break-word; width: min(20vh, 20vh); margin-top:10%">{{
                     product.제품명 }}</p>
@@ -157,6 +157,7 @@ export default {
     const { userLogout } = userInfo;
     const router = useRouter();
     const userEating = ref([]);
+    const userEating2 = ref([]);
     const isLoggedIns = userInfo.isLoggedIns;
 
     const logout = async () => {
@@ -175,7 +176,10 @@ export default {
             user_id: userInfo.loginId
           },
         });
-        userEating.value = response.data;
+        userEating.value = response.data.a;
+        userEating2.value = response.data.b;
+        console.log(userEating.value)
+        console.log(userEating2.value)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -189,7 +193,8 @@ export default {
       isLoggedIns,
       userInfo,
       logout,
-      userEating
+      userEating,
+      userEating2
     };
   },
 

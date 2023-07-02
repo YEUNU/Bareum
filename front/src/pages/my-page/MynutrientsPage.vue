@@ -115,7 +115,7 @@ export default {
             user_id: loginId.value,
           },
         });
-        const user_products_data = response.data;
+        const user_products_data = response.data.a;
         return user_products_data;
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -97,9 +97,14 @@ def get_user_nutrients_data(request):
     user_id = request.GET.get('user_id')
     user_nutraceuticals = eating_Nutraceuticals.objects.filter(login_id=user_id).values_list('nutraceuticals_name', flat=True)
     queryset = Nutraceuticals.objects.filter(nutraceuticals_name__in=user_nutraceuticals)
-
+    new = []
     nutrients_data = []
     for nutraceutical in queryset:
+        new.append({
+            '제품명' : nutraceutical.nutraceuticals_name,
+            '제품코드' : nutraceutical.업체별_제품코드,
+            '업소명' : nutraceutical.업소명,
+        })
         nutrients_data.append({
             '제품명' : nutraceutical.nutraceuticals_name,
             '비타민C': nutraceutical.비타민C,
@@ -118,7 +123,7 @@ def get_user_nutrients_data(request):
             product_pct[nutrient] = product[nutrient] / maxValues[idx - 1] * 100
         nutrients_pct_data.append(product_pct)
     print(nutrients_pct_data)
-    return JsonResponse(nutrients_pct_data, safe=False)
+    return JsonResponse({'a':nutrients_pct_data, 'b':new}, safe=False)
 
 
 
