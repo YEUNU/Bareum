@@ -85,7 +85,7 @@
          style="width: 100%; padding:0;  display:block; margin-bottom: -5%; box-shadow: 2px 2px 2px 2px #eeeeee">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+                <h5 style="text-align: left; font-weight: bold;">내 건강기능식품</h5>
                 <div class="add-nutrient-btn" style="margin-top:1rem;">
                     <router-link to="/taking" >
                         <button class="btn btn-primary"
@@ -116,7 +116,7 @@
           </div>
 
           <router-link to="/ocr/registration"><button
-              style="width: 100%; margin-top: 2%; background-color: #2dce89; border-radius: 5px; color:white;">영양제 등록
+              style="width: 100%; margin-top: 2%; background-color: #2dce89; border-radius: 5px; color:white;">건강기능식품 등록
               요청</button></router-link>
 
         </div>
