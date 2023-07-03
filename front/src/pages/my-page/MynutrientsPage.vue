@@ -208,8 +208,7 @@ export default {
                   const productData = nutrientsArray[context.dataIndex];
                   return productData
                     .map((product) => product.value > 0? product.product + ": " + product.value.toFixed(1) + "%" : "")
-                    .filter((element) => element !== "")
-                    .join(", ");
+                    .filter((element) => element !== "");
                 },
               },
             },

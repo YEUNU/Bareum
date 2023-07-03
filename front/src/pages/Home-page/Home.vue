@@ -279,6 +279,16 @@ export default {
                 options: {
                     responsive: true,
                     plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                const productData = nutrientsArray.value[context.dataIndex];
+                                return productData
+                                    .map((product) => product.value > 0? product.product + ": " + product.value.toFixed(1) + "%" : "")
+                                    .filter((element) => element !== "");
+                                },
+                            },
+                        },
                         legend: {
                             display: false,
                         },
@@ -305,18 +315,18 @@ export default {
         });
         
         return {
-        store,
-        router,
-        searchPlaceholder,
-        fileInput,
-        nutraceuticals,
-        nutrientsArray,
-        openGallery,
-        onFileSelected,
-        disableModal,
-        displayGuideModal,
-      guideModalSeen,
-      firstTime,
+            store,
+            router,
+            searchPlaceholder,
+            fileInput,
+            nutraceuticals,
+            nutrientsArray,
+            openGallery,
+            onFileSelected,
+            disableModal,
+            displayGuideModal,
+            guideModalSeen,
+            firstTime,
         };
     },
 };
