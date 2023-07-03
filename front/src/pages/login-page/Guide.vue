@@ -1,10 +1,10 @@
 <template>
     <div class="guides">
-            <h3 class="guideh3">복용 중인 영양제가 있으신가요?</h3>
-            <button class="guidebutton" @click="no">복용 중인 영양제가 없어요</button>
-            <button class="guidebutton" @click="yes">복용 중인 영양제가 있어요</button>
+            <h3 class="guideh3">복용 중인 건강기능식품이 있으신가요?</h3>
+            <button class="guidebutton" @click="no">복용 중인 건강기능식품이 없어요</button>
+            <button class="guidebutton" @click="yes">복용 중인 건강기능식품이 있어요</button>
         <div class="guidenolink" v-if="userSelect==1">
-            <router-link class="guidenobutton" to="/recommend">영양제 추천 받으러 가기</router-link>
+            <router-link class="guidenobutton" to="/recommend">건강기능식품 추천 받으러 가기</router-link>
         </div>
         <div class="guideyeslink" v-if="userSelect==2">
             <router-link class="guideyesbutton" to="/taking/search">검색해서 추가하기</router-link>

@@ -23,7 +23,7 @@
     </nav>
     <div class="d-flex align-items-center justify-content-between w-100 header-content" style="white-space: normal;">
       <h1 style="text-align: left; word-break: break-word;">
-        {{ nickname }}님의<br />섭취중인 영양제
+        {{ nickname }}님의<br />섭취중인 건강기능식품
       </h1>
       <router-link to="/taking/search">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#2dce89" class="bi bi-plus-square-fill"

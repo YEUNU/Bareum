@@ -9,7 +9,7 @@
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
           </svg>
         </div>
-        <div style="margin-right: 2vh;">영양제 등록 요청</div>
+        <div style="margin-right: 2vh;">건강기능식품 등록 요청</div>
         <div to="/mysetting" class="navbar-brand" style="opacity: 0;">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear-fill"
             viewBox="0 0 16 16">

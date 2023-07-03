@@ -25,7 +25,7 @@
 
     <div v-else >
       <div v-if="productResults" style="width:100%; overflow-y: scroll;">
-        <div style="margin-top: 10%; font-size: 21px;">제품 선택 후 아래 저장 버튼을 눌러 내가먹는 영양제 등록하기.</div>
+        <div style="margin-top: 10%; font-size: 21px;">제품 선택 후 아래 저장 버튼을 눌러 내가먹는 건강기능식품 등록하기.</div>
         <div class="grid-container" style="width: 100%; margin-top: 10%;">
           <div v-for="(product, index) in productResults" :key="index" >
             

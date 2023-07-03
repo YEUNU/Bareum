@@ -21,49 +21,49 @@
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 01 10:30</p>
         <h6 style="font-weight: bold;">성연우님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 01 11:22</p>
-        <h6 style="font-weight: bold;">성연우님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">성연우님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 01 13:30</p>
         
         <h6 style="font-weight: bold;">김민지님이 덧글을 남겼습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 02 10:30</p>
         <h6 style="font-weight: bold;">김민지님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 02 11:22</p>
-        <h6 style="font-weight: bold;">김민지님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">김민지님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 02 13:30</p>
 
         <h6 style="font-weight: bold;">김민식님이 덧글을 남겼습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 02 10:30</p>
         <h6 style="font-weight: bold;">김민식님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 02 11:22</p>
-        <h6 style="font-weight: bold;">김민식님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">김민식님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 02 13:30</p>
 
         <h6 style="font-weight: bold;">이제혁님이 덧글을 남겼습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 03 10:30</p>
         <h6 style="font-weight: bold;">이제혁님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 03 11:22</p>
-        <h6 style="font-weight: bold;">이제혁님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">이제혁님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 03 13:30</p>
 
         <h6 style="font-weight: bold;">이준혁님이 덧글을 남겼습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 04 10:30</p>
         <h6 style="font-weight: bold;">이준혁님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 04 11:22</p>
-        <h6 style="font-weight: bold;">이준혁님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">이준혁님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 04 13:30</p>
 
         <h6 style="font-weight: bold;">정승민님이 덧글을 남겼습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 05 10:30</p>
         <h6 style="font-weight: bold;">정승민님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 05 11:22</p>
-        <h6 style="font-weight: bold;">정승민님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">정승민님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 05 13:30</p>
 
         <h6 style="font-weight: bold;">지우석님이 덧글을 남겼습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 06 10:30</p>
         <h6 style="font-weight: bold;">지우석님이 좋아요를 눌렀습니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 06 11:22</p>
-        <h6 style="font-weight: bold;">지우석님 영양제 섭취 시간입니다.</h6>
+        <h6 style="font-weight: bold;">지우석님 건강기능식품 섭취 시간입니다.</h6>
         <p style="color: gray; style=margin-bottom: 5%;">2023. 06. 06 13:30</p>
 
         

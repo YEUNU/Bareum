@@ -81,7 +81,7 @@
         "
       >
         <div class="card-body">
-          <h5 style="text-align: left; font-weight: bold;">내 영양제 정기 배송 신청</h5>
+          <h5 style="text-align: left; font-weight: bold;">내 건강기능식품 정기 배송 신청</h5>
           <div class="item-container">
             <div
               v-for="(r, index) in nutraceuticals"
