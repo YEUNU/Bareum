@@ -170,7 +170,6 @@ export default {
       for (let index = 0; index < ns.length; index++) {
         if(upper_limit[index] < ns[index]) {
           overlow[index] = 'over'
-          console.log(upper_limit[index], ns[index])
         }
         else if(lower_limit[index] > ns[index]) {
           overlow[index] = 'low'
