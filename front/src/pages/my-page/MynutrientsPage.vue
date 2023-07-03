@@ -23,7 +23,18 @@
     </nav>
     <h5 style="text-align: left; font-weight: bold; margin-top:10%">섭취중인 영양소 (%)</h5>
     <div class="chart-container" style="text-align:center;">
-      <canvas id="myChart"></canvas>
+      <div class="category-box">
+        <div class="category">
+          <div style="width: 30px; height: 15px; border: rgba(45, 206, 137, 0.5) solid 1px; background-color: rgba(45, 206, 137, 0.25); margin-right: 1vw;"></div>적정
+        </div>
+        <div class="category">
+          <div style="width: 30px; height: 15px; border: rgba(245, 5, 0, 0.5) solid 1px; background-color: rgba(245, 5, 0, 0.25); margin-right: 1vw;"></div>과잉
+        </div>
+        <div class="category">
+          <div style="width: 30px; height: 15px; border: rgba(255, 204, 33, 0.5) solid 1px; background-color: rgba(255, 204, 33, 0.25); margin-right: 1vw;"></div>부족
+        </div>
+      </div>
+          <canvas id="myChart"></canvas>
     </div>
 
     <div class="mycard-container">
@@ -247,7 +258,6 @@ export default {
   padding-bottom: 60px;
 
 }
-
 .chart-container {
   width: 100%;
   height: 100%;
@@ -256,6 +266,19 @@ export default {
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px #eeeeee;
 }
+
+.category-box {
+  display: flex;
+  justify-content: end;
+  margin: 2vh 2vw;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  margin: 0 1vh;
+}
+
 .item-container {
   display: flex;
   flex-wrap: nowrap;
