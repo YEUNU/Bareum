@@ -169,21 +169,21 @@ export default {
       getImage(false);
     };
     
-    const closeCameraModal = () => {
-    const cameraModalElement = document.getElementById("cameraModal");
-    cameraModalElement.classList.remove("show"); // 모달에 "show" 클래스 제거하여 숨김
-    cameraModalElement.setAttribute("aria-hidden", "true");
-    cameraModalElement.style.display = "none"; // 모달 스타일을 변경하여 화면에서 숨김
-    const modalBackdrop = document.querySelector(".modal-backdrop");
-    if (modalBackdrop) {
-        modalBackdrop.parentElement.removeChild(modalBackdrop); // 모달 뒷 배경 제거
-    }
-    setTimeout(() => {
-    document.body.style.overflowY = "auto";
-    document.body.style.height = "";
-    document.body.style.position = "";
-    }, 500);
-    };
+    // const closeCameraModal = () => {
+    // const cameraModalElement = document.getElementById("cameraModal");
+    // cameraModalElement.classList.remove("show"); // 모달에 "show" 클래스 제거하여 숨김
+    // cameraModalElement.setAttribute("aria-hidden", "true");
+    // cameraModalElement.style.display = "none"; // 모달 스타일을 변경하여 화면에서 숨김
+    // const modalBackdrop = document.querySelector(".modal-backdrop");
+    // if (modalBackdrop) {
+    //     modalBackdrop.parentElement.removeChild(modalBackdrop); // 모달 뒷 배경 제거
+    // }
+    // setTimeout(() => {
+    // document.body.style.overflowY = "auto";
+    // document.body.style.height = "";
+    // document.body.style.position = "";
+    // }, 500);
+    // };
 
     const getImage = (camera) => {
         const input = document.createElement("input");
