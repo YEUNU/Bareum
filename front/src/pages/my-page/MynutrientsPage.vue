@@ -49,7 +49,7 @@
     "
   >
     <div class="card-body">
-      <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+      <h5 style="text-align: left; font-weight: bold;">내 건강기능식품</h5>
       <div class="scroll-container">
         <div
           v-for="(r, index) in nutraceuticals"
