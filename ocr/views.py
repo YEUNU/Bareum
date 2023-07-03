@@ -17,7 +17,8 @@ def process_image(request):
         model = ocr()
         result_ocr = model(img)
         # print(result_ocr)
-        pr_list=['비타민']
+        pr_list=[]
+        related_pr = []
         for i in result_ocr:
             if i[2] > 0.4:
                 pr_list.append(i[1])
@@ -42,30 +43,32 @@ def process_image(request):
                 
             sorted_dict = sorted(res.items(), key=lambda x: x[1]) # 유사도에 따른 정렬
             sorted_dict = sorted_dict[::-1]
-            # print(sorted_dict[:3])
-            related_pr = []
+            print(sorted_dict[:3])
             for i in sorted_dict:
-                if i[1] >= 0.3:
-                    if i[0] not in related_pr:
-                        related_pr.append(i[0])
+                if i[1] >= 0.5 and i[0] not in related_pr:
+                    related_pr.append((i[0],i[1]))
                         
             # print(related_pr[:5])
-          
-            
-        for i in related_pr[:20]:
+        related_pr = sorted(related_pr, key=lambda x: x[1], reverse=True)
+        print('유사도순 정렬 확인')
+        # print(related_pr)
+        last = []
+        for i in related_pr:
+            last.append(i[0])
+        print(last)
+        for i in last[:20]:
             pr_info = Nutraceuticals.objects.filter(nutraceuticals_name=i).values('nutraceuticals_name','업소명', '업체별_제품코드')
             result.append(list(pr_info))
  
         flattened_result = [item for sublist in result for item in sublist]
             
-        print(flattened_result)
+        # print(flattened_result)
         if len(flattened_result) == 0:
             return JsonResponse({'results':'fail'})
         
         return JsonResponse({'results': 'success', 'products':flattened_result})
     
     return JsonResponse({"error": "Invalid request"})
-
 
 @csrf_exempt
 def register(request):
