@@ -38,51 +38,51 @@
     </div>
 
     <div class="mycard-container">
-      <div
-        class="card"
-        style="
-          width: 100%;
-          padding: 0;
-          display: block;
-          margin-bottom: -5%;
-          box-shadow: 2px 2px 2px 2px #eeeeee;
-        "
-      >
-        <div class="card-body">
-          <h5 style="text-align: left; font-weight: bold;">내 건강기능식품</h5>
-          <div class="item-container">
-            <div
-              v-for="(r, index) in nutraceuticals"
-              :key="index"
-              class="item-box"
-              style="
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                position: relative;
-                width: calc(25% - 1rem);
-                margin-bottom: 1rem;
-                border: 1px solid #eeeeee;
-                padding: 1rem;
-                box-shadow: 2px 2px 2px 2px #eeeeee;
-                background-color: #fff;
-              "
-              @click="goToProduct(r.제품코드)"
-            >
-              <img
-                
-                :src="`../../../assets/nu.png`"
-                width="100"
-                alt="제품 이미지"
-                class="item-img"
-              />
-              <!-- :src="`../../../media/product_images/${r.제품코드}.png`" -->
-              <h5 style="text-align: center; margin-bottom: 0.5rem;">{{ r.제품명 }}</h5>
-            </div>
-          </div>
+  <div
+    class="card"
+    style="
+      width: 100%;
+      padding: 0;
+      display: block;
+      margin-bottom: -5%;
+      box-shadow: 2px 2px 2px 2px #eeeeee;
+    "
+  >
+    <div class="card-body">
+      <h5 style="text-align: left; font-weight: bold;">내 영양제</h5>
+      <div class="scroll-container">
+        <div
+          v-for="(r, index) in nutraceuticals"
+          :key="index"
+          class="item-box"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-width: 150px;
+            min-height: 150px;
+            margin-bottom: 1rem;
+            margin-right: 1rem;
+            border: 1px solid #eeeeee;
+            padding: 1rem;
+            box-shadow: 2px 2px 2px 2px #eeeeee;
+            background-color: #fff;
+          "
+          @click="goToProduct(r.제품코드)"
+        >
+          <img
+            :src="`../../../media/product_images/${r.제품코드}.png`"
+            width="100"
+            alt="제품 이미지"
+            class="item-img"
+          />
+          <h5 style="text-align: center; margin-top: 0.5rem; margin-bottom: 0;">{{ r.제품명 }}</h5>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
     <div class="add-nutrient-btn" style="text-align:center; margin-top:1rem;">
       <router-link to="/taking/regist">
@@ -251,6 +251,18 @@ export default {
 
 
 <style>
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 .mynutrientscontainer {
   width: 100%;
   /* 화면 너비에 꽉 차도록 설정 */
