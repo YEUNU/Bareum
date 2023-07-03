@@ -15,7 +15,7 @@
         <div class="background bg-whitesmoke" style="display: flex; flex-direction: column; align-items: center; margin-top:56px; min-height: calc(100vh - 56px);">
 
         <div class="product_card product_head">
-            <div class="score_box">                
+            <div class="score_box">
                 <div class="star_score">
                     <div style="font-size: 2em; font-weight: bold;">{{ averageRating ? averageRating : '-' }}</div>
                     <div style="height: 2em; margin: -1em 0 0 0;">

@@ -26,7 +26,6 @@
             </div>
             <div class="set" style="box-shadow: 0 2px 1px -1px #EAEAEA;">
                 <div class="manufacturer">
-                    <img src="" alt="" class="manufacturer_logo"/>
                     <span class="manufacturer_name"> {{ product.업소명 }} </span>
                 </div>
                 <div class="product_name"> {{ product.nutraceuticals_name }} </div>

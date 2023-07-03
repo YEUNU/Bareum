@@ -71,12 +71,12 @@
     
         <div class="set sentiment_online_reviews">
             <div style="font-size: 1.1em; font-weight: bold;">긍정 키워드</div>
-            <img :src="`../media/pos_wordcloud/${productCode}_pos.jpg`" alt="" style="width: 80vw; height: 80vw;">
+            <img :src="`/media/pos_wordcloud/${productCode}_pos.jpg`" alt="" style="width: 80vw; height: 80vw;">
         </div>
 
         <div class="set sentiment_online_reviews">
             <div style="font-size: 1.1em; font-weight: bold;">부정 키워드</div>
-            <img :src="`../media/neg_wordcloud/${productCode}_pos.jpg`" alt="" style="width: 80vw;  height: 80vw;">
+            <img :src="`/media/neg_wordcloud/${productCode}_pos.jpg`" alt="" style="width: 80vw;  height: 80vw;">
         </div>
 
     </div>
