@@ -144,6 +144,7 @@ export default {
         const displayGuideModal = ref(false);
         const guideModalSeen = ref(false);
         const firstTime = ref(true);
+        const capturedImage = ref(null);
 
     onMounted(() => {
       const savedValue = localStorage.getItem("guideModalSeen");
@@ -154,7 +155,61 @@ export default {
       }
       firstTime.value = !guideModalSeen.value;
     });
+    const openCamera = () => {
+      showMenu.value = false;
+      getImage(true);
+    }
 
+    const openGallery = () => {
+      showMenu.value = false;
+      getImage(false);
+    };
+    
+    const closeCameraModal = () => {
+    const cameraModalElement = document.getElementById("cameraModal");
+    cameraModalElement.classList.remove("show"); // 모달에 "show" 클래스 제거하여 숨김
+    cameraModalElement.setAttribute("aria-hidden", "true");
+    cameraModalElement.style.display = "none"; // 모달 스타일을 변경하여 화면에서 숨김
+    const modalBackdrop = document.querySelector(".modal-backdrop");
+    if (modalBackdrop) {
+        modalBackdrop.parentElement.removeChild(modalBackdrop); // 모달 뒷 배경 제거
+    }
+    setTimeout(() => {
+    document.body.style.overflowY = "auto";
+    document.body.style.height = "";
+    document.body.style.position = "";
+    }, 500);
+    };
+
+    const getImage = (camera) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        if (camera) {
+            input.capture = "camera";
+        }
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onloadstart = () => {
+                const cameraModalElement = document.getElementById("cameraModal");
+                const cameraModal = bootstrap.Modal.getInstance(cameraModalElement);
+                cameraModal.hide();
+            };
+            reader.onload = (e) => {
+                capturedImage.value = e.target.result;
+
+                // 이미지가 로드된 후에 이미지 데이터를 경로의 파라미터로 전달
+                if (capturedImage.value) {
+                    router.push("/ocr/result/" + encodeURIComponent(capturedImage.value));
+                    closeCameraModal();
+                }
+            };
+            reader.readAsDataURL(file);
+        };
+        input.click();
+    };
     const disableModal = () => {
       displayGuideModal.value = false;
       guideModalSeen.value = true;
@@ -162,11 +217,7 @@ export default {
       firstTime.value = false;
     }
 
-        const openGallery = () => {
-        showMenu.value = false;
-        fileInput.value.removeAttribute("capture");
-        fileInput.value.click();
-        };
+
 
         const onFileSelected = (event) => {
         const selectedFile = event.target.files[0];
