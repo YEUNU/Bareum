@@ -87,7 +87,7 @@
     <div class="add-nutrient-btn" style="text-align:center; margin-top:1rem;">
       <router-link to="/taking/regist">
         <button class="btn btn-primary" style="border: none; background-color: #2dce89; color: white; border-radius: 5px;"
-          @click="openRegistration">내 영양식품 관리</button>
+          @click="openRegistration">내 건강기능식품 관리</button>
       </router-link>
     </div>
   </div>
