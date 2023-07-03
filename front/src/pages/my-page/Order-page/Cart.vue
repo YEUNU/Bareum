@@ -22,17 +22,17 @@
               <hr/>  
 
               
-                <div style="display: flex; margin-left: 5%; margin-right: 5%; justify-content: space-between;">
-                      <img :src="`/media/product_images/${product.product.업체별_제품코드}.png`">
-                      <p class="card-text" style="text-align: right; display: inline-block; margin: 0;">{{product.product.nutraceuticals_name}}</p>
-                    <button @click="deleteCart(product.id)" style="text-align: right;  margin-left: 10%; display: inline-block; background-color: white;" ><svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 20 20">
-                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                        </svg></button> 
-                    </div>
-
-                    <div class="col-8" style="text-align: right;">  
-                                           
-                    
+              <div style="display: flex; flex-direction: column; margin-left: 5%;margin-right: 5%;justify-content: space-between;">
+                <div @click="deleteCart(product.id)" style="text-align: right; display: inline-block; background-color: white;" >
+                  <svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 20 20">
+                  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+                </div> 
+                <img :src="`/media/product_images/${product.product.업체별_제품코드}.png`" style="width: 100%;">
+                <p class="card-text" style="text-align: right; display: inline-block; margin: 0;">{{product.product.nutraceuticals_name}}</p>
+              </div>
+                  
+                  <div class="col-8" style="text-align: right;">  
                         
                     
 
