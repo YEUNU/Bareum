@@ -10,9 +10,9 @@
           <div class="card-text" style="color: black; font-size: 13px; text-align: start;">{{ formatDate(post.post_date) }}</div>
           <!-- <p class="card-text">내용 : {{ post.post_contents }}</p> -->
         </div>
-        <div v-if="post.post_images.image" style="width: 78px; height: 78px; border-radius: 10%;">
+        <div v-if="post.post_images.image" style="width: 78px; height: 78px;">
           <img :src="post.post_images.image"
-          alt="thumbnail" style="width: 78px; height: 78px;">
+          alt="thumbnail" style="width: 78px; height: 78px; border-radius: 10%;">
         </div>
       </div>
     </router-link>
