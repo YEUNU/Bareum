@@ -26,11 +26,11 @@ KT Aivle School 빅프로젝트 프로젝트
 
 | 로그인 | 제품 등록 | 영양소 및 제품 확인 | 제품 추천 | 정기배송&쇼핑 | 복용알림 | 커뮤니티 |
 | --- | --- | --- | --- | --- | --- | --- |
-| <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/8c1d8156-9764-4208-b12f-5a11f287bce0" width="300px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/2742e677-f2e7-4c71-b088-0d5927c412d7" width="300px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/3b3c62f6-07bd-42d1-8803-125b71cfc3f0" width="300px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/ed6415d4-25b1-4a53-8c01-075f0ce1a68c" width="300px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/5d9f596f-ea19-4ca5-b3f9-31ccbd392ea6" width="300px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/5127d612-b70c-400d-9368-afc12a41ed6b" width="300px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/a94a95a1-fc13-4431-9f80-5e34e4d72ed4" width="300px"> |  
+| <img src="https://github.com/YEUNU/Bareum/assets/61678329/e3e36963-3651-4e25-a896-b31dd48ebcea" width="300px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/99e1481b-b2db-498a-a17d-77d7d3c8232f" width="300px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/c3095666-963e-4936-b91f-76bc05085af3" width="300px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/7de67532-9b74-4ce6-b153-a581d0c22706" width="300px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/e009ae9e-8f15-484f-b86f-127058dda06f" width="300px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/4e638c86-62ec-4498-b0e2-547be2e8c6bd" width="300px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/8b0cb7cb-7001-4c88-ba6f-62d8b2a2e4bc" width="300px"> |  
 
 | 결과 영상 |
 |:-:|
-|![결과 영상](https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/166a60ce-dd07-4fa9-a64c-178be34ee31f)|
+|![결과 영상](https://github.com/YEUNU/Bareum/assets/61678329/56acb0e1-a7c3-442b-b8de-8c6d73013606)|
 
 
 ## 주요 기능 및 기대효과
