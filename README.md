@@ -63,11 +63,6 @@ KT Aivle School 빅프로젝트 프로젝트
 #### 학습 데이터
 - 식품의약품안전처 기반으로 만들어진 랜덤 50만개 데이터
 
-#### 학습 결과
-| 학습 결과 |
-| --- |
-| <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/9dd4caa7-01fc-444e-bee9-90d16dcf5698" width="320px"> |
-
 ### 감정 분석
 - KoBert 토크나이저 활용
 - 2 Layers Bi-LSTM + Conv1D 구조
