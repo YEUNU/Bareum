@@ -30,7 +30,7 @@ KT Aivle School 빅프로젝트 프로젝트
 
 | 결과 영상 |
 |:-:|
-|![결과 영상](https://github.com/YEUNU/Bareum/assets/61678329/56acb0e1-a7c3-442b-b8de-8c6d73013606)|
+| [![결과 영상](https://github.com/YEUNU/Bareum/assets/61678329/43298e12-e1f8-4b5d-9369-a6823e860fdf)](https://github.com/YEUNU/Bareum/assets/61678329/56acb0e1-a7c3-442b-b8de-8c6d73013606) |
 
 
 ## 주요 기능 및 기대효과
@@ -54,14 +54,13 @@ KT Aivle School 빅프로젝트 프로젝트
 #### 학습 결과
 | 학습 결과 |
 | --- |
-| <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/e9690067-7a3c-48e7-b757-6e64f545feeb" width="320px"> |
+| <img src="https://github.com/YEUNU/Bareum/assets/61678329/9cf63d65-b23c-4fd7-b9b8-6a4fb2c4ffdb" width="640px"> |
 
 ### 추천 
-- Pycaret을 활용하여 데이터에 적합한 모델 XGBoost 사용
-- Optuna를 활용하여 XGBoost Fine-Tuning
+- 사용자의 섭취중인 6가지 영양소(비타민C, 비타민D, 비타민A, 칼슘, 마그네슘, 아연), 성별, 나이 수집
+- 성별, 나이 기준으로 6가지 영양소의 식약청 권장, 한계 섭취량 크롤링
+- 수집한 데이터를 기반으로 섭취해야 하는 영양소와 Database에 저장되어있는 건강기능식품의 영양소와 유사도 검사를 통해 적합한 건강기능식품 선정
   
-#### 학습 데이터
-- 식품의약품안전처 기반으로 만들어진 랜덤 50만개 데이터
 
 ### 감정 분석
 - KoBert 토크나이저 활용
@@ -73,10 +72,9 @@ KT Aivle School 빅프로젝트 프로젝트
 #### 학습 결과
 | 학습 결과 |
 | --- |
-| <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/7ae5a899-76fa-441f-a326-c69c60e7ac1a" width="320px"> |
+| <img src="https://github.com/YEUNU/Bareum/assets/61678329/83008fdb-c406-41bb-bb77-f71648fd00b6" width="320px"> |
 
 | 워드클라우드 결과 긍정  | 워드클라우드 결과 부정 | 
 | --- | --- |
-| <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/29570820-93b2-453f-8b5a-d5914e2940b6" width="320px"> | <img src="https://github.com/AIVLE-School-Third-Big-Project/AI_07_28/assets/61678329/5b6a359e-b1a0-4ec7-bb31-855d5c52d273" width="320px"> |
-
+| <img src="https://github.com/YEUNU/Bareum/assets/61678329/9b5542fe-c6ca-4498-b570-fb32a61fb635" width="320px"> | <img src="https://github.com/YEUNU/Bareum/assets/61678329/92272aa8-e6d3-448d-8039-f86ebf819487" width="320px"> |
 
