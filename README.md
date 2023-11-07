@@ -30,8 +30,7 @@ KT Aivle School 빅프로젝트 프로젝트
 
 | 결과 영상 |
 |:-:|
-| [![결과 영상](https://github.com/YEUNU/Bareum/assets/61678329/43298e12-e1f8-4b5d-9369-a6823e860fdf)](https://github.com/YEUNU/Bareum/assets/61678329/56acb0e1-a7c3-442b-b8de-8c6d73013606) |
-
+|![결과 영상](https://github.com/YEUNU/Bareum/assets/61678329/56acb0e1-a7c3-442b-b8de-8c6d73013606)|
 
 ## 주요 기능 및 기대효과
 <img src="https://github.com/Now-Hyeok/Bareum/assets/84857521/33cbfba2-77eb-428c-ac1b-07f7576e5c7f">
